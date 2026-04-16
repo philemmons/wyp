@@ -1,4 +1,5 @@
 <?php
+
 /**
  * includes/footer.php
  * Shared footer — wipeyourpaws.net
@@ -18,18 +19,18 @@
 
 <!-- R2: noscript fallback — if JS fails, elements that JS would show remain visible -->
 <noscript>
-<style>
-  .wyp-card,
-  .dog-profile-card,
-  .monterey-category-card,
-  .gallery-placeholder-item,
-  .dedication-banner,
-  .contact-info-box,
-  .wyp-form {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-</style>
+  <style>
+    .wyp-card,
+    .dog-profile-card,
+    .monterey-category-card,
+    .gallery-placeholder-item,
+    .dedication-banner,
+    .contact-info-box,
+    .wyp-form {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  </style>
 </noscript>
 
 <!-- ░░ FOOTER ░░ -->
@@ -121,54 +122,56 @@
 </footer>
 
 <!-- Bootstrap 5.3.8 JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmf6D/NqndgYNVN8U34IqGiWZqUt"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
 
 <!-- Site JS -->
 <script>
-(function () {
-  'use strict';
+  (function() {
+    'use strict';
 
-  // ── W7: Respect prefers-reduced-motion (WCAG 2.3.3) ──────────────────
-  const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
+    // ── W7: Respect prefers-reduced-motion (WCAG 2.3.3) ──────────────────
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
 
-  const targets = document.querySelectorAll(
-    '.wyp-card, .dog-profile-card, .monterey-category-card, ' +
-    '.gallery-placeholder-item, .dedication-banner, .contact-info-box, .wyp-form'
-  );
+    const targets = document.querySelectorAll(
+      '.wyp-card, .dog-profile-card, .monterey-category-card, ' +
+      '.gallery-placeholder-item, .dedication-banner, .contact-info-box, .wyp-form'
+    );
 
-  // If user prefers reduced motion OR IntersectionObserver unavailable,
-  // make all elements immediately visible without animation
-  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-    targets.forEach(function (t) {
-      t.style.opacity = '1';
-      t.style.transform = '';
+    // If user prefers reduced motion OR IntersectionObserver unavailable,
+    // make all elements immediately visible without animation
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      targets.forEach(function(t) {
+        t.style.opacity = '1';
+        t.style.transform = '';
+      });
+      return;
+    }
+
+    // ── Fade-in-on-scroll (only when motion is acceptable) ───────────────
+    const io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = '';
+          io.unobserve(e.target);
+        }
+      });
+    }, {
+      threshold: 0.1
     });
-    return;
-  }
 
-  // ── Fade-in-on-scroll (only when motion is acceptable) ───────────────
-  const io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = '';
-        io.unobserve(e.target);
-      }
+    targets.forEach(function(t) {
+      t.style.opacity = '0';
+      t.style.transform = 'translateY(28px)';
+      t.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+      io.observe(t);
     });
-  }, { threshold: 0.1 });
-
-  targets.forEach(function (t) {
-    t.style.opacity = '0';
-    t.style.transform = 'translateY(28px)';
-    t.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
-    io.observe(t);
-  });
-}());
+  }());
 </script>
 
 </body>
+
 </html>
