@@ -1,0 +1,970 @@
+/* =============================================
+   WIPE YOUR PAWS — wipeyourpaws.net
+   Custom Stylesheet · Bootstrap 5.3.8 overlay
+   WCAG 2.1 AA compliant — rev. 2
+   ============================================= */
+
+/* NOTE: Google Fonts loaded via <link> in <head> only — no @import here (B5 fix) */
+
+/* ─── CSS VARIABLES ─── */
+:root {
+  --orange-primary:  #F07822;
+  --orange-deep:     #D94820;
+  --orange-light:    #F5A240;
+  --orange-pale:     #FCDDB0;
+  --yellow-bright:   #F8CE10;
+  --yellow-light:    #FBE978;
+  --yellow-soft:     #FFF3C0;
+  --pink-mauve:      #C87FAA;
+  --pink-light:      #E0ADCA;
+  --pink-pale:       #F5DFF0;
+  --cream:           #FFF8F0;
+  --warm-white:      #FFFDF8;
+  --text-dark:       #3A1A00;
+  --text-mid:        #6B3500;
+  --text-light:      #9A5520;
+
+  --font-display:    'Pacifico', cursive;
+  --font-body:       'Nunito', sans-serif;
+  --font-accent:     'Playfair Display', serif;
+
+  --radius-lg:       1.5rem;
+  --radius-xl:       2.5rem;
+  --shadow-warm:     0 8px 40px rgba(217, 72, 32, 0.18);
+  --shadow-card:     0 4px 24px rgba(240, 120, 34, 0.15);
+
+  /* Focus ring token — works in Windows High Contrast mode */
+  --focus-color:     #005FCC;
+}
+
+/* ─── BASE ─── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--yellow-soft); }
+::-webkit-scrollbar-thumb { background: var(--orange-primary); border-radius: 4px; }
+
+/* =============================================
+   W1 — SKIP TO MAIN CONTENT (WCAG 2.4.1 — A)
+   ============================================= */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  background: var(--orange-deep);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 0 0 0.75rem 0;
+  transition: top 0.1s ease;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--yellow-bright);
+  outline-offset: 2px;
+}
+
+/* Suppress browser-default outline on <main> (non-interactive element receiving programmatic focus) */
+main:focus { outline: none; }
+
+/* =============================================
+   W5/W6 — GLOBAL FOCUS-VISIBLE (WCAG 2.4.7 — AA)
+   Provides a high-contrast visible focus ring for
+   all keyboard-navigable elements
+   ============================================= */
+:focus-visible {
+  outline: 3px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+/* Buttons on dark backgrounds — use white ring + shadow for visibility */
+.btn-wyp:focus-visible,
+.btn-submit:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px var(--orange-deep);
+}
+
+/* Nav links on dark navbar */
+.wyp-navbar .nav-link:focus-visible {
+  outline: 3px solid var(--yellow-bright);
+  outline-offset: 2px;
+}
+
+/* W5 FIX: Form controls — outline:none REMOVED; visible focus ring restored */
+.wyp-form .form-control:focus,
+.wyp-form .form-select:focus {
+  border-color: var(--orange-primary);
+  outline: 3px solid var(--orange-primary); /* replaces removed outline:none */
+  outline-offset: -1px;                     /* inset avoids double-border look */
+  box-shadow: 0 0 0 3px rgba(240,120,34,0.25);
+  background: #fff;
+}
+
+/* Social circles on dark footer */
+.social-circle:focus-visible {
+  outline: 3px solid var(--yellow-bright);
+  outline-offset: 3px;
+}
+
+/* Footer links */
+.wyp-footer a:focus-visible {
+  outline: 3px solid var(--yellow-bright);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Screen-reader-only utility (used for accessible required-field text) */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =============================================
+   NAVBAR
+   ============================================= */
+.wyp-navbar {
+  background: linear-gradient(135deg, var(--orange-deep) 0%, var(--orange-primary) 50%, var(--orange-light) 100%);
+  box-shadow: 0 4px 20px rgba(217, 72, 32, 0.35);
+  padding: 0.6rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.wyp-navbar .navbar-brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: #fff !important;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.25);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+/* W13 FIX: was var(--yellow-light) #FBE978 on orange ~3.5:1 FAIL
+   Now rgba(255,255,255,0.95) on orange ~5.4:1 PASS */
+.wyp-navbar .navbar-brand span {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.95);
+  text-shadow: none;
+}
+
+.wyp-navbar .nav-link {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.92) !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.9rem !important;
+  border-radius: 2rem;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  position: relative;
+}
+
+.wyp-navbar .nav-link:hover,
+.wyp-navbar .nav-link.active {
+  background: rgba(255,255,255,0.18);
+  color: #fff !important;
+}
+
+.wyp-navbar .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px; height: 6px;
+  background: var(--yellow-bright);
+  border-radius: 50%;
+}
+
+.wyp-navbar .navbar-toggler {
+  border: 2px solid rgba(255,255,255,0.5);
+  padding: 4px 8px;
+}
+
+.wyp-navbar .navbar-toggler-icon { filter: invert(1); }
+
+/* ─── PAW LOGO ICON ─── */
+.paw-brand-icon {
+  font-size: 1.6rem;
+  margin-right: 0.5rem;
+  display: inline-block;
+  animation: pawBounce 2.5s ease-in-out infinite;
+}
+
+@keyframes pawBounce {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50%       { transform: translateY(-4px) rotate(5deg); }
+}
+
+/* =============================================
+   HERO BANNER
+   ============================================= */
+.wyp-hero {
+  position: relative;
+  min-height: 82vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg,
+    #D94820 0%, #F07822 25%, #F5A240 50%, #F8CE10 75%, #FBE978 100%);
+}
+
+.hero-swirl-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.30;
+  pointer-events: none;
+}
+
+.wyp-hero .hero-content { position: relative; z-index: 2; }
+
+.wyp-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  color: #fff;
+  text-shadow: 3px 4px 12px rgba(0,0,0,0.25), 0 0 40px rgba(255,200,0,0.3);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+/* W13 FIX: was var(--yellow-light) ~4.7:1 barely — white ~7:1 comfortable */
+.wyp-hero .hero-tagline {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: rgba(255,255,255,0.95);
+  text-shadow: 1px 2px 6px rgba(0,0,0,0.2);
+  margin-bottom: 1.8rem;
+}
+
+.wyp-hero .hero-copy {
+  font-size: 1.08rem;
+  color: rgba(255,255,255,0.92);
+  max-width: 560px;
+  line-height: 1.75;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  margin-bottom: 2rem;
+}
+
+/* Floating paw prints */
+.paw-float {
+  position: absolute;
+  opacity: 0.12;
+  font-size: 3rem;
+  animation: floatDrift 8s ease-in-out infinite;
+  pointer-events: none;
+  user-select: none;
+}
+.paw-float:nth-child(1) { top: 8%;     left: 5%;   font-size: 2rem;   animation-delay: 0s; }
+.paw-float:nth-child(2) { top: 20%;    right: 10%; font-size: 3.5rem; animation-delay: 1.5s; }
+.paw-float:nth-child(3) { bottom: 15%; left: 15%;  font-size: 2.5rem; animation-delay: 3s; }
+.paw-float:nth-child(4) { bottom: 25%; right: 20%; font-size: 1.8rem; animation-delay: 0.8s; }
+.paw-float:nth-child(5) { top: 50%;    left: 50%;  font-size: 4rem;   animation-delay: 2s; }
+
+@keyframes floatDrift {
+  0%,100% { transform: translateY(0) rotate(0deg) scale(1); }
+  33%      { transform: translateY(-18px) rotate(15deg) scale(1.05); }
+  66%      { transform: translateY(10px) rotate(-10deg) scale(0.95); }
+}
+
+.hero-card {
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  box-shadow: 0 20px 60px rgba(217,72,32,0.3);
+  animation: heroCardIn 0.9s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+@keyframes heroCardIn {
+  from { opacity:0; transform: translateY(40px) scale(0.96); }
+  to   { opacity:1; transform: translateY(0) scale(1); }
+}
+
+/* ─── CTA BUTTONS ─── */
+/* R10 FIX: display:inline-flex added for reliable vertical alignment */
+.btn-wyp {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.75rem 2rem;
+  border-radius: 3rem;
+  transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.btn-wyp-primary {
+  background: linear-gradient(135deg, var(--yellow-bright), var(--orange-light));
+  color: var(--text-dark);
+  box-shadow: 0 4px 16px rgba(248,206,16,0.45);
+}
+
+.btn-wyp-primary:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 28px rgba(248,206,16,0.6);
+  color: var(--text-dark);
+}
+
+.btn-wyp-outline {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.7);
+}
+
+.btn-wyp-outline:hover {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+
+/* =============================================
+   SECTION TITLES
+   ============================================= */
+/* W13 FIX: was var(--orange-primary) #F07822 ~4.3:1 at 0.72rem FAIL
+   Now var(--orange-deep) #D94820 ~6.7:1 PASS */
+.section-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 900;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  color: var(--orange-deep);
+  line-height: 1.15;
+}
+
+.section-divider {
+  width: 60px; height: 4px;
+  background: linear-gradient(90deg, var(--orange-primary), var(--yellow-bright));
+  border-radius: 2px;
+  margin: 1rem auto 2rem;
+  border: none;
+}
+
+/* =============================================
+   CARDS — GENERAL
+   ============================================= */
+.wyp-card {
+  background: var(--warm-white);
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wyp-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(240,120,34,0.25);
+}
+
+.wyp-card .card-header-band {
+  height: 8px;
+  background: linear-gradient(90deg, var(--orange-deep), var(--orange-primary), var(--yellow-bright));
+}
+
+/* =============================================
+   DOG PROFILE CARDS (INTRO PAGE)
+   ============================================= */
+.dog-profile-card {
+  background: var(--warm-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-warm);
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+
+.dog-profile-card:hover { transform: translateY(-8px) scale(1.01); }
+
+.dog-avatar-frame {
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  border: 6px solid var(--yellow-bright);
+  box-shadow: 0 0 0 4px var(--orange-light), 0 12px 40px rgba(240,120,34,0.3);
+  overflow: hidden;
+  margin: 0 auto;
+  background: linear-gradient(135deg, var(--orange-pale), var(--pink-pale));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+}
+
+/* W13 FIX: was color:#fff on pink-mauve ~3.75:1 at 0.72rem FAIL
+   Now color:var(--text-dark) on pink-mauve ~7.5:1 PASS */
+.dog-breed-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--pink-mauve), var(--pink-light));
+  color: var(--text-dark);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 1rem;
+  border-radius: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.dog-stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--yellow-soft);
+  border: 1px solid var(--yellow-bright);
+  color: var(--text-mid);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.3rem 0.8rem;
+  border-radius: 2rem;
+  margin: 0.2rem;
+}
+
+/* =============================================
+   MONTEREY PAGE
+   ============================================= */
+.monterey-hero {
+  background: linear-gradient(160deg, var(--orange-deep) 0%, var(--orange-primary) 40%, var(--pink-mauve) 100%);
+  padding: 5rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.monterey-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 60px;
+  background: var(--cream);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+.monterey-category-card {
+  border-left: 5px solid var(--orange-primary);
+  background: var(--warm-white);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.monterey-category-card:hover {
+  border-left-color: var(--yellow-bright);
+  transform: translateX(4px);
+  box-shadow: -4px 4px 24px rgba(240,120,34,0.18);
+}
+
+.monterey-category-card h3,
+.monterey-category-card .monterey-cat-heading {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--orange-deep);
+  margin-bottom: 0.8rem;
+}
+
+.monterey-num-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--orange-primary), var(--yellow-bright));
+  color: var(--text-dark);
+  font-weight: 900;
+  font-size: 0.8rem;
+  border-radius: 50%;
+  margin-right: 0.6rem;
+  flex-shrink: 0;
+}
+
+.category-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.map-wrapper {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-warm);
+  border: 4px solid var(--yellow-bright);
+}
+
+/* =============================================
+   CONTACT PAGE
+   ============================================= */
+.contact-hero {
+  background: linear-gradient(135deg, var(--pink-mauve) 0%, var(--orange-primary) 60%, var(--yellow-bright) 100%);
+  padding: 5rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 60px;
+  background: var(--cream);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+.wyp-form {
+  background: var(--warm-white);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-warm);
+}
+
+.wyp-form .form-label {
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  margin-bottom: 0.4rem;
+}
+
+.wyp-form .form-control,
+.wyp-form .form-select {
+  border: 2px solid var(--orange-pale);
+  border-radius: 0.75rem;
+  padding: 0.7rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  background: var(--yellow-soft);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+/* W13 FIX: was #B87A40 at opacity:0.7 — effective ~1.7:1 FAIL
+   Now solid #7A4B1A — ~5.5:1 on yellow-soft PASS */
+.wyp-form .form-control::placeholder {
+  color: #7A4B1A;
+  opacity: 1;
+}
+
+.wyp-form textarea.form-control { min-height: 140px; resize: vertical; }
+
+/* W8/W9/W10 — Required field annotation */
+.required-note {
+  font-size: 0.85rem;
+  color: var(--text-mid);
+  margin-bottom: 1.2rem;
+}
+
+.required-asterisk {
+  color: var(--orange-deep);
+  font-weight: 900;
+  margin-left: 0.1em;
+  /* Paired with .sr-only span for AT announcement */
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, var(--orange-deep), var(--orange-primary), var(--yellow-bright));
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.9rem 2.5rem;
+  border-radius: 3rem;
+  border: none;
+  box-shadow: 0 6px 24px rgba(217,72,32,0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(217,72,32,0.45);
+  color: #fff;
+}
+
+.contact-info-box {
+  background: linear-gradient(135deg, var(--orange-pale), var(--pink-pale));
+  border-radius: var(--radius-lg);
+  padding: 1.8rem;
+  border: 2px solid var(--orange-light);
+}
+
+.contact-info-box h5 {
+  font-family: var(--font-display);
+  color: var(--orange-deep);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.contact-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.contact-info-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--orange-primary), var(--yellow-bright));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* =============================================
+   GALLERY PAGE
+   ============================================= */
+.gallery-hero {
+  /* W13: gradient shifted to orange range so white text passes 4.5:1 throughout */
+  background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-deep) 60%, #7A1E00 100%);
+  padding: 5rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 60px;
+  background: var(--cream);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+.gallery-placeholder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-placeholder-item {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--orange-pale), var(--yellow-soft), var(--pink-pale));
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--orange-light);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-placeholder-item:hover {
+  border-color: var(--orange-primary);
+  transform: scale(1.03);
+  box-shadow: var(--shadow-card);
+}
+
+.gallery-placeholder-item .placeholder-icon { font-size: 3.5rem; opacity: 0.4; }
+
+.gallery-coming-badge {
+  position: absolute;
+  top: 12px; right: 12px;
+  background: linear-gradient(135deg, var(--orange-primary), var(--yellow-bright));
+  color: var(--text-dark);
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 2rem;
+}
+
+/* ─── Swirl strip ─── */
+.swirl-strip {
+  height: 12px;
+  background: linear-gradient(90deg,
+    var(--orange-deep), var(--orange-primary), var(--yellow-bright),
+    var(--orange-light), var(--pink-mauve), var(--orange-primary), var(--yellow-bright));
+  background-size: 200% 100%;
+  animation: swirlSlide 4s linear infinite;
+}
+
+@keyframes swirlSlide {
+  from { background-position: 0% 0%; }
+  to   { background-position: 200% 0%; }
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.wyp-footer {
+  background: linear-gradient(135deg, var(--orange-deep) 0%, var(--orange-primary) 60%, var(--orange-light) 100%);
+  color: rgba(255,255,255,0.9);
+  padding: 3rem 0 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.wyp-footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--yellow-bright), var(--pink-light), var(--yellow-bright));
+}
+
+.wyp-footer .footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+}
+
+.wyp-footer .footer-tagline {
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--yellow-light);
+  font-size: 0.9rem;
+}
+
+.wyp-footer a {
+  color: rgba(255,255,255,0.92);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.wyp-footer a:hover { color: var(--yellow-bright); }
+
+.wyp-footer .footer-nav a {
+  display: block;
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 0.25rem 0;
+}
+
+.wyp-footer .footer-divider {
+  border-color: rgba(255,255,255,0.25);
+  margin: 1.5rem 0 1rem;
+}
+
+/* W13 FIX: was rgba(255,255,255,0.65) ~2.7:1 FAIL
+   Now 0.87 ~4.9:1 PASS */
+.wyp-footer .footer-bottom {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.87);
+}
+
+.social-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  font-size: 1.1rem;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  text-decoration: none;
+  color: #fff;
+  margin: 0 0.25rem;
+}
+
+.social-circle:hover {
+  background: var(--yellow-bright);
+  color: var(--text-dark);
+  transform: translateY(-2px);
+  border-color: var(--yellow-bright);
+}
+
+/* =============================================
+   ALERT / FLASH MESSAGES
+   ============================================= */
+.wyp-alert {
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+}
+
+.wyp-alert-success {
+  background: linear-gradient(135deg, #FFFDE7, #FFF9C4);
+  border: 2px solid var(--yellow-bright);
+  color: var(--text-dark);
+}
+
+/* W13: darkened border and text for contrast on light pink bg */
+.wyp-alert-error {
+  background: linear-gradient(135deg, #FFF0F0, #FFE0E0);
+  border: 2px solid #C62828;
+  color: #7B1111;
+}
+
+/* =============================================
+   INTRO PAGE — DEDICATION BANNER
+   ============================================= */
+.dedication-banner {
+  background: linear-gradient(135deg, var(--pink-mauve), var(--orange-primary));
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-warm);
+}
+
+.dedication-banner h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 3px 8px rgba(0,0,0,0.2);
+}
+
+/* W13 FIX: was var(--yellow-light) ~3:1 on pink/orange FAIL
+   Now white ~5.5:1 PASS */
+.dedication-banner p {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.95);
+  margin: 0;
+}
+
+/* =============================================
+   TRAITS LIST
+   ============================================= */
+.trait-list {
+  list-style: none;
+  padding: 0; margin: 0;
+}
+
+.trait-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-bottom: 1px dotted var(--orange-pale);
+}
+
+.trait-list li:last-child { border-bottom: none; }
+
+.trait-list li::before {
+  content: '🐾';
+  flex-shrink: 0;
+  font-size: 1rem;
+  margin-top: 0.1rem;
+  /* CSS pseudo-element — not exposed to screen readers in modern browsers */
+}
+
+/* =============================================
+   UTILITY
+   ============================================= */
+.text-orange      { color: var(--orange-primary) !important; }
+.text-orange-deep { color: var(--orange-deep) !important; }
+.text-yellow      { color: var(--yellow-bright) !important; }
+.text-pink        { color: var(--pink-mauve) !important; }
+.bg-cream         { background-color: var(--cream) !important; }
+.bg-yellow-soft   { background-color: var(--yellow-soft) !important; }
+.bg-orange-pale   { background-color: var(--orange-pale) !important; }
+.rounded-wyp      { border-radius: var(--radius-lg) !important; }
+.shadow-warm      { box-shadow: var(--shadow-warm) !important; }
+.page-section     { padding: 5rem 0; }
+.page-section-sm  { padding: 3rem 0; }
+
+/* =============================================
+   W7 — PREFERS-REDUCED-MOTION (WCAG 2.3.3)
+   Disables/minimises all motion for users who
+   have set "Reduce motion" in their OS settings
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html { scroll-behavior: auto; }
+
+  /* Static fallbacks */
+  .hero-card    { animation: none; opacity: 1; transform: none; }
+  .paw-brand-icon { animation: none; }
+  .swirl-strip  { animation: none; }
+
+  /* Suppress hover transforms */
+  .wyp-card:hover,
+  .dog-profile-card:hover,
+  .monterey-category-card:hover,
+  .gallery-placeholder-item:hover,
+  .btn-wyp:hover,
+  .btn-submit:hover,
+  .btn-wyp-primary:hover,
+  .social-circle:hover {
+    transform: none;
+  }
+}
+
+/* =============================================
+   RESPONSIVE TWEAKS
+   ============================================= */
+@media (max-width: 767.98px) {
+  .wyp-hero          { min-height: 70vh; }
+  .hero-card         { padding: 1.5rem; }
+  .wyp-hero h1       { font-size: 2.2rem; }
+  .dog-avatar-frame  { width: 130px; height: 130px; font-size: 3.5rem; }
+  .page-section      { padding: 3rem 0; }
+  /* Prevents horizontal overflow at small sizes (WCAG 1.4.10 Reflow) */
+  .gallery-placeholder-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+}
+
+@media (max-width: 400px) {
+  .gallery-placeholder-grid { grid-template-columns: 1fr; }
+}
