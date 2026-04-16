@@ -1,58 +1,5 @@
-﻿<?php
-
-/**
- * includes/header.php
- * Shared header + navbar  wipeyourpaws.net
- * PHP 8.5 Â· Bootstrap 5.3.8 Â· WCAG 2.1 AA rev.2
- *
- * WCAG fixes applied:
- *   W1  Skip-to-main link
- *   W2  <main> landmark opened here (closed in footer.php)
- *   W3  aria-current="page" on active nav item
- *   W4  aria-label="Main navigation" on <nav>
- *   B5  Google Fonts loaded via <link> only (CSS @import removed)
- *   R3  og:url, og:type, og:image placeholders added
- *   R4  <link rel="canonical"> added
- */
-
-// $page_id must be set before including this file
-//$page_id = $page_id ?? 'home';
-$page_id = isset($page_id) ? $page_id : 'home';
-
-$nav_items = [
-  'home'     => ['href' => 'index.php',    'label' => 'Home'],
-  'intro'    => ['href' => 'intro.php',    'label' => 'Meet the Pups'],
-  'monterey' => ['href' => 'monterey.php', 'label' => 'Why Monterey'],
-  'contact'  => ['href' => 'contact.php',  'label' => 'Contact Us'],
-  'gallery'  => ['href' => 'gallery.php',  'label' => 'Gallery'],
-];
-
-$page_titles = [
-  'home'     => 'Wipe Your Paws | Big Love for Small Paws',
-  'intro'    => 'Meet the Pups | Wipe Your Paws',
-  'monterey' => 'Why Monterey | Wipe Your Paws',
-  'contact'  => 'Contact Us | Wipe Your Paws',
-  'gallery'  => 'Media Gallery | Wipe Your Paws',
-];
-
-$page_descriptions = [
-  'home'     => 'Wipe Your Paws 🐾 Big Love for Small Paws. Home of Chandra and Skipper, devoted to small dog lovers in beautiful Monterey Bay, CA.',
-  'intro'    => 'Meet Chandra the Chihuahua and Skipper the Chi-Jack mix 🐾 two small dogs with enormous hearts living in Monterey Bay, CA.',
-  'monterey' => 'Discover why Monterey Bay, California is a paradise for small dog lovers 🐾 beaches, trails, pet-friendly culture and more.',
-  'contact'  => 'Get in touch with the Wipe Your Paws team. We love hearing from fellow small dog enthusiasts!',
-  'gallery'  => 'Media gallery coming soon 🐾 adorable photos of Chandra and Skipper exploring Monterey Bay.',
-];
-
-$title       = $page_titles[$page_id]       ?? 'Wipe Your Paws';
-$description = $page_descriptions[$page_id] ?? 'Wipe Your Paws 🐾 Big Love for Small Paws.';
-
-// Build canonical URL (update BASE_URL when deploying)
-$base_url    = 'https://wipeyourpaws.net';
-$canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_id]['href'] ?? ''));
-?>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

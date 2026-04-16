@@ -109,7 +109,51 @@
 
 
 <!-- Site JS -->
+<script>
+  (function() {
+    'use strict';
 
+    // W7: Respect prefers-reduced-motion (WCAG 2.3.3)
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    const targets = document.querySelectorAll(
+      '.wyp-card, .dog-profile-card, .monterey-category-card, ' +
+      '.gallery-placeholder-item, .dedication-banner, .contact-info-box, .wyp-form'
+    );
+
+    // If user prefers reduced motion OR IntersectionObserver unavailable,
+    // make all elements immediately visible without animation
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      targets.forEach(function(t) {
+        t.style.opacity = '1';
+        t.style.transform = '';
+      });
+      return;
+    }
+
+    // Fade-in-on-scroll (only when motion is acceptable)
+    const io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = '';
+          io.unobserve(e.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    targets.forEach(function(t) {
+      t.style.opacity = '0';
+      t.style.transform = 'translateY(28px)';
+      t.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+      io.observe(t);
+    });
+  }());
+</script>
 
 </body>
 
