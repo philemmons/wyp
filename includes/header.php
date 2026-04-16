@@ -27,7 +27,7 @@ $nav_items = [
 ];
 
 $page_titles = [
-  'home'     => 'Wipe Your Paws ” Big Love for Small Paws',
+  'home'     => 'Wipe Your Paws | Big Love for Small Paws',
   'intro'    => 'Meet the Pups | Wipe Your Paws',
   'monterey' => 'Why Monterey | Wipe Your Paws',
   'contact'  => 'Contact Us | Wipe Your Paws',
@@ -74,9 +74,9 @@ $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_i
   <title><?= htmlspecialchars($title) ?></title>
 
   <!-- Favicon to be added -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
-       <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
-       <link rel="apple-touch-icon"       href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicons/favicon-16.png">
+  <link rel="apple-touch-icon" href="/img/favicons/apple-touch-icon.png">
 
   <!-- Bootstrap 5.3.8 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -111,7 +111,7 @@ $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_i
 
       <a class="navbar-brand d-flex align-items-center" href="index.php">
         <!-- W14: decorative emoji is aria-hidden -->
-        <span class="paw-brand-icon" aria-hidden="true">🐾</span>
+        <span class="paw-brand-icon" aria-hidden="true"><img src='/img/chandra-graphic.png' alt='chandra graphic'></span>
         <div>
           Wipe Your Paws
           <span>Big Love for Small Paws</span>
