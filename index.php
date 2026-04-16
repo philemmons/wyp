@@ -17,7 +17,7 @@ require_once 'includes/header.php';
   <span class="paw-float" aria-hidden="true">&#128062;</span>
   <span class="paw-float" aria-hidden="true">&#128062;</span>
 
-  <!-- SVG swirl background -->
+  <!-- SVG swirl background 
   <svg class="hero-swirl-bg" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
     <g fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="3">
       <path d="M 100 600 Q 200 400 400 350 Q 600 300 700 150 Q 800 0 1000 100"/>
@@ -33,7 +33,7 @@ require_once 'includes/header.php';
       <circle cx="900" cy="400" r="220"/>
       <circle cx="300" cy="200" r="100"/>
     </g>
-  </svg>
+  </svg> -->
 
   <div class="container hero-content">
     <div class="row align-items-center g-5">

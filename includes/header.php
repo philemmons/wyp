@@ -74,13 +74,11 @@ $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_i
   <title><?= htmlspecialchars($title) ?></title>
 
   <!-- Favicon â€” to be added -->
-  <!-- <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
-       <link rel="apple-touch-icon"       href="images/apple-touch-icon.png"> -->
+       <link rel="apple-touch-icon"       href="images/apple-touch-icon.png">
 
   <!-- Bootstrap 5.3.8 CSS -->
-
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
@@ -104,7 +102,7 @@ $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_i
   <!-- W1: Skip navigation â€” first focusable element on page (WCAG 2.4.1) -->
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <!-- Animated colour strip â€” purely decorative -->
+  <!-- Animated color strip â€” purely decorative -->
   <div class="swirl-strip" aria-hidden="true" role="presentation"></div>
 
   <!-- W4: aria-label="Main navigation" distinguishes this <nav> from footer nav -->
@@ -113,7 +111,7 @@ $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_i
 
       <a class="navbar-brand d-flex align-items-center" href="index.php">
         <!-- W14: decorative emoji is aria-hidden -->
-        <span class="paw-brand-icon" aria-hidden="true">ðŸ¾</span>
+        <span class="paw-brand-icon" aria-hidden="true">🐾</span>
         <div>
           Wipe Your Paws
           <span>Big Love for Small Paws</span>
