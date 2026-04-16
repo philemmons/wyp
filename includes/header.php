@@ -16,7 +16,8 @@
  */
 
 // $page_id must be set before including this file
-$page_id = $page_id ?? 'home';
+//$page_id = $page_id ?? 'home';
+$page_id = isset($page_id) ? $page_id : 'home';
 
 $nav_items = [
   'home'     => ['href' => 'index.php',    'label' => 'Home'],
