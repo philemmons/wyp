@@ -1,39 +1,22 @@
-<?php
+﻿<?php
 
 /**
  * includes/footer.php
- * Shared footer — wipeyourpaws.net
- * PHP 8.5 · Bootstrap 5.3.8 · WCAG 2.1 AA rev.2
+ * Shared footer - wipeyourpaws.net
+ * PHP 8.5 - Bootstrap 5.3.8 - WCAG 2.1 AA rev.2
  *
  * WCAG fixes applied:
- *   W2  — </main> closed here
- *   W4  — aria-label="Footer navigation" on footer <nav>
- *   W7  — prefers-reduced-motion checked in JS
- *   W14 — aria-hidden="true" on decorative Bootstrap icons
- *   R2  — <noscript> style restores element visibility if JS disabled
+ *   W2  - </main> closed here
+ *   W4  - aria-label="Footer navigation" on footer <nav>
+ *   W7  - prefers-reduced-motion checked in JS
+ *   W14 - aria-hidden="true" on decorative Bootstrap icons
  */
 ?>
 
 <!-- W2: Close <main> landmark (opened in header.php) -->
 </main>
 
-<!-- R2: noscript fallback — if JS fails, elements that JS would show remain visible -->
-<noscript>
-  <style>
-    .wyp-card,
-    .dog-profile-card,
-    .monterey-category-card,
-    .gallery-placeholder-item,
-    .dedication-banner,
-    .contact-info-box,
-    .wyp-form {
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  </style>
-</noscript>
-
-<!-- ░░ FOOTER ░░ -->
+<!-- FOOTER -->
 <footer class="wyp-footer mt-auto">
   <div class="container">
     <div class="row g-4">
@@ -41,11 +24,11 @@
       <!-- Brand column -->
       <div class="col-md-4">
         <div class="footer-brand mb-1">
-          <span aria-hidden="true">🐾</span> Wipe Your Paws
+          <span aria-hidden="true">&#128062;</span> Wipe Your Paws
         </div>
         <div class="footer-tagline mb-3">Big Love for Small Paws</div>
-        <p style="font-size:0.85rem; color:rgba(255,255,255,0.87); line-height:1.6;">
-          Celebrating the joy of small dogs with Chandra &amp; Skipper —
+        <p class="footer-small-copy">
+          Celebrating the joy of small dogs with Chandra &amp; Skipper -
           your cozy corner of the internet for small paw enthusiasts.
         </p>
         <div class="mt-3">
@@ -64,7 +47,7 @@
 
       <!-- Quick Links -->
       <div class="col-md-2 col-6">
-        <h2 style="font-family:var(--font-display); color:var(--yellow-light); font-size:0.95rem; margin-bottom:1rem;">
+        <h2 class="footer-heading">
           Quick Links
         </h2>
         <!-- W4: aria-label distinguishes footer nav from main nav -->
@@ -79,16 +62,16 @@
 
       <!-- Contact snippet -->
       <div class="col-md-3 col-6">
-        <h2 style="font-family:var(--font-display); color:var(--yellow-light); font-size:0.95rem; margin-bottom:1rem;">
+        <h2 class="footer-heading">
           Get in Touch
         </h2>
-        <address style="font-size:0.85rem; color:rgba(255,255,255,0.87); line-height:2; font-style:normal;">
+        <address class="footer-contact">
           <div>
-            <i class="bi bi-envelope-fill me-2" style="color:var(--yellow-bright);" aria-hidden="true"></i>
+            <i class="bi bi-envelope-fill me-2 footer-contact-icon" aria-hidden="true"></i>
             <a href="mailto:admin@wipeyourpaws.net">admin@wipeyourpaws.net</a>
           </div>
           <div>
-            <i class="bi bi-geo-alt-fill me-2" style="color:var(--yellow-bright);" aria-hidden="true"></i>
+            <i class="bi bi-geo-alt-fill me-2 footer-contact-icon" aria-hidden="true"></i>
             Monterey Bay, CA
           </div>
         </address>
@@ -96,11 +79,11 @@
 
       <!-- Fun fact -->
       <div class="col-md-3">
-        <h2 style="font-family:var(--font-display); color:var(--yellow-light); font-size:0.95rem; margin-bottom:1rem;">
+        <h2 class="footer-heading">
           Did You Know?
-          <span aria-hidden="true"> 🐶</span>
+          <span aria-hidden="true"> &#128054;</span>
         </h2>
-        <p style="font-size:0.82rem; color:rgba(255,255,255,0.87); line-height:1.65;">
+        <p class="footer-fun-fact">
           Chihuahuas are the world's smallest dog breed but are known for having
           some of the biggest personalities! Despite their tiny stature, they are
           fiercely loyal and love to cuddle.
@@ -112,9 +95,9 @@
     <hr class="footer-divider">
 
     <div class="d-flex flex-wrap justify-content-between align-items-center footer-bottom">
-      <span>&copy; <?= date('Y') ?> wipeyourpaws.net &mdash; All rights reserved.</span>
-      <span>Made with <span aria-label="love">🧡</span> for Chandra &amp; Skipper
-        <span aria-hidden="true">🐾</span>
+      <span>&copy; <?= date('Y') ?> wipeyourpaws.net - All rights reserved.</span>
+      <span>Made with <span aria-label="love">&#129505;</span> for Chandra &amp; Skipper
+        <span aria-hidden="true">&#128062;</span>
       </span>
     </div>
 
@@ -130,7 +113,7 @@
   (function() {
     'use strict';
 
-    // ── W7: Respect prefers-reduced-motion (WCAG 2.3.3) ──────────────────
+    // W7: Respect prefers-reduced-motion (WCAG 2.3.3)
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
@@ -150,7 +133,7 @@
       return;
     }
 
-    // ── Fade-in-on-scroll (only when motion is acceptable) ───────────────
+    // Fade-in-on-scroll (only when motion is acceptable)
     const io = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
         if (e.isIntersecting) {
