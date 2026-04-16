@@ -49,6 +49,7 @@ $description = $page_descriptions[$page_id] ?? 'Wipe Your Paws â€” Big Love
 $base_url    = 'https://wipeyourpaws.net';
 $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_id]['href'] ?? ''));
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,9 +75,9 @@ $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_i
   <title><?= htmlspecialchars($title) ?></title>
 
   <!-- Favicon â€” to be added -->
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
-       <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
-       <link rel="apple-touch-icon"       href="images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+       <link rel="apple-touch-icon"       href="img/apple-touch-icon.png">
 
   <!-- Bootstrap 5.3.8 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
