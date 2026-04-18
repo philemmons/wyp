@@ -807,7 +807,7 @@ main:focus { outline: none; }
 /* Floating paw prints (decorative, aria-hidden in markup) */
 .paw-float {
   position: absolute;
-  opacity: 0.12;
+  opacity: 0.45;
   font-size: 3rem;
   animation: floatDrift 8s ease-in-out infinite;
   pointer-events: none;
