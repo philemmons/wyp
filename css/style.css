@@ -60,7 +60,7 @@
   --text-mauve:      #823C64;
 
   /* Typefaces */
-  --font-display:    'Pacifico', cursive;
+  --font-display:    'Berkshire Swash', cursive;
   --font-body:       'Nunito', sans-serif;
   --font-accent:     'Playfair Display', serif;
 
@@ -199,7 +199,7 @@ iframe { border: 0; display: block; }
   margin-bottom: 1rem;
 }
 
-/* 1.2rem = 19.2px Pacifico (non-bold) — normal text → 4.5:1 needed.
+/* 1.2rem = 19.2px Berkshire Swash (non-bold) — normal text → 4.5:1 needed.
    Using text-orange (#B83918): 5.68:1 on warm-white ✅ */
 .feature-card-heading {
   font-family: var(--font-display);
@@ -256,7 +256,7 @@ iframe { border: 0; display: block; }
 }
 
 /* ── Dog profile typography ─────────────────────────────── */
-/* 2rem = 32px Pacifico — large text → 3:1 needed. orange-deep = 4.22:1 ✅ */
+/* 2rem = 32px Berkshire Swash — large text → 3:1 needed. orange-deep = 4.22:1 ✅ */
 .dog-name {
   font-family: var(--font-display);
   color: var(--orange-deep);
@@ -309,7 +309,7 @@ iframe { border: 0; display: block; }
   line-height: 1.85;
 }
 
-/* 1.6rem = 25.6px Pacifico — large text → 3:1. orange-deep 4.07:1 ✅ */
+/* 1.6rem = 25.6px Berkshire Swash — large text → 3:1. orange-deep 4.07:1 ✅ */
 .spots-heading {
   font-family: var(--font-display);
   color: var(--orange-deep);
@@ -356,7 +356,7 @@ iframe { border: 0; display: block; }
 }
 
 /* ── Gallery page typography ────────────────────────────── */
-/* 1.7rem = 27.2px Pacifico — large text → 3:1. orange-deep 4.07:1 ✅ */
+/* 1.7rem = 27.2px Berkshire Swash — large text → 3:1. orange-deep 4.07:1 ✅ */
 .gallery-story-heading {
   font-family: var(--font-display);
   color: var(--orange-deep);
@@ -1230,6 +1230,19 @@ main:focus { outline: none; }
   transform: translateY(-2px);
   box-shadow: 0 10px 32px rgba(90, 10, 0, 0.5);
   color: #fff;
+}
+
+/**** back to top ****/
+.back-to-top {
+  position: fixed;
+  cursor: pointer;
+  bottom: 16px;
+  right: 16px;
+  left: auto;
+  opacity: 0;
+  transition: opacity .5s linear;
+  z-index: 11;
+  background-color: var(--orange-deep);
 }
 
 /* ── 3f. Forms & Contact Sidebar ────────────────────────── */

@@ -40,7 +40,7 @@ $placeholders = [
       <div class="col-lg-7 text-center">
         <div class="gallery-coming-soon">
           <div class="gallery-coming-soon__icon" aria-hidden="true">🚧</div>
-          <!-- 1.5rem = 24px Pacifico — large text → orange-deep 4.07:1 passes 3:1 ✅ -->
+          <!-- 1.5rem = 24px Berkshire Swash — large text → orange-deep 4.07:1 passes 3:1 ✅ -->
           <h2 class="section-title">Pictures Loading&hellip;</h2>
           <p class="gallery-coming-soon__body">
             We're busy snapping adorable photos of Chandra and Skipper exploring Monterey Bay!

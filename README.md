@@ -17,7 +17,7 @@ Monterey Bay, California.
 | HTML        | HTML5 (landmark elements, ARIA)              |
 | CSS         | CSS3 + Custom Properties                     |
 | Framework   | Bootstrap 5.3.8                              |
-| Fonts       | Google Fonts — Pacifico, Nunito, Playfair Display |
+| Fonts       | Google Fonts — Berkshire Swash, Nunito, Playfair Display |
 | Icons       | Bootstrap Icons 1.11.3                       |
 
 ---

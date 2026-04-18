@@ -1,5 +1,6 @@
 <?php
-
+ob_start();
+session_start();  //start or resume an existing session
 /**
  * includes/header.php
  * Shared header + navbar — wipeyourpaws.net
@@ -75,8 +76,8 @@ $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_i
 
   <!-- Favicon — to be added -->
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32.png">
-       <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16.png">
-       <link rel="apple-touch-icon"       href="images/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16.png">
+  <link rel="apple-touch-icon" href="images/favicons/apple-touch-icon.png">
 
   <!-- Bootstrap 5.3.8 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
@@ -91,17 +92,17 @@ $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_i
   <!-- Google Fonts (B5 FIX: single load via <link> only — CSS @import removed) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,600;1,400&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Nunito:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,600;1,400&display=swap"
     rel="stylesheet">
 
   <!-- Site stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body id="toTop">
 
   <!-- W1: Skip navigation — first focusable element on page (WCAG 2.4.1) -->
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#main-content" aria-label="Go To Main Content">Skip to main content</a>
 
   <!-- Animated colour strip — purely decorative -->
   <div class="swirl-strip" aria-hidden="true" role="presentation"></div>
@@ -134,11 +135,12 @@ $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_i
             $is_active = ($page_id === $key);
           ?>
             <li class="nav-item">
-              <!-- W3: aria-current="page" communicates active page to screen readers -->
+              <!-- W3: aria-current="page" and "(current)" communicates active page to screen readers -->
               <a class="nav-link <?= $is_active ? 'active' : '' ?>"
                 href="<?= htmlspecialchars($item['href']) ?>"
                 <?= $is_active ? 'aria-current="page"' : '' ?>>
                 <?= htmlspecialchars($item['label']) ?>
+                <?= $is_active ? '<span class="visually-hidden">(current)</span>' : '' ?>
               </a>
             </li>
           <?php endforeach; ?>

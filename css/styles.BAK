@@ -23,7 +23,7 @@
   --text-mid: #6b3500;
   --text-light: #8b4a15;
 
-  --font-display: "Pacifico", cursive;
+  --font-display: "Berkshire Swash", cursive;
   --font-body: "Nunito", sans-serif;
   --font-accent: "Playfair Display", serif;
 

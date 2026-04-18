@@ -73,7 +73,7 @@ $old_msg     = htmlspecialchars($old_values['message'] ?? '', ENT_QUOTES, 'UTF-8
         <?php endif; ?>
 
         <div class="wyp-form">
-          <!-- 1.6rem = 25.6px Pacifico — large text → orange-deep 4.07:1 passes 3:1 ✅ -->
+          <!-- 1.6rem = 25.6px Berkshire Swash — large text → orange-deep 4.07:1 passes 3:1 ✅ -->
           <h2 class="section-title mb-1">Send Us a Message</h2>
 
           <p class="required-note" id="form-required-note">

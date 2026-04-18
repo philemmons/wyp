@@ -14,6 +14,8 @@
  */
 ?>
 
+<a href="#toTop" class="btn btn-primary back-to-top" id="back-to-top-link" title="Back to Top" aria-label="Back to Top"><i class="bi bi-arrow-up" aria-hidden="true"></i></a>
+
 </main>
 
 <noscript>
