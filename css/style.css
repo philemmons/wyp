@@ -742,8 +742,7 @@ main:focus { outline: none; }
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: linear-gradient(135deg,
-    #D94820 0%, #F07822 25%, #F5A240 50%, #F8CE10 75%, #FBE978 100%);
+  background-image: url()
 }
 
 .hero-swirl-bg {
