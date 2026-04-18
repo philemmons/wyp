@@ -28,7 +28,7 @@ $nav_items = [
 ];
 
 $page_titles = [
-  'home'     => 'Wipe Your Paws — Big Love for Small Paws',
+  'home'     => 'Wipe Your Paws - Big Love for Small Paws',
   'intro'    => 'Meet the Pups | Wipe Your Paws',
   'monterey' => 'Why Monterey | Wipe Your Paws',
   'contact'  => 'Contact Us | Wipe Your Paws',
@@ -44,7 +44,7 @@ $page_descriptions = [
 ];
 
 $title       = $page_titles[$page_id]       ?? 'Wipe Your Paws';
-$description = $page_descriptions[$page_id] ?? 'Wipe Your Paws — Big Love for Small Paws.';
+$description = $page_descriptions[$page_id] ?? 'Wipe Your Paws - Big Love for Small Paws.';
 
 // Build canonical URL (update BASE_URL when deploying)
 $base_url    = 'https://wipeyourpaws.net';
