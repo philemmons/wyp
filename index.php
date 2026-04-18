@@ -1,4 +1,5 @@
 <?php
+
 /**
  * index.php — Homepage
  * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8
@@ -41,7 +42,7 @@ require_once 'includes/header.php';
       </div>
 
       <div class="col-lg-5 text-center d-none d-lg-block">
-        <div class="hero-brand-emoji" aria-hidden="true">🐕</div>
+        <img src="images/chandra-graphic.png" alt="chandra graphic logo" width="184" height="245">
         <div class="hero-card hero-location-badge">Chandra &amp; Skipper say hello!</div>
       </div>
 
