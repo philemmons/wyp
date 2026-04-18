@@ -192,6 +192,7 @@ iframe { border: 0; display: block; }
   font-size: 1.2rem;
   margin-top: 1rem;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 1rem !important;
 }
 
 /* ── Homepage feature cards ─────────────────────────────── */
@@ -793,6 +794,7 @@ main:focus { outline: none; }
   box-shadow: 0 20px 60px rgba(90, 10, 0, 0.45);
   animation: heroCardIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
 
 @keyframes heroCardIn {
   from { opacity: 0; transform: translateY(40px) scale(0.96); }

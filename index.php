@@ -42,7 +42,7 @@ require_once 'includes/header.php';
 
       <div class="col-lg-5 text-center d-none d-lg-block">
         <div class="hero-brand-emoji" aria-hidden="true">🐕</div>
-        <div class="hero-location-badge">Chandra &amp; Skipper say hello!</div>
+        <div class="hero-card hero-location-badge">Chandra &amp; Skipper say hello!</div>
       </div>
 
     </div>
