@@ -189,7 +189,7 @@ iframe { border: 0; display: block; }
 .hero-location-badge {
   font-family: var(--font-display);
   color: rgba(255, 255, 255, 0.9);
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-top: 1rem;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
   padding: 1rem !important;
@@ -785,7 +785,7 @@ main:focus { outline: none; }
 /* Hero glass card — dark overlay so white text passes on yellow end */
 /* rgba(30,5,0,0.60): effective bg on worst-case #FBE978 = 6.02:1 ✅ */
 .hero-card {
-  background: rgba(30, 5, 0, 0.60);
+  background: rgba(30, 5, 0, 0.40);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.25);
