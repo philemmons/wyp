@@ -744,6 +744,8 @@ main:focus { outline: none; }
   overflow: hidden;
   background-image: url(/images/background-swirl.svg);
   background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .hero-swirl-bg {
