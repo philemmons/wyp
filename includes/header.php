@@ -77,7 +77,7 @@ $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_i
   <!-- Favicon — to be added -->
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16.png">
-  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/images/favicons/favicon.ico">
   <link rel="apple-touch-icon" href="images/favicons/apple-touch-icon.png">
 
   <!-- Bootstrap 5.3.8 CSS -->
