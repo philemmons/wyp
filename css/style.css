@@ -159,7 +159,7 @@ iframe { border: 0; display: block; }
 /* Shared hero h1 — white on dark gradient ≥4.29:1 (large text 3:1 threshold ✅) */
 .page-hero-h1 {
   font-family: var(--font-display);
-  color: #fff;
+  color: var(--bright-white);
   font-size: clamp(2rem, 5vw, 3.5rem);
   text-shadow: 3px 4px 12px rgba(0, 0, 0, 0.25);
   line-height: 1.2;
@@ -241,7 +241,7 @@ iframe { border: 0; display: block; }
 /* White on dark mahogany gradient ≥6.78:1 ✅ */
 .section-cta__h2 {
   font-family: var(--font-display);
-  color: #fff;
+  color: var(--bright-white);
   font-size: clamp(1.6rem, 4vw, 2.5rem);
   text-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
   margin-bottom: 0.75rem;
@@ -445,7 +445,7 @@ iframe { border: 0; display: block; }
  */
 .footer-col-heading {
   font-family: var(--font-display);
-  color: #fff;
+  color: var(--bright-white);
   font-size: 0.95rem;
   margin-bottom: 1rem;
 }
@@ -476,7 +476,7 @@ iframe { border: 0; display: block; }
 /* ── 404 page typography ────────────────────────────────── */
 .error-404-heading {
   font-family: var(--font-display);
-  color: #fff;
+  color: var(--bright-white);
   font-size: clamp(3rem, 10vw, 6rem);
   line-height: 1;
   text-shadow: 3px 4px 12px rgba(0, 0, 0, 0.25);
@@ -574,7 +574,7 @@ iframe { border: 0; display: block; }
   left: 0;
   z-index: 9999;
   background: var(--orange-deep);
-  color: #fff;
+  color: var(--bright-white);
   font-family: var(--font-body);
   font-weight: 800;
   font-size: 1rem;
@@ -600,7 +600,7 @@ main:focus { outline: none; }
 
 .btn-wyp:focus-visible,
 .btn-submit:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--bright-white);
   outline-offset: 3px;
   box-shadow: 0 0 0 5px var(--orange-deep);
 }
@@ -616,7 +616,7 @@ main:focus { outline: none; }
   outline: 3px solid var(--orange-primary);
   outline-offset: -1px;
   box-shadow: 0 0 0 3px rgba(240, 120, 34, 0.25);
-  background: #fff;
+  background: var(--bright-white);
 }
 
 .social-circle:focus-visible {
@@ -666,7 +666,7 @@ main:focus { outline: none; }
 .wyp-navbar .navbar-brand {
   font-family: var(--font-display);
   font-size: 1.5rem;
-  color: #fff !important;
+  color: var(--bright-white) !important;
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   letter-spacing: 0.02em;
   line-height: 1.2;
@@ -700,7 +700,7 @@ main:focus { outline: none; }
 .wyp-navbar .nav-link:hover,
 .wyp-navbar .nav-link.active {
   background: rgba(255, 255, 255, 0.18);
-  color: #fff !important;
+  color: var(--bright-white)!important;
 }
 
 .wyp-navbar .nav-link.active::after {
@@ -764,7 +764,7 @@ main:focus { outline: none; }
 .wyp-hero h1 {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 6vw, 5rem);
-  color: #fff;
+  color: var(--bright-white);
   text-shadow: 3px 4px 12px rgba(0, 0, 0, 0.35);
   line-height: 1.2;
   margin-bottom: 0.5rem;
@@ -1057,7 +1057,7 @@ main:focus { outline: none; }
   border-radius: var(--radius-xl);
   padding: 2.5rem;
   text-align: center;
-  color: #fff;
+  color: var(--bright-white);
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-warm);
@@ -1170,13 +1170,13 @@ main:focus { outline: none; }
 /* Outline on dark backgrounds (hero areas) */
 .btn-wyp-outline {
   background: transparent;
-  color: #fff;
+  color: var(--bright-white);
   border: 2px solid rgba(255, 255, 255, 0.7);
 }
 .btn-wyp-outline:hover {
   background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  border-color: #fff;
+  color: var(--bright-white);
+  border-color: var(--bright-white);
   transform: translateY(-2px);
 }
 
@@ -1195,14 +1195,14 @@ main:focus { outline: none; }
 
 /* White button on dark CTA strip — text-orange on #fff: 5.48:1 ✅ */
 .btn-wyp-white {
-  background: #fff;
+  background: var(--bright-white);
   color: var(--text-orange);
   font-weight: 900;
   padding: 0.85rem 2.5rem;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
 }
 .btn-wyp-white:hover {
-  background: #fff;
+  background: var(--bright-white);
   color: var(--text-orange);
   transform: translateY(-2px);
   box-shadow: 0 10px 32px rgba(0, 0, 0, 0.2);
@@ -1211,7 +1211,7 @@ main:focus { outline: none; }
 /* Submit button — all stops ≥5.21:1 white ✅ */
 .btn-submit {
   background: linear-gradient(135deg, #7A1E00, #C53C14);
-  color: #fff;
+  color: var(--bright-white);
   font-family: var(--font-body);
   font-weight: 900;
   font-size: 1rem;
@@ -1232,7 +1232,7 @@ main:focus { outline: none; }
 .btn-submit:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 32px rgba(90, 10, 0, 0.5);
-  color: #fff;
+  color: var(--bright-white);
 }
 
 /**** back to top ****/
@@ -1434,7 +1434,7 @@ main:focus { outline: none; }
  */
 .wyp-footer {
   background: linear-gradient(135deg, #7A1E00 0%, #C53C14 50%, #B83918 100%);
-  color: #fff;
+  color: var(--bright-white);
   padding: 3rem 0 1.5rem;
   position: relative;
   overflow: hidden;
@@ -1451,7 +1451,7 @@ main:focus { outline: none; }
 .wyp-footer .footer-brand {
   font-family: var(--font-display);
   font-size: 1.6rem;
-  color: #fff;
+  color: var(--bright-white);
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.25);
 }
 
@@ -1463,12 +1463,12 @@ main:focus { outline: none; }
 }
 
 .wyp-footer a {
-  color: #fff;
+  color: var(--bright-white);
   text-decoration: none;
   transition: text-decoration-color 0.2s, opacity 0.2s;
 }
 .wyp-footer a:hover {
-  color: #fff;
+  color: var(--bright-white);
   text-decoration: underline;
   opacity: 0.85;
 }
@@ -1502,7 +1502,7 @@ main:focus { outline: none; }
   font-size: 1.1rem;
   transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
   text-decoration: none;
-  color: #fff;
+  color: var(--bright-white);
   margin: 0 0.25rem;
 }
 /* text-dark on yellow-bright: 9.8:1 ✅ */
