@@ -1620,7 +1620,7 @@ main:focus { outline: none; }
 /* ── Mobile (WCAG 1.4.10 Reflow) ───────────────────────── */
 @media (max-width: 767.98px) {
   .wyp-hero          { min-height: 70vh; }
-  .hero-card         { padding: 1.5rem; }
+  .hero-card         { padding: 1.5rem; margin: 1.75rem 0;}
   .wyp-hero h1       { font-size: 2.2rem; }
   .dog-avatar-frame  { width: 8.125rem; height: 8.125rem; font-size: 3.5rem; }
   .page-section      { padding: 3rem 0; }
