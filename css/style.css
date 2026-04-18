@@ -742,7 +742,8 @@ main:focus { outline: none; }
   display: flex;
   align-items: center;
   overflow: hidden;
-  background-image: url()
+  background-image: url(/images/background-swirl.svg);
+  background-repeat: no-repeat;
 }
 
 .hero-swirl-bg {
