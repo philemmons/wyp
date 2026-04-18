@@ -111,7 +111,7 @@ $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_i
   <nav class="navbar navbar-expand-lg wyp-navbar" aria-label="Main navigation">
     <div class="container">
 
-      <a class="navbar-brand d-flex align-items-center" href="index.php">
+      <a class="navbar-brand d-flex align-items-center" href="/">
         <!-- W14: decorative emoji is aria-hidden -->
         <span class="paw-brand-icon" aria-hidden="true">🐾</span>
         <div>

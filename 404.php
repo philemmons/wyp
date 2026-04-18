@@ -34,7 +34,7 @@ require_once 'includes/header.php';
       </p>
 
       <div class="error-btn-row">
-        <a href="index.php" class="btn-wyp btn-wyp-primary">
+        <a href="/" class="btn-wyp btn-wyp-primary">
           <span aria-hidden="true">🏠</span> Back to Home
         </a>
         <a href="contact.php" class="btn-wyp btn-wyp-outline">
