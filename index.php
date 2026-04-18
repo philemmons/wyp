@@ -16,23 +16,6 @@ require_once 'includes/header.php';
   <span class="paw-float" aria-hidden="true">🐾</span>
   <span class="paw-float" aria-hidden="true">🐾</span>
 
-  <svg class="hero-swirl-bg" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-    <g fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="3">
-      <path d="M 100 600 Q 200 400 400 350 Q 600 300 700 150 Q 800 0 1000 100"/>
-      <path d="M 0 400 Q 150 300 300 400 Q 450 500 600 350 Q 750 200 900 300 Q 1050 400 1200 250"/>
-      <path d="M 200 800 Q 350 650 500 700 Q 650 750 800 600 Q 950 450 1100 550 Q 1250 650 1400 500"/>
-    </g>
-    <g fill="rgba(255,255,255,0.08)">
-      <circle cx="1100" cy="150" r="180"/>
-      <circle cx="150" cy="650" r="120"/>
-      <circle cx="700" cy="700" r="90"/>
-    </g>
-    <g fill="rgba(248,206,16,0.12)">
-      <circle cx="900" cy="400" r="220"/>
-      <circle cx="300" cy="200" r="100"/>
-    </g>
-  </svg>
-
   <div class="container hero-content">
     <div class="row align-items-center g-5">
 
