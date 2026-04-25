@@ -1,6 +1,6 @@
 <?php
 ob_start();
-session_start();  //start or resume an existing session
+require_once __DIR__ . '/includes/init.php';
 /**
  * includes/header.php
  * Shared header + navbar — wipeyourpaws.net

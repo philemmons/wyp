@@ -1382,6 +1382,7 @@ main:focus { outline: none; }
   margin-bottom: 1.5rem;
   box-shadow: var(--shadow-card);
   transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  border-left-color: var(--border-color);
 }
 .monterey-category-card:hover {
   border-left-color: var(--yellow-bright);

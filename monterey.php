@@ -118,7 +118,7 @@ $categories = [
       <?php foreach ($categories as $cat): ?>
       <div class="col-12">
         <!-- Dynamic border colour set inline — PHP-generated value -->
-        <div class="monterey-category-card" style="border-left-color: <?= $cat['color'] ?>;">
+        <div class="monterey-category-card" style="--border-color: <?= htmlspecialchars($cat['color']) ?>;">
           <div class="d-flex align-items-start gap-3">
             <span class="category-icon" aria-hidden="true"><?= $cat['icon'] ?></span>
             <div class="flex-grow-1">
