@@ -121,41 +121,52 @@
 
 <script>
   (function() {
-    'use strict';
+    'use strict'; // Enforces stricter parsing and error handling in JavaScript
 
+    // Check if the user prefers reduced motion (accessibility setting)
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
 
+    // Select all elements that should animate into view
     const targets = document.querySelectorAll(
       '.wyp-card, .dog-profile-card, .monterey-category-card, ' +
       '.gallery-placeholder-item, .dedication-banner, .contact-info-box, .wyp-form'
     );
 
+    // If reduced motion is preferred OR IntersectionObserver is not supported
+    // immediately show all elements without animation
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
       targets.forEach(function(t) {
-        t.style.opacity = '1';
-        t.style.transform = '';
+        t.style.opacity = '1';   // Make element visible
+        t.style.transform = '';  // Reset any transform
       });
-      return;
+      return; // Exit early, skipping animation setup
     }
 
+    // Create an IntersectionObserver to detect when elements enter the viewport
     const io = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
+        // If the element is visible in the viewport
         if (e.isIntersecting) {
-          e.target.style.opacity = '1';
-          e.target.style.transform = '';
+          e.target.style.opacity = '1';    // Fade in
+          e.target.style.transform = '';  // Move to original position
+
+          // Stop observing this element after it becomes visible
           io.unobserve(e.target);
         }
       });
     }, {
-      threshold: 0.1
+      threshold: 0.1 // Trigger when 10% of the element is visible
     });
 
+    // Initialize all target elements with hidden + offset styles
     targets.forEach(function(t) {
-      t.style.opacity = '0';
-      t.style.transform = 'translateY(28px)';
-      t.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+      t.style.opacity = '0'; // Start invisible
+      t.style.transform = 'translateY(28px)'; // Slightly shifted down
+      t.style.transition = 'opacity 0.55s ease, transform 0.55s ease'; // Smooth animation
+
+      // Begin observing the element for when it enters the viewport
       io.observe(t);
     });
   }());
