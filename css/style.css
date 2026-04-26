@@ -1236,9 +1236,16 @@ main:focus { outline: none; }
   right: 16px;
   left: auto;
   opacity: 0;
-  transition: opacity .5s linear;
+  transition: opacity .3s ease;
   z-index: 11;
   background-color: var(--orange-deep);
+  pointer-events: none;
+}
+
+/* Visible state toggled by JS */
+.back-to-top.visible{
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* ── 3f. Forms & Contact Sidebar ────────────────────────── */
