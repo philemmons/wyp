@@ -20,7 +20,7 @@
    id="back-to-top-link"
    title="Back to Top"
    aria-label="Back to Top">
-  <i class="bi bi-arrow-up" aria-hidden="true"></i>
+  <i class="bi bi-chevron-double-up" aria-hidden="true"></i>
 </a>
 
 </main>
