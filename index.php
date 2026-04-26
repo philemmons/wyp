@@ -66,7 +66,7 @@ require_once 'includes/header.php';
         <div class="wyp-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4 text-center">
-            <img scr='images/chandra-left-small.png' class="feature-card-icon" alt='Chandra facing left' aria-hidden="true">
+            <img src='images/chandra-left-small.png' class="feature-card-icon" alt='Chandra facing left' aria-hidden="true">
             <h3 class="feature-card-heading">Meet the Pups</h3>
             <p class="feature-card-body">
               Say hello to Chandra, our spirited Chihuahua, and Skipper, our energetic
