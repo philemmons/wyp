@@ -836,7 +836,7 @@ main:focus {
   background: rgba(30, 5, 0, 0.4);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 0.12rem solid #aba2a2;
   border-radius: var(--radius-xl);
   padding: 2.5rem;
   box-shadow: 0 20px 60px rgba(90, 10, 0, 0.45);
@@ -988,7 +988,7 @@ main:focus {
 
 .wyp-card {
   background: var(--warm-white);
-  border: none;
+  border: 0.25rem solid var(--yellow-bright);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   overflow: hidden;
@@ -1317,6 +1317,7 @@ main:focus {
   );
   color: var(--text-dark);
   box-shadow: 0 4px 16px rgba(248, 206, 16, 0.45);
+  border: 0.125rem solid #000000;
 }
 .btn-wyp-primary:hover {
   --hover-translate-y: -2px;
@@ -1358,6 +1359,7 @@ main:focus {
   font-weight: 900;
   padding: 0.85rem 2.5rem;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  border: 0.125rem solid #000000;
 }
 .btn-wyp-white:hover {
   background: var(--bright-white);
