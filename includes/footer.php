@@ -41,7 +41,7 @@
   </style>
 </noscript>
 
-<!-- ░░ FOOTER ░░ -->
+<!--  FOOTER  -->
 <footer class="wyp-footer mt-auto">
   <div class="container">
     <div class="row g-4">

@@ -9,7 +9,7 @@ $page_id = 'home';
 require_once 'includes/header.php';
 ?>
 
-<!-- ░░ ERROR HERO ░░ -->
+<!--  ERROR HERO  -->
 <section class="error-hero">
 
   <span class="paw-float" aria-hidden="true">🐾</span>
@@ -46,7 +46,7 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!-- ░░ QUICK LINKS STRIP ░░ -->
+<!--  QUICK LINKS STRIP  -->
 <section class="quicklinks-section">
   <div class="container">
     <p class="quicklinks-title text-center">Where would you like to go?</p>

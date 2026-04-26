@@ -31,7 +31,7 @@ $old_subject = htmlspecialchars($old_values['subject'] ?? '', ENT_QUOTES, 'UTF-8
 $old_msg     = htmlspecialchars($old_values['message'] ?? '', ENT_QUOTES, 'UTF-8');
 ?>
 
-<!-- ░░ PAGE HERO ░░ -->
+<!--  PAGE HERO  -->
 <section class="contact-hero">
   <div class="container text-center page-hero-z">
     <span class="page-hero-emoji" aria-hidden="true">✉️🐾</span>
@@ -42,7 +42,7 @@ $old_msg     = htmlspecialchars($old_values['message'] ?? '', ENT_QUOTES, 'UTF-8
   </div>
 </section>
 
-<!-- ░░ MAIN CONTACT SECTION ░░ -->
+<!--  MAIN CONTACT SECTION  -->
 <section class="page-section bg-cream">
   <div class="container">
     <div class="row g-5 justify-content-center">
@@ -219,7 +219,7 @@ $old_msg     = htmlspecialchars($old_values['message'] ?? '', ENT_QUOTES, 'UTF-8
   </div>
 </section>
 
-<!-- ░░ MAP ░░ -->
+<!--  MAP  -->
 <section class="page-section-sm bg-warm-white">
   <div class="container">
     <div class="text-center mb-4">

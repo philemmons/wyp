@@ -7,7 +7,7 @@ $page_id = 'intro';
 require_once 'includes/header.php';
 ?>
 
-<!-- ░░ PAGE HERO ░░ -->
+<!--  PAGE HERO  -->
 <section class="monterey-hero intro-hero">
   <div class="container text-center page-hero-z">
     <span class="page-hero-emoji" aria-hidden="true">🐶🐾🐶</span>
@@ -16,7 +16,7 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!-- ░░ DEDICATION BANNER ░░ -->
+<!--  DEDICATION BANNER  -->
 <section class="page-section-sm bg-cream">
   <div class="container">
     <div class="dedication-banner">
@@ -26,7 +26,7 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!-- ░░ DOG PROFILES ░░ -->
+<!--  DOG PROFILES  -->
 <section class="page-section bg-warm-white">
   <div class="container">
 
@@ -117,7 +117,7 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!-- ░░ TOGETHER SECTION ░░ -->
+<!--  TOGETHER SECTION  -->
 <section class="page-section-sm section-pastel">
   <div class="container">
     <div class="row align-items-center g-5">
@@ -150,7 +150,7 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!-- ░░ BREED QUICK FACTS ░░ -->
+<!--  BREED QUICK FACTS  -->
 <section class="page-section bg-cream">
   <div class="container">
 

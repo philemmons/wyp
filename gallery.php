@@ -22,7 +22,7 @@ $placeholders = [
 ];
 ?>
 
-<!-- ░░ PAGE HERO ░░ -->
+<!--  PAGE HERO  -->
 <section class="gallery-hero">
   <div class="container text-center page-hero-z">
     <span class="page-hero-emoji" aria-hidden="true">📸🐾✨</span>
@@ -33,7 +33,7 @@ $placeholders = [
   </div>
 </section>
 
-<!-- ░░ COMING SOON NOTICE ░░ -->
+<!--  COMING SOON NOTICE  -->
 <section class="page-section-sm bg-cream">
   <div class="container">
     <div class="row justify-content-center">
@@ -53,7 +53,7 @@ $placeholders = [
   </div>
 </section>
 
-<!-- ░░ PLACEHOLDER GRID ░░ -->
+<!--  PLACEHOLDER GRID  -->
 <section class="page-section bg-warm-white">
   <div class="container">
 
@@ -80,7 +80,7 @@ $placeholders = [
   </div>
 </section>
 
-<!-- ░░ UPLOAD CTA ░░ -->
+<!--  UPLOAD CTA  -->
 <section class="section-gallery-story">
   <div class="container">
     <div class="row g-4 align-items-center">
@@ -106,7 +106,7 @@ $placeholders = [
   </div>
 </section>
 
-<!-- ░░ ABOUT THE DOGS MINI SECTION ░░ -->
+<!--  ABOUT THE DOGS MINI SECTION  -->
 <section class="page-section-sm bg-cream">
   <div class="container">
     <div class="row g-4 justify-content-center">

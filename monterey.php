@@ -81,7 +81,7 @@ $categories = [
 ];
 ?>
 
-<!-- ░░ PAGE HERO ░░ -->
+<!--  PAGE HERO  -->
 <section class="monterey-hero">
   <div class="container text-center page-hero-z">
     <span class="page-hero-emoji" aria-hidden="true">🌊🐾🌉</span>
@@ -92,7 +92,7 @@ $categories = [
   </div>
 </section>
 
-<!-- ░░ INTRO PARAGRAPH ░░ -->
+<!--  INTRO PARAGRAPH  -->
 <section class="page-section-sm bg-cream">
   <div class="container">
     <div class="row justify-content-center">
@@ -111,7 +111,7 @@ $categories = [
   </div>
 </section>
 
-<!-- ░░ CATEGORIES ░░ -->
+<!--  CATEGORIES  -->
 <section class="page-section bg-warm-white">
   <div class="container">
     <div class="row g-4">
@@ -150,7 +150,7 @@ $categories = [
   </div>
 </section>
 
-<!-- ░░ SUMMARY CALLOUT ░░ -->
+<!--  SUMMARY CALLOUT  -->
 <section class="section-spots">
   <div class="container">
     <div class="row justify-content-center">
@@ -175,7 +175,7 @@ $categories = [
   </div>
 </section>
 
-<!-- ░░ INTERACTIVE MAP ░░ -->
+<!--  INTERACTIVE MAP  -->
 <section class="page-section bg-cream">
   <div class="container">
     <div class="text-center mb-4">

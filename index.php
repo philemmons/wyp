@@ -8,7 +8,7 @@ $page_id = 'home';
 require_once 'includes/header.php';
 ?>
 
-<!-- ░░ HERO SECTION ░░ -->
+<!--  HERO SECTION  -->
 <section class="wyp-hero">
 
   <span class="paw-float" aria-hidden="true">🐾</span>
@@ -50,7 +50,7 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!-- ░░ WELCOME FEATURE TILES ░░ -->
+<!--  WELCOME FEATURE TILES  -->
 <section class="page-section bg-cream">
   <div class="container">
 
@@ -119,7 +119,7 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!-- ░░ QUOTE STRIP ░░ -->
+<!--  QUOTE STRIP  -->
 <section class="section-quote">
   <div class="container text-center">
     <p class="section-quote__text">
@@ -129,7 +129,7 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!-- ░░ LOCATION TEASER ░░ -->
+<!--  LOCATION TEASER  -->
 <section class="page-section section-teaser">
   <div class="container">
     <div class="row align-items-center g-5">
@@ -163,7 +163,7 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!-- ░░ CTA STRIP ░░ -->
+<!--  CTA STRIP  -->
 <section class="section-cta">
   <div class="container">
     <h2 class="section-cta__h2">
