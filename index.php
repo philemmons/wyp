@@ -84,7 +84,7 @@ require_once 'includes/header.php';
         <div class="wyp-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4 text-center">
-            <div class="feature-card-icon" aria-hidden="true">🌊</div>
+            <img src='images/wave1-small.png' alt='japanese ocean wave' class="feature-card-icon" aria-hidden="true">
             <h3 class="feature-card-heading">Monterey Bay Life</h3>
             <p class="feature-card-body">
               Monterey, CA is a paradise for small dog lovers — dog-friendly beaches,
