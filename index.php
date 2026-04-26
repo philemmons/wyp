@@ -102,7 +102,7 @@ require_once 'includes/header.php';
         <div class="wyp-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4 text-center">
-            <div class="feature-card-icon" aria-hidden="true">📸</div>
+            <img src='images/nikon-small.png' class="feature-card-icon" alt='nikon camera icon' aria-hidden="true">
             <h3 class="feature-card-heading">Media Gallery</h3>
             <p class="feature-card-body">
               Our photo gallery is coming soon! We're busy snapping adorable pictures
