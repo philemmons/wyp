@@ -1,6 +1,4 @@
 /**
- * backToTop.js
- * ----------------------------------------
  * Handles visibility and behavior of the "Back to Top" button.
  *
  * Improvements:
@@ -14,27 +12,23 @@
 (function () {
   'use strict';
 
-  // ─────────────────────────────────────────────
+
   // Config
-  // ─────────────────────────────────────────────
   const SCROLL_THRESHOLD = 200; // px before button appears
 
-  // ─────────────────────────────────────────────
+
   // Element reference
-  // ─────────────────────────────────────────────
   const backToTopBtn = document.getElementById('back-to-top-link');
 
   // Exit early if element is not present (prevents errors)
   if (!backToTopBtn) return;
 
-  // ─────────────────────────────────────────────
+
   // Accessibility: Reduced motion preference
-  // ─────────────────────────────────────────────
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ─────────────────────────────────────────────
+
   // Scroll handler (throttled)
-  // ─────────────────────────────────────────────
   let ticking = false;
 
   function handleScroll() {
@@ -59,9 +53,8 @@
   // Attach optimized scroll listener
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // ─────────────────────────────────────────────
+
   // Click handler (scroll to top)
-  // ─────────────────────────────────────────────
   backToTopBtn.addEventListener('click', function (e) {
     e.preventDefault();
 
@@ -71,9 +64,8 @@
     });
   });
 
-  // ─────────────────────────────────────────────
+
   // Initial state (prevents flash of button)
-  // ─────────────────────────────────────────────
   handleScroll();
 
 })();

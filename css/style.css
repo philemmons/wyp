@@ -1,6 +1,5 @@
-/* *****
-   WIPE YOUR PAWS — wipeyourpaws.net
-   Custom Stylesheet · Bootstrap 5.3.8 overlay · Rev.5
+/*****
+   Bootstrap 5.3.8 overlay · Rev.5
    WCAG 2.1 AA compliant — see README.md for full audit trail
 
    SECTIONS
@@ -20,11 +19,11 @@
       3j. Animations & Decorative Strips
    4. UTILITIES
    5. MEDIA QUERIES
-   ***** */
+  *****/
 
-/* *****
+/*****
    1. GLOBAL / RESET
-   ***** */
+  *****/
 
 :root {
   /* Brand palette */
@@ -123,9 +122,9 @@ iframe {
   border-radius: 4px;
 }
 
-/* *****
+/*****
    2. TYPOGRAPHY
-   ***** */
+  *****/
 
 /*  Section labels  */
 /*
@@ -597,9 +596,9 @@ iframe {
   max-width: 46ch;
 }
 
-/* *****
+/*****
    3. COMPONENTS & ELEMENTS
-   ***** */
+  *****/
 
 /*  3a. Accessibility  */
 
@@ -1397,7 +1396,7 @@ main:focus {
   color: var(--bright-white);
 }
 
-/**** back to top ****/
+/* back to top */
 .back-to-top {
   position: fixed;
   cursor: pointer;
@@ -1849,9 +1848,9 @@ main:focus {
   }
 }
 
-/* *****
+/*****
    4. UTILITIES
-   ***** */
+  *****/
 
 .page-section {
   padding: 5rem 0;
@@ -1914,9 +1913,9 @@ main:focus {
   box-shadow: var(--shadow-warm) !important;
 }
 
-/* *****
+/*****
    5. MEDIA QUERIES
-   ***** */
+  *****/
 
 /*  Reduced motion (WCAG 2.3.3)  */
 @media (prefers-reduced-motion: reduce) {

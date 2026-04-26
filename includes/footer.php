@@ -123,9 +123,8 @@
   </div>
 </footer>
 
-<!-- ───────────────────────────────────────────── -->
+
 <!-- JavaScript (CSP-compliant: external only) -->
-<!-- ───────────────────────────────────────────── -->
 
 <!-- Bootstrap Bundle -->
 <script

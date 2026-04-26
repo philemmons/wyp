@@ -1,6 +1,4 @@
 /**
- * app.js
- * ----------------------------------------
  * Contains ONLY logic previously inline in footer.php
  * (CSP-compliant replacement)
  *
@@ -11,9 +9,8 @@
 (function () {
   'use strict';
 
-  // ─────────────────────────────────────────────
+  
   // DOM Ready Helper
-  // ─────────────────────────────────────────────
   function ready(fn) {
     if (document.readyState !== 'loading') {
       fn();
@@ -24,9 +21,7 @@
 
   ready(function () {
 
-    // =========================================================
     // Scroll Animations (IntersectionObserver)
-    // =========================================================
     const elements = document.querySelectorAll('[data-animate]');
 
     // Respect user motion preferences
