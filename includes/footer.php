@@ -8,16 +8,24 @@
  * WCAG fixes:
  *   W2  — </main> closed here
  *   W4  — aria-label="Footer navigation" on footer <nav>
- *   W7  — prefers-reduced-motion checked in JS
+ *   W7  — prefers-reduced-motion handled in app.js
  *   W14 — aria-hidden="true" on decorative Bootstrap icons
  *   R2  — <noscript> style restores element visibility if JS disabled
  */
 ?>
 
-<a href="#toTop" class="btn btn-primary back-to-top" id="back-to-top-link" title="Back to Top" aria-label="Back to Top"><i class="bi bi-arrow-up" aria-hidden="true"></i></a>
+<!-- Back to Top Button -->
+<a href="#toTop"
+   class="btn btn-primary back-to-top"
+   id="back-to-top-link"
+   title="Back to Top"
+   aria-label="Back to Top">
+  <i class="bi bi-arrow-up" aria-hidden="true"></i>
+</a>
 
 </main>
 
+<!-- No-JS fallback (ensures content is visible) -->
 <noscript>
   <style>
     .wyp-card,
@@ -73,7 +81,7 @@
         </nav>
       </div>
 
-      <!-- Contact snippet -->
+      <!-- Contact -->
       <div class="col-md-3 col-6">
         <h2 class="footer-col-heading">Get in Touch</h2>
         <address class="footer-contact-address">
@@ -106,7 +114,8 @@
 
     <div class="d-flex flex-wrap justify-content-between align-items-center footer-bottom">
       <span>&copy; <?= date('Y') ?> wipeyourpaws.net &mdash; All rights reserved.</span>
-      <span>Made with <span aria-label="love">🧡</span> for Chandra &amp; Skipper
+      <span>
+        Made with <span aria-label="love">🧡</span> for Chandra &amp; Skipper
         <span aria-hidden="true">🐾</span>
       </span>
     </div>
@@ -114,64 +123,23 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+<!-- ───────────────────────────────────────────── -->
+<!-- JavaScript (CSP-compliant: external only) -->
+<!-- ───────────────────────────────────────────── -->
+
+<!-- Bootstrap Bundle -->
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-  crossorigin="anonymous"></script>
-
-
-<script>
-  (function() {
-    'use strict'; // Enforces stricter parsing and error handling in JavaScript
-
-    // Check if the user prefers reduced motion (accessibility setting)
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
-    // Select all elements that should animate into view
-    const targets = document.querySelectorAll(
-      '.wyp-card, .dog-profile-card, .monterey-category-card, ' +
-      '.gallery-placeholder-item, .dedication-banner, .contact-info-box, .wyp-form'
-    );
-
-    // If reduced motion is preferred OR IntersectionObserver is not supported
-    // immediately show all elements without animation
-    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      targets.forEach(function(t) {
-        t.style.opacity = '1';   // Make element visible
-        t.style.transform = '';  // Reset any transform
-      });
-      return; // Exit early, skipping animation setup
-    }
-
-    // Create an IntersectionObserver to detect when elements enter the viewport
-    const io = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        // If the element is visible in the viewport
-        if (e.isIntersecting) {
-          e.target.style.opacity = '1';    // Fade in
-          e.target.style.transform = '';  // Move to original position
-
-          // Stop observing this element after it becomes visible
-          io.unobserve(e.target);
-        }
-      });
-    }, {
-      threshold: 0.1 // Trigger when 10% of the element is visible
-    });
-
-    // Initialize all target elements with hidden + offset styles
-    targets.forEach(function(t) {
-      t.style.opacity = '0'; // Start invisible
-      t.style.transform = 'translateY(28px)'; // Slightly shifted down
-      t.style.transition = 'opacity 0.55s ease, transform 0.55s ease'; // Smooth animation
-
-      // Begin observing the element for when it enters the viewport
-      io.observe(t);
-    });
-  }());
+  crossorigin="anonymous"
+  defer>
 </script>
 
-</body>
+<!-- Back to Top -->
+<script src="/js/backToTop.js?v=<?= filemtime(__DIR__ . '/../js/backToTop.js'); ?>" defer></script>
 
+<!-- App JS (replaces inline animation script) -->
+<script src="/js/app.js?v=<?= filemtime(__DIR__ . '/../js/app.js'); ?>" defer></script>
+
+</body>
 </html>
