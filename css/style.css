@@ -1730,7 +1730,7 @@ main:focus {
 /* text-dark on yellow-bright: 9.8:1 */
 .social-circle:hover {
   background: var(--yellow-bright);
-  color: var(--text-dark);
+  color: var(--text-dark) !important;
   --hover-translate-y: -2px;
   --hover-scale: 1.03;
   border-color: var(--yellow-bright);
