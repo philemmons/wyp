@@ -1351,6 +1351,7 @@ main:focus {
   color: var(--text-orange);
   border-color: var(--text-orange);
   --hover-translate-y: -2px;
+  --hover-scale: 1.03;
 }
 
 /* White button on dark CTA strip — text-orange on #fff: 5.48:1 */
@@ -1366,6 +1367,7 @@ main:focus {
   background: var(--bright-white);
   color: var(--text-orange);
   --hover-translate-y: -2px;
+  --hover-scale: 1.03;
   box-shadow: 0 10px 32px rgba(0, 0, 0, 0.2);
 }
 
@@ -1395,6 +1397,7 @@ main:focus {
 }
 .btn-submit:hover {
   --hover-translate-y: -2px;
+  --hover-scale: 1.03;
   box-shadow: 0 10px 32px rgba(90, 10, 0, 0.5);
   color: var(--bright-white);
 }
@@ -1729,6 +1732,7 @@ main:focus {
   background: var(--yellow-bright);
   color: var(--text-dark);
   --hover-translate-y: -2px;
+  --hover-scale: 1.03;
   border-color: var(--yellow-bright);
 }
 
