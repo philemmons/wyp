@@ -20,7 +20,7 @@ session_start();  //start or resume an existing session
 $page_id = $page_id ?? 'home';
 
 $nav_items = [
-  'home'     => ['href' => '/',    'label' => 'Home'],
+  'home'     => ['href' => '/',            'label' => 'Home'],
   'intro'    => ['href' => 'intro.php',    'label' => 'Meet the Pups'],
   'monterey' => ['href' => 'monterey.php', 'label' => 'Why Monterey'],
   'contact'  => ['href' => 'contact.php',  'label' => 'Contact Us'],

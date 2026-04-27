@@ -120,7 +120,7 @@
     <div class="d-flex flex-wrap justify-content-between align-items-center footer-bottom">
       <span>&copy; <?= date('Y') ?> wipeyourpaws.net &mdash; All rights reserved.</span>
       <span>
-        Made with <span aria-label="love">🧡</span> for Chandra &amp; Skipper
+        Made with <span aria-hidden="true">🧡</span><span class="sr-only">LOVE</span> for Chandra &amp; Skipper
         <span aria-hidden="true">🐾</span>
       </span>
     </div>

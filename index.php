@@ -70,7 +70,7 @@ require_once 'includes/header.php';
             <h3 class="feature-card-heading">Meet the Pups</h3>
             <p class="feature-card-body">
               Say hello to Chandra, our spirited Chihuahua, and Skipper, our energetic
-              Chihuahua–Jack Russell mix. Two tiny dogs with the biggest hearts you'll
+              Chihuahua-Jack Russell mix. Two tiny dogs with the biggest hearts you'll
               ever encounter.
             </p>
             <a href="intro.php" class="btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
