@@ -1712,7 +1712,7 @@ main:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
+  width: 4rem;
   height: 2.5rem;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.18);
