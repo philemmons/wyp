@@ -173,7 +173,7 @@ require_once 'includes/header.php';
       We'd love to hear from fellow small dog lovers! Drop us a message anytime.
     </p>
     <a href="contact.php" class="btn-wyp btn-wyp-white">
-      Get in Touch <span aria-hidden="true">✉️</span>
+      Get in Touch <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
     </a>
   </div>
 </section>

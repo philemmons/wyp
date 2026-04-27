@@ -2,6 +2,6 @@
 error_log
 robots.txt
 .htaccess
-img/original/
+images/original/
 /logs/
 /*.log

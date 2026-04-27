@@ -1398,7 +1398,7 @@ main:focus {
   color: var(--bright-white);
 }
 
-/* back to top */
+/* back to top button*/
 .back-to-top {
   position: fixed;
   cursor: pointer;
@@ -1410,6 +1410,7 @@ main:focus {
   z-index: 11;
   background-color: #000;
   pointer-events: none;
+  border: 0.2rem solid var(--yellow-bright);
 }
 
 /* Visible state toggled by JS */

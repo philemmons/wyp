@@ -49,7 +49,7 @@
       <!-- Brand column -->
       <div class="col-md-4">
         <div class="footer-brand mb-1">
-          <span aria-hidden="true">🐾</span> Wipe Your Paws
+          <img class="paw-brand-icon" src="/images/white-paw.png" alt='white dog paw' aria-hidden="true"> Wipe Your Paws
         </div>
         <div class="footer-tagline mb-3">Big Love for Small Paws</div>
         <p class="footer-desc">
