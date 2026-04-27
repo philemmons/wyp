@@ -172,12 +172,12 @@ require_once 'includes/header.php';
     <p class="section-cta__p">
       We'd love to hear from fellow small dog lovers! Drop us a message anytime.
     </p>
-    <div>
-      <a href="contact.php" class="btn-wyp btn-wyp-white">
+    <a href="contact.php" class="btn-wyp btn-wyp-white">
+      <div>
         Get in Touch
         <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
-      </a>
-    </div>
+      </div>
+    </a>
   </div>
 </section>
 
