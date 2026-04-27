@@ -16,10 +16,10 @@
 
 <!-- Back to Top Button -->
 <a href="#toTop"
-   class="btn btn-primary back-to-top"
-   id="back-to-top-link"
-   title="Back to Top"
-   aria-label="Back to Top">
+  class="btn btn-primary back-to-top"
+  id="back-to-top-link"
+  title="Back to Top"
+  aria-label="Back to Top">
   <i class="bi bi-chevron-double-up" aria-hidden="true"></i>
 </a>
 
@@ -99,7 +99,10 @@
       <!-- Fun fact -->
       <div class="col-md-3">
         <h2 class="footer-col-heading">
-          Did You Know? <span aria-hidden="true">🐶</span>
+          <div>
+            Did You Know?
+            <img src='/images/skipper-icon.png' alt='mini skipper icon' width=35 height=30 aria-hidden="true">
+          </div>
         </h2>
         <p class="footer-col-body">
           Chihuahuas are the world's smallest dog breed but are known for having
@@ -141,4 +144,5 @@
 <script src="/js/app.js?v=<?= filemtime(__DIR__ . '/../js/app.js'); ?>" defer></script>
 
 </body>
+
 </html>

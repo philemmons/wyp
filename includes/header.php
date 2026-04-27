@@ -113,7 +113,7 @@ $canonical   = $base_url . '/' . ($page_id === 'home' ? '' : ($nav_items[$page_i
     <div class="container">
 
       <a class="navbar-brand d-flex align-items-center" href="/">
-        <!-- W14: decorative emoji is aria-hidden -->
+        <!-- W14: decorative icon is aria-hidden -->
         <img class="paw-brand-icon" src="/images/white-paw.png" alt='white dog paw' aria-hidden="true">
         <div>
           Wipe Your Paws
