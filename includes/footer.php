@@ -49,9 +49,11 @@
       <!-- Brand column -->
       <div class="col-md-4">
         <div class="footer-brand mb-1">
-          <img class="paw-brand-icon" src="/images/white-paw.png" alt='white dog paw' aria-hidden="true"> Wipe Your Paws
+          Wipe Your Paws
         </div>
-        <div class="footer-tagline mb-3">Big Love for Small Paws</div>
+        <div class="footer-tagline mb-3">
+          Big Love for Small Paws <span aria-hidden="true">🐾</span>
+        </div>
         <p class="footer-desc">
           Celebrating the joy of small dogs with Chandra &amp; Skipper —
           your cozy corner of the internet for small paw enthusiasts.

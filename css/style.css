@@ -1337,6 +1337,7 @@ main:focus {
   color: var(--bright-white);
   border-color: var(--bright-white);
   --hover-translate-y: -2px;
+  --hover-scale: 1.03;
 }
 
 /* Outline on light backgrounds (cream/warm-white sections) */
