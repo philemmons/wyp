@@ -607,8 +607,13 @@ iframe {
   top: -100%;
   left: 0;
   z-index: 9999;
-  background: var(--orange-deep);
-  color: var(--bright-white);
+  background: linear-gradient(
+    135deg,
+    var(--yellow-bright),
+    var(--orange-light)
+  );
+  border: 2px solid #000000;
+  color: var(--text-dark);
   font-family: var(--font-body);
   font-weight: 800;
   font-size: 1rem;
