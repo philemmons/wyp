@@ -7,26 +7,35 @@ $page_id = 'intro';
 require_once 'includes/header.php';
 ?>
 
-<!--  PAGE HERO  -->
 <section class="monterey-hero intro-hero">
   <div class="container text-center page-hero-z">
     <span class="page-hero-emoji" aria-hidden="true">🐶🐾🐶</span>
-    <h1 class="page-hero-h1">Meet the Chihuahuas!</h1>
-    <p class="page-hero-tagline">Faithful, Loving &amp; Full of Personality</p>
+    <h1 class="page-hero-h1">Meet the Chihuahuas</h1>
+    <p class="page-hero-tagline">Faithful, loving, and full of personality</p>
   </div>
 </section>
 
-<!--  DEDICATION BANNER  -->
+<section class="page-section-sm bg-cream">
+  <div class="container">
+    <details class="simple-summary">
+      <summary>Simple summary of this page</summary>
+      <p>
+        This page introduces Chandra and Skipper. You can read their traits, see quick breed facts,
+        and learn key terms in plain language.
+      </p>
+    </details>
+  </div>
+</section>
+
 <section class="page-section-sm bg-cream">
   <div class="container">
     <div class="dedication-banner">
       <h2>Dedicated to Chandra and Skipper</h2>
-      <p>Faithful and Loving — Two small dogs with hearts the size of the ocean <span aria-hidden="true">🌊</span></p>
+      <p>Two small dogs with big hearts <span aria-hidden="true">🌊</span></p>
     </div>
   </div>
 </section>
 
-<!--  DOG PROFILES  -->
 <section class="page-section bg-warm-white">
   <div class="container">
 
@@ -35,81 +44,68 @@ require_once 'includes/header.php';
       <h2 class="section-title">The Dynamic Duo</h2>
       <hr class="section-divider">
       <p class="story-body story-body--wide mx-auto">
-        Every wag of a tail, every gleaming pair of eyes at breakfast time, and every
-        cozy nap on the couch — Chandra and Skipper fill our days with joy. Here's a
-        little more about who they are.
+        Chandra and Skipper fill our days with joy. Here is a closer look at each pup.
       </p>
     </div>
 
     <div class="row g-5 justify-content-center">
 
-      <!-- ── CHANDRA ── -->
       <div class="col-lg-5 col-md-6">
         <div class="dog-profile-card p-4 text-center h-100">
-
           <div class="dog-card-top-stripe"></div>
-
           <div class="dog-avatar-frame mb-4" aria-hidden="true">🐕</div>
           <div class="dog-breed-badge">Chihuahua</div>
           <h3 class="dog-name">Chandra</h3>
-          <p class="dog-catchphrase">"Princess of the House"</p>
+          <p class="dog-catchphrase">"Princess of the house"</p>
 
           <div class="mb-3">
             <span class="dog-stat-chip"><i class="bi bi-gender-female" aria-hidden="true"></i> Female</span>
             <span class="dog-stat-chip"><span aria-hidden="true">🐾</span> Chihuahua</span>
-            <span class="dog-stat-chip"><span aria-hidden="true">📍</span> Monterey, CA</span>
+            <span class="dog-stat-chip"><span aria-hidden="true">📍</span> Monterey Bay, <abbr title="California">CA</abbr></span>
           </div>
 
           <p class="dog-bio">
-            Chandra is a purebred Chihuahua with all the charm and confidence the breed
-            is famous for. Despite her petite frame, she commands every room she enters
-            with her bold personality and expressive eyes. She loves sunny spots by the
-            window, belly rubs, and is fiercely devoted to her family.
+            Chandra is a purebred Chihuahua with confidence and charm.
+            She loves warm cuddles and sunny windows.
           </p>
 
           <ul class="trait-list text-start">
-            <li>Spirited, bold, and full of confidence</li>
-            <li>Loves warm cuddles and afternoon naps</li>
-            <li>Fiercely loyal and protective of her home</li>
-            <li>Adores walks along the Monterey coastal trail</li>
-            <li>Favourite toy: her plush squeaky taco <span aria-hidden="true">🌮</span></li>
+            <li>Spirited and confident</li>
+            <li>Loves naps and cuddles</li>
+            <li>Loyal and protective</li>
+            <li>Enjoys Monterey coastal walks</li>
+            <li>Favorite toy: plush squeaky taco <span aria-hidden="true">🌮</span></li>
           </ul>
-
         </div>
       </div>
 
-      <!-- ── SKIPPER ── -->
       <div class="col-lg-5 col-md-6">
         <div class="dog-profile-card p-4 text-center h-100">
-
           <div class="dog-card-top-stripe dog-card-top-stripe--skipper"></div>
 
           <div class="dog-avatar-frame mb-4" aria-hidden="true">🐶</div>
           <div class="dog-breed-badge">Chihuahua × Jack Russell</div>
           <h3 class="dog-name">Skipper</h3>
-          <p class="dog-catchphrase">"The Little Explorer"</p>
+          <p class="dog-catchphrase">"The little explorer"</p>
 
           <div class="mb-3">
             <span class="dog-stat-chip"><i class="bi bi-gender-male" aria-hidden="true"></i> Male</span>
-            <span class="dog-stat-chip"><span aria-hidden="true">🐾</span> Chi-Jack</span>
-            <span class="dog-stat-chip"><span aria-hidden="true">📍</span> Monterey, CA</span>
+            <span class="dog-stat-chip"><span aria-hidden="true">🐾</span> <abbr title="Chihuahua and Jack Russell Terrier mix">Jack Chi</abbr></span>
+            <span class="dog-stat-chip"><span aria-hidden="true">📍</span> Monterey Bay, <abbr title="California">CA</abbr></span>
           </div>
 
           <p class="dog-bio">
-            Skipper is a Chihuahua–Jack Russell Terrier hybrid, which means he has
-            double the energy and triple the curiosity! He's always on the move,
-            sniffing out every corner of Monterey Bay. Witty, fast, and endlessly
-            entertaining, Skipper brings laughter to every moment of the day.
+            Skipper is a Chihuahua and Jack Russell mix with high energy and strong curiosity.
+            He loves exploring every path near the coast.
           </p>
 
           <ul class="trait-list text-start">
-            <li>Boundless energy and a nose for adventure</li>
-            <li>Quick learner — loves to show off his tricks</li>
-            <li>Best friends with Chandra (most of the time <span aria-hidden="true">😄</span>)</li>
-            <li>Loves splashing near the water's edge</li>
-            <li>Favourite activity: zoomies at Carmel Beach <span aria-hidden="true">🏖️</span></li>
+            <li>Full of energy and adventure</li>
+            <li>Quick learner and playful companion</li>
+            <li>Best friends with Chandra most days <span aria-hidden="true">😄</span></li>
+            <li>Loves splashing near the shoreline</li>
+            <li>Favorite activity: <dfn>zoomies</dfn> at Carmel Beach <span aria-hidden="true">🏖️</span></li>
           </ul>
-
         </div>
       </div>
 
@@ -117,7 +113,6 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!--  TOGETHER SECTION  -->
 <section class="page-section-sm section-pastel">
   <div class="container">
     <div class="row align-items-center g-5">
@@ -130,19 +125,15 @@ require_once 'includes/header.php';
         <span class="section-eyebrow">Together, Always</span>
         <h2 class="section-title mb-3">The Best of Friends</h2>
         <p class="story-body">
-          Chandra and Skipper are more than just dogs — they are family, companions,
-          and daily reminders of what truly matters in life. Whether they're chasing
-          each other through the garden, snuggled together on a rainy afternoon, or
-          exploring the coastal paths of beautiful Monterey Bay, every moment with them
-          is a treasure.
+          Chandra and Skipper are family, companions, and daily reminders of joy.
+          They explore, cuddle, and play together every day.
         </p>
         <p class="story-body">
-          This website is a love letter to them — and to all small dogs who bring
-          enormous joy to the lives they touch. <span aria-hidden="true">🐾</span>
+          This website is a love letter to them and to all small dogs. <span aria-hidden="true">🐾</span>
         </p>
         <div class="mt-3">
-          <a href="gallery.php" class="btn-wyp btn-wyp-primary me-2">See the Gallery</a>
-          <a href="contact.php" class="btn-wyp btn-wyp-outline-light">Say Hello</a>
+          <a href="gallery.php" class="btn-wyp btn-wyp-primary me-2">Open the Gallery Page</a>
+          <a href="contact.php" class="btn-wyp btn-wyp-outline-light">Open the Contact Form</a>
         </div>
       </div>
 
@@ -150,7 +141,6 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!--  BREED QUICK FACTS  -->
 <section class="page-section bg-cream">
   <div class="container">
 
@@ -161,7 +151,6 @@ require_once 'includes/header.php';
     </div>
 
     <div class="row g-4">
-
       <div class="col-md-6">
         <div class="wyp-card h-100">
           <div class="card-header-band"></div>
@@ -170,12 +159,10 @@ require_once 'includes/header.php';
               <span aria-hidden="true">🐕</span> Chihuahua
             </h3>
             <ul class="trait-list">
-              <li>World's smallest recognised dog breed</li>
-              <li>Lifespan: typically 12–20 years</li>
-              <li>Weight: usually 2–6 lbs (0.9–2.7 kg)</li>
-              <li>Known for fierce loyalty and big personality</li>
-              <li>Alert, confident, and highly adaptable</li>
-              <li>Originally from the Mexican state of Chihuahua</li>
+              <li>World’s smallest recognized dog breed</li>
+              <li>Lifespan: typically 12 to 20 years</li>
+              <li>Weight: usually 2 to 6 pounds (0.9 to 2.7 kg)</li>
+              <li>Known for loyalty and bold personality</li>
             </ul>
           </div>
         </div>
@@ -186,21 +173,33 @@ require_once 'includes/header.php';
           <div class="card-header-band dog-card-top-stripe--skipper"></div>
           <div class="p-4">
             <h3 class="breed-fact-heading">
-              <span aria-hidden="true">🐶</span> Chihuahua &times; Jack Russell Terrier
+              <span aria-hidden="true">🐶</span> Chihuahua × Jack Russell Terrier
             </h3>
             <ul class="trait-list">
-              <li>Affectionately known as a "Jack Chi" or "Chi-Jack"</li>
-              <li>Inherits the terrier's energy and chi's loyalty</li>
-              <li>Weight: typically 8–18 lbs (3.6–8 kg)</li>
-              <li>Highly intelligent and easy to train with positive reinforcement</li>
-              <li>Energetic, playful, and excellent with active families</li>
-              <li>Coat and colour can vary widely from pup to pup</li>
+              <li>Also called Jack Chi or Chi-Jack</li>
+              <li>Mixes terrier energy with Chihuahua loyalty</li>
+              <li>Weight: typically 8 to 18 pounds (3.6 to 8 kg)</li>
+              <li>Smart, playful, and active</li>
             </ul>
           </div>
         </div>
       </div>
-
     </div>
+  </div>
+</section>
+
+<section class="page-section-sm bg-warm-white">
+  <div class="container">
+    <h2 class="section-title text-center">Helpful Terms</h2>
+    <hr class="section-divider">
+    <dl class="wyp-glossary">
+      <dt>Jack Chi (Chi-Jack)</dt>
+      <dd>A mixed breed dog with one Chihuahua parent and one Jack Russell Terrier parent.</dd>
+      <dt>Zoomies</dt>
+      <dd>Short bursts of fast, playful running that many dogs do when excited.</dd>
+      <dt>Monterey Bay, <abbr title="California">CA</abbr></dt>
+      <dd>Monterey Bay in the U.S. state of California.</dd>
+    </dl>
   </div>
 </section>
 

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * index.php — Homepage
  * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8
@@ -8,7 +7,6 @@ $page_id = 'home';
 require_once 'includes/header.php';
 ?>
 
-<!--  HERO SECTION  -->
 <section class="wyp-hero">
 
   <span class="paw-float" aria-hidden="true">🐾</span>
@@ -25,32 +23,43 @@ require_once 'includes/header.php';
           <h1>Wipe Your Paws</h1>
           <p class="hero-tagline">Big Love for Small Paws 🐾</p>
           <p class="hero-copy">
-            Welcome to wipeyourpaws.net, your go-to haven for small dog enthusiasts!
-            Our cozy, pet-friendly space is designed to celebrate the joy of having a
-            furry companion. Come in and let's cherish the love for our small pawed
-            friends together!
+            Welcome to wipeyourpaws.net, your home for small dog lovers.
+            We celebrate life with Chandra and Skipper and share simple,
+            helpful, dog-friendly ideas from Monterey Bay.
           </p>
           <div class="d-flex flex-wrap gap-3">
             <a href="intro.php" class="btn-wyp btn-wyp-primary">
-              Meet Chandra &amp; Skipper 🐶
+              Open Meet the Pups
             </a>
             <a href="monterey.php" class="btn-wyp btn-wyp-outline">
-              Explore Monterey
+              Explore Monterey Bay
             </a>
           </div>
         </div>
       </div>
 
       <div class="col-lg-5 text-center d-none d-lg-block">
-        <img src="images/chandra-graphic.png" alt="chandra graphic logo" width="184" height="245">
-        <div class="hero-card hero-location-badge">Chandra &amp; Skipper say hello!</div>
+        <img src="images/chandra-graphic.png" alt="Illustration of Chandra" width="184" height="245">
+        <div class="hero-card hero-location-badge">Chandra and Skipper say hello.</div>
       </div>
 
     </div>
   </div>
 </section>
 
-<!--  WELCOME FEATURE TILES  -->
+<section class="page-section-sm bg-cream">
+  <div class="container">
+    <details class="simple-summary">
+      <summary>Simple summary of this page</summary>
+      <p>
+        This site shares stories and tips about two small dogs.
+        Use the cards below to meet the pups, learn about Monterey Bay,
+        or preview the gallery.
+      </p>
+    </details>
+  </div>
+</section>
+
 <section class="page-section bg-cream">
   <div class="container">
 
@@ -66,15 +75,14 @@ require_once 'includes/header.php';
         <div class="wyp-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4 text-center">
-            <img src='images/chandra-left-small.png' class="feature-card-icon" alt='Chandra facing left' aria-hidden="true">
+            <img src="images/chandra-left-small.png" class="feature-card-icon" alt="" aria-hidden="true">
             <h3 class="feature-card-heading">Meet the Pups</h3>
             <p class="feature-card-body">
-              Say hello to Chandra, our spirited Chihuahua, and Skipper, our energetic
-              Chihuahua-Jack Russell mix. Two tiny dogs with the biggest hearts you'll
-              ever encounter.
+              Meet Chandra, our spirited Chihuahua, and Skipper, our energetic
+              Chihuahua-Jack Russell mix.
             </p>
             <a href="intro.php" class="btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
-              Their Story <span aria-hidden="true">→</span>
+              Read the Meet the Pups Story <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
@@ -84,15 +92,14 @@ require_once 'includes/header.php';
         <div class="wyp-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4 text-center">
-            <img src='images/wave1-small.png' alt='japanese ocean wave' class="feature-card-icon" aria-hidden="true">
+            <img src="images/wave1-small.png" alt="" class="feature-card-icon" aria-hidden="true">
             <h3 class="feature-card-heading">Monterey Bay Life</h3>
             <p class="feature-card-body">
-              Monterey, CA is a paradise for small dog lovers — dog-friendly beaches,
-              coastal trails, welcoming cafés, and a community that truly adores furry
-              companions of every size.
+              Monterey Bay, California is a paradise for small dog lovers with trails,
+              beaches, and pet-friendly local spots.
             </p>
             <a href="monterey.php" class="btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
-              Explore <span aria-hidden="true">→</span>
+              Explore Monterey Bay Life <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
@@ -102,14 +109,14 @@ require_once 'includes/header.php';
         <div class="wyp-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4 text-center">
-            <img src='images/nikon-small.png' class="feature-card-icon" alt='nikon camera icon' aria-hidden="true">
+            <img src="images/nikon-small.png" class="feature-card-icon" alt="" aria-hidden="true">
             <h3 class="feature-card-heading">Media Gallery</h3>
             <p class="feature-card-body">
-              Our photo gallery is coming soon! We're busy snapping adorable pictures
-              of Chandra and Skipper. Check back soon to see all their cute adventures.
+              Our photo gallery is coming soon and will feature Chandra and Skipper’s
+              favorite moments.
             </p>
             <a href="gallery.php" class="btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
-              Peek Inside <span aria-hidden="true">→</span>
+              Preview the Media Gallery <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
@@ -119,7 +126,6 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!--  QUOTE STRIP  -->
 <section class="section-quote">
   <div class="container text-center">
     <p class="section-quote__text">
@@ -129,7 +135,6 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!--  LOCATION TEASER  -->
 <section class="page-section section-teaser">
   <div class="container">
     <div class="row align-items-center g-5">
@@ -138,13 +143,11 @@ require_once 'includes/header.php';
         <span class="section-eyebrow">Our Home Base</span>
         <h2 class="section-title mb-3">Monterey Bay, California</h2>
         <p class="section-teaser__copy">
-          Nestled along California's stunning central coast, Monterey Bay is one of the
-          most dog-welcoming destinations in the country. With miles of coastal trails,
-          dog-friendly beaches, and a community that loves four-legged friends, it's the
-          perfect home for small paw adventurers like Chandra and Skipper.
+          Monterey Bay offers coastal trails, dog-friendly beaches, and a welcoming
+          local community for dogs and their families.
         </p>
         <a href="monterey.php" class="btn-wyp btn-wyp-primary mt-2">
-          Why We Love It Here
+          Learn Why We Love Monterey Bay
         </a>
       </div>
 
@@ -163,18 +166,17 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!--  CTA STRIP  -->
 <section class="section-cta">
   <div class="container">
     <h2 class="section-cta__h2">
-      Want to Say Hi? <span aria-hidden="true">🐾</span>
+      Want to say hi? <span aria-hidden="true">🐾</span>
     </h2>
     <p class="section-cta__p">
-      We'd love to hear from fellow small dog lovers! Drop us a message anytime.
+      We would love to hear from fellow small dog lovers.
     </p>
     <a href="contact.php" class="btn-wyp btn-wyp-white">
       <div>
-        Get in Touch
+        Open the Contact Form
         <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
       </div>
     </a>

@@ -12,40 +12,47 @@ $placeholders = [
   ['🐾', 'The Dynamic Duo','Best friends forever'],
   ['🌊', 'Monterey Bay',   'Coastal walks'],
   ['🐕', 'Chandra',        'Nap time'],
-  ['🐶', 'Skipper',        'Zoomies!'],
+  ['🐶', 'Skipper',        'Play time'],
   ['🌅', 'Sunset stroll',  'Carmel Beach'],
   ['🐾', 'Chandra',        'Snuggle time'],
-  ['🏖️', 'Skipper',        'Sand & surf'],
-  ['🐕‍🦺','The pups',       'Playing together'],
+  ['🏖️', 'Skipper',        'Sand and surf'],
+  ['🐕‍🦺', 'The pups',       'Playing together'],
   ['🌿', 'Trail life',     'Garrapata Park'],
   ['🐶', 'Chandra',        'Silly faces'],
 ];
 ?>
 
-<!--  PAGE HERO  -->
 <section class="gallery-hero">
   <div class="container text-center page-hero-z">
     <span class="page-hero-emoji" aria-hidden="true">📸🐾✨</span>
     <h1 class="page-hero-h1">Media Gallery</h1>
     <p class="page-hero-tagline">
-      Beautiful moments with Chandra &amp; Skipper &mdash; coming soon!
+      Beautiful moments with Chandra and Skipper — coming soon
     </p>
   </div>
 </section>
 
-<!--  COMING SOON NOTICE  -->
+<section class="page-section-sm bg-cream">
+  <div class="container">
+    <details class="simple-summary">
+      <summary>Simple summary of this page</summary>
+      <p>
+        This gallery is still being built. You can preview placeholders now and return later for full photos.
+      </p>
+    </details>
+  </div>
+</section>
+
 <section class="page-section-sm bg-cream">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-7 text-center">
         <div class="gallery-coming-soon">
           <div class="gallery-coming-soon__icon" aria-hidden="true">🚧</div>
-          <!-- 1.5rem = 24px Berkshire Swash — large text → orange-deep 4.07:1 passes 3:1 ✅ -->
-          <h2 class="section-title">Pictures Loading&hellip;</h2>
+          <h2 class="section-title">Pictures Loading…</h2>
           <p class="gallery-coming-soon__body">
-            We're busy snapping adorable photos of Chandra and Skipper exploring Monterey Bay!
-            This gallery will soon be filled with their cutest moments.
-            Check back soon &mdash; it&rsquo;ll be <em>paw-some</em>! <span aria-hidden="true">🐾</span>
+            We are collecting adorable photos of Chandra and Skipper around Monterey Bay.
+            Check back soon for the full gallery.
           </p>
         </div>
       </div>
@@ -53,7 +60,6 @@ $placeholders = [
   </div>
 </section>
 
-<!--  PLACEHOLDER GRID  -->
 <section class="page-section bg-warm-white">
   <div class="container">
 
@@ -62,7 +68,7 @@ $placeholders = [
       <h2 class="section-title">Gallery Preview</h2>
       <hr class="section-divider">
       <p class="gallery-tip-text">
-        Photo slots awaiting their stars&hellip; <span aria-hidden="true">🌟</span>
+        Photo slots are ready for new moments. <span aria-hidden="true">🌟</span>
       </p>
     </div>
 
@@ -80,25 +86,23 @@ $placeholders = [
   </div>
 </section>
 
-<!--  UPLOAD CTA  -->
 <section class="section-gallery-story">
   <div class="container">
     <div class="row g-4 align-items-center">
 
       <div class="col-lg-8">
-        <h3 class="gallery-story-heading">
-          Have Photos of Your Small Pups? <span aria-hidden="true">🐾</span>
-        </h3>
+        <h2 class="gallery-story-heading">
+          Have photos of your small pups? <span aria-hidden="true">🐾</span>
+        </h2>
         <p class="gallery-story-body">
-          We'd love to feature photos from our community of small dog lovers!
-          Reach out to us through our contact form and share the joy your furry
-          family members bring to your world.
+          We welcome community photos from small dog lovers.
+          Send us a message and share your favorite pictures.
         </p>
       </div>
 
       <div class="col-lg-4 text-lg-end">
         <a href="contact.php" class="btn-wyp btn-wyp-primary">
-          Share Your Pup <span aria-hidden="true">📸</span>
+          Share Your Pup Photos <span aria-hidden="true">📸</span>
         </a>
       </div>
 
@@ -106,7 +110,6 @@ $placeholders = [
   </div>
 </section>
 
-<!--  ABOUT THE DOGS MINI SECTION  -->
 <section class="page-section-sm bg-cream">
   <div class="container">
     <div class="row g-4 justify-content-center">
@@ -115,14 +118,12 @@ $placeholders = [
         <div class="wyp-card text-center p-4">
           <div class="card-header-band"></div>
           <div class="gallery-dog-card-icon" aria-hidden="true">🐕</div>
-          <!-- Bootstrap h3 default ~1.75rem=28px — large text, orange-deep 4.07:1 passes 3:1 ✅ -->
           <h3 class="section-title">Chandra</h3>
           <p class="gallery-dog-teaser">
-            Our spirited Chihuahua princess — her gallery photos will showcase
-            her signature sunlit poses and diva energy.
+            Chandra’s gallery photos will highlight her sunlit poses and expressive personality.
           </p>
           <a href="intro.php" class="gallery-dog-link">
-            Read Chandra&rsquo;s Story <span aria-hidden="true">→</span>
+            Read Chandra’s Story <span aria-hidden="true">→</span>
           </a>
         </div>
       </div>
@@ -133,11 +134,10 @@ $placeholders = [
           <div class="gallery-dog-card-icon" aria-hidden="true">🐶</div>
           <h3 class="section-title">Skipper</h3>
           <p class="gallery-dog-teaser">
-            Our adventurous Jack Chi explorer — expect candid action shots of
-            beach zoomies and trail-sniffing expeditions!
+            Skipper’s gallery photos will capture trail adventures and playful beach moments.
           </p>
           <a href="intro.php" class="gallery-dog-link">
-            Read Skipper&rsquo;s Story <span aria-hidden="true">→</span>
+            Read Skipper’s Story <span aria-hidden="true">→</span>
           </a>
         </div>
       </div>
