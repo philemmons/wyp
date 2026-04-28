@@ -6,7 +6,7 @@
  * Triggered by .htaccess: ErrorDocument 404 /404.php
  */
 http_response_code(403);
-$page_id = 'home';
+$page_id = 'error403';
 require_once 'includes/header.php';
 ?>
 
@@ -49,7 +49,7 @@ require_once 'includes/header.php';
 <!--  QUICK LINKS STRIP  -->
 <section class="quicklinks-section">
     <div class="container">
-        <p class="quicklinks-title text-center">Where would you like to go?</p>
+        <h2 class="quicklinks-title text-center">Where would you like to go?</h2>
         <nav aria-label="Error page navigation">
             <div class="row g-3 justify-content-center">
                 <?php

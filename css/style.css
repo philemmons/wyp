@@ -28,7 +28,7 @@
 :root {
   /* Brand palette */
   --orange-primary: #f07822;
-  --orange-deep: #d94820;
+  --orange-deep: #9a2f12;
   --orange-light: #f5a240;
   --orange-pale: #fcddb0;
   --yellow-bright: #f8ce10;
@@ -54,8 +54,8 @@
    */
   --text-dark: #3a1a00;
   --text-mid: #6b3500;
-  --text-light: #9a5520;
-  --text-orange: #b83918;
+  --text-light: #7a3a05;
+  --text-orange: #7a1e00;
   --text-mauve: #823c64;
 
   /* Typefaces */
@@ -1420,6 +1420,8 @@ main:focus {
   background-color: #000;
   pointer-events: none;
   border: 0.2rem solid var(--yellow-bright);
+  min-width: 2.75rem;
+  min-height: 2.75rem;
 }
 
 /* Visible state toggled by JS */
@@ -1485,6 +1487,12 @@ main:focus {
   color: var(--text-orange);
   font-weight: 900;
   margin-left: 0.1em;
+}
+
+.form-error-text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #7b1111;
 }
 
 .contact-info-box {
@@ -1717,8 +1725,8 @@ main:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 4rem;
-  height: 2.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.18);
   border: 1.5px solid rgba(255, 255, 255, 0.35);
@@ -1762,6 +1770,12 @@ main:focus {
   background: linear-gradient(135deg, #fff0f0, #ffe0e0);
   border: 2px solid #c62828;
   color: #7b1111;
+}
+
+.wyp-alert-error a {
+  color: #7b1111;
+  text-decoration: underline;
+  font-weight: 700;
 }
 
 /*  3j. Animations & Decorative Strips  */

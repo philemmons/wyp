@@ -36,8 +36,12 @@
 
     if (scrollTop > SCROLL_THRESHOLD) {
       backToTopBtn.classList.add('visible');
+      backToTopBtn.setAttribute('tabindex', '0');
+      backToTopBtn.setAttribute('aria-hidden', 'false');
     } else {
       backToTopBtn.classList.remove('visible');
+      backToTopBtn.setAttribute('tabindex', '-1');
+      backToTopBtn.setAttribute('aria-hidden', 'true');
     }
 
     ticking = false;

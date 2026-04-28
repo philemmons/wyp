@@ -19,6 +19,8 @@
   class="btn btn-primary back-to-top"
   id="back-to-top-link"
   title="Back to Top"
+  tabindex="-1"
+  aria-hidden="true"
   aria-label="Back to Top">
   <i class="bi bi-chevron-double-up" aria-hidden="true"></i>
 </a>
@@ -59,13 +61,13 @@
           your cozy corner of the internet for small paw enthusiasts.
         </p>
         <div class="mt-3">
-          <a href="#" class="social-circle" aria-label="Follow us on Facebook">
+          <a href="https://www.facebook.com/" class="social-circle" aria-label="Follow us on Facebook">
             <i class="bi bi-facebook" aria-hidden="true"></i>
           </a>
-          <a href="#" class="social-circle" aria-label="Follow us on Instagram">
+          <a href="https://www.instagram.com/" class="social-circle" aria-label="Follow us on Instagram">
             <i class="bi bi-instagram" aria-hidden="true"></i>
           </a>
-          <a href="#" class="social-circle" aria-label="Follow us on TikTok">
+          <a href="https://www.tiktok.com/" class="social-circle" aria-label="Follow us on TikTok">
             <i class="bi bi-tiktok" aria-hidden="true"></i>
           </a>
         </div>
@@ -101,10 +103,10 @@
       <!-- Fun fact -->
       <div class="col-md-3">
         <h2 class="footer-col-heading">
-          <div>
+          <span>
             Did You Know?
-            <img src='/images/skipper-icon.png' alt='mini skipper icon' width=35 height=30 aria-hidden="true">
-          </div>
+            <img src='/images/skipper-icon.png' alt="" width=35 height=30 aria-hidden="true">
+          </span>
         </h2>
         <p class="footer-col-body">
           Chihuahuas are the world's smallest dog breed but are known for having

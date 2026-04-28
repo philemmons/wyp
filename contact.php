@@ -12,12 +12,14 @@ require_once 'includes/header.php';
 $flash_sent       = $_SESSION['form_sent']   ?? false;
 $flash_mail_error = $_SESSION['form_error']  ?? false;
 $flash_errors     = $_SESSION['form_errors'] ?? [];
+$flash_field_errors = $_SESSION['form_field_errors'] ?? [];
 $old_values       = $_SESSION['form_values'] ?? [];
 
 unset(
     $_SESSION['form_sent'],
     $_SESSION['form_error'],
     $_SESSION['form_errors'],
+    $_SESSION['form_field_errors'],
     $_SESSION['form_values']
 );
 
@@ -29,6 +31,13 @@ $old_name    = htmlspecialchars($old_values['name']    ?? '', ENT_QUOTES, 'UTF-8
 $old_email   = htmlspecialchars($old_values['email']   ?? '', ENT_QUOTES, 'UTF-8');
 $old_subject = htmlspecialchars($old_values['subject'] ?? '', ENT_QUOTES, 'UTF-8');
 $old_msg     = htmlspecialchars($old_values['message'] ?? '', ENT_QUOTES, 'UTF-8');
+
+$name_error = $flash_field_errors['name'] ?? '';
+$email_error = $flash_field_errors['email'] ?? '';
+$message_error = $flash_field_errors['message'] ?? '';
+$form_describedby = !empty($flash_errors)
+    ? 'form-required-note form-error-summary'
+    : 'form-required-note';
 ?>
 
 <!--  PAGE HERO  -->
@@ -62,12 +71,18 @@ $old_msg     = htmlspecialchars($old_values['message'] ?? '', ENT_QUOTES, 'UTF-8
           <a href="mailto:admin@wipeyourpaws.net">admin@wipeyourpaws.net</a>.
         </div>
         <?php elseif (!empty($flash_errors)): ?>
-        <div class="wyp-alert wyp-alert-error mb-4" role="alert" aria-live="assertive">
+        <div class="wyp-alert wyp-alert-error mb-4" id="form-error-summary" role="alert" aria-live="assertive" tabindex="-1">
           <strong>Please correct the following errors:</strong>
           <ul class="mb-0 mt-1">
-            <?php foreach ($flash_errors as $err): ?>
-            <li><?= htmlspecialchars($err, ENT_QUOTES, 'UTF-8') ?></li>
-            <?php endforeach; ?>
+            <?php if ($name_error): ?>
+            <li><a href="#contact-name"><?= htmlspecialchars($name_error, ENT_QUOTES, 'UTF-8') ?></a></li>
+            <?php endif; ?>
+            <?php if ($email_error): ?>
+            <li><a href="#contact-email"><?= htmlspecialchars($email_error, ENT_QUOTES, 'UTF-8') ?></a></li>
+            <?php endif; ?>
+            <?php if ($message_error): ?>
+            <li><a href="#contact-message"><?= htmlspecialchars($message_error, ENT_QUOTES, 'UTF-8') ?></a></li>
+            <?php endif; ?>
           </ul>
         </div>
         <?php endif; ?>
@@ -84,7 +99,7 @@ $old_msg     = htmlspecialchars($old_values['message'] ?? '', ENT_QUOTES, 'UTF-8
           </p>
 
           <form action="contact_submit.php" method="post" novalidate
-                aria-describedby="form-required-note">
+                aria-describedby="<?= $form_describedby ?>">
 
             <input type="hidden" name="csrf_token"
                    value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
@@ -107,7 +122,13 @@ $old_msg     = htmlspecialchars($old_values['message'] ?? '', ENT_QUOTES, 'UTF-8
                 <input type="text" class="form-control" id="contact-name"
                        name="name" value="<?= $old_name ?>"
                        placeholder="Jane Smith" autocomplete="name"
-                       maxlength="120" required aria-required="true">
+                       maxlength="120" required aria-required="true"
+                       <?= $name_error ? 'aria-invalid="true" aria-describedby="contact-name-error"' : '' ?>>
+                <?php if ($name_error): ?>
+                <p class="form-error-text mt-2 mb-0" id="contact-name-error">
+                  <?= htmlspecialchars($name_error, ENT_QUOTES, 'UTF-8') ?>
+                </p>
+                <?php endif; ?>
               </div>
 
               <div class="col-sm-6">
@@ -119,7 +140,13 @@ $old_msg     = htmlspecialchars($old_values['message'] ?? '', ENT_QUOTES, 'UTF-8
                 <input type="email" class="form-control" id="contact-email"
                        name="email" value="<?= $old_email ?>"
                        placeholder="you@example.com" autocomplete="email"
-                       maxlength="254" required aria-required="true">
+                       maxlength="254" required aria-required="true"
+                       <?= $email_error ? 'aria-invalid="true" aria-describedby="contact-email-error"' : '' ?>>
+                <?php if ($email_error): ?>
+                <p class="form-error-text mt-2 mb-0" id="contact-email-error">
+                  <?= htmlspecialchars($email_error, ENT_QUOTES, 'UTF-8') ?>
+                </p>
+                <?php endif; ?>
               </div>
 
               <div class="col-12">
@@ -140,7 +167,13 @@ $old_msg     = htmlspecialchars($old_values['message'] ?? '', ENT_QUOTES, 'UTF-8
                           name="message" rows="6"
                           placeholder="Tell us about your furry friends, ask a question, or just say hi!"
                           autocomplete="off"
-                          required aria-required="true"><?= $old_msg ?></textarea>
+                          required aria-required="true"
+                          <?= $message_error ? 'aria-invalid="true" aria-describedby="contact-message-error"' : '' ?>><?= $old_msg ?></textarea>
+                <?php if ($message_error): ?>
+                <p class="form-error-text mt-2 mb-0" id="contact-message-error">
+                  <?= htmlspecialchars($message_error, ENT_QUOTES, 'UTF-8') ?>
+                </p>
+                <?php endif; ?>
               </div>
 
               <div class="col-12 mt-2">

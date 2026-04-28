@@ -66,7 +66,7 @@ require_once 'includes/header.php';
         <div class="wyp-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4 text-center">
-            <img src='images/chandra-left-small.png' class="feature-card-icon" alt='Chandra facing left' aria-hidden="true">
+            <img src='images/chandra-left-small.png' class="feature-card-icon" alt="" aria-hidden="true">
             <h3 class="feature-card-heading">Meet the Pups</h3>
             <p class="feature-card-body">
               Say hello to Chandra, our spirited Chihuahua, and Skipper, our energetic
@@ -84,7 +84,7 @@ require_once 'includes/header.php';
         <div class="wyp-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4 text-center">
-            <img src='images/wave1-small.png' alt='japanese ocean wave' class="feature-card-icon" aria-hidden="true">
+            <img src='images/wave1-small.png' alt="" class="feature-card-icon" aria-hidden="true">
             <h3 class="feature-card-heading">Monterey Bay Life</h3>
             <p class="feature-card-body">
               Monterey, CA is a paradise for small dog lovers — dog-friendly beaches,
@@ -102,7 +102,7 @@ require_once 'includes/header.php';
         <div class="wyp-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4 text-center">
-            <img src='images/nikon-small.png' class="feature-card-icon" alt='nikon camera icon' aria-hidden="true">
+            <img src='images/nikon-small.png' class="feature-card-icon" alt="" aria-hidden="true">
             <h3 class="feature-card-heading">Media Gallery</h3>
             <p class="feature-card-body">
               Our photo gallery is coming soon! We're busy snapping adorable pictures
