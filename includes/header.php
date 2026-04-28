@@ -137,8 +137,8 @@ $current_crumb = $breadcrumb_labels[$page_id] ?? 'Current Page';
                   href="<?= htmlspecialchars($item['href']) ?>"
                   <?= $is_active ? 'aria-current="page"' : '' ?>>
                   <?= htmlspecialchars($item['label']) ?>
-                  <?= $is_active ? '<span class="visually-hidden">(current page)</span>' : '' ?>
                 </a>
+                <?= $is_active ? '<span class="visually-hidden">(current page)</span>' : '' ?>
               </li>
             <?php endforeach; ?>
           </ul>
