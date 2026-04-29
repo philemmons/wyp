@@ -432,7 +432,7 @@ p:last-child {
   bottom: 0.28rem;
   height: 0.12rem;
   border-radius: var(--radius-pill);
-  background: linear-gradient(90deg, var(--brand-100), var(--brand-400));
+  background: #000;
   transform: scaleX(0);
   transform-origin: center;
   transition: transform var(--motion-base) var(--ease-standard);
