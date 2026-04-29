@@ -204,11 +204,52 @@ main:focus {
 }
 
 .swirl-strip {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   height: 0.4rem;
   background:
     linear-gradient(90deg, var(--brand-100), var(--brand-300), var(--brand-500), var(--brand-200));
-  background-size: 240% 100%;
+  background-size: 220% 100%;
+  animation: swirlShift 14s linear infinite;
   box-shadow: inset 0 -1px 0 rgba(15, 10, 7, 0.25);
+}
+
+.swirl-strip.swirl-strip--shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 20%;
+  background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.35) 50%, transparent 100%);
+  transform: translateX(-220%);
+  opacity: 0.75;
+  pointer-events: none;
+  will-change: transform;
+  animation: swirlShimmer 2.8s var(--ease-standard) infinite;
+}
+
+@keyframes swirlShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes swirlShimmer {
+  0% {
+    transform: translateX(-220%);
+  }
+
+  100% {
+    transform: translateX(620%);
+  }
 }
 
 /****** 2. TYPOGRAPHY ******/
