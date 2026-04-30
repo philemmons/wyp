@@ -91,6 +91,13 @@
   --motion-base: 220ms;
   --ease-standard: cubic-bezier(0.22, 0.72, 0.2, 1);
 
+    /* Paw sizing tokens */
+  --size-paw-xs: clamp(0.70rem, 1.1vw, 0.95rem);
+  --size-paw-sm: clamp(0.90rem, 1.5vw, 1.25rem);
+  --size-paw-md: clamp(1.10rem, 2vw, 1.60rem);
+  --size-paw-lg: clamp(1.45rem, 2.6vw, 2.10rem);
+  --size-paw-xl: clamp(1.90rem, 3.4vw, 2.90rem);
+
   /* Focus */
   --focus-ring: var(--sky-blue);
   --focus-outline: 0 0 0 2px var(--white), 0 0 0 5px var(--focus-ring);
@@ -683,7 +690,7 @@ p:last-child {
 
 .paw-float {
   position: absolute;
-  font-size: clamp(1.1rem, 2vw, 1.6rem);
+
   opacity: 0.26;
   filter: drop-shadow(0 6px 12px rgba(95, 53, 30, 0.2));
   animation: floatDrift 8s ease-in-out infinite;
@@ -692,26 +699,31 @@ p:last-child {
 .paw-float:nth-of-type(1) {
   top: 14%;
   left: 10%;
+  font-size: var(--size-paw-lg);
 }
 .paw-float:nth-of-type(2) {
   top: 28%;
   right: 12%;
   animation-delay: 1.2s;
+  font-size: var(--size-paw-md);
 }
 .paw-float:nth-of-type(3) {
   bottom: 24%;
   left: 8%;
   animation-delay: 2.1s;
+  font-size: var(--size-paw-sm);
 }
 .paw-float:nth-of-type(4) {
   bottom: 14%;
   right: 16%;
   animation-delay: 3s;
+  font-size: var(--size-paw-xl);
 }
 .paw-float:nth-of-type(5) {
   top: 45%;
   left: 46%;
   animation-delay: 4.2s;
+  font-size: var(--size-paw-xs);
 }
 
 @keyframes floatDrift {
