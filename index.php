@@ -43,7 +43,7 @@ require_once 'includes/header.php';
 
       <div class="col-lg-5 text-center d-none d-lg-block">
         <img src="images/chandra-graphic.png" alt="chandra graphic logo" width="184" height="245">
-        <div class="hero-card hero-location-badge">Chandra &amp; Skipper say hello!</div>
+        <div class="hero-card hero-tagline">Chandra &amp; Skipper say hello!</div>
       </div>
 
     </div>

@@ -656,8 +656,7 @@ p:last-child {
 
 .wyp-hero h1,
 .hero-tagline,
-.hero-copy,
-.hero-location-badge {
+.hero-copy{
   color: var(--text-strong);
 }
 
@@ -678,20 +677,9 @@ p:last-child {
   line-height: 1.7;
 }
 
-.hero-location-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-top: 1rem;
-  font-size: 0.95rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-}
 
 .paw-float {
   position: absolute;
-
   opacity: 0.26;
   filter: drop-shadow(0 6px 12px rgba(95, 53, 30, 0.2));
   animation: floatDrift 8s ease-in-out infinite;
@@ -721,8 +709,8 @@ p:last-child {
   font-size: var(--size-paw-xl);
 }
 .paw-float:nth-of-type(5) {
-  top: 51%;
-  right: 37%;
+  top: 30%;
+  right: 10%;
   animation-delay: 4.2s;
   font-size: var(--size-paw-xs);
 }
