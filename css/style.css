@@ -435,9 +435,9 @@ p:last-child {
   font-family: var(--font-body);
   font-size: 0.68rem;
   letter-spacing: 0.12em;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
-  color: var(--text-dark);
+  color: var(--text-strong);
 }
 
 .paw-brand-icon {
@@ -477,10 +477,10 @@ p:last-child {
   position: absolute;
   left: 0.85rem;
   right: 0.85rem;
-  bottom: 0.3rem;
+  bottom: 0.6rem;
   height: 0.14rem;
   border-radius: var(--radius-pill);
-  background: linear-gradient(90deg, var(--tangerine), var(--peach));
+  background: var(--black);
   transform: scaleX(0);
   transform-origin: center;
   transition: transform var(--motion-base) var(--ease-standard);
