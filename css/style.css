@@ -16,10 +16,11 @@
 ******/
 
 /***** 1. TOKENS + RESET *****/
+/* Root/global tokens */
 :root {
   color-scheme: light;
 
-  /* Required palette */
+  /* Brand color tokens */
   --cream: #FFF9EF;
   --sunshine: #FFD86A;
   --tangerine: #FFA43D;
@@ -31,19 +32,26 @@
   --white: #FFFFFF;
   --black: #000000;
 
-  /* Legacy aliases used in templates */
+  /* Brand legacy aliases used in templates */
   --orange-primary: var(--tangerine);
   --orange-light: #FFC678;
   --orange-deep: #96502C;
   --yellow-bright: var(--sunshine);
   --pink-mauve: var(--cinnamon);
 
-  /* Text */
+  /* Typography tokens */
   --text-strong: var(--espresso);
   --text-dark: #6D4B35;
   --text-mid: #A67C52;
   --text-soft: #E7D2BE;
+  --font-body: "Nunito", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-display: "Berkshire Swash", "Playfair Display", Georgia, serif;
+  --line-body: 1.65;
+  --line-heading: 1.2;
+  --measure: 72ch;
 
+  /* Root/global surface + border + shadow tokens */
   /* Surfaces */
   --surface-page: var(--cream);
   --surface-1: var(--white);
@@ -60,7 +68,7 @@
   --shadow-lg: 0 24px 52px rgba(86, 53, 31, 0.2);
   --shadow-warm: 0 14px 30px rgba(255, 140, 99, 0.22);
 
-  /* Spacing */
+  /* Layout/spacing tokens */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -86,16 +94,87 @@
   /* Focus */
   --focus-ring: var(--sky-blue);
   --focus-outline: 0 0 0 2px var(--white), 0 0 0 5px var(--focus-ring);
-
-  /* Fonts */
-  --font-body: "Nunito", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --font-heading: "Playfair Display", Georgia, serif;
-  --font-display: "Berkshire Swash", "Playfair Display", Georgia, serif;
-  --line-body: 1.65;
-  --line-heading: 1.2;
-  --measure: 72ch;
 }
 
+/* Component-scoped tokens */
+/* Button tokens */
+.btn-wyp,
+.btn-submit {
+  --btn-bg: var(--white);
+  --btn-text: var(--espresso);
+  --btn-border: rgba(59, 36, 22, 0.72);
+}
+
+.btn-wyp-primary,
+.btn-submit {
+  --btn-bg: linear-gradient(145deg, var(--tangerine), var(--peach));
+  --btn-text: #2A180F;
+  --btn-border: rgba(138, 79, 41, 0.82);
+}
+
+.btn-wyp-outline {
+  --btn-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 249, 239, 0.98));
+  --btn-text: var(--text-strong);
+  --btn-border: rgba(200, 111, 61, 0.78);
+}
+
+.btn-wyp-outline:hover {
+  --btn-bg: linear-gradient(145deg, #FFFFFF, #FFF4E5);
+}
+
+.btn-wyp-outline-light {
+  --btn-bg: rgba(255, 255, 255, 0.9);
+  --btn-text: #6B3B20;
+  --btn-border: rgba(154, 79, 40, 0.82);
+}
+
+.btn-wyp-outline-light:hover {
+  --btn-bg: #FFF3E3;
+}
+
+.btn-wyp-white {
+  --btn-bg: #FFFFFF;
+  --btn-text: #4A2B1B;
+  --btn-border: rgba(183, 108, 66, 0.82);
+}
+
+/* Motion state tokens */
+[data-animate] {
+  --io-opacity: 0;
+  --io-y: 0.9rem;
+}
+
+[data-animate].animate-init {
+  --io-opacity: 0;
+  --io-y: 0.9rem;
+}
+
+[data-animate].animate-in {
+  --io-opacity: 1;
+  --io-y: 0;
+}
+
+/* Bootstrap component tokens */
+.accordion,
+.faq-section {
+  --bs-accordion-color: var(--text-dark);
+  --bs-accordion-bg: var(--surface-1);
+  --bs-accordion-btn-color: var(--text-strong);
+  --bs-accordion-border-color: var(--border-mid);
+  --bs-accordion-active-color: var(--text-strong);
+  --bs-accordion-active-bg: #FFF4E5;
+  --bs-accordion-btn-focus-box-shadow: var(--focus-outline);
+}
+
+.modal {
+  --bs-modal-bg: var(--surface-1);
+  --bs-modal-border-color: var(--border-mid);
+  --bs-modal-color: var(--text-dark);
+  --bs-modal-header-border-color: var(--border-soft);
+  --bs-modal-footer-border-color: var(--border-soft);
+}
+
+/* Reset/base styles */
 *,
 *::before,
 *::after {
@@ -411,7 +490,7 @@ p:last-child {
 .wyp-navbar .nav-link:focus-visible,
 .wyp-navbar .nav-link.active {
   color: #2D1B11 !important;
-  background: rgba(255, 216, 106, 0.34);
+  background: var(--tangerine);
 }
 
 .wyp-navbar .nav-link:hover::after,
@@ -610,9 +689,6 @@ p:last-child {
 /***** 5. BUTTONS + INTERACTIVE STATES *****/
 .btn-wyp,
 .btn-submit {
-  --btn-bg: var(--white);
-  --btn-text: var(--espresso);
-  --btn-border: rgba(59, 36, 22, 0.72);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -657,39 +733,6 @@ p:last-child {
   min-height: 2.35rem;
   padding: 0.58rem 1rem;
   font-size: 0.78rem;
-}
-
-.btn-wyp-primary,
-.btn-submit {
-  --btn-bg: linear-gradient(145deg, var(--tangerine), var(--peach));
-  --btn-text: #2A180F;
-  --btn-border: rgba(138, 79, 41, 0.82);
-}
-
-.btn-wyp-outline {
-  --btn-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 249, 239, 0.98));
-  --btn-text: var(--text-strong);
-  --btn-border: rgba(200, 111, 61, 0.78);
-}
-
-.btn-wyp-outline:hover {
-  --btn-bg: linear-gradient(145deg, #FFFFFF, #FFF4E5);
-}
-
-.btn-wyp-outline-light {
-  --btn-bg: rgba(255, 255, 255, 0.9);
-  --btn-text: #6B3B20;
-  --btn-border: rgba(154, 79, 40, 0.82);
-}
-
-.btn-wyp-outline-light:hover {
-  --btn-bg: #FFF3E3;
-}
-
-.btn-wyp-white {
-  --btn-bg: #FFFFFF;
-  --btn-text: #4A2B1B;
-  --btn-border: rgba(183, 108, 66, 0.82);
 }
 
 .btn-submit {
@@ -1398,20 +1441,8 @@ textarea.form-control {
 }
 
 [data-animate] {
-  --io-opacity: 0;
-  --io-y: 0.9rem;
   opacity: var(--io-opacity);
   transform: translateY(var(--io-y));
-}
-
-[data-animate].animate-init {
-  --io-opacity: 0;
-  --io-y: 0.9rem;
-}
-
-[data-animate].animate-in {
-  --io-opacity: 1;
-  --io-y: 0;
 }
 
 .icon-btn,
@@ -1432,17 +1463,6 @@ textarea.form-control {
   border: 1px solid rgba(154, 79, 40, 0.24);
 }
 
-.accordion,
-.faq-section {
-  --bs-accordion-color: var(--text-dark);
-  --bs-accordion-bg: var(--surface-1);
-  --bs-accordion-btn-color: var(--text-strong);
-  --bs-accordion-border-color: var(--border-mid);
-  --bs-accordion-active-color: var(--text-strong);
-  --bs-accordion-active-bg: #FFF4E5;
-  --bs-accordion-btn-focus-box-shadow: var(--focus-outline);
-}
-
 .accordion-item {
   border-radius: var(--radius-md) !important;
   overflow: hidden;
@@ -1456,14 +1476,6 @@ textarea.form-control {
 
 .accordion-button:not(.collapsed) {
   background: #FFF7EA;
-}
-
-.modal {
-  --bs-modal-bg: var(--surface-1);
-  --bs-modal-border-color: var(--border-mid);
-  --bs-modal-color: var(--text-dark);
-  --bs-modal-header-border-color: var(--border-soft);
-  --bs-modal-footer-border-color: var(--border-soft);
 }
 
 .modal-content {
