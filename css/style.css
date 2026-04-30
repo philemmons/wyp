@@ -301,7 +301,7 @@ main:focus {
 .swirl-strip {
   position: relative;
   overflow: hidden;
-  height: 0.4rem;
+  height: 0.6rem;
   background: linear-gradient(
     90deg,
     var(--sunshine),
