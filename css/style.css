@@ -670,6 +670,7 @@ p:last-child {
 .hero-tagline {
   font-family: var(--font-heading);
   font-size: clamp(1.06rem, 2.3vw, 1.4rem);
+  letter-spacing: 0.12em;
 }
 
 .hero-copy {

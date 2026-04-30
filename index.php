@@ -18,7 +18,7 @@ require_once 'includes/header.php';
   <span class="paw-float" aria-hidden="true">🐾</span>
 
   <div class="container hero-content">
-    <div class="row align-items-center g-5">
+    <div class="row align-items-end g-5">
 
       <div class="col-lg-7">
         <div class="hero-card">
