@@ -25,10 +25,11 @@
   --tangerine: #FFA43D;
   --peach: #FF8C63;
   --cinnamon: #C86F3D;
-  --espresso: #3B2416;
+  --espresso: #1d0e07;
   --sky-blue: #55B7FF;
   --nose-pink: #FFB6C1;
   --white: #FFFFFF;
+  --black: #000000;
 
   /* Legacy aliases used in templates */
   --orange-primary: var(--tangerine);
@@ -39,9 +40,9 @@
 
   /* Text */
   --text-strong: var(--espresso);
-  --text-dark: #4D2F1E;
-  --text-mid: #5F3B27;
-  --text-soft: #7B5B47;
+  --text-dark: #6D4B35;
+  --text-mid: #A67C52;
+  --text-soft: #E7D2BE;
 
   /* Surfaces */
   --surface-page: var(--cream);
@@ -121,7 +122,6 @@ body {
   overflow-x: clip;
 }
 
-img,
 video,
 canvas,
 audio,
