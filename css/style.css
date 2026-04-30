@@ -91,12 +91,12 @@
   --motion-base: 220ms;
   --ease-standard: cubic-bezier(0.22, 0.72, 0.2, 1);
 
-    /* Paw sizing tokens */
-  --size-paw-xs: clamp(0.70rem, 1.1vw, 0.95rem);
-  --size-paw-sm: clamp(0.90rem, 1.5vw, 1.25rem);
-  --size-paw-md: clamp(1.10rem, 2vw, 1.60rem);
-  --size-paw-lg: clamp(1.45rem, 2.6vw, 2.10rem);
-  --size-paw-xl: clamp(1.90rem, 3.4vw, 2.90rem);
+/* Dog Paw Icon Scale — Double Size */
+  --size-paw-xs: clamp(1.40rem, 2.2vw, 1.90rem);
+  --size-paw-sm: clamp(1.80rem, 3vw, 2.50rem);
+  --size-paw-md: clamp(2.20rem, 4vw, 3.20rem);
+  --size-paw-lg: clamp(2.90rem, 5.2vw, 4.20rem);
+  --size-paw-xl: clamp(3.80rem, 6.8vw, 5.80rem);
 
   /* Focus */
   --focus-ring: var(--sky-blue);
