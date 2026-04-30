@@ -613,8 +613,8 @@ p:last-child {
   color: var(--text-strong);
   background: linear-gradient(
     145deg,
-    rgba(255, 255, 255, 0.94),
-    rgba(255, 244, 230, 0.9)
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 244, 233, 0.4)
   );
   border: 1px solid rgba(200, 111, 61, 0.22);
   border-radius: var(--radius-2xl);
