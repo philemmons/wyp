@@ -91,12 +91,12 @@
   --motion-base: 220ms;
   --ease-standard: cubic-bezier(0.22, 0.72, 0.2, 1);
 
-/* Dog Paw Icon Scale — Double Size */
-  --size-paw-xs: clamp(1.40rem, 2.2vw, 1.90rem);
-  --size-paw-sm: clamp(1.80rem, 3vw, 2.50rem);
-  --size-paw-md: clamp(2.20rem, 4vw, 3.20rem);
-  --size-paw-lg: clamp(2.90rem, 5.2vw, 4.20rem);
-  --size-paw-xl: clamp(3.80rem, 6.8vw, 5.80rem);
+  /* Dog Paw Icon Scale — Double Size */
+  --size-paw-xs: clamp(1.4rem, 2.2vw, 1.9rem);
+  --size-paw-sm: clamp(1.8rem, 3vw, 2.5rem);
+  --size-paw-md: clamp(2.2rem, 4vw, 3.2rem);
+  --size-paw-lg: clamp(2.9rem, 5.2vw, 4.2rem);
+  --size-paw-xl: clamp(3.8rem, 6.8vw, 5.8rem);
 
   /* Focus */
   --focus-ring: var(--sky-blue);
@@ -697,18 +697,18 @@ p:last-child {
 }
 
 .paw-float:nth-of-type(1) {
-  top: 14%;
-  left: 10%;
+  top: 16%;
+  left: 13%;
   font-size: var(--size-paw-lg);
 }
 .paw-float:nth-of-type(2) {
-  top: 28%;
-  right: 12%;
+  top: 7%;
+  right: 28%;
   animation-delay: 1.2s;
   font-size: var(--size-paw-md);
 }
 .paw-float:nth-of-type(3) {
-  bottom: 24%;
+  bottom: 13%;
   left: 8%;
   animation-delay: 2.1s;
   font-size: var(--size-paw-sm);
@@ -720,8 +720,8 @@ p:last-child {
   font-size: var(--size-paw-xl);
 }
 .paw-float:nth-of-type(5) {
-  top: 45%;
-  left: 46%;
+  top: 51%;
+  right: 37%;
   animation-delay: 4.2s;
   font-size: var(--size-paw-xs);
 }
