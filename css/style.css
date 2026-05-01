@@ -795,6 +795,8 @@ p:last-child {
 .btn-wyp,
 .btn-submit {
   display: inline-flex;
+  position: relative;
+  overflow: hidden;
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
@@ -813,8 +815,8 @@ p:last-child {
   cursor: pointer;
 }
 
-.btn-wyp:after,
-.btn-submit:after {
+.btn-wyp::after,
+.btn-submit::after {
   content: "";
   position: absolute;
   left: 0.85rem;
