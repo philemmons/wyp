@@ -953,8 +953,8 @@ p:last-child {
 }
 
 .feature-card-icon {
-  width: 3.25rem;
-  height: 3.25rem;
+  width: 5rem;
+  height: 5rem;
   margin-inline: auto;
   object-fit: contain;
 }
