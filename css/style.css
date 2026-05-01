@@ -1559,7 +1559,7 @@ textarea.form-control {
   height: 2.75rem;
   margin-right: 0.35rem;
   border-radius: 50%;
-  border: 1px solid rgba(200, 111, 61, 0.36);
+  border: 1px solid var(--espresso);
   background: #fffdf8;
   color: var(--text-strong);
   text-decoration: none;
@@ -1567,9 +1567,9 @@ textarea.form-control {
 }
 
 .social-circle:hover {
-  transform: translateY(-1px);
+  transform: translateY(-5px);
   background: linear-gradient(135deg, #ffe6ba, #ffd191);
-  color: #2f1c12;
+  color: var(--espresso);
 }
 
 .back-to-top {
