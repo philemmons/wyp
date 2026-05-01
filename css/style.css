@@ -1741,11 +1741,12 @@ textarea.form-control {
   );
   --btt-bg-active: linear-gradient(
     145deg,
-    color-mix(in srgb, var(--tangerine) 80%, var(--espresso) 20%),
-    color-mix(in srgb, var(--peach) 80%, var(--espresso) 20%)
+    color-mix(in srgb, var(--tangerine) 90%, var(--espresso) 10%),
+    color-mix(in srgb, var(--peach) 92%, var(--espresso) 8%)
   );
   --btt-border: color-mix(in srgb, var(--espresso) 58%, var(--tangerine) 42%);
   --btt-border-hover: color-mix(in srgb, var(--espresso) 64%, var(--tangerine) 36%);
+  --btt-focus-ring: color-mix(in srgb, var(--focus-ring) 35%, var(--espresso) 65%);
   --btt-icon: var(--espresso);
   --btt-shadow-base:
     0 11px 24px color-mix(in srgb, var(--espresso) 18%, transparent),
@@ -1856,7 +1857,7 @@ textarea.form-control {
   border-color: var(--espresso);
   box-shadow:
     0 0 0 2px var(--white),
-    0 0 0 6px var(--focus-ring),
+    0 0 0 6px var(--btt-focus-ring),
     var(--btt-shadow-hover);
 }
 
