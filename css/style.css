@@ -42,7 +42,7 @@
   /* Typography tokens */
   --text-strong: var(--espresso);
   --text-dark: #6d4b35;
-  --text-mid: #a67c52;
+  --text-dark: #a67c52;
   --text-soft: #e7d2be;
   --font-body: "Nunito", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-heading: "Playfair Display", Georgia, serif;
@@ -377,7 +377,7 @@ h3 {
 p,
 li {
   font-size: 1rem;
-  color: var(--text-mid);
+  color: var(--text-dark);
 }
 
 p {
@@ -995,7 +995,7 @@ p:last-child {
 .contact-paw-box__text,
 .contact-info-value,
 .contact-info-note {
-  color: var(--text-mid);
+  color: var(--text-dark);
 }
 
 .dog-catchphrase {
@@ -1007,7 +1007,7 @@ p:last-child {
 .trait-list {
   margin: 0;
   padding-left: 1.2rem;
-  color: var(--text-mid);
+  color: var(--text-dark);
 }
 
 .trait-list li {
