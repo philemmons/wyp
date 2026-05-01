@@ -1102,6 +1102,10 @@ p:last-child {
   color: var(--text-dark);
 }
 
+.monterey-intro__copy {
+  margin: auto;
+}
+
 .dog-catchphrase {
   font-style: italic;
   color: var(--cinnamon);
