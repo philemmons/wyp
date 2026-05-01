@@ -1812,7 +1812,7 @@ textarea.form-control {
   .back-to-top.visible:hover {
     transform: translateY(-3px) scale(1.04);
     border-color: var(--espresso);
-    background: var(--btt-bg);
+    background: var(--btt-bg-hover);
     box-shadow:
       0 0 0 2px var(--white),
       0 0 0 6px var(--btt-focus-ring),
