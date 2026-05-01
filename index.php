@@ -169,7 +169,7 @@ require_once 'includes/header.php';
     <h2 class="section-cta__h2">
       Want to Say Hi? <span aria-hidden="true">🐾</span>
     </h2>
-    <p class="section-cta__p">
+    <p class="section-cta__p hero-tagline">
       We'd love to hear from fellow small dog lovers! Drop us a message anytime.
     </p>
     <a href="contact.php" class="btn-wyp btn-wyp-white">
