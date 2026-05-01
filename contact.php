@@ -55,7 +55,7 @@ $form_describedby = !empty($flash_errors)
 </section>
 
 <!--  MAIN CONTACT SECTION  -->
-<section class="wyp-section wyp-section-alt">
+<section class="wyp-section section-cta">
   <div class="container">
     <div class="row g-5 justify-content-center">
 

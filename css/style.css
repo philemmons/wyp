@@ -1450,7 +1450,7 @@ p:last-child {
 .wyp-form .form-select,
 .form-control,
 .form-select {
-  border: 1px solid var(--border-mid);
+  border: 1px solid var(--b);
   border-radius: var(--radius-sm);
   background: #fffcf7;
   color: var(--text-strong);
