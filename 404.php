@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 404.php — Custom Not Found page
  * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8
@@ -61,13 +62,13 @@ require_once 'includes/header.php';
           ['contact.php',  '✉️', 'Contact Us',     'Say hello'],
         ];
         foreach ($links as $l): ?>
-        <div class="col-sm-4 col-md-2">
-          <a href="<?= $l[0] ?>" class="quicklink-card">
-            <span class="quicklink-icon" aria-hidden="true"><?= $l[1] ?></span>
-            <?= $l[2] ?>
-            <span class="quicklink-subtitle"><?= $l[3] ?></span>
-          </a>
-        </div>
+          <div class="col-sm-4 col-md-2">
+            <a href="<?= $l[0] ?>" class="quicklink-card">
+              <span class="quicklink-icon" aria-hidden="true"><?= $l[1] ?></span>
+              <?= $l[2] ?>
+              <span class="quicklink-subtitle"><?= $l[3] ?></span>
+            </a>
+          </div>
         <?php endforeach; ?>
       </div>
     </nav>

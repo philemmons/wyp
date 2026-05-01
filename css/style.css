@@ -1235,11 +1235,19 @@ p:last-child {
 }
 
 .monterey-num-badge.monterey-theme-primary {
-  background: linear-gradient(135deg, var(--orange-primary), var(--yellow-bright));
+  background: linear-gradient(
+    135deg,
+    var(--orange-primary),
+    var(--yellow-bright)
+  );
 }
 
 .monterey-num-badge.monterey-theme-light {
-  background: linear-gradient(135deg, var(--orange-light), var(--yellow-bright));
+  background: linear-gradient(
+    135deg,
+    var(--orange-light),
+    var(--yellow-bright)
+  );
 }
 
 .monterey-num-badge.monterey-theme-deep {
@@ -1745,8 +1753,16 @@ textarea.form-control {
     color-mix(in srgb, var(--peach) 92%, var(--espresso) 8%)
   );
   --btt-border: color-mix(in srgb, var(--espresso) 58%, var(--tangerine) 42%);
-  --btt-border-hover: color-mix(in srgb, var(--espresso) 64%, var(--tangerine) 36%);
-  --btt-focus-ring: color-mix(in srgb, var(--focus-ring) 35%, var(--espresso) 65%);
+  --btt-border-hover: color-mix(
+    in srgb,
+    var(--espresso) 64%,
+    var(--tangerine) 36%
+  );
+  --btt-focus-ring: color-mix(
+    in srgb,
+    var(--focus-ring) 35%,
+    var(--espresso) 65%
+  );
   --btt-icon: var(--espresso);
   --btt-shadow-base:
     0 11px 24px color-mix(in srgb, var(--espresso) 18%, transparent),

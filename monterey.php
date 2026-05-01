@@ -1,4 +1,5 @@
 <?php
+
 /**
  * monterey.php — Why Monterey?
  * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8
@@ -12,10 +13,14 @@ $categories = [
     'title' => 'Natural Beauty & Outdoor Activities',
     'theme' => 'monterey-theme-primary',
     'items' => [
-      ['title' => 'Scenic Locations',
-       'body'  => 'Monterey offers stunning coastal views, beaches, and parks that are perfect for dog walking and outdoor activities. Popular spots include <strong>Carmel Beach</strong>, <strong>Garrapata State Park</strong>, and the <strong>Monterey Bay Coastal Recreation Trail</strong>.'],
-      ['title' => 'Mild Climate',
-       'body'  => 'The moderate climate in Monterey is ideal for outdoor activities year-round, ensuring that dogs can enjoy the outdoors without the extremes of hot or cold weather.'],
+      [
+        'title' => 'Scenic Locations',
+        'body'  => 'Monterey offers stunning coastal views, beaches, and parks that are perfect for dog walking and outdoor activities. Popular spots include <strong>Carmel Beach</strong>, <strong>Garrapata State Park</strong>, and the <strong>Monterey Bay Coastal Recreation Trail</strong>.'
+      ],
+      [
+        'title' => 'Mild Climate',
+        'body'  => 'The moderate climate in Monterey is ideal for outdoor activities year-round, ensuring that dogs can enjoy the outdoors without the extremes of hot or cold weather.'
+      ],
     ],
   ],
   [
@@ -23,10 +28,14 @@ $categories = [
     'title' => 'Dog-Friendly Culture',
     'theme' => 'monterey-theme-mauve',
     'items' => [
-      ['title' => 'Pet-Friendly Establishments',
-       'body'  => 'Many restaurants, cafés, and shops in Monterey are pet-friendly, allowing dogs to accompany their owners. Some establishments even provide <strong>water bowls and treats</strong> for dogs.'],
-      ['title' => 'Dog-Friendly Lodging',
-       'body'  => 'There are numerous hotels and vacation rentals that welcome dogs, making it easy for travelers with pets to find comfortable accommodations.'],
+      [
+        'title' => 'Pet-Friendly Establishments',
+        'body'  => 'Many restaurants, cafés, and shops in Monterey are pet-friendly, allowing dogs to accompany their owners. Some establishments even provide <strong>water bowls and treats</strong> for dogs.'
+      ],
+      [
+        'title' => 'Dog-Friendly Lodging',
+        'body'  => 'There are numerous hotels and vacation rentals that welcome dogs, making it easy for travelers with pets to find comfortable accommodations.'
+      ],
     ],
   ],
   [
@@ -34,10 +43,14 @@ $categories = [
     'title' => 'Community & Events',
     'theme' => 'monterey-theme-deep',
     'items' => [
-      ['title' => 'Dog-Centric Events',
-       'body'  => 'Monterey hosts various dog-friendly events and festivals, such as pet parades, dog shows, and adoption events. These gatherings help foster a strong sense of community among dog lovers.'],
-      ['title' => 'Active Dog Community',
-       'body'  => 'Numerous dog clubs and groups in the area organise meetups, training sessions, and social events for dogs and their owners.'],
+      [
+        'title' => 'Dog-Centric Events',
+        'body'  => 'Monterey hosts various dog-friendly events and festivals, such as pet parades, dog shows, and adoption events. These gatherings help foster a strong sense of community among dog lovers.'
+      ],
+      [
+        'title' => 'Active Dog Community',
+        'body'  => 'Numerous dog clubs and groups in the area organise meetups, training sessions, and social events for dogs and their owners.'
+      ],
     ],
   ],
   [
@@ -45,10 +58,14 @@ $categories = [
     'title' => 'Amenities & Services',
     'theme' => 'monterey-theme-light',
     'items' => [
-      ['title' => 'Veterinary Care',
-       'body'  => 'The availability of high-quality veterinary care and pet services — including grooming, boarding, and training — ensures that dogs in Monterey are well taken care of.'],
-      ['title' => 'Off-Leash Areas',
-       'body'  => 'Several off-leash dog parks and beaches allow dogs to run and play freely — particularly appealing for owners who want to give their pets freedom to explore and socialise.'],
+      [
+        'title' => 'Veterinary Care',
+        'body'  => 'The availability of high-quality veterinary care and pet services — including grooming, boarding, and training — ensures that dogs in Monterey are well taken care of.'
+      ],
+      [
+        'title' => 'Off-Leash Areas',
+        'body'  => 'Several off-leash dog parks and beaches allow dogs to run and play freely — particularly appealing for owners who want to give their pets freedom to explore and socialise.'
+      ],
     ],
   ],
   [
@@ -56,8 +73,10 @@ $categories = [
     'title' => 'Environmental Awareness',
     'theme' => 'monterey-theme-primary',
     'items' => [
-      ['title' => 'Conservation Efforts',
-       'body'  => 'Monterey is known for its commitment to environmental conservation, which extends to its pet-friendly policies. Many areas are maintained to be clean and safe for both humans and animals.'],
+      [
+        'title' => 'Conservation Efforts',
+        'body'  => 'Monterey is known for its commitment to environmental conservation, which extends to its pet-friendly policies. Many areas are maintained to be clean and safe for both humans and animals.'
+      ],
     ],
   ],
   [
@@ -65,8 +84,10 @@ $categories = [
     'title' => 'Unique Experiences',
     'theme' => 'monterey-theme-mauve',
     'items' => [
-      ['title' => 'Historic & Cultural Sites',
-       'body'  => "Monterey's rich history and cultural sites — such as <strong>Cannery Row</strong> and the <strong>Monterey Bay Aquarium</strong> — often welcome leashed dogs, allowing owners to enjoy these attractions without leaving their pets behind."],
+      [
+        'title' => 'Historic & Cultural Sites',
+        'body'  => "Monterey's rich history and cultural sites — such as <strong>Cannery Row</strong> and the <strong>Monterey Bay Aquarium</strong> — often welcome leashed dogs, allowing owners to enjoy these attractions without leaving their pets behind."
+      ],
     ],
   ],
   [
@@ -74,8 +95,10 @@ $categories = [
     'title' => 'Local Attitude',
     'theme' => 'monterey-theme-deep',
     'items' => [
-      ['title' => 'Friendly Locals',
-       'body'  => 'The residents of Monterey are known for being welcoming and accommodating to dogs, contributing to a relaxed and inclusive atmosphere for dog lovers.'],
+      [
+        'title' => 'Friendly Locals',
+        'body'  => 'The residents of Monterey are known for being welcoming and accommodating to dogs, contributing to a relaxed and inclusive atmosphere for dog lovers.'
+      ],
     ],
   ],
 ];
@@ -116,31 +139,31 @@ $categories = [
   <div class="container">
     <div class="row g-4">
       <?php foreach ($categories as $cat): ?>
-      <div class="col-12">
-        <div class="monterey-category-card <?= htmlspecialchars($cat['theme']) ?>">
-          <div class="d-flex align-items-start gap-3">
-            <span class="category-icon" aria-hidden="true"><?= $cat['icon'] ?></span>
-            <div class="flex-grow-1">
-              <h3 class="monterey-cat-heading"><?= htmlspecialchars($cat['title']) ?></h3>
-              <div class="row g-3 mt-1">
-                <?php foreach ($cat['items'] as $i => $item): ?>
-                <div class="col-md-6">
-                  <div class="d-flex align-items-start gap-2">
-                    <span class="monterey-num-badge <?= htmlspecialchars($cat['theme']) ?>" aria-hidden="true">
-                      <?= $i + 1 ?>
-                    </span>
-                    <div>
-                      <strong class="category-item-title"><?= htmlspecialchars($item['title']) ?></strong>
-                      <p class="category-item-body"><?= $item['body'] ?></p>
+        <div class="col-12">
+          <div class="monterey-category-card <?= htmlspecialchars($cat['theme']) ?>">
+            <div class="d-flex align-items-start gap-3">
+              <span class="category-icon" aria-hidden="true"><?= $cat['icon'] ?></span>
+              <div class="flex-grow-1">
+                <h3 class="monterey-cat-heading"><?= htmlspecialchars($cat['title']) ?></h3>
+                <div class="row g-3 mt-1">
+                  <?php foreach ($cat['items'] as $i => $item): ?>
+                    <div class="col-md-6">
+                      <div class="d-flex align-items-start gap-2">
+                        <span class="monterey-num-badge <?= htmlspecialchars($cat['theme']) ?>" aria-hidden="true">
+                          <?= $i + 1 ?>
+                        </span>
+                        <div>
+                          <strong class="category-item-title"><?= htmlspecialchars($item['title']) ?></strong>
+                          <p class="category-item-body"><?= $item['body'] ?></p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  <?php endforeach; ?>
                 </div>
-                <?php endforeach; ?>
               </div>
             </div>
           </div>
         </div>
-      </div>
       <?php endforeach; ?>
     </div>
   </div>
@@ -199,15 +222,15 @@ $categories = [
         ['🦦', 'Monterey Bay Aquarium',      'Leashed dogs welcome in outdoor areas'],
       ];
       foreach ($spots as $spot): ?>
-      <div class="col-md-4 col-sm-6">
-        <div class="wyp-card wyp-feature-card p-3 d-flex align-items-start gap-3">
-          <span class="emoji-md" aria-hidden="true"><?= $spot[0] ?></span>
-          <div>
-            <strong class="spot-name"><?= htmlspecialchars($spot[1]) ?></strong>
-            <p class="spot-desc"><?= htmlspecialchars($spot[2]) ?></p>
+        <div class="col-md-4 col-sm-6">
+          <div class="wyp-card wyp-feature-card p-3 d-flex align-items-start gap-3">
+            <span class="emoji-md" aria-hidden="true"><?= $spot[0] ?></span>
+            <div>
+              <strong class="spot-name"><?= htmlspecialchars($spot[1]) ?></strong>
+              <p class="spot-desc"><?= htmlspecialchars($spot[2]) ?></p>
+            </div>
           </div>
         </div>
-      </div>
       <?php endforeach; ?>
     </div>
 

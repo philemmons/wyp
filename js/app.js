@@ -9,7 +9,7 @@
 (function () {
   'use strict';
 
-  
+
   // DOM Ready Helper
   function ready(fn) {
     if (document.readyState !== 'loading') {

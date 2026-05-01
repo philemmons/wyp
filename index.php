@@ -32,7 +32,7 @@ require_once 'includes/header.php';
           </p>
           <div class="d-flex flex-wrap gap-3">
             <a href="intro.php" class="btn-wyp btn-wyp-primary">
-              Meet Chandra &amp; Skipper 
+              Meet Chandra &amp; Skipper
             </a>
             <a href="monterey.php" class="btn-wyp btn-wyp-outline">
               Explore Monterey
