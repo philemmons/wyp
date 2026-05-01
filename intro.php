@@ -17,7 +17,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  DEDICATION BANNER  -->
-<section class="page-section-sm bg-cream">
+<section class="wyp-section wyp-section-sm wyp-section-alt">
   <div class="container">
     <div class="dedication-banner">
       <h2>Dedicated to Chandra and Skipper</h2>
@@ -27,7 +27,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  DOG PROFILES  -->
-<section class="page-section bg-warm-white">
+<section class="wyp-section">
   <div class="container">
 
     <div class="text-center mb-5">
@@ -45,7 +45,7 @@ require_once 'includes/header.php';
 
       <!-- ── CHANDRA ── -->
       <div class="col-lg-5 col-md-6">
-        <div class="dog-profile-card p-4 text-center h-100">
+        <div class="dog-profile-card wyp-info-card p-4 text-center h-100">
 
           <div class="dog-card-top-stripe"></div>
 
@@ -80,7 +80,7 @@ require_once 'includes/header.php';
 
       <!-- ── SKIPPER ── -->
       <div class="col-lg-5 col-md-6">
-        <div class="dog-profile-card p-4 text-center h-100">
+        <div class="dog-profile-card wyp-info-card p-4 text-center h-100">
 
           <div class="dog-card-top-stripe dog-card-top-stripe--skipper"></div>
 
@@ -118,7 +118,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  TOGETHER SECTION  -->
-<section class="page-section-sm section-pastel">
+<section class="wyp-section wyp-section-sm wyp-section-accent">
   <div class="container">
     <div class="row align-items-center g-5">
 
@@ -151,7 +151,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  BREED QUICK FACTS  -->
-<section class="page-section bg-cream">
+<section class="wyp-section wyp-section-alt">
   <div class="container">
 
     <div class="text-center mb-5">
@@ -163,7 +163,7 @@ require_once 'includes/header.php';
     <div class="row g-4">
 
       <div class="col-md-6">
-        <div class="wyp-card h-100">
+        <div class="wyp-card wyp-info-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4">
             <h3 class="breed-fact-heading">
@@ -182,7 +182,7 @@ require_once 'includes/header.php';
       </div>
 
       <div class="col-md-6">
-        <div class="wyp-card h-100">
+        <div class="wyp-card wyp-info-card h-100">
           <div class="card-header-band dog-card-top-stripe--skipper"></div>
           <div class="p-4">
             <h3 class="breed-fact-heading">

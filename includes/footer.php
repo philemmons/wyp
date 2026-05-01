@@ -27,22 +27,6 @@
 
 </main>
 
-<!-- No-JS fallback (ensures content is visible) -->
-<noscript>
-  <style>
-    .wyp-card,
-    .dog-profile-card,
-    .monterey-category-card,
-    .gallery-placeholder-item,
-    .dedication-banner,
-    .contact-info-box,
-    .wyp-form {
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  </style>
-</noscript>
-
 <!--  FOOTER  -->
 <footer class="wyp-footer mt-auto">
   <div class="container">

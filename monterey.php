@@ -10,7 +10,7 @@ $categories = [
   [
     'icon'  => '🌅',
     'title' => 'Natural Beauty & Outdoor Activities',
-    'color' => 'var(--orange-primary)',
+    'theme' => 'monterey-theme-primary',
     'items' => [
       ['title' => 'Scenic Locations',
        'body'  => 'Monterey offers stunning coastal views, beaches, and parks that are perfect for dog walking and outdoor activities. Popular spots include <strong>Carmel Beach</strong>, <strong>Garrapata State Park</strong>, and the <strong>Monterey Bay Coastal Recreation Trail</strong>.'],
@@ -21,7 +21,7 @@ $categories = [
   [
     'icon'  => '☕',
     'title' => 'Dog-Friendly Culture',
-    'color' => 'var(--pink-mauve)',
+    'theme' => 'monterey-theme-mauve',
     'items' => [
       ['title' => 'Pet-Friendly Establishments',
        'body'  => 'Many restaurants, cafés, and shops in Monterey are pet-friendly, allowing dogs to accompany their owners. Some establishments even provide <strong>water bowls and treats</strong> for dogs.'],
@@ -32,7 +32,7 @@ $categories = [
   [
     'icon'  => '🎉',
     'title' => 'Community & Events',
-    'color' => 'var(--orange-deep)',
+    'theme' => 'monterey-theme-deep',
     'items' => [
       ['title' => 'Dog-Centric Events',
        'body'  => 'Monterey hosts various dog-friendly events and festivals, such as pet parades, dog shows, and adoption events. These gatherings help foster a strong sense of community among dog lovers.'],
@@ -43,7 +43,7 @@ $categories = [
   [
     'icon'  => '🏥',
     'title' => 'Amenities & Services',
-    'color' => 'var(--orange-light)',
+    'theme' => 'monterey-theme-light',
     'items' => [
       ['title' => 'Veterinary Care',
        'body'  => 'The availability of high-quality veterinary care and pet services — including grooming, boarding, and training — ensures that dogs in Monterey are well taken care of.'],
@@ -54,7 +54,7 @@ $categories = [
   [
     'icon'  => '🌿',
     'title' => 'Environmental Awareness',
-    'color' => 'var(--orange-primary)',
+    'theme' => 'monterey-theme-primary',
     'items' => [
       ['title' => 'Conservation Efforts',
        'body'  => 'Monterey is known for its commitment to environmental conservation, which extends to its pet-friendly policies. Many areas are maintained to be clean and safe for both humans and animals.'],
@@ -63,7 +63,7 @@ $categories = [
   [
     'icon'  => '⚓',
     'title' => 'Unique Experiences',
-    'color' => 'var(--pink-mauve)',
+    'theme' => 'monterey-theme-mauve',
     'items' => [
       ['title' => 'Historic & Cultural Sites',
        'body'  => "Monterey's rich history and cultural sites — such as <strong>Cannery Row</strong> and the <strong>Monterey Bay Aquarium</strong> — often welcome leashed dogs, allowing owners to enjoy these attractions without leaving their pets behind."],
@@ -72,7 +72,7 @@ $categories = [
   [
     'icon'  => '😊',
     'title' => 'Local Attitude',
-    'color' => 'var(--orange-deep)',
+    'theme' => 'monterey-theme-deep',
     'items' => [
       ['title' => 'Friendly Locals',
        'body'  => 'The residents of Monterey are known for being welcoming and accommodating to dogs, contributing to a relaxed and inclusive atmosphere for dog lovers.'],
@@ -93,7 +93,7 @@ $categories = [
 </section>
 
 <!--  INTRO PARAGRAPH  -->
-<section class="page-section-sm bg-cream">
+<section class="wyp-section wyp-section-sm wyp-section-alt">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8 text-center">
@@ -112,13 +112,12 @@ $categories = [
 </section>
 
 <!--  CATEGORIES  -->
-<section class="page-section bg-warm-white">
+<section class="wyp-section">
   <div class="container">
     <div class="row g-4">
       <?php foreach ($categories as $cat): ?>
       <div class="col-12">
-        <!-- Dynamic border colour set inline — PHP-generated value -->
-        <div class="monterey-category-card" style="--border-color: <?= htmlspecialchars($cat['color']) ?>;">
+        <div class="monterey-category-card <?= htmlspecialchars($cat['theme']) ?>">
           <div class="d-flex align-items-start gap-3">
             <span class="category-icon" aria-hidden="true"><?= $cat['icon'] ?></span>
             <div class="flex-grow-1">
@@ -127,10 +126,7 @@ $categories = [
                 <?php foreach ($cat['items'] as $i => $item): ?>
                 <div class="col-md-6">
                   <div class="d-flex align-items-start gap-2">
-                    <!-- Dynamic badge gradient — PHP-generated colour -->
-                    <span class="monterey-num-badge"
-                          style="background: linear-gradient(135deg, <?= $cat['color'] ?>, var(--yellow-bright));"
-                          aria-hidden="true">
+                    <span class="monterey-num-badge <?= htmlspecialchars($cat['theme']) ?>" aria-hidden="true">
                       <?= $i + 1 ?>
                     </span>
                     <div>
@@ -151,11 +147,11 @@ $categories = [
 </section>
 
 <!--  SUMMARY CALLOUT  -->
-<section class="section-spots">
+<section class="section-spots wyp-section-accent">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <div class="wyp-card">
+        <div class="wyp-card wyp-info-card">
           <div class="card-header-band"></div>
           <div class="p-4 p-lg-5 text-center">
             <div class="emoji-lg" aria-hidden="true">🏆</div>
@@ -176,7 +172,7 @@ $categories = [
 </section>
 
 <!--  INTERACTIVE MAP  -->
-<section class="page-section bg-cream">
+<section class="wyp-section wyp-section-alt">
   <div class="container">
     <div class="text-center mb-4">
       <span class="section-eyebrow">Find Us Here</span>
@@ -204,7 +200,7 @@ $categories = [
       ];
       foreach ($spots as $spot): ?>
       <div class="col-md-4 col-sm-6">
-        <div class="wyp-card p-3 d-flex align-items-start gap-3">
+        <div class="wyp-card wyp-feature-card p-3 d-flex align-items-start gap-3">
           <span class="emoji-md" aria-hidden="true"><?= $spot[0] ?></span>
           <div>
             <strong class="spot-name"><?= htmlspecialchars($spot[1]) ?></strong>

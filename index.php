@@ -51,7 +51,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  WELCOME FEATURE TILES  -->
-<section class="page-section bg-cream">
+<section class="wyp-section wyp-section-alt">
   <div class="container">
 
     <div class="text-center mb-5">
@@ -63,7 +63,7 @@ require_once 'includes/header.php';
     <div class="row g-4">
 
       <div class="col-md-4">
-        <div class="wyp-card h-100">
+        <div class="wyp-card wyp-feature-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4 text-center">
             <img src='images/chandra-left-small.png' class="feature-card-icon" alt="" aria-hidden="true">
@@ -81,7 +81,7 @@ require_once 'includes/header.php';
       </div>
 
       <div class="col-md-4">
-        <div class="wyp-card h-100">
+        <div class="wyp-card wyp-feature-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4 text-center">
             <img src='images/wave1-small.png' alt="" class="feature-card-icon" aria-hidden="true">
@@ -99,7 +99,7 @@ require_once 'includes/header.php';
       </div>
 
       <div class="col-md-4">
-        <div class="wyp-card h-100">
+        <div class="wyp-card wyp-feature-card h-100">
           <div class="card-header-band"></div>
           <div class="p-4 text-center">
             <img src='images/nikon-small.png' class="feature-card-icon" alt="" aria-hidden="true">
@@ -130,7 +130,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  LOCATION TEASER  -->
-<section class="page-section section-teaser">
+<section class="wyp-section section-teaser">
   <div class="container">
     <div class="row align-items-center g-5">
 
@@ -164,7 +164,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  CTA STRIP  -->
-<section class="section-cta">
+<section class="section-cta wyp-section-accent">
   <div class="container">
     <h2 class="section-cta__h2">
       Want to Say Hi? <span aria-hidden="true">🐾</span>

@@ -1,6 +1,8 @@
 ﻿<?php
 ob_start();
-session_start();  //start or resume an existing session
+if (session_status() !== PHP_SESSION_ACTIVE) {
+  session_start();
+}
 /**
  * includes/header.php
  * Shared header + navbar â€” wipeyourpaws.net
@@ -109,8 +111,8 @@ $canonical   = $base_url . '/' . ($page_paths[$page_id] ?? '');
   <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Nunito:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,600;1,400&display=swap"
     rel="stylesheet">
 
-  <!-- Site stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Canonical site stylesheet -->
+  <link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(__DIR__ . '/../assets/css/site.css'); ?>">
 </head>
 
 <body id="toTop">

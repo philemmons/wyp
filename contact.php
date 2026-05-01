@@ -4,7 +4,9 @@
  * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8 · WCAG 2.1 AA
  */
 
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
 $page_id = 'contact';
 require_once 'includes/header.php';
@@ -52,7 +54,7 @@ $form_describedby = !empty($flash_errors)
 </section>
 
 <!--  MAIN CONTACT SECTION  -->
-<section class="page-section bg-cream">
+<section class="wyp-section wyp-section-alt">
   <div class="container">
     <div class="row g-5 justify-content-center">
 
@@ -177,7 +179,7 @@ $form_describedby = !empty($flash_errors)
               </div>
 
               <div class="col-12 mt-2">
-                <button type="submit" class="btn-submit">
+                <button type="submit" class="btn-wyp btn-wyp-primary btn-submit">
                   <i class="bi bi-send-fill" aria-hidden="true"></i>
                   Send Message
                 </button>
@@ -253,7 +255,7 @@ $form_describedby = !empty($flash_errors)
 </section>
 
 <!--  MAP  -->
-<section class="page-section-sm bg-warm-white">
+<section class="wyp-section wyp-section-sm">
   <div class="container">
     <div class="text-center mb-4">
       <span class="section-eyebrow">Where to Find Us</span>

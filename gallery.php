@@ -34,7 +34,7 @@ $placeholders = [
 </section>
 
 <!--  COMING SOON NOTICE  -->
-<section class="page-section-sm bg-cream">
+<section class="wyp-section wyp-section-sm wyp-section-alt">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-7 text-center">
@@ -54,7 +54,7 @@ $placeholders = [
 </section>
 
 <!--  PLACEHOLDER GRID  -->
-<section class="page-section bg-warm-white">
+<section class="wyp-section">
   <div class="container">
 
     <div class="text-center mb-5">
@@ -81,7 +81,7 @@ $placeholders = [
 </section>
 
 <!--  UPLOAD CTA  -->
-<section class="section-gallery-story">
+<section class="section-gallery-story wyp-section-accent">
   <div class="container">
     <div class="row g-4 align-items-center">
 
@@ -107,12 +107,12 @@ $placeholders = [
 </section>
 
 <!--  ABOUT THE DOGS MINI SECTION  -->
-<section class="page-section-sm bg-cream">
+<section class="wyp-section wyp-section-sm wyp-section-alt">
   <div class="container">
     <div class="row g-4 justify-content-center">
 
       <div class="col-md-5">
-        <div class="wyp-card text-center p-4">
+        <div class="wyp-card wyp-info-card text-center p-4">
           <div class="card-header-band"></div>
           <div class="gallery-dog-card-icon" aria-hidden="true">🐕</div>
           <!-- Bootstrap h3 default ~1.75rem=28px — large text, orange-deep 4.07:1 passes 3:1 ✅ -->
@@ -128,7 +128,7 @@ $placeholders = [
       </div>
 
       <div class="col-md-5">
-        <div class="wyp-card text-center p-4">
+        <div class="wyp-card wyp-info-card text-center p-4">
           <div class="card-header-band dog-card-top-stripe--skipper"></div>
           <div class="gallery-dog-card-icon" aria-hidden="true">🐶</div>
           <h3 class="section-title">Skipper</h3>

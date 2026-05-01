@@ -47,7 +47,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  QUICK LINKS STRIP  -->
-<section class="quicklinks-section">
+<section class="quicklinks-section wyp-section-alt">
     <div class="container">
         <h2 class="quicklinks-title text-center">Where would you like to go?</h2>
         <nav aria-label="Error page navigation">
