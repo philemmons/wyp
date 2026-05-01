@@ -516,7 +516,7 @@ p:last-child {
   color: var(--text-strong) !important;
   font-size: 0.84rem;
   letter-spacing: 0.09em;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   padding: 0.6rem 0.85rem !important;
   border-radius: var(--radius-pill);
