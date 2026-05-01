@@ -112,7 +112,7 @@ $canonical   = $base_url . '/' . ($page_paths[$page_id] ?? '');
     rel="stylesheet">
 
   <!-- Canonical site stylesheet -->
-  <link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(__DIR__ . '/../assets/css/site.css'); ?>">
+  <link rel="stylesheet" href="/css/style.css?v=<?= filemtime(__DIR__ . '/../css/style.css'); ?>">
 </head>
 
 <body id="toTop">

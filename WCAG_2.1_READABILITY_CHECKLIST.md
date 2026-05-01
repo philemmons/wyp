@@ -1,7 +1,7 @@
-﻿# WCAG 2.1 Readability And Typography Checklist
+# WCAG 2.1 Readability And Typography Checklist
 
 Last updated: 2026-04-16
-Applies to: `assets/css/site.css` and page templates in this repo.
+Applies to: `/css/style.css` and page templates in this repo.
 
 ## Scope
 This checklist focuses on WCAG 2.1 text readability and visual presentation topics:

@@ -8,8 +8,8 @@ A multi-page PHP website for the small dog community in Monterey Bay, California
 
 This codebase now uses a centralized, canonical design system and shared template structure:
 
-- Canonical stylesheet: `assets/css/site.css`
-- Legacy shim retained: `css/style.css` (imports canonical CSS)
+- Canonical stylesheet: `/css/style.css`
+- Legacy `/assets/` CSS path is deprecated
 - Shared layout includes: `includes/header.php` and `includes/footer.php`
 - Session-safe include behavior (`session_start` guarded against duplicate start)
 - Inline `style=""` removed from templates in favor of reusable classes
@@ -41,9 +41,6 @@ wipeyourpaws/
 |-- includes/
 |   |-- header.php
 |   `-- footer.php
-|-- assets/
-|   `-- css/
-|       `-- site.css
 |-- css/
 |   `-- style.css
 |-- js/
@@ -66,7 +63,7 @@ The canonical design source was standardized across templates using `wyp-*` clas
 
 ### Token system
 
-Core tokens are defined in `:root` within `assets/css/site.css`, including:
+Core tokens are defined in `:root` within `/css/style.css`, including:
 
 - Color aliases (`--color-primary`, `--color-secondary`, `--color-accent`, etc.)
 - Spacing aliases (`--space-xs` ... `--space-xl`)
@@ -88,6 +85,13 @@ Current `.htaccess` behavior:
   - `X-Frame-Options: SAMEORIGIN`
   - `Referrer-Policy: strict-origin-when-cross-origin`
 - Static asset/browser caching rules for CSS/JS/images/fonts
+
+## CSS Location Standard
+
+- Main stylesheet: `/css/style.css`
+- Legacy `/assets/` CSS paths are deprecated
+- New pages should reference `/css/style.css`
+- CSS should remain centralized unless a page-specific stylesheet is explicitly justified
 
 ## Accessibility and UX
 
@@ -122,8 +126,7 @@ php -l index.php
 
 ## Deployment Notes
 
-- Ensure `assets/css/site.css` is deployed (this is the active stylesheet).
-- Keep `css/style.css` unless you intentionally remove all legacy references.
+- Ensure `/css/style.css` is deployed (this is the active stylesheet).
 - If switching to SMTP delivery, replace `mail()` in `contact_submit.php` with PHPMailer.
 
 ---
