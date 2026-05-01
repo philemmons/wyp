@@ -1227,7 +1227,7 @@ p:last-child {
 .map-wrapper {
   overflow: hidden;
   border-radius: var(--radius-xl);
-  border: 2px solid #f0d7b8;
+  border: 4px solid var(--tangerine);
   box-shadow: var(--shadow-md);
   background: #fff;
 }
