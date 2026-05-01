@@ -859,7 +859,7 @@ p:last-child {
 }
 
 .bi::before, [class*=" bi-"]::before, [class^=bi-]::before {
-    font-weight: 600 !important;
+  font-weight: 600 !important;
 }
 
 /***** 6. CARDS + CONTENT SECTIONS *****/
