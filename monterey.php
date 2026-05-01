@@ -170,7 +170,7 @@ $categories = [
 </section>
 
 <!--  SUMMARY CALLOUT  -->
-<section class="section-spots wyp-section-accent">
+<section class="section-cta wyp-section-accent">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
@@ -184,8 +184,11 @@ $categories = [
               setting, welcoming community, and abundance of dog-friendly amenities and activities.
               It&rsquo;s no wonder Chandra and Skipper feel right at home here!
             </p>
-            <a href="contact.php" class="btn-wyp btn-wyp-primary">
-              We&rsquo;d Love to Hear from You <span aria-hidden="true">🐾</span>
+            <div>
+              <a href="contact.php" class="btn-wyp btn-wyp-primary">
+                We&rsquo;d Love to Hear from You
+                <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
+            </div>
             </a>
           </div>
         </div>
