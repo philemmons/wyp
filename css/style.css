@@ -813,15 +813,29 @@ p:last-child {
   cursor: pointer;
 }
 
-.btn-wyp:hover,
-.btn-submit:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+.btn-wyp:after,
+.btn-submit:after {
+  content: "";
+  position: absolute;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.6rem;
+  height: 0.14rem;
+  border-radius: var(--radius-pill);
+  background: var(--black);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--motion-base) var(--ease-standard);
 }
 
-.btn-wyp:active,
-.btn-submit:active {
-  transform: translateY(0);
+
+.btn-wyp:hover::after,
+.btn-wyp:focus-visible::after,
+.btn-wyp.active::after,
+.btn-submit:hover::after,
+.btn-submit:focus-visible::after,
+.btn-submit.active::after  {
+   transform: scaleX(1);
 }
 
 .btn-wyp:focus-visible,
