@@ -274,7 +274,7 @@ main:focus {
   z-index: 3000;
   background: linear-gradient(135deg, var(--sunshine), var(--tangerine));
   color: var(--espresso);
-  font-weight: 900;
+  font-weight: 800;
   padding: 0.72rem 1rem;
   border: 2px solid var(--espresso);
   border-bottom-left-radius: var(--radius-sm);
@@ -407,7 +407,7 @@ p:last-child {
   display: inline-block;
   margin-bottom: 0.6rem;
   font-size: 0.78rem;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--cinnamon);
@@ -487,7 +487,7 @@ p:last-child {
   font-family: var(--font-body);
   font-size: 0.68rem;
   letter-spacing: 0.12em;
-  font-weight: 900;
+  font-weight: 800;
   text-transform: uppercase;
   color: var(--cinnamon);
 }
@@ -517,7 +517,7 @@ p:last-child {
   color: var(--text-strong) !important;
   font-size: 0.84rem;
   letter-spacing: 0.09em;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   padding: 0.6rem 0.85rem !important;
   border-radius: var(--radius-pill);
@@ -808,7 +808,7 @@ p:last-child {
   color: var(--btn-text);
   text-decoration: none;
   font-size: 0.9rem;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   box-shadow: var(--shadow-sm);
@@ -1251,7 +1251,7 @@ p:last-child {
 .gallery-dog-link {
   text-decoration: underline;
   text-underline-offset: 0.15em;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .story-body--wide {
@@ -1271,7 +1271,7 @@ p:last-child {
 
 .required-asterisk {
   color: #8d3215;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .honeypot-wrap {
@@ -1285,7 +1285,7 @@ p:last-child {
 
 .wyp-form .form-label {
   font-size: 0.86rem;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--text-strong);
@@ -1427,7 +1427,7 @@ textarea.form-control {
 
 .error-tagline {
   color: var(--text-dark);
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .error-body {
@@ -1634,7 +1634,7 @@ textarea.form-control {
 }
 
 .accordion-button {
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .accordion-button:not(.collapsed) {
