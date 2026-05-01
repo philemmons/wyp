@@ -65,11 +65,13 @@ $normalize_whitespace = static function (string $value): string {
 
 $name_raw = $post_string('name');
 $email_raw = $post_string('email');
+$inquiry_type_raw = $post_string('inquiry_type');
 $subject_raw = $post_string('subject');
 $message_raw = $post_string('message');
 
 $name = $normalize_whitespace(strip_tags($name_raw));
 $email = strtolower($email_raw);
+$inquiry_type = $normalize_whitespace(strip_tags($inquiry_type_raw));
 $subject = $normalize_whitespace(strip_tags($subject_raw));
 
 // Keep line breaks/tabs in message for readability; strip tags/control chars.
@@ -106,6 +108,10 @@ if (mb_strlen($subject) > 200) {
     $add_error('subject', 'Subject is too long. Use 200 characters or fewer.');
 }
 
+if (mb_strlen($inquiry_type) > 80) {
+    $add_error('inquiry_type', 'Inquiry type is too long. Use 80 characters or fewer.');
+}
+
 if (empty($message)) {
     $add_error('message', 'Message is required. Tell us how we can help.');
 } elseif (mb_strlen($message) < 10) {
@@ -121,6 +127,7 @@ if (!empty($errors)) {
     $_SESSION['form_values'] = [
         'name' => $name,
         'email' => $email,
+        'inquiry_type' => $inquiry_type,
         'subject' => $subject,
         'message' => $message,
     ];
@@ -139,6 +146,7 @@ $email_body = "You have a new message from the wipeyourpaws.net contact form.\n\
 $email_body .= "------------------------------\n";
 $email_body .= "Name    : {$name}\n";
 $email_body .= "Email   : {$email}\n";
+$email_body .= "Type    : " . (!empty($inquiry_type) ? $inquiry_type : 'General inquiry') . "\n";
 $email_body .= "Subject : {$subject}\n";
 $email_body .= "------------------------------\n\n";
 $email_body .= "Message:\n{$message}\n\n";
@@ -175,6 +183,87 @@ $safe_subject = str_replace(["\r", "\n"], '', $email_subject);
 // For production, replace with PHPMailer + SMTP for reliable delivery.
 $sent = @mail($admin_email, $safe_subject, $email_body, $headers);
 
+// Build and send user auto-reply (multipart: plain text + HTML).
+$first_name = $name;
+if (preg_match('/^\S+/u', $name, $name_match) === 1) {
+    $first_name = $name_match[0];
+}
+$first_name = mb_substr($first_name, 0, 60);
+$greeting_name = $first_name !== '' ? $first_name : 'there';
+
+$resolved_inquiry_type = !empty($inquiry_type)
+    ? $inquiry_type
+    : (!empty($subject) ? $subject : 'General inquiry');
+
+$message_compact = preg_replace('/\s+/u', ' ', $message) ?? $message;
+$message_preview = trim(mb_substr($message_compact, 0, 220));
+if (mb_strlen($message_compact) > 220) {
+    $message_preview .= '...';
+}
+
+$reply_subject = "🐾 We received your message — Wipe Your Paws";
+$safe_reply_subject = str_replace(["\r", "\n"], '', $reply_subject);
+$encoded_reply_subject = mb_encode_mimeheader($safe_reply_subject, 'UTF-8');
+
+$first_name_html = htmlspecialchars($greeting_name, ENT_QUOTES, 'UTF-8');
+$inquiry_type_html = htmlspecialchars($resolved_inquiry_type, ENT_QUOTES, 'UTF-8');
+$message_preview_html = htmlspecialchars($message_preview, ENT_QUOTES, 'UTF-8');
+
+$reply_html = '<!doctype html>'
+    . '<html lang="en"><body style="margin:0;padding:0;background-color:#f8f3ee;">'
+    . '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f8f3ee;">'
+    . '<tr><td align="center" style="padding:24px 12px;">'
+    . '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="640" style="max-width:640px;width:100%;background-color:#ffffff;border:2px solid #8b6b4a;border-radius:10px;">'
+    . '<tr><td style="padding:18px 24px;background-color:#f6e8da;border-bottom:1px solid #c7aa8a;color:#5b3f27;font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:700;line-height:1.4;">🐾 Wipe Your Paws</td></tr>'
+    . '<tr><td style="padding:24px;font-family:Arial,Helvetica,sans-serif;color:#2f2a26;">'
+    . '<h1 style="margin:0 0 12px 0;font-size:26px;line-height:1.25;color:#2f2a26;">Thanks for reaching out, ' . $first_name_html . '.</h1>'
+    . '<p style="margin:0 0 14px 0;font-size:16px;line-height:1.6;">We received your message and our team will get back to you soon.</p>'
+    . '<p style="margin:0 0 16px 0;font-size:15px;line-height:1.6;color:#5b3f27;"><strong>What happens next:</strong> a team member will review your note and follow up by email.</p>'
+    . '<h2 style="margin:18px 0 10px 0;font-size:18px;line-height:1.3;color:#2f2a26;">Your message summary</h2>'
+    . '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border:1px solid #d8c3ad;background-color:#fffaf5;">'
+    . '<tr><td style="padding:10px 12px;border-bottom:1px solid #ead9c8;font-size:14px;line-height:1.5;color:#2f2a26;font-family:Arial,Helvetica,sans-serif;"><strong>Inquiry type:</strong> ' . $inquiry_type_html . '</td></tr>'
+    . '<tr><td style="padding:10px 12px;font-size:14px;line-height:1.5;color:#2f2a26;font-family:Arial,Helvetica,sans-serif;"><strong>Message preview:</strong> ' . $message_preview_html . '</td></tr>'
+    . '</table>'
+    . '<p style="margin:18px 0 0 0;font-size:14px;line-height:1.6;color:#5b3f27;">Need to add details? Reply to this email and our team will attach your update.</p>'
+    . '<p style="margin:20px 0 0 0;"><a href="https://wipeyourpaws.net/contact.php" style="display:inline-block;background-color:#b24a14;color:#ffffff;text-decoration:none;font-weight:700;padding:10px 14px;border-radius:6px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.2;" aria-label="Open the Wipe Your Paws contact page to send another message">Contact Wipe Your Paws</a></p>'
+    . '</td></tr>'
+    . '<tr><td style="padding:14px 24px;background-color:#f6e8da;border-top:1px solid #c7aa8a;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.5;color:#5b3f27;">🐾 Thank you for helping us keep things clean, calm, and dog-friendly.</td></tr>'
+    . '</table></td></tr></table></body></html>';
+
+$reply_text = "Wipe Your Paws\n"
+    . "------------------------------\n"
+    . "Hi {$greeting_name},\n\n"
+    . "Thanks for contacting us. We received your message, and someone from our team will respond soon.\n\n"
+    . "Your message summary:\n"
+    . "Inquiry type: {$resolved_inquiry_type}\n"
+    . "Message preview: {$message_preview}\n\n"
+    . "If you want to add details, reply to this email.\n"
+    . "Contact page: https://wipeyourpaws.net/contact.php\n\n"
+    . "Thank you,\n"
+    . "Wipe Your Paws Team\n"
+    . "------------------------------\n";
+
+$boundary = 'wyp_' . bin2hex(random_bytes(12));
+$reply_headers = "From: Wipe Your Paws <noreply@wipeyourpaws.net>\r\n";
+$reply_headers .= "Reply-To: admin@wipeyourpaws.net\r\n";
+$reply_headers .= "MIME-Version: 1.0\r\n";
+$reply_headers .= "Content-Type: multipart/alternative; boundary=\"{$boundary}\"\r\n";
+
+$reply_body = "--{$boundary}\r\n";
+$reply_body .= "Content-Type: text/plain; charset=UTF-8\r\n";
+$reply_body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+$reply_body .= $reply_text . "\r\n";
+$reply_body .= "--{$boundary}\r\n";
+$reply_body .= "Content-Type: text/html; charset=UTF-8\r\n";
+$reply_body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+$reply_body .= $reply_html . "\r\n";
+$reply_body .= "--{$boundary}--\r\n";
+
+$auto_reply_sent = @mail($email, $encoded_reply_subject, $reply_body, $reply_headers);
+if (!$auto_reply_sent) {
+    error_log('Auto-reply failed to send for contact form submission.');
+}
+
 // B4: Store result in session, redirect (PRG pattern)
 if ($sent) {
     $_SESSION['form_sent'] = true;
@@ -184,6 +273,7 @@ if ($sent) {
     $_SESSION['form_values'] = [
         'name' => $name,
         'email' => $email,
+        'inquiry_type' => $inquiry_type,
         'subject' => $subject,
         'message' => $message,
     ];
