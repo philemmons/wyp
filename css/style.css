@@ -858,7 +858,9 @@ p:last-child {
   width: 100%;
 }
 
-.bi::before, [class*=" bi-"]::before, [class^=bi-]::before {
+.bi::before,
+[class*=" bi-"]::before,
+[class^="bi-"]::before {
   font-weight: 600 !important;
 }
 
@@ -1501,8 +1503,10 @@ textarea.form-control {
 }
 
 .footer-tagline {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
   font-weight: 800;
-  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .footer-col-heading {
