@@ -1330,11 +1330,15 @@ p:last-child {
   padding-block: clamp(2.4rem, 5vw, 3.8rem);
 }
 
-.section-cta {
+.section-cta,
+.wyp-section-alt {
   background: linear-gradient(135deg, #ffeab3, #ffd678 52%, #ffc965);
-  text-align: center;
   border-top: 1px solid rgba(200, 111, 61, 0.28);
   border-bottom: 1px solid rgba(200, 111, 61, 0.28);
+}
+
+.section-cta {
+  text-align: center;
 }
 
 .section-cta__h2,
