@@ -487,9 +487,9 @@ p:last-child {
   font-family: var(--font-body);
   font-size: 0.68rem;
   letter-spacing: 0.12em;
-  font-weight: 700;
+  font-weight: 900;
   text-transform: uppercase;
-  color: var(--text-strong);
+  color: var(--cinnamon);
 }
 
 .paw-brand-icon {
