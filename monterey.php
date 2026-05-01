@@ -188,8 +188,8 @@ $categories = [
               <a href="contact.php" class="btn-wyp btn-wyp-primary">
                 We&rsquo;d Love to Hear from You
                 <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
+              </a>
             </div>
-            </a>
           </div>
         </div>
       </div>
