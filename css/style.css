@@ -858,6 +858,10 @@ p:last-child {
   width: 100%;
 }
 
+.bi::before, [class*=" bi-"]::before, [class^=bi-]::before {
+    font-weight: 600 !important;
+}
+
 /***** 6. CARDS + CONTENT SECTIONS *****/
 .wyp-card,
 .dog-profile-card,
