@@ -74,7 +74,7 @@ require_once 'includes/header.php';
               ever encounter.
             </p>
             <a href="intro.php" class="btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
-              Their Story <span aria-hidden="true">→</span>
+              Their Story <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
             </a>
           </div>
         </div>
@@ -92,7 +92,7 @@ require_once 'includes/header.php';
               companions of every size.
             </p>
             <a href="monterey.php" class="btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
-              Explore <span aria-hidden="true">→</span>
+              Explore <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
             </a>
           </div>
         </div>
@@ -109,7 +109,7 @@ require_once 'includes/header.php';
               of Chandra and Skipper. Check back soon to see all their cute adventures.
             </p>
             <a href="gallery.php" class="btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
-              Peek Inside <span aria-hidden="true">→</span>
+              Peek Inside <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
             </a>
           </div>
         </div>
