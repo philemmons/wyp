@@ -1511,13 +1511,15 @@ textarea.form-control {
 
 .footer-col-heading {
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   margin-bottom: 0.7rem;
+  letter-spacing: 0.12em;
 }
 
 .footer-nav {
   display: grid;
   gap: 0.45rem;
+  letter-spacing: 0.07em;
 }
 
 .footer-nav a {
