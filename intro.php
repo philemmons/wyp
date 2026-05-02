@@ -56,12 +56,14 @@ require_once 'includes/header.php';
           <h3 class="dog-name">Chandra</h3>
           <p class="dog-catchphrase">"Princess of the House"</p>
 
+                    <img src='/images/chandra.jpg' alt='chandra' class='img-fluid rounded mx-auto d-block'>
+
+                    
           <div class="mb-3">
             <span class="dog-stat-chip"><i class="bi bi-gender-female" aria-hidden="true"></i> Female</span>
             <span class="dog-stat-chip"><span aria-hidden="true">🐾</span> Chihuahua</span>
             <span class="dog-stat-chip"><span aria-hidden="true">📍</span> Monterey, CA</span>
           </div>
-
           <p class="dog-bio">
             Chandra is a purebred Chihuahua with all the charm and confidence the breed
             is famous for. Despite her petite frame, she commands every room she enters
@@ -90,6 +92,8 @@ require_once 'includes/header.php';
           <div class="dog-breed-badge">Chihuahua and Jack Russell</div>
           <h3 class="dog-name">Skipper</h3>
           <p class="dog-catchphrase">"The Little Explorer"</p>
+
+          <img src='/images/skipper on couch.jpg' alt='skipper' class='img-fluid rounded mx-auto d-block'>
 
           <div class="mb-3">
             <span class="dog-stat-chip"><i class="bi bi-gender-male" aria-hidden="true"></i> Male</span>
