@@ -1,7 +1,7 @@
 <?php
 /**
- * contact.php — Contact Us
- * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8 · WCAG 2.1 AA
+ * contact.php - Contact Us
+ * wipeyourpaws.net - PHP 8.5 - Bootstrap 5.3.8 - WCAG 2.1 AA
  */
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
@@ -11,14 +11,16 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 $page_id = 'contact';
 require_once 'includes/header.php';
 
-$flash_sent       = $_SESSION['form_sent']   ?? false;
-$flash_mail_error = $_SESSION['form_error']  ?? false;
-$flash_errors     = $_SESSION['form_errors'] ?? [];
+$flash_sent = $_SESSION['form_sent'] ?? false;
+$flash_confirmation_sent = $_SESSION['form_confirmation_sent'] ?? null;
+$flash_mail_error = $_SESSION['form_error'] ?? false;
+$flash_errors = $_SESSION['form_errors'] ?? [];
 $flash_field_errors = $_SESSION['form_field_errors'] ?? [];
-$old_values       = $_SESSION['form_values'] ?? [];
+$old_values = $_SESSION['form_values'] ?? [];
 
 unset(
     $_SESSION['form_sent'],
+    $_SESSION['form_confirmation_sent'],
     $_SESSION['form_error'],
     $_SESSION['form_errors'],
     $_SESSION['form_field_errors'],
@@ -29,10 +31,10 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-$old_name    = htmlspecialchars($old_values['name']    ?? '', ENT_QUOTES, 'UTF-8');
-$old_email   = htmlspecialchars($old_values['email']   ?? '', ENT_QUOTES, 'UTF-8');
+$old_name = htmlspecialchars($old_values['name'] ?? '', ENT_QUOTES, 'UTF-8');
+$old_email = htmlspecialchars($old_values['email'] ?? '', ENT_QUOTES, 'UTF-8');
 $old_subject = htmlspecialchars($old_values['subject'] ?? '', ENT_QUOTES, 'UTF-8');
-$old_msg     = htmlspecialchars($old_values['message'] ?? '', ENT_QUOTES, 'UTF-8');
+$old_msg = htmlspecialchars($old_values['message'] ?? '', ENT_QUOTES, 'UTF-8');
 
 $name_error = $flash_field_errors['name'] ?? '';
 $email_error = $flash_field_errors['email'] ?? '';
@@ -42,7 +44,6 @@ $form_describedby = !empty($flash_errors)
     : 'form-required-note';
 ?>
 
-<!--  PAGE HERO  -->
 <section class="contact-hero">
   <div class="container text-center page-hero-z">
     <span class="page-hero-emoji" aria-hidden="true">✉️🐾</span>
@@ -53,19 +54,18 @@ $form_describedby = !empty($flash_errors)
   </div>
 </section>
 
-<!--  MAIN CONTACT SECTION  -->
 <section class="wyp-section wyp-section-alt">
   <div class="container">
     <div class="row g-5 justify-content-center">
-
-      <!-- ── Contact Form ── -->
       <div class="col-lg-7">
 
         <?php if ($flash_sent): ?>
         <div class="wyp-alert wyp-alert-success mb-4" role="alert" aria-live="assertive">
-          <strong><span aria-hidden="true">🎉</span> Message sent!</strong>
-          Thank you so much &mdash; we&rsquo;ll get back to you soon!
-          Chandra and Skipper send tail wags your way! <span aria-hidden="true">🐾</span>
+          <?php if ($flash_confirmation_sent === true): ?>
+          <strong>Thanks &mdash; we received your message. A confirmation email has been sent.</strong>
+          <?php else: ?>
+          <strong>Thanks &mdash; we received your message. Email confirmation could not be delivered.</strong>
+          <?php endif; ?>
         </div>
         <?php elseif ($flash_mail_error): ?>
         <div class="wyp-alert wyp-alert-error mb-4" role="alert" aria-live="assertive">
@@ -76,21 +76,31 @@ $form_describedby = !empty($flash_errors)
         <div class="wyp-alert wyp-alert-error mb-4" id="form-error-summary" role="alert" aria-live="assertive" tabindex="-1">
           <strong>Please correct the following errors:</strong>
           <ul class="mb-0 mt-1">
-            <?php if ($name_error): ?>
-            <li><a href="#contact-name"><?= htmlspecialchars($name_error, ENT_QUOTES, 'UTF-8') ?></a></li>
-            <?php endif; ?>
-            <?php if ($email_error): ?>
-            <li><a href="#contact-email"><?= htmlspecialchars($email_error, ENT_QUOTES, 'UTF-8') ?></a></li>
-            <?php endif; ?>
-            <?php if ($message_error): ?>
-            <li><a href="#contact-message"><?= htmlspecialchars($message_error, ENT_QUOTES, 'UTF-8') ?></a></li>
-            <?php endif; ?>
+            <?php foreach ($flash_errors as $error): ?>
+              <?php
+                $safe_error = htmlspecialchars((string) $error, ENT_QUOTES, 'UTF-8');
+                $target = '';
+                if ($error === $name_error) {
+                    $target = '#contact-name';
+                } elseif ($error === $email_error) {
+                    $target = '#contact-email';
+                } elseif ($error === $message_error) {
+                    $target = '#contact-message';
+                }
+              ?>
+            <li>
+              <?php if ($target !== ''): ?>
+              <a href="<?= $target ?>"><?= $safe_error ?></a>
+              <?php else: ?>
+              <?= $safe_error ?>
+              <?php endif; ?>
+            </li>
+            <?php endforeach; ?>
           </ul>
         </div>
         <?php endif; ?>
 
         <div class="wyp-form">
-          <!-- 1.6rem = 25.6px Berkshire Swash — large text → orange-deep 4.07:1 passes 3:1 ✅ -->
           <h2 class="section-title mb-1">Send Us a Message</h2>
 
           <p class="required-note" id="form-required-note">
@@ -106,7 +116,6 @@ $form_describedby = !empty($flash_errors)
             <input type="hidden" name="csrf_token"
                    value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
 
-            <!-- Honeypot: offscreen container, AT-accessible wrapper, hidden input -->
             <div class="honeypot-wrap">
               <label for="website" aria-hidden="true">Leave this field blank</label>
               <input type="text" id="website" name="website"
@@ -114,7 +123,6 @@ $form_describedby = !empty($flash_errors)
             </div>
 
             <div class="row g-3">
-
               <div class="col-sm-6">
                 <label for="contact-name" class="form-label">
                   Your Name
@@ -188,21 +196,16 @@ $form_describedby = !empty($flash_errors)
                   Your information will only be used to respond to your message.
                 </p>
               </div>
-
             </div>
           </form>
         </div>
-
       </div>
 
-      <!-- ── Sidebar Info ── -->
       <div class="col-lg-5">
-
         <div class="contact-info-box mb-4">
           <h3>Get in Touch <span aria-hidden="true">🐾</span></h3>
 
           <address class="address-reset">
-
             <div class="contact-info-row">
               <div class="contact-info-icon" aria-hidden="true">✉️</div>
               <div>
@@ -228,7 +231,6 @@ $form_describedby = !empty($flash_errors)
                 <span class="contact-info-value">wipeyourpaws.net</span>
               </div>
             </div>
-
           </address>
 
           <hr class="contact-info-divider">
@@ -247,14 +249,11 @@ $form_describedby = !empty($flash_errors)
             ready to give you a virtual paw-shake in return!&rdquo;
           </p>
         </div>
-
       </div>
-
     </div>
   </div>
 </section>
 
-<!--  MAP  -->
 <section class="wyp-section wyp-section-sm">
   <div class="container">
     <div class="text-center mb-4">
