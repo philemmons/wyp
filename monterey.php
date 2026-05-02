@@ -105,7 +105,7 @@ $montereyHighlightCategories = [
 ?>
 
 <!--  PAGE HERO  -->
-<section class="monterey-hero">
+<section class="monterey-hero image-header">
   <div class="container text-center page-hero-z">
     <img src='images/why-monterey-header.png' alt='Why Monterey? A paradise where small dogs and their people thrive' class='img-fluid rounded mx-auto d-block'>
   </div>

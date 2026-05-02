@@ -850,6 +850,10 @@ p:last-child {
     radial-gradient(circle at 76% 84%, rgba(255, 140, 99, 0.1), transparent 35%);
 }
 
+.monterey-hero.image-header{
+   padding-block: clamp(1.6rem, 4vw, 2.6rem) !important;
+}
+
 .page-hero-z {
   position: relative;
   z-index: 1;
