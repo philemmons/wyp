@@ -9,25 +9,25 @@ require_once 'includes/header.php';
 
 $montereyHighlightCategories = [
   [
-    'icon'  => '🌄',
+    'icon'  => '<i class="bi bi-sunrise"></i>',
     'title' => 'Outdoor Access and Natural Beauty',
     'theme' => 'monterey-theme-primary',
     'body'  => 'Monterey\'s coastal landscape makes it an exceptional destination for dogs and their owners. Scenic spots like Carmel Beach, Garrapata State Park, and the Monterey Bay Coastal Recreation Trail offer ample space for walks and outdoor adventures. The area\'s mild, temperate climate means these spaces are enjoyable year-round, without the discomfort of extreme heat or cold.',
   ],
   [
-    'icon'  => '☕',
+    'icon'  => '<i class="bi bi-cup-hot"></i>',
     'title' => 'Dog-Friendly Culture and Community',
     'theme' => 'monterey-theme-mauve',
     'body'  => 'Monterey has a genuinely welcoming attitude toward dogs across daily life. Restaurants, cafés, and shops regularly accommodate pets, and many go the extra mile with water bowls and treats. The local dog community is active and well-organized, with clubs, training groups, and regular meetups that make it easy for owners to connect and for dogs to socialize.',
   ],
   [
-    'icon'  => '📅',
+    'icon'  => '<i class="bi bi-calendar-event"></i>',
     'title' => 'Accommodations and Events',
     'theme' => 'monterey-theme-deep',
     'body'  => 'Travelers with dogs are well catered to in Monterey. A solid range of hotels and vacation rentals accept pets, removing the usual stress of finding suitable lodging. Throughout the year, the area also hosts dog-centric events, including parades, shows, and adoption gatherings, that bring the community together around a shared love of dogs.',
   ],
   [
-    'icon'  => '🏠',
+    'icon'  => '<i class="bi bi-house-heart"></i>',
     'title' => 'Services, Amenities, and Local Character',
     'theme' => 'monterey-theme-light',
     'body'  => 'Practical needs are well covered, with quality veterinary care, grooming, boarding, and training services readily available. Several off-leash parks and beaches give dogs the freedom to run and explore. Beyond the amenities, Monterey\'s broader character adds to its appeal — its environmental ethic keeps public spaces clean and safe, historic sites like Cannery Row welcome leashed dogs, and the locals themselves are known for being genuinely warm toward visiting pets and their owners.',
@@ -54,7 +54,7 @@ $montereyHighlightCategories = [
           Monterey, California, is a unique place for dog lovers due to a combination of its natural beauty,
           dog-friendly culture, and a variety of amenities catering to dogs and their owners.
           Below are the factors that make Monterey particularly special for dog enthusiasts — and why
-          Chandra and Skipper are two very lucky pups! <span aria-hidden="true">🐾</span>
+          Chandra and Skipper are two very lucky pups! <i class="bi bi-heart-fill" aria-hidden="true"></i>
         </p>
       </div>
     </div>
@@ -67,7 +67,7 @@ $montereyHighlightCategories = [
     <div class="row g-4">
       <?php foreach ($montereyHighlightCategories as $highlightCategory): ?>
         <div class="col-12 col-md-6">
-          <div class="monterey-category-card <?= htmlspecialchars($highlightCategory['theme']) ?>">
+          <div class="monterey-category-card <?= htmlspecialchars($highlightCategory['theme']) ?> h-100">
             <div class="d-flex align-items-start gap-3">
               <span class="category-icon" aria-hidden="true"><?= $highlightCategory['icon'] ?></span>
               <div class="flex-grow-1">
@@ -130,17 +130,17 @@ $montereyHighlightCategories = [
     <div class="row g-3 mt-4">
       <?php
       $featuredDogFriendlySpots = [
-        ['🏖️', 'Carmel Beach',             'One of California\'s most beautiful dog-friendly beaches'],
-        ['🌿', 'Garrapata State Park',       'Stunning coastal trails where leashed dogs are welcome'],
-        ['🚶', 'Monterey Bay Coastal Trail', '18-mile multi-use path along the scenic bay'],
-        ['🐾', 'Carmel City Beach',          'Off-leash beach access for well-behaved dogs'],
-        ['⚓', 'Cannery Row',                'Historic waterfront with dog-welcoming shops & eateries'],
-        ['🦦', 'Monterey Bay Aquarium',      'Leashed dogs welcome in outdoor areas'],
+        ['bi-umbrella', 'Carmel Beach',             'One of California\'s most beautiful dog-friendly beaches'],
+        ['bi-tree', 'Garrapata State Park',       'Stunning coastal trails where leashed dogs are welcome'],
+        ['bi-person-walking', 'Monterey Bay Coastal Trail', '18-mile multi-use path along the scenic bay'],
+        ['bi-heart-fill', 'Carmel City Beach',          'Off-leash beach access for well-behaved dogs'],
+        ['bi-water', 'Cannery Row',                'Historic waterfront with dog-welcoming shops & eateries'],
+        ['bi-stars', 'Monterey Bay Aquarium',      'Leashed dogs welcome in outdoor areas'],
       ];
       foreach ($featuredDogFriendlySpots as $featuredSpot): ?>
         <div class="col-md-4 col-sm-6">
           <div class="wyp-card wyp-feature-card p-3 d-flex align-items-start gap-3 h-100 monterey-location-border-left">
-            <span class="emoji-md" aria-hidden="true"><?= $featuredSpot[0] ?></span>
+            <i class="bi <?= htmlspecialchars($featuredSpot[0]) ?> emoji-md" aria-hidden="true"></i>
             <div>
               <strong class="spot-name"><?= htmlspecialchars($featuredSpot[1]) ?></strong>
               <p class="spot-desc"><?= htmlspecialchars($featuredSpot[2]) ?></p>
