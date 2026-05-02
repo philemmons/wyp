@@ -38,7 +38,7 @@ require_once 'includes/header.php';
       <hr class="section-divider">
       <p class="story-body story-body--wide mx-auto">
         Every wag of a tail, every gleaming pair of eyes at breakfast time, and every
-        cozy nap on the couch — Chandra and Skipper fill our days with joy. Here's a
+        cozy nap on the couch — Chandra and Skipper fill our days with joy and chaos. Here's a
         little more about who they are.
       </p>
     </div>
@@ -66,15 +66,15 @@ require_once 'includes/header.php';
             Chandra is a purebred Chihuahua with all the charm and confidence the breed
             is famous for. Despite her petite frame, she commands every room she enters
             with her bold personality and expressive eyes. She loves sunny spots by the
-            window, belly rubs, and is fiercely devoted to her family.
+            window, belly rubs, and is fiercely devoted to Millie.
           </p>
 
           <ul class="trait-list text-start">
             <li>Spirited, bold, and full of confidence</li>
             <li>Loves warm cuddles and afternoon naps</li>
             <li>Fiercely loyal and protective of her home</li>
-            <li>Adores walks along the Monterey coastal trail</li>
-            <li>Favourite toy: her plush squeaky taco <span aria-hidden="true">🌮</span></li>
+            <li>Adores walks along the local neighborhood</li>
+            <li>Favorite toy: her plush teddy bear <span aria-hidden="true">🧸</span></li>
           </ul>
 
         </div>
@@ -87,7 +87,7 @@ require_once 'includes/header.php';
           <div class="dog-card-top-stripe dog-card-top-stripe--skipper"></div>
 
           <div class="dog-avatar-frame mb-4" aria-hidden="true">🐶</div>
-          <div class="dog-breed-badge">Chihuahua × Jack Russell</div>
+          <div class="dog-breed-badge">Chihuahua and Jack Russell</div>
           <h3 class="dog-name">Skipper</h3>
           <p class="dog-catchphrase">"The Little Explorer"</p>
 
@@ -98,9 +98,9 @@ require_once 'includes/header.php';
           </div>
 
           <p class="dog-bio">
-            Skipper is a Chihuahua–Jack Russell Terrier hybrid, which means he has
+            Skipper is a Chihuahua-Jack Russell Terrier hybrid, which means he has
             double the energy and triple the curiosity! He's always on the move,
-            sniffing out every corner of Monterey Bay. Witty, fast, and endlessly
+            sniffing out every corner of the neighborhood. Witty, fast, and endlessly
             entertaining, Skipper brings laughter to every moment of the day.
           </p>
 
@@ -125,7 +125,7 @@ require_once 'includes/header.php';
     <div class="row align-items-center g-5">
 
       <div class="col-lg-6 text-center">
-        <div class="story-emoji" aria-hidden="true">🐕🐶</div>
+        <img src='/images/chandra and skipper in bed.jpg' alt='sleeping chandra and skipper in bed' class='img-fluid rounded mx-auto d-block'>
       </div>
 
       <div class="col-lg-6">
