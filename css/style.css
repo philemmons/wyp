@@ -589,7 +589,7 @@ p:last-child {
 }
 
 .wyp-navbar .navbar-toggler {
-  border: 2px solid rgba(59, 36, 22, 0.35);
+  border: 2px solid var(--espresso);
   border-radius: var(--radius-sm);
   padding: 0.35rem 0.55rem;
 }
