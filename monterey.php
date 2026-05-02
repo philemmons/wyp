@@ -173,7 +173,7 @@ $montereyHighlightCategories = [
         <div class="wyp-card wyp-info-card">
           <div class="card-header-band"></div>
           <div class="p-4 p-lg-5 text-center">
-            <div class="emoji-lg" aria-hidden="true">🏆</div>
+            <img src='images/gold paw award-small.png' alt='golden award of a paw' class="img-fluid rounded mx-auto d-block" aria-hidden="true">
             <h2 class="spots-heading">The Bottom Line</h2>
             <p class="spots-intro">
               Overall, Monterey, California, stands out as a haven for dog lovers due to its picturesque
@@ -237,6 +237,3 @@ $montereyHighlightCategories = [
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
-
-
-
