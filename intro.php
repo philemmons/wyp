@@ -22,7 +22,7 @@ require_once 'includes/header.php';
   <div class="container">
     <div class="dedication-banner">
       <h2>Dedicated to Chandra and Skipper</h2>
-      <p>Faithful and Loving — Two small dogs with hearts <i class="bi bi-suit-heart-fill" aria-hidden="true"></i> the size of the ocean <img src='images/ocean icon final.png' alt='ocean icon' width=25 height=25 class="feature-card-icon" aria-hidden="true"></p>
+      <p class='fs-2'>Faithful and Loving — Two small dogs with hearts <i class="bi bi-suit-heart-fill" aria-hidden="true"></i> the size of the ocean!</p>
       <img src='/images/chandra and skipper.jpg' alt='two great dogs - chandra and skipper' class='img-fluid rounded mx-auto d-block'>
     </div>
   </div>
