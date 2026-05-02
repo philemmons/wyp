@@ -88,10 +88,10 @@ $montereyHighlightCategories = [
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="wyp-card wyp-info-card">
-          <div class="card-header-band"></div>
           <div class="p-4 p-lg-5 text-center">
             <img src='images/gold paw award-small.png' alt='golden award of a paw' class="img-fluid rounded mx-auto d-block" aria-hidden="true">
             <h2 class="spots-heading">The Bottom Line</h2>
+            <hr class="section-divider">
             <p class="spots-intro">
               Overall, Monterey, California, stands out as a haven for dog lovers due to its picturesque
               setting, welcoming community, and abundance of dog-friendly amenities and activities.
