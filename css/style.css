@@ -1247,6 +1247,10 @@ p:last-child {
   background: linear-gradient(135deg, var(--pink-mauve), var(--yellow-bright));
 }
 
+.monterey-location-border-left{
+  border-left: .4rem solid var(--pink-mauve);
+}
+
 .quicklink-card {
   display: block;
   text-decoration: none;
