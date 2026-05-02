@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * includes/footer.php
@@ -30,10 +30,10 @@
 <!--  FOOTER  -->
 <footer class="wyp-footer mt-auto">
   <div class="container">
-    <div class="row g-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4 align-items-start">
 
       <!-- Brand column -->
-      <div class="col-md-4">
+      <div class="col">
         <div class="footer-brand mb-1">
           Wipe Your Paws
         </div>
@@ -58,9 +58,9 @@
       </div>
 
       <!-- Quick Links -->
-      <div class="col-md-2 col-6">
+      <div class="col">
         <h2 class="footer-col-heading">Quick Links</h2>
-        <nav aria-label="Footer navigation" class="footer-nav">
+        <nav aria-label="Footer navigation" class="footer-nav d-flex flex-column gap-2">
           <a href="index.php">Home</a>
           <a href="intro.php">Meet the Pups</a>
           <a href="monterey.php">Why Monterey</a>
@@ -70,12 +70,12 @@
       </div>
 
       <!-- Contact -->
-      <div class="col-md-3 col-6">
+      <div class="col">
         <h2 class="footer-col-heading">Get in Touch</h2>
-        <address class="footer-contact-address">
+        <address class="footer-contact-address d-flex flex-column gap-2">
           <div>
             <i class="bi bi-envelope-fill me-2 footer-icon" aria-hidden="true"></i>
-            <a href="mailto:admin@wipeyourpaws.net">admin@wipeyourpaws.net</a>
+            <a href="mailto:admin@wipeyourpaws.net" class="text-break">admin@wipeyourpaws.net</a>
           </div>
           <div>
             <i class="bi bi-geo-alt-fill me-2 footer-icon" aria-hidden="true"></i>
@@ -85,7 +85,7 @@
       </div>
 
       <!-- Fun fact -->
-      <div class="col-md-3">
+      <div class="col">
         <h2 class="footer-col-heading">
           <span>
             Did You Know?
@@ -103,12 +103,16 @@
 
     <hr class="footer-divider">
 
-    <div class="d-flex flex-wrap justify-content-between align-items-center footer-bottom">
-      <span>&copy; <?= date('Y') ?> wipeyourpaws.net &mdash; All rights reserved.</span>
-      <span>
-        Made with <span aria-hidden="true">🧡</span><span class="sr-only">LOVE</span> for Chandra &amp; Skipper
-        <span aria-hidden="true">🐾</span>
-      </span>
+    <div class="row footer-bottom gy-2 align-items-center">
+      <div class="col-12 col-md">
+        <span>&copy; <?= date('Y') ?> wipeyourpaws.net &mdash; All rights reserved.</span>
+      </div>
+      <div class="col-12 col-md-auto">
+        <span>
+          Made with <span aria-hidden="true">🧡</span><span class="sr-only">LOVE</span> for Chandra &amp; Skipper
+          <span aria-hidden="true">🐾</span>
+        </span>
+      </div>
     </div>
 
   </div>

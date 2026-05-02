@@ -1669,8 +1669,6 @@ textarea.form-control {
 }
 
 .footer-nav {
-  display: grid;
-  gap: 0.45rem;
   letter-spacing: 0.07em;
 }
 
@@ -1686,8 +1684,6 @@ textarea.form-control {
 
 .footer-contact-address {
   font-style: normal;
-  display: grid;
-  gap: 0.5rem;
 }
 
 .footer-icon {
@@ -1700,7 +1696,19 @@ textarea.form-control {
 
 .footer-bottom {
   font-size: 0.88rem;
-  gap: 0.6rem;
+}
+
+.wyp-footer .row > [class*="col"] {
+  min-width: 0;
+}
+
+.wyp-footer a,
+.wyp-footer .footer-desc,
+.wyp-footer .footer-col-body,
+.wyp-footer .footer-contact-address,
+.wyp-footer .footer-bottom {
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .social-circle {
@@ -1976,11 +1984,6 @@ textarea.form-control {
 
   .wyp-footer {
     text-align: left;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-    align-items: flex-start !important;
   }
 
   .wyp-grid-2,
