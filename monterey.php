@@ -135,7 +135,7 @@ $montereyHighlightCategories = [
   <div class="container">
     <div class="row g-4">
       <?php foreach ($montereyHighlightCategories as $highlightCategory): ?>
-        <div class="col-6">
+        <div class="col-12">
           <div class="monterey-category-card <?= htmlspecialchars($highlightCategory['theme']) ?>">
             <div class="d-flex align-items-start gap-3">
               <span class="category-icon" aria-hidden="true"><?= $highlightCategory['icon'] ?></span>
@@ -143,7 +143,7 @@ $montereyHighlightCategories = [
                 <h3 class="monterey-cat-heading"><?= htmlspecialchars($highlightCategory['title']) ?></h3>
                 <div class="row g-3 mt-1">
                   <?php foreach ($highlightCategory['items'] as $itemIndex => $highlightItem): ?>
-                    <div class="col-sm-12">
+                    <div class="col-md-6">
                       <div class="d-flex align-items-start gap-2">
                         <span class="monterey-num-badge <?= htmlspecialchars($highlightCategory['theme']) ?>" aria-hidden="true">
                           <?= $itemIndex + 1 ?>
