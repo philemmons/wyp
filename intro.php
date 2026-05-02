@@ -11,7 +11,7 @@ require_once 'includes/header.php';
 <!--  PAGE HERO  -->
 <section class="monterey-hero intro-hero">
   <div class="container text-center page-hero-z">
-    <span class="page-hero-emoji" aria-hidden="true">🐶🐾🐶</span>
+    <span class="page-hero-emoji" aria-hidden="true">🦴<i class="bi bi-suit-heart-fill" aria-hidden="true"></i><img src='images/white-paw.png' alt='white paw' aria-hidden='true'></span>
     <h1 class="page-hero-h1">Meet the Chihuahuas!</h1>
     <p class="page-hero-tagline">Faithful, Loving &amp; Full of Personality</p>
   </div>
@@ -22,7 +22,7 @@ require_once 'includes/header.php';
   <div class="container">
     <div class="dedication-banner">
       <h2>Dedicated to Chandra and Skipper</h2>
-      <p class='fs-2'>Faithful and Loving — Two small dogs with hearts <i class="bi bi-suit-heart-fill" aria-hidden="true"></i> the size of the ocean!</p>
+      <p class='fs-3'>Faithful and Loving — Two small dogs with hearts <i class="bi bi-suit-heart-fill" aria-hidden="true"></i> the size of the ocean!</p>
       <img src='/images/chandra and skipper.jpg' alt='two great dogs - chandra and skipper' class='img-fluid rounded mx-auto d-block'>
     </div>
   </div>
