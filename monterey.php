@@ -9,97 +9,28 @@ require_once 'includes/header.php';
 
 $montereyHighlightCategories = [
   [
-    'icon'  => '🌅',
-    'title' => 'Natural Beauty & Outdoor Activities',
+    'icon'  => '🌄',
+    'title' => 'Outdoor Access and Natural Beauty',
     'theme' => 'monterey-theme-primary',
-    'items' => [
-      [
-        'title' => 'Scenic Locations',
-        'body'  => 'Monterey offers stunning coastal views, beaches, and parks that are perfect for dog walking and outdoor activities. Popular spots include <strong>Carmel Beach</strong>, <strong>Garrapata State Park</strong>, and the <strong>Monterey Bay Coastal Recreation Trail</strong>.'
-      ],
-      [
-        'title' => 'Mild Climate',
-        'body'  => 'The moderate climate in Monterey is ideal for outdoor activities year-round, ensuring that dogs can enjoy the outdoors without the extremes of hot or cold weather.'
-      ],
-    ],
+    'body'  => 'Monterey\'s coastal landscape makes it an exceptional destination for dogs and their owners. Scenic spots like Carmel Beach, Garrapata State Park, and the Monterey Bay Coastal Recreation Trail offer ample space for walks and outdoor adventures. The area\'s mild, temperate climate means these spaces are enjoyable year-round, without the discomfort of extreme heat or cold.',
   ],
   [
     'icon'  => '☕',
-    'title' => 'Dog-Friendly Culture',
+    'title' => 'Dog-Friendly Culture and Community',
     'theme' => 'monterey-theme-mauve',
-    'items' => [
-      [
-        'title' => 'Pet-Friendly Establishments',
-        'body'  => 'Many restaurants, cafés, and shops in Monterey are pet-friendly, allowing dogs to accompany their owners. Some establishments even provide <strong>water bowls and treats</strong> for dogs.'
-      ],
-      [
-        'title' => 'Dog-Friendly Lodging',
-        'body'  => 'There are numerous hotels and vacation rentals that welcome dogs, making it easy for travelers with pets to find comfortable accommodations.'
-      ],
-    ],
+    'body'  => 'Monterey has a genuinely welcoming attitude toward dogs across daily life. Restaurants, cafés, and shops regularly accommodate pets, and many go the extra mile with water bowls and treats. The local dog community is active and well-organized, with clubs, training groups, and regular meetups that make it easy for owners to connect and for dogs to socialize.',
   ],
   [
-    'icon'  => '🎉',
-    'title' => 'Community & Events',
+    'icon'  => '📅',
+    'title' => 'Accommodations and Events',
     'theme' => 'monterey-theme-deep',
-    'items' => [
-      [
-        'title' => 'Dog-Centric Events',
-        'body'  => 'Monterey hosts various dog-friendly events and festivals, such as pet parades, dog shows, and adoption events. These gatherings help foster a strong sense of community among dog lovers.'
-      ],
-      [
-        'title' => 'Active Dog Community',
-        'body'  => 'Numerous dog clubs and groups in the area organise meetups, training sessions, and social events for dogs and their owners.'
-      ],
-    ],
+    'body'  => 'Travelers with dogs are well catered to in Monterey. A solid range of hotels and vacation rentals accept pets, removing the usual stress of finding suitable lodging. Throughout the year, the area also hosts dog-centric events, including parades, shows, and adoption gatherings, that bring the community together around a shared love of dogs.',
   ],
   [
-    'icon'  => '🏥',
-    'title' => 'Amenities & Services',
+    'icon'  => '🏠',
+    'title' => 'Services, Amenities, and Local Character',
     'theme' => 'monterey-theme-light',
-    'items' => [
-      [
-        'title' => 'Veterinary Care',
-        'body'  => 'The availability of high-quality veterinary care and pet services — including grooming, boarding, and training — ensures that dogs in Monterey are well taken care of.'
-      ],
-      [
-        'title' => 'Off-Leash Areas',
-        'body'  => 'Several off-leash dog parks and beaches allow dogs to run and play freely — particularly appealing for owners who want to give their pets freedom to explore and socialise.'
-      ],
-    ],
-  ],
-  [
-    'icon'  => '🌿',
-    'title' => 'Environmental Awareness',
-    'theme' => 'monterey-theme-primary',
-    'items' => [
-      [
-        'title' => 'Conservation Efforts',
-        'body'  => 'Monterey is known for its commitment to environmental conservation, which extends to its pet-friendly policies. Many areas are maintained to be clean and safe for both humans and animals.'
-      ],
-    ],
-  ],
-  [
-    'icon'  => '⚓',
-    'title' => 'Unique Experiences',
-    'theme' => 'monterey-theme-mauve',
-    'items' => [
-      [
-        'title' => 'Historic & Cultural Sites',
-        'body'  => "Monterey's rich history and cultural sites — such as <strong>Cannery Row</strong> and the <strong>Monterey Bay Aquarium</strong> — often welcome leashed dogs, allowing owners to enjoy these attractions without leaving their pets behind."
-      ],
-    ],
-  ],
-  [
-    'icon'  => '😊',
-    'title' => 'Local Attitude',
-    'theme' => 'monterey-theme-deep',
-    'items' => [
-      [
-        'title' => 'Friendly Locals',
-        'body'  => 'The residents of Monterey are known for being welcoming and accommodating to dogs, contributing to a relaxed and inclusive atmosphere for dog lovers.'
-      ],
-    ],
+    'body'  => 'Practical needs are well covered, with quality veterinary care, grooming, boarding, and training services readily available. Several off-leash parks and beaches give dogs the freedom to run and explore. Beyond the amenities, Monterey\'s broader character adds to its appeal — its environmental ethic keeps public spaces clean and safe, historic sites like Cannery Row welcome leashed dogs, and the locals themselves are known for being genuinely warm toward visiting pets and their owners.',
   ],
 ];
 ?>
@@ -135,27 +66,13 @@ $montereyHighlightCategories = [
   <div class="container">
     <div class="row g-4">
       <?php foreach ($montereyHighlightCategories as $highlightCategory): ?>
-        <div class="col-12">
+        <div class="col-12 col-md-6">
           <div class="monterey-category-card <?= htmlspecialchars($highlightCategory['theme']) ?>">
             <div class="d-flex align-items-start gap-3">
               <span class="category-icon" aria-hidden="true"><?= $highlightCategory['icon'] ?></span>
               <div class="flex-grow-1">
                 <h3 class="monterey-cat-heading"><?= htmlspecialchars($highlightCategory['title']) ?></h3>
-                <div class="row g-3 mt-1">
-                  <?php foreach ($highlightCategory['items'] as $itemIndex => $highlightItem): ?>
-                    <div class="col-md-6">
-                      <div class="d-flex align-items-start gap-2">
-                        <span class="monterey-num-badge <?= htmlspecialchars($highlightCategory['theme']) ?>" aria-hidden="true">
-                          <?= $itemIndex + 1 ?>
-                        </span>
-                        <div>
-                          <strong class="category-item-title"><?= htmlspecialchars($highlightItem['title']) ?></strong>
-                          <p class="category-item-body"><?= $highlightItem['body'] ?></p>
-                        </div>
-                      </div>
-                    </div>
-                  <?php endforeach; ?>
-                </div>
+                <p class="category-item-body mt-2 mb-0"><?= htmlspecialchars($highlightCategory['body']) ?></p>
               </div>
             </div>
           </div>
