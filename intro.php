@@ -11,7 +11,7 @@ require_once 'includes/header.php';
 <!--  PAGE HERO  -->
 <section class="monterey-hero intro-hero">
   <div class="container text-center page-hero-z">
-    <span class="page-hero-emoji" aria-hidden="true">🦴<i class="bi bi-suit-heart-fill" aria-hidden="true"></i><img src='images/white-paw.png' alt='white paw' aria-hidden='true'></span>
+    <span class="page-hero-emoji" aria-hidden="true">🦴<i class="bi bi-suit-heart-fill" aria-hidden="true"></i>🐾</span>
     <h1 class="page-hero-h1">Meet the Chihuahuas!</h1>
     <p class="page-hero-tagline">Faithful, Loving &amp; Full of Personality</p>
   </div>
