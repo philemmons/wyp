@@ -22,7 +22,7 @@ require_once 'includes/header.php';
   <div class="container">
     <div class="dedication-banner">
       <h2>Dedicated to Chandra and Skipper</h2>
-      <p class='fs-3'>Faithful and Loving — Two small dogs with hearts <i class="bi bi-suit-heart-fill" aria-hidden="true"></i> the size of the ocean!</p>
+      <p class='fs-4'>Faithful and Loving — Two small dogs with hearts <i class="bi bi-suit-heart-fill" aria-hidden="true"></i> the size of the ocean!</p>
       <img src='/images/chandra and skipper.jpg' alt='two great dogs - chandra and skipper' class='img-fluid rounded mx-auto d-block'>
     </div>
   </div>
@@ -113,9 +113,9 @@ require_once 'includes/header.php';
           <ul class="trait-list text-start">
             <li>Boundless energy and a nose for adventure</li>
             <li>Quick learner — loves to show off his tricks</li>
-            <li>Best friends with Chandra (most of the time <span aria-hidden="true">😄</span>)</li>
+            <li>Best friends with Chandra (most of the time <span aria-hidden="true">🤣</span>)</li>
             <li>Loves splashing near the water's edge</li>
-            <li>Favourite activity: zoomies at Carmel Beach <span aria-hidden="true">🏖️</span></li>
+            <li>Favorite activity: zoomies in the condo <span aria-hidden="true">🏡</span></li>
           </ul>
 
           <div class="dog-avatar-frame mt-4">
@@ -177,8 +177,7 @@ require_once 'includes/header.php';
     <div class="row g-4">
 
       <div class="col-md-6">
-        <div class="wyp-card wyp-info-card h-100">
-          <div class="card-header-band"></div>
+        <div class="wyp-card wyp-info-card h-100 .meet-the-pups-border-left">
           <div class="p-4">
             <h3 class="breed-fact-heading">
               <img src='/images/chandra icon 55x55.png' alt="chandra bust icon" width=55 height=55 aria-hidden="true"> Chihuahua
@@ -196,8 +195,7 @@ require_once 'includes/header.php';
       </div>
 
       <div class="col-md-6">
-        <div class="wyp-card wyp-info-card h-100">
-          <div class="card-header-band dog-card-top-stripe--skipper"></div>
+        <div class="wyp-card wyp-info-card h-100 meet-the-pups-border-left">
           <div class="p-4">
             <h3 class="breed-fact-heading">
               <img src='/images/skipper-icon-50x42.png' alt="skipper cartoon icon" width=50 height=42 aria-hidden="true"> Chihuahua and Jack Russell Terrier
