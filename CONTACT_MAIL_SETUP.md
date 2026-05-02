@@ -1,5 +1,10 @@
 # Contact Mail Setup (PHPMailer + SMTP)
 
+## Canonical endpoint naming
+
+- Submit handler: `/process_contact_form_submission.php`
+- Legacy `/contact_submit.php` is redirected for compatibility, but integrations should use the canonical handler path.
+
 ## 1) Install PHPMailer
 
 Use Composer in the project root:

@@ -1,7 +1,8 @@
 # WCAG 2.1 Readability And Typography Checklist
 
-Last updated: 2026-04-16
+Last updated: 2026-05-01
 Applies to: `/css/style.css` and page templates in this repo.
+Naming note: use canonical script names `js/scroll_reveal_animations.js` and `js/back_to_top_button.js` in docs/templates.
 
 ## Scope
 This checklist focuses on WCAG 2.1 text readability and visual presentation topics:

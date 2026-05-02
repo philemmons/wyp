@@ -1,6 +1,7 @@
 # Shared Hosting Email Deliverability Checklist (cPanel/LiteSpeed)
 
 Use this checklist in order. It is tuned for PHP 8.x + cPanel shared hosting.
+Use canonical diagnostic endpoints (`mail_delivery_diagnostic.php`, `smtp_delivery_test.php`) after the naming convention refactor.
 
 ## 1) Run diagnostics endpoints
 

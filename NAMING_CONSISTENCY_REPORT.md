@@ -63,3 +63,8 @@
 ## Validation
 - Ran PHP syntax checks across all PHP files.
 - Result: `ALL_PHP_LINT_OK`
+
+## Routing And Crawl Artifact Alignment
+- Updated `.htaccess` with permanent redirects from legacy pre-refactor routes to canonical snake_case routes.
+- Updated `robots.txt` disallow entries to include both canonical internal endpoints and legacy renamed diagnostic routes.
+- Updated `sitemap.xml` metadata dates to reflect the current post-refactor state.

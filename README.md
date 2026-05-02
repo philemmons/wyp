@@ -13,6 +13,8 @@ This codebase now uses a centralized, canonical design system and shared templat
 - Shared layout includes: `includes/header.php` and `includes/footer.php`
 - Session-safe include behavior (`session_start` guarded against duplicate start)
 - Inline `style=""` removed from templates in favor of reusable classes
+- Canonical file naming is snake_case for renamed handlers/scripts
+- Legacy renamed routes are redirected to canonical targets in `.htaccess`
 
 ## Technology Stack
 
@@ -76,6 +78,7 @@ Current `.htaccess` behavior:
 
 - `DirectoryIndex index.php`
 - Canonical redirect: `/index.php` -> `/`
+- Legacy redirect compatibility for renamed files (for example `contact_submit.php` -> `process_contact_form_submission.php`)
 - Extensionless PHP fallback routing (if matching `.php` exists)
 - Custom error documents:
   - `ErrorDocument 403 /403.php`
