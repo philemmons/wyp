@@ -1748,10 +1748,13 @@ textarea.form-control {
   --btt-bg: #8b3f1b;
   --btt-bg-hover: #6f3115;
   --btt-bg-active: #5e2811;
+  --btt-bg-active-invert: #ffffff;
   --btt-border: #2b160a;
   --btt-border-hover: #1d0e07;
+  --btt-border-active: #1d0e07;
   --btt-focus-ring: #55b7ff;
   --btt-icon: #ffffff;
+  --btt-icon-active-invert: #1d0e07;
   --btt-shadow-base:
     0 8px 20px rgba(29, 14, 7, 0.28),
     0 2px 6px rgba(29, 14, 7, 0.2);
@@ -1824,19 +1827,26 @@ textarea.form-control {
 }
 
 .back-to-top.visible:active {
-  transform: translateY(1px) scale(0.98);
-  background: var(--btt-bg-active);
-  box-shadow: var(--btt-shadow-active);
-  transition-duration: 100ms;
+  transform: scale(0.96);
+  border-color: var(--btt-border-active);
+  background: var(--btt-bg-active-invert);
+  color: var(--btt-icon-active-invert);
+  box-shadow:
+    0 2px 6px rgba(29, 14, 7, 0.22),
+    0 0 0 1px rgba(29, 14, 7, 0.08);
+  transition-duration: 140ms;
+  transition-timing-function: var(--ease-standard);
 }
 
 .back-to-top.visible:active .bi {
-  transform: translateY(0) scale(0.95);
-  transition-duration: 100ms;
+  transform: translateY(0) scale(0.96);
+  transition-duration: 140ms;
+  transition-timing-function: var(--ease-standard);
 }
 
 .back-to-top:focus-visible {
-  outline: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   border-color: var(--espresso);
   box-shadow:
     0 0 0 2px var(--white),
