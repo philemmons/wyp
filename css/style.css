@@ -1017,17 +1017,6 @@ p:last-child {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background:
-    radial-gradient(
-      circle at 92% 10%,
-      rgba(255, 216, 106, 0.12),
-      transparent 34%
-    ),
-    radial-gradient(
-      circle at 10% 92%,
-      rgba(255, 140, 99, 0.08),
-      transparent 35%
-    );
 }
 
 .dedication-banner,
