@@ -78,7 +78,7 @@ require_once 'includes/header.php';
           </ul>
 
           <div class="dog-avatar-frame mt-4">
-            <img src='/images/chandra icon.png' alt="" width=35 height=35 aria-hidden="true">
+            <img src='/images/chandra icon 55x55.png.png' alt="" width=35 height=35 aria-hidden="true">
           </div>
 
           <div class="dog-breed-badge">Chihuahua</div>
@@ -119,7 +119,7 @@ require_once 'includes/header.php';
           </ul>
 
           <div class="dog-avatar-frame mt-4">
-            <img src='/images/skipper-icon.png' alt="" width=35 height=30 aria-hidden="true">
+            <img src='/images/skipper-icon-50x42.png' alt="" width=35 height=30 aria-hidden="true">
           </div>
 
           <div class="dog-breed-badge">Chihuahua and Jack Russell</div>
