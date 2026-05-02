@@ -135,7 +135,7 @@ $montereyHighlightCategories = [
   <div class="container">
     <div class="row g-4">
       <?php foreach ($montereyHighlightCategories as $highlightCategory): ?>
-        <div class="col-12">
+        <div class="col-6">
           <div class="monterey-category-card <?= htmlspecialchars($highlightCategory['theme']) ?>">
             <div class="d-flex align-items-start gap-3">
               <span class="category-icon" aria-hidden="true"><?= $highlightCategory['icon'] ?></span>
