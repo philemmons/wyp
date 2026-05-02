@@ -181,12 +181,12 @@ require_once 'includes/header.php';
           <div class="card-header-band"></div>
           <div class="p-4">
             <h3 class="breed-fact-heading">
-              <span aria-hidden="true">🐕</span> Chihuahua
+              <img src='/images/chandra icon 55x55.png' alt="chandra bust icon" width=55 height=55 aria-hidden="true"> Chihuahua
             </h3>
             <ul class="trait-list">
-              <li>World's smallest recognised dog breed</li>
-              <li>Lifespan: typically 12–20 years</li>
-              <li>Weight: usually 2–6 lbs (0.9–2.7 kg)</li>
+              <li>World's smallest recognized dog breed</li>
+              <li>Lifespan: typically 12 to 20 years</li>
+              <li>Weight: usually 2 to 6 lbs (0.9 to 2.7 kg)</li>
               <li>Known for fierce loyalty and big personality</li>
               <li>Alert, confident, and highly adaptable</li>
               <li>Originally from the Mexican state of Chihuahua</li>
@@ -200,15 +200,15 @@ require_once 'includes/header.php';
           <div class="card-header-band dog-card-top-stripe--skipper"></div>
           <div class="p-4">
             <h3 class="breed-fact-heading">
-              <span aria-hidden="true">🐶</span> Chihuahua &times; Jack Russell Terrier
+              <img src='/images/skipper-icon-50x42.png' alt="skipper cartoon icon" width=50 height=42 aria-hidden="true"> Chihuahua and Jack Russell Terrier
             </h3>
             <ul class="trait-list">
               <li>Affectionately known as a "Jack Chi" or "Chi-Jack"</li>
               <li>Inherits the terrier's energy and chi's loyalty</li>
-              <li>Weight: typically 8–18 lbs (3.6–8 kg)</li>
+              <li>Weight: typically 8 to 18 lbs (3.6 to 8 kg)</li>
               <li>Highly intelligent and easy to train with positive reinforcement</li>
               <li>Energetic, playful, and excellent with active families</li>
-              <li>Coat and colour can vary widely from pup to pup</li>
+              <li>Coat and color can vary widely from pup to pup</li>
             </ul>
           </div>
         </div>
