@@ -51,19 +51,17 @@ require_once 'includes/header.php';
 
           <div class="dog-card-top-stripe"></div>
 
-          <div class="dog-avatar-frame mb-4" aria-hidden="true">🐕</div>
-          <div class="dog-breed-badge">Chihuahua</div>
           <h3 class="dog-name">Chandra</h3>
           <p class="dog-catchphrase">"Princess of the House"</p>
 
-                    <img src='/images/chandra.jpg' alt='chandra' class='img-fluid rounded mx-auto d-block'>
+          <img src='/images/chandra.jpg' alt='chandra' class='img-fluid rounded mx-auto d-block'>
 
-                    
           <div class="mb-3">
             <span class="dog-stat-chip"><i class="bi bi-gender-female" aria-hidden="true"></i> Female</span>
             <span class="dog-stat-chip"><span aria-hidden="true">🐾</span> Chihuahua</span>
             <span class="dog-stat-chip"><span aria-hidden="true">📍</span> Monterey, CA</span>
           </div>
+
           <p class="dog-bio">
             Chandra is a purebred Chihuahua with all the charm and confidence the breed
             is famous for. Despite her petite frame, she commands every room she enters
@@ -79,6 +77,12 @@ require_once 'includes/header.php';
             <li>Favorite toy: her plush teddy bear <span aria-hidden="true">🧸</span></li>
           </ul>
 
+          <div class="dog-avatar-frame mb-4">
+            <img src='/images/skipper-icon.png' alt="" width=35 height=30 aria-hidden="true">
+          </div>
+
+          <div class="dog-breed-badge">Chihuahua</div>
+
         </div>
       </div>
 
@@ -88,8 +92,6 @@ require_once 'includes/header.php';
 
           <div class="dog-card-top-stripe dog-card-top-stripe--skipper"></div>
 
-          <div class="dog-avatar-frame mb-4" aria-hidden="true">🐶</div>
-          <div class="dog-breed-badge">Chihuahua and Jack Russell</div>
           <h3 class="dog-name">Skipper</h3>
           <p class="dog-catchphrase">"The Little Explorer"</p>
 
@@ -115,6 +117,12 @@ require_once 'includes/header.php';
             <li>Loves splashing near the water's edge</li>
             <li>Favourite activity: zoomies at Carmel Beach <span aria-hidden="true">🏖️</span></li>
           </ul>
+
+          <div class="dog-avatar-frame mb-4">
+            <img src='/images/skipper-icon.png' alt="" width=35 height=30 aria-hidden="true">
+          </div>
+
+          <div class="dog-breed-badge">Chihuahua and Jack Russell</div>
 
         </div>
       </div>
