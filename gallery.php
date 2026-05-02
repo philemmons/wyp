@@ -4,10 +4,10 @@
  * gallery.php — Media Gallery
  * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8
  */
-$page_id = 'gallery';
+$activePageKey = 'gallery';
 require_once 'includes/header.php';
 
-$placeholders = [
+$galleryPreviewCards = [
   ['🐕', 'Chandra',        'Morning sunshine'],
   ['🐶', 'Skipper',        'Beach adventures'],
   ['🐾', 'The Dynamic Duo', 'Best friends forever'],
@@ -68,12 +68,12 @@ $placeholders = [
     </div>
 
     <div class="gallery-placeholder-grid">
-      <?php foreach ($placeholders as $ph): ?>
+      <?php foreach ($galleryPreviewCards as $previewCard): ?>
         <div class="gallery-placeholder-item">
           <span class="gallery-coming-badge">Coming Soon</span>
-          <span class="placeholder-icon" aria-hidden="true"><?= $ph[0] ?></span>
-          <p class="spot-name mt-2 mb-0"><?= htmlspecialchars($ph[1]) ?></p>
-          <p class="gallery-tip-text mb-0"><?= htmlspecialchars($ph[2]) ?></p>
+          <span class="placeholder-icon" aria-hidden="true"><?= $previewCard[0] ?></span>
+          <p class="spot-name mt-2 mb-0"><?= htmlspecialchars($previewCard[1]) ?></p>
+          <p class="gallery-tip-text mb-0"><?= htmlspecialchars($previewCard[2]) ?></p>
         </div>
       <?php endforeach; ?>
     </div>
@@ -148,3 +148,4 @@ $placeholders = [
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
+

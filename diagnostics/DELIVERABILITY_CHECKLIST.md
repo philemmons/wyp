@@ -6,13 +6,13 @@ Use this checklist in order. It is tuned for PHP 8.x + cPanel shared hosting.
 
 1. Set a temporary server env var: `WYP_DIAG_KEY`.
 2. Open:
-   - `/diagnostics/mail_diagnostic.php?key=YOUR_KEY`
-   - `/diagnostics/smtp_test.php?key=YOUR_KEY`
+   - `/diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY`
+   - `/diagnostics/smtp_delivery_test.php?key=YOUR_KEY`
 3. Save output for support tickets.
 
 ## 2) Outbound SMTP ports and connectivity
 
-1. In `mail_diagnostic.php`, confirm SMTP host port probes for `25`, `465`, `587`.
+1. In `mail_delivery_diagnostic.php`, confirm SMTP host port probes for `25`, `465`, `587`.
 2. If `465/587` fail with timeout/refused, ask host if outbound SMTP is blocked.
 3. Prefer `587 + STARTTLS` for authenticated relay.
 
@@ -20,7 +20,7 @@ Use this checklist in order. It is tuned for PHP 8.x + cPanel shared hosting.
 
 1. Confirm `mail_function_exists=true` and `mail_disabled=false`.
 2. Run mail test:
-   - `/diagnostics/mail_diagnostic.php?key=YOUR_KEY&mail_test_to=you@example.com`
+   - `/diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY&mail_test_to=you@example.com`
 3. If `mail()` returns false or warnings:
    - ask host if `mail()` is disabled
    - ask for hourly/domain throttling limits
@@ -29,7 +29,7 @@ Use this checklist in order. It is tuned for PHP 8.x + cPanel shared hosting.
 ## 4) SMTP authentication and TLS
 
 1. Use SMTP route:
-   - `/diagnostics/smtp_test.php?key=YOUR_KEY&send=1&to=you@example.com`
+   - `/diagnostics/smtp_delivery_test.php?key=YOUR_KEY&send=1&to=you@example.com`
 2. Review `debug_log`:
    - auth errors: bad username/password, account restrictions
    - TLS errors: cert mismatch, protocol issues
@@ -88,3 +88,4 @@ Use this checklist in order. It is tuned for PHP 8.x + cPanel shared hosting.
 
 1. Remove `diagnostics/` scripts from production.
 2. Remove `WYP_DIAG_KEY`.
+

@@ -4,10 +4,10 @@
  * monterey.php — Why Monterey?
  * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8
  */
-$page_id = 'monterey';
+$activePageKey = 'monterey';
 require_once 'includes/header.php';
 
-$categories = [
+$montereyHighlightCategories = [
   [
     'icon'  => '🌅',
     'title' => 'Natural Beauty & Outdoor Activities',
@@ -138,23 +138,23 @@ $categories = [
 <section class="wyp-section">
   <div class="container">
     <div class="row g-4">
-      <?php foreach ($categories as $cat): ?>
+      <?php foreach ($montereyHighlightCategories as $highlightCategory): ?>
         <div class="col-12">
-          <div class="monterey-category-card <?= htmlspecialchars($cat['theme']) ?>">
+          <div class="monterey-category-card <?= htmlspecialchars($highlightCategory['theme']) ?>">
             <div class="d-flex align-items-start gap-3">
-              <span class="category-icon" aria-hidden="true"><?= $cat['icon'] ?></span>
+              <span class="category-icon" aria-hidden="true"><?= $highlightCategory['icon'] ?></span>
               <div class="flex-grow-1">
-                <h3 class="monterey-cat-heading"><?= htmlspecialchars($cat['title']) ?></h3>
+                <h3 class="monterey-cat-heading"><?= htmlspecialchars($highlightCategory['title']) ?></h3>
                 <div class="row g-3 mt-1">
-                  <?php foreach ($cat['items'] as $i => $item): ?>
+                  <?php foreach ($highlightCategory['items'] as $itemIndex => $highlightItem): ?>
                     <div class="col-md-6">
                       <div class="d-flex align-items-start gap-2">
-                        <span class="monterey-num-badge <?= htmlspecialchars($cat['theme']) ?>" aria-hidden="true">
-                          <?= $i + 1 ?>
+                        <span class="monterey-num-badge <?= htmlspecialchars($highlightCategory['theme']) ?>" aria-hidden="true">
+                          <?= $itemIndex + 1 ?>
                         </span>
                         <div>
-                          <strong class="category-item-title"><?= htmlspecialchars($item['title']) ?></strong>
-                          <p class="category-item-body"><?= $item['body'] ?></p>
+                          <strong class="category-item-title"><?= htmlspecialchars($highlightItem['title']) ?></strong>
+                          <p class="category-item-body"><?= $highlightItem['body'] ?></p>
                         </div>
                       </div>
                     </div>
@@ -216,7 +216,7 @@ $categories = [
 
     <div class="row g-3 mt-4">
       <?php
-      $spots = [
+      $featuredDogFriendlySpots = [
         ['🏖️', 'Carmel Beach',             'One of California\'s most beautiful dog-friendly beaches'],
         ['🌿', 'Garrapata State Park',       'Stunning coastal trails where leashed dogs are welcome'],
         ['🚶', 'Monterey Bay Coastal Trail', '18-mile multi-use path along the scenic bay'],
@@ -224,13 +224,13 @@ $categories = [
         ['⚓', 'Cannery Row',                'Historic waterfront with dog-welcoming shops & eateries'],
         ['🦦', 'Monterey Bay Aquarium',      'Leashed dogs welcome in outdoor areas'],
       ];
-      foreach ($spots as $spot): ?>
+      foreach ($featuredDogFriendlySpots as $featuredSpot): ?>
         <div class="col-md-4 col-sm-6">
           <div class="wyp-card wyp-feature-card p-3 d-flex align-items-start gap-3">
-            <span class="emoji-md" aria-hidden="true"><?= $spot[0] ?></span>
+            <span class="emoji-md" aria-hidden="true"><?= $featuredSpot[0] ?></span>
             <div>
-              <strong class="spot-name"><?= htmlspecialchars($spot[1]) ?></strong>
-              <p class="spot-desc"><?= htmlspecialchars($spot[2]) ?></p>
+              <strong class="spot-name"><?= htmlspecialchars($featuredSpot[1]) ?></strong>
+              <p class="spot-desc"><?= htmlspecialchars($featuredSpot[2]) ?></p>
             </div>
           </div>
         </div>
@@ -241,3 +241,6 @@ $categories = [
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
+
+
+

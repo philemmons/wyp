@@ -18,10 +18,10 @@
 
 
   // Element reference
-  const backToTopBtn = document.getElementById('back-to-top-link');
+  const backToTopButton = document.getElementById('back-to-top-link');
 
   // Exit early if element is not present (prevents errors)
-  if (!backToTopBtn) return;
+  if (!backToTopButton) return;
 
 
   // Accessibility: Reduced motion preference
@@ -35,13 +35,13 @@
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
     if (scrollTop > SCROLL_THRESHOLD) {
-      backToTopBtn.classList.add('visible');
-      backToTopBtn.setAttribute('tabindex', '0');
-      backToTopBtn.setAttribute('aria-hidden', 'false');
+      backToTopButton.classList.add('visible');
+      backToTopButton.setAttribute('tabindex', '0');
+      backToTopButton.setAttribute('aria-hidden', 'false');
     } else {
-      backToTopBtn.classList.remove('visible');
-      backToTopBtn.setAttribute('tabindex', '-1');
-      backToTopBtn.setAttribute('aria-hidden', 'true');
+      backToTopButton.classList.remove('visible');
+      backToTopButton.setAttribute('tabindex', '-1');
+      backToTopButton.setAttribute('aria-hidden', 'true');
     }
 
     ticking = false;
@@ -59,8 +59,8 @@
 
 
   // Click handler (scroll to top)
-  backToTopBtn.addEventListener('click', function (e) {
-    e.preventDefault();
+  backToTopButton.addEventListener('click', function (clickEvent) {
+    clickEvent.preventDefault();
 
     window.scrollTo({
       top: 0,

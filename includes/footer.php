@@ -1,16 +1,16 @@
-ï»¿<?php
+<?php
 
 /**
  * includes/footer.php
- * Shared footer â€” wipeyourpaws.net
- * PHP 8.5 Â· Bootstrap 5.3.8 Â· WCAG 2.1 AA
+ * Shared footer — wipeyourpaws.net
+ * PHP 8.5 · Bootstrap 5.3.8 · WCAG 2.1 AA
  *
  * WCAG fixes:
- *   W2  â€” </main> closed here
- *   W4  â€” aria-label="Footer navigation" on footer <nav>
- *   W7  â€” prefers-reduced-motion handled in app.js
- *   W14 â€” aria-hidden="true" on decorative Bootstrap icons
- *   R2  â€” <noscript> style restores element visibility if JS disabled
+ *   W2  — </main> closed here
+ *   W4  — aria-label="Footer navigation" on footer <nav>
+ *   W7  — prefers-reduced-motion handled in scroll_reveal_animations.js
+ *   W14 — aria-hidden="true" on decorative Bootstrap icons
+ *   R2  — <noscript> style restores element visibility if JS disabled
  */
 ?>
 
@@ -38,10 +38,10 @@
           Wipe Your Paws
         </div>
         <div class="footer-tagline mb-3">
-          Big Love for Small Paws <span aria-hidden="true">ğŸ¾</span>
+          Big Love for Small Paws <span aria-hidden="true">??</span>
         </div>
         <p class="footer-desc">
-          Celebrating the joy of small dogs with Chandra &amp; Skipper â€”
+          Celebrating the joy of small dogs with Chandra &amp; Skipper —
           your cozy corner of the internet for small paw enthusiasts.
         </p>
         <div class="mt-3">
@@ -109,8 +109,8 @@
       </div>
       <div class="col-12 col-md-auto">
         <span>
-          Made with <span aria-hidden="true">ğŸ§¡</span><span class="sr-only">LOVE</span> for Chandra &amp; Skipper
-          <span aria-hidden="true">ğŸ¾</span>
+          Made with <span aria-hidden="true">??</span><span class="sr-only">LOVE</span> for Chandra &amp; Skipper
+          <span aria-hidden="true">??</span>
         </span>
       </div>
     </div>
@@ -130,11 +130,12 @@
 </script>
 
 <!-- Back to Top -->
-<script src="/js/backToTop.js?v=<?= filemtime(__DIR__ . '/../js/backToTop.js'); ?>" defer></script>
+<script src="/js/back_to_top_button.js?v=<?= filemtime(__DIR__ . '/../js/back_to_top_button.js'); ?>" defer></script>
 
 <!-- App JS (replaces inline animation script) -->
-<script src="/js/app.js?v=<?= filemtime(__DIR__ . '/../js/app.js'); ?>" defer></script>
+<script src="/js/scroll_reveal_animations.js?v=<?= filemtime(__DIR__ . '/../js/scroll_reveal_animations.js'); ?>" defer></script>
 
 </body>
 
 </html>
+

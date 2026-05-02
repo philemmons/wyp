@@ -1,12 +1,12 @@
 <?php
 
 /**
- * 404.php — Custom Not Found page
+ * 403.php — Custom Forbidden page
  * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8
- * Triggered by .htaccess: ErrorDocument 404 /404.php
+ * Triggered by .htaccess: ErrorDocument 403 /403.php
  */
 http_response_code(403);
-$page_id = 'error403';
+$activePageKey = 'error403';
 require_once 'includes/header.php';
 ?>
 
@@ -53,19 +53,19 @@ require_once 'includes/header.php';
         <nav aria-label="Error page navigation">
             <div class="row g-3 justify-content-center">
                 <?php
-                $links = [
+                $navigationCards = [
                     ['index.php',    '🏠', 'Home',         'Start at the beginning'],
                     ['intro.php',    '🐶', 'Meet the Pups', 'Get to know Chandra &amp; Skipper'],
                     ['monterey.php', '🌊', 'Why Monterey',  'Discover our beautiful home'],
                     ['gallery.php',  '📸', 'Gallery',       'Photos coming soon!'],
                     ['contact.php',  '✉️', 'Contact Us',     'Say hello'],
                 ];
-                foreach ($links as $l): ?>
+                foreach ($navigationCards as $navigationCard): ?>
                     <div class="col-sm-4 col-md-2">
-                        <a href="<?= $l[0] ?>" class="quicklink-card">
-                            <span class="quicklink-icon" aria-hidden="true"><?= $l[1] ?></span>
-                            <?= $l[2] ?>
-                            <span class="quicklink-subtitle"><?= $l[3] ?></span>
+                        <a href="<?= $navigationCard[0] ?>" class="quicklink-card">
+                            <span class="quicklink-icon" aria-hidden="true"><?= $navigationCard[1] ?></span>
+                            <?= $navigationCard[2] ?>
+                            <span class="quicklink-subtitle"><?= $navigationCard[3] ?></span>
                         </a>
                     </div>
                 <?php endforeach; ?>
@@ -75,3 +75,4 @@ require_once 'includes/header.php';
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
+

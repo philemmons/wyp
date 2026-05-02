@@ -32,7 +32,7 @@ wipeyourpaws/
 |-- monterey.php
 |-- gallery.php
 |-- contact.php
-|-- contact_submit.php
+|-- process_contact_form_submission.php
 |-- 403.php
 |-- 404.php
 |-- .htaccess
@@ -44,8 +44,8 @@ wipeyourpaws/
 |-- css/
 |   `-- style.css
 |-- js/
-|   |-- app.js
-|   `-- backToTop.js
+|   |-- scroll_reveal_animations.js
+|   `-- back_to_top_button.js
 `-- images/
 ```
 
@@ -105,7 +105,7 @@ The site includes:
 
 ## Contact Form Security
 
-`contact_submit.php` includes:
+`process_contact_form_submission.php` includes:
 
 - CSRF token validation (`hash_equals`)
 - Honeypot check
@@ -127,8 +127,9 @@ php -l index.php
 ## Deployment Notes
 
 - Ensure `/css/style.css` is deployed (this is the active stylesheet).
-- If switching to SMTP delivery, replace `mail()` in `contact_submit.php` with PHPMailer.
+- If switching to SMTP delivery, replace `mail()` in `process_contact_form_submission.php` with PHPMailer.
 
 ---
 
 Maintained for wipeyourpaws.net.
+

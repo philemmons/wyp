@@ -8,7 +8,7 @@ Use Composer in the project root:
 composer require phpmailer/phpmailer
 ```
 
-This creates `vendor/autoload.php`, which `contact_submit.php` auto-detects.
+This creates `vendor/autoload.php`, which `process_contact_form_submission.php` auto-detects.
 
 ## 2) SMTP environment variables
 
@@ -80,3 +80,4 @@ v=DMARC1; p=none; rua=mailto:dmarc@wipeyourpaws.net; fo=1; adkim=s; aspf=s
 ```
 
 After confirming alignment and reports, raise policy to `p=quarantine` or `p=reject`.
+
