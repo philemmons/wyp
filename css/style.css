@@ -1614,7 +1614,7 @@ textarea.form-control {
 
 /***** 8. FOOTER + UTILITY COMPONENTS *****/
 .bi-suit-heart-fill{
-  color: va(--black) !important;
+  color: var(--bs-pink) !important;
 }
 
 .wyp-footer {
