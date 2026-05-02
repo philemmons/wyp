@@ -23,6 +23,7 @@ require_once 'includes/header.php';
     <div class="dedication-banner">
       <h2>Dedicated to Chandra and Skipper</h2>
       <p>Faithful and Loving — Two small dogs with hearts the size of the ocean <span aria-hidden="true">🌊</span></p>
+      <img src='/images/chandra and skipper.jpg' alt='two great dogs - chandra and skipper' class='img-fluid rounded mx-auto d-block'>
     </div>
   </div>
 </section>
