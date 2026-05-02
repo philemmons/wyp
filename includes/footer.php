@@ -2,15 +2,15 @@
 
 /**
  * includes/footer.php
- * Shared footer ó wipeyourpaws.net
- * PHP 8.5 ∑ Bootstrap 5.3.8 ∑ WCAG 2.1 AA
+ * Shared footer - wipeyourpaws.net
+ * PHP 8.5 - Bootstrap 5.3.8 - WCAG 2.1 AA
  *
  * WCAG fixes:
- *   W2  ó </main> closed here
- *   W4  ó aria-label="Footer navigation" on footer <nav>
- *   W7  ó prefers-reduced-motion handled in scroll_reveal_animations.js
- *   W14 ó aria-hidden="true" on decorative Bootstrap icons
- *   R2  ó <noscript> style restores element visibility if JS disabled
+ *   W2  - </main> closed here
+ *   W4  - aria-label="Footer navigation" on footer <nav>
+ *   W7  - prefers-reduced-motion handled in scroll_reveal_animations.js
+ *   W14 - aria-hidden="true" on decorative Bootstrap icons
+ *   R2  - <noscript> style restores element visibility if JS disabled
  */
 ?>
 
@@ -41,7 +41,7 @@
           Big Love for Small Paws <span aria-hidden="true">??</span>
         </div>
         <p class="footer-desc">
-          Celebrating the joy of small dogs with Chandra &amp; Skipper ó
+          Celebrating the joy of small dogs with Chandra &amp; Skipper <i class="bi bi-suit-heart-fill" aria-hidden="true"></i>
           your cozy corner of the internet for small paw enthusiasts.
         </p>
         <div class="mt-3">
@@ -109,8 +109,8 @@
       </div>
       <div class="col-12 col-md-auto">
         <span>
-          Made with <span aria-hidden="true">??</span><span class="sr-only">LOVE</span> for Chandra &amp; Skipper
-          <span aria-hidden="true">??</span>
+          Made with <i class="bi bi-suit-heart-fill" aria-hidden="true"></i><span class="sr-only">LOVE</span> for Chandra &amp; Skipper
+          <span aria-hidden="true">üêæ</span>
         </span>
       </div>
     </div>

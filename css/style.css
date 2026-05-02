@@ -1613,6 +1613,10 @@ textarea.form-control {
 }
 
 /***** 8. FOOTER + UTILITY COMPONENTS *****/
+.bi-suit-heart-fill{
+  color: va(--black) !important;
+}
+
 .wyp-footer {
   position: relative;
   background: linear-gradient(145deg, #fffdf9, #fff2e1 44%, #ffe8d0 100%);
