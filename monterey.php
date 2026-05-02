@@ -217,16 +217,17 @@ $montereyHighlightCategories = [
     <div class="row g-3 mt-4">
       <?php
       $featuredDogFriendlySpots = [
-        ['🏖️', 'Carmel Beach',             'One of California\'s most beautiful dog-friendly beaches'],
-        ['🌿', 'Garrapata State Park',       'Stunning coastal trails where leashed dogs are welcome'],
-        ['🚶', 'Monterey Bay Coastal Trail', '18-mile multi-use path along the scenic bay'],
-        ['🐾', 'Carmel City Beach',          'Off-leash beach access for well-behaved dogs'],
-        ['⚓', 'Cannery Row',                'Historic waterfront with dog-welcoming shops & eateries'],
-        ['🦦', 'Monterey Bay Aquarium',      'Leashed dogs welcome in outdoor areas'],
+        ['🏖️', 'Carmel Beach',               'One of California\'s most beautiful dog-friendly beaches',  'monterey-theme-primary'],
+        ['🌿', 'Garrapata State Park',       'Stunning coastal trails where leashed dogs are welcome',    'monterey-theme-mauve'],
+        ['🚶', 'Monterey Bay Coastal Trail', '18-mile multi-use path along the scenic bay',               'monterey-theme-deep'],
+        ['🐾', 'Carmel City Beach',          'Off-leash beach access for well-behaved dogs',              'monterey-theme-primary'],
+        ['⚓', 'Cannery Row',                'Historic waterfront with dog-welcoming shops & eateries',   'monterey-theme-mauve'],
+        ['🦦', 'Monterey Bay Aquarium',      'Leashed dogs welcome in outdoor areas',                     'monterey-theme-deep'],
       ];
+
       foreach ($featuredDogFriendlySpots as $featuredSpot): ?>
         <div class="col-md-4 col-sm-6">
-          <div class="wyp-card wyp-feature-card p-3 d-flex align-items-start gap-3">
+          <div class="wyp-card wyp-feature-card p-3 d-flex align-items-start gap-3 h-100 <?= $featuredSpot[3] ?>">
             <span class="emoji-md" aria-hidden="true"><?= $featuredSpot[0] ?></span>
             <div>
               <strong class="spot-name"><?= htmlspecialchars($featuredSpot[1]) ?></strong>
@@ -236,11 +237,7 @@ $montereyHighlightCategories = [
         </div>
       <?php endforeach; ?>
     </div>
-
   </div>
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
-
-
-
