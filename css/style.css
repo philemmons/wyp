@@ -1028,8 +1028,14 @@ p:last-child {
 
 .card-header-band,
 .dog-card-top-stripe {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   height: 0.42rem;
   border-radius: var(--radius-pill);
+  overflow: hidden;
+  background-clip: padding-box;
   margin-bottom: 1rem;
   background: linear-gradient(
     90deg,
