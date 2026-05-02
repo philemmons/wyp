@@ -107,11 +107,7 @@ $montereyHighlightCategories = [
 <!--  PAGE HERO  -->
 <section class="monterey-hero">
   <div class="container text-center page-hero-z">
-    <span class="page-hero-emoji" aria-hidden="true">🌊🐾🌉</span>
-    <h1 class="page-hero-h1">Why Monterey?</h1>
-    <p class="page-hero-tagline">
-      A paradise on California&rsquo;s Central Coast &mdash; where small dogs and their people thrive
-    </p>
+    <img src='images/why-monterey-header.png' alt='Why Monterey? A paradise where small dogs and their people thrive' class='img-fluid rounded mx-auto d-block'>
   </div>
 </section>
 
@@ -121,7 +117,7 @@ $montereyHighlightCategories = [
     <div class="row justify-content-center">
       <div class="col-lg-8 text-center">
         <span class="section-eyebrow">Our Home</span>
-        <h2 class="section-title mb-3">A Haven for Dog Lovers</h2>
+        <h1 class="section-title mb-3">A Haven for Dog Lovers</h1>
         <hr class="section-divider">
         <p class="monterey-intro__copy">
           Monterey, California, is a unique place for dog lovers due to a combination of its natural beauty,
