@@ -56,7 +56,7 @@ require_once 'includes/header.php';
 
           <img src='/images/chandra.jpg' alt='chandra' class='img-fluid rounded mx-auto d-block'>
 
-          <div class="mb-3">
+          <div class="my-3">
             <span class="dog-stat-chip"><i class="bi bi-gender-female" aria-hidden="true"></i> Female</span>
             <span class="dog-stat-chip"><span aria-hidden="true">🐾</span> Chihuahua</span>
             <span class="dog-stat-chip"><span aria-hidden="true">📍</span> Monterey, CA</span>
@@ -77,8 +77,8 @@ require_once 'includes/header.php';
             <li>Favorite toy: her plush teddy bear <span aria-hidden="true">🧸</span></li>
           </ul>
 
-          <div class="dog-avatar-frame mb-4">
-            <img src='/images/skipper-icon.png' alt="" width=35 height=30 aria-hidden="true">
+          <div class="dog-avatar-frame mt-4">
+            <img src='/images/chandra icon.png' alt="" width=35 height=35 aria-hidden="true">
           </div>
 
           <div class="dog-breed-badge">Chihuahua</div>
@@ -97,7 +97,7 @@ require_once 'includes/header.php';
 
           <img src='/images/skipper on couch.jpg' alt='skipper' class='img-fluid rounded mx-auto d-block'>
 
-          <div class="mb-3">
+          <div class="my-3">
             <span class="dog-stat-chip"><i class="bi bi-gender-male" aria-hidden="true"></i> Male</span>
             <span class="dog-stat-chip"><span aria-hidden="true">🐾</span> Chi-Jack</span>
             <span class="dog-stat-chip"><span aria-hidden="true">📍</span> Monterey, CA</span>
@@ -118,7 +118,7 @@ require_once 'includes/header.php';
             <li>Favourite activity: zoomies at Carmel Beach <span aria-hidden="true">🏖️</span></li>
           </ul>
 
-          <div class="dog-avatar-frame mb-4">
+          <div class="dog-avatar-frame mt-4">
             <img src='/images/skipper-icon.png' alt="" width=35 height=30 aria-hidden="true">
           </div>
 
