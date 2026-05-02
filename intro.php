@@ -177,7 +177,7 @@ require_once 'includes/header.php';
     <div class="row g-4">
 
       <div class="col-md-6">
-        <div class="wyp-card wyp-info-card h-100 .meet-the-pups-border-left">
+        <div class="wyp-card wyp-info-card h-100 meet-the-pups-border-left">
           <div class="p-4">
             <h3 class="breed-fact-heading">
               <img src='/images/chandra icon 55x55.png' alt="chandra bust icon" width=55 height=55 aria-hidden="true"> Chihuahua
