@@ -1028,14 +1028,8 @@ p:last-child {
 
 .card-header-band,
 .dog-card-top-stripe {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   height: 0.42rem;
   border-radius: var(--radius-pill);
-  overflow: hidden;
-  background-clip: padding-box;
   margin-bottom: 1rem;
   background: linear-gradient(
     90deg,
@@ -1747,14 +1741,11 @@ textarea.form-control {
   --btt-icon: #ffffff;
   --btt-icon-active-invert: #1d0e07;
   --btt-shadow-base:
-    0 8px 20px rgba(29, 14, 7, 0.28),
-    0 2px 6px rgba(29, 14, 7, 0.2);
+    0 8px 20px rgba(29, 14, 7, 0.28), 0 2px 6px rgba(29, 14, 7, 0.2);
   --btt-shadow-hover:
-    0 12px 24px rgba(29, 14, 7, 0.3),
-    0 4px 10px rgba(29, 14, 7, 0.22);
+    0 12px 24px rgba(29, 14, 7, 0.3), 0 4px 10px rgba(29, 14, 7, 0.22);
   --btt-shadow-active:
-    0 4px 10px rgba(29, 14, 7, 0.26),
-    0 1px 4px rgba(29, 14, 7, 0.2);
+    0 4px 10px rgba(29, 14, 7, 0.26), 0 1px 4px rgba(29, 14, 7, 0.2);
 
   position: fixed;
   right: 1rem;

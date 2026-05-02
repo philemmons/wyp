@@ -64,8 +64,8 @@ require_once 'includes/header.php';
 
       <div class="col-md-4">
         <div class="wyp-card wyp-feature-card h-100">
-          <div class="card-header-band"></div>
           <div class="p-4 text-center">
+            <div class="card-header-band"></div>
             <img src='images/chandra-left-small.png' class="feature-card-icon" alt="" aria-hidden="true">
             <h3 class="feature-card-heading">Meet the Pups</h3>
             <p class="feature-card-body">
@@ -82,8 +82,8 @@ require_once 'includes/header.php';
 
       <div class="col-md-4">
         <div class="wyp-card wyp-feature-card h-100">
-          <div class="card-header-band"></div>
           <div class="p-4 text-center">
+            <div class="card-header-band"></div>
             <img src='images/wave1-small.png' alt="" class="feature-card-icon" aria-hidden="true">
             <h3 class="feature-card-heading">Monterey Bay Life</h3>
             <p class="feature-card-body">
@@ -100,8 +100,8 @@ require_once 'includes/header.php';
 
       <div class="col-md-4">
         <div class="wyp-card wyp-feature-card h-100">
-          <div class="card-header-band"></div>
           <div class="p-4 text-center">
+            <div class="card-header-band"></div>
             <img src='images/nikon-small.png' class="feature-card-icon" alt="" aria-hidden="true">
             <h3 class="feature-card-heading">Media Gallery</h3>
             <p class="feature-card-body">
