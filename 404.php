@@ -38,7 +38,7 @@ require_once 'includes/header.php';
         <a href="/" class="btn-wyp btn-wyp-primary">
           <span aria-hidden="true">🏠</span> Back to Home
         </a>
-        <a href="contact.php" class="btn-wyp btn-wyp-outline">
+        <a href="/contact.php" class="btn-wyp btn-wyp-outline">
           Contact Us
         </a>
       </div>
