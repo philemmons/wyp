@@ -769,6 +769,13 @@ p:last-child {
   line-height: 1.7;
 }
 
+.dog-overlay{
+  background-image: url(/images/dog-overlay.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .paw-float {
   position: absolute;
   opacity: 0.26;
