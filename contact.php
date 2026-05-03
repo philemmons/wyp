@@ -45,12 +45,11 @@ $form_describedby = !empty($flash_errors)
 <!--  PAGE HERO  -->
 <section class="contact-hero">
   <div class="container text-center page-hero-z">
-    <span class="page-hero-emoji" aria-hidden="true">✉️🐾</span>
     <h1 class="page-hero-h1">Say Hello!</h1>
     <p class="page-hero-tagline">
       We'd love to hear from fellow small dog lovers - send us a note!
     </p>
-    <img src='/images/dog-overlay.png' alt='Many dogs looking up' class='img-fluid mx-auto rounded d-block shadow p-3 mb-5 bg-body-tertiary'>
+    <img src='/images/dog-overlay.png' alt='Many dogs looking up' class='img-fluid mx-auto rounded d-block shadow-lg bg-body-tertiary'>
   </div>
 </section>
 
