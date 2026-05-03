@@ -42,7 +42,7 @@ require_once 'includes/header.php';
       </div>
 
       <div class="col-lg-5 text-center d-none d-lg-block">
-        <img src="images/chandra-headshot.png" alt="chandra had shot token" width="330" height="332" class="mb-3">
+        <img src="images/chandra-headshot.png" alt="chandra had shot token" width="250" height="252" class="mb-3">
         <div class="hero-card hero-tagline">Chandra &amp; Skipper say hello!</div>
       </div>
 
