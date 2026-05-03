@@ -49,7 +49,7 @@ $form_describedby = !empty($flash_errors)
     <p class="page-hero-tagline">
       We'd love to hear from fellow small dog lovers - send us a note!
     </p>
-    <img src='/images/dog-overlay.png' alt='Many dogs looking up' class='img-fluid mx-auto rounded d-block shadow-lg bg-body-tertiary'>
+    <img src='/images/dog-overlay.png' alt='Many dogs looking up' class='img-fluid mx-auto rounded d-block shadow-lg bg-warning-subtle'>
   </div>
 </section>
 
