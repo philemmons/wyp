@@ -815,8 +815,3 @@ $logContactFormEvent('submission_complete', [
 
 header('Location: contact.php');
 exit;
-
-
-
-
-
