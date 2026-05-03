@@ -69,6 +69,20 @@ $canonicalUrl   = $siteBaseUrl . '/' . ($pagePathByKey[$activePageKey] ?? '');
 <html lang="en">
 
 <head>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-STD5V42M8L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-STD5V42M8L');
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="<?= htmlspecialchars($pageDescription) ?>">
@@ -168,4 +182,3 @@ $canonicalUrl   = $siteBaseUrl . '/' . ($pagePathByKey[$activePageKey] ?? '');
 
   <!-- W2: <main> landmark — target for skip link; tabindex="-1" allows programmatic focus -->
   <main id="main-content" tabindex="-1">
-
