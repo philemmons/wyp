@@ -248,7 +248,7 @@ $form_describedby = !empty($flash_errors)
           <p class="contact-info-note">
             Whether you have questions about small dog care, want to share your own
             pup&rsquo;s story, or just want to say hi &mdash; we love hearing from
-            the small dog community! <span aria-hidden="true">🐶</span>
+            the small dog community! <i class="bi bi-suit-heart-fill" aria-hidden="true"></i><span class="sr-only">LOVE</span>
           </p>
         </div>
 
