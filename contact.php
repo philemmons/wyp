@@ -1,11 +1,12 @@
 <?php
+
 /**
  * contact.php — Contact Us
  * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8 · WCAG 2.1 AA
  */
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
+  session_start();
 }
 
 $page_id = 'contact';
@@ -18,15 +19,15 @@ $flash_field_errors = $_SESSION['form_field_errors'] ?? [];
 $old_values       = $_SESSION['form_values'] ?? [];
 
 unset(
-    $_SESSION['form_sent'],
-    $_SESSION['form_error'],
-    $_SESSION['form_errors'],
-    $_SESSION['form_field_errors'],
-    $_SESSION['form_values']
+  $_SESSION['form_sent'],
+  $_SESSION['form_error'],
+  $_SESSION['form_errors'],
+  $_SESSION['form_field_errors'],
+  $_SESSION['form_values']
 );
 
 if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
 $old_name    = htmlspecialchars($old_values['name']    ?? '', ENT_QUOTES, 'UTF-8');
@@ -38,8 +39,8 @@ $name_error = $flash_field_errors['name'] ?? '';
 $email_error = $flash_field_errors['email'] ?? '';
 $message_error = $flash_field_errors['message'] ?? '';
 $form_describedby = !empty($flash_errors)
-    ? 'form-required-note form-error-summary'
-    : 'form-required-note';
+  ? 'form-required-note form-error-summary'
+  : 'form-required-note';
 ?>
 
 <!--  PAGE HERO  -->
@@ -62,42 +63,42 @@ $form_describedby = !empty($flash_errors)
       <div class="col-lg-7">
 
         <?php if ($flash_sent): ?>
-        <div class="wyp-alert wyp-alert-success mb-4" role="alert" aria-live="assertive">
-          <strong><span aria-hidden="true">🎉</span> Message sent!</strong>
-          Thank you so much &mdash; we&rsquo;ll get back to you soon!
-          Chandra and Skipper send tail wags your way! <span aria-hidden="true">🐾</span>
-        </div>
+          <div class="wyp-alert wyp-alert-success mb-4" role="alert" aria-live="assertive">
+            <strong><span aria-hidden="true">🎉</span> Message sent!</strong>
+            Thank you so much &mdash; we&rsquo;ll get back to you soon!
+            Chandra and Skipper send tail wags your way! <span aria-hidden="true">🐾</span>
+          </div>
         <?php elseif ($flash_mail_error): ?>
-        <div class="wyp-alert wyp-alert-error mb-4" role="alert" aria-live="assertive">
-          <strong>Something went wrong.</strong> Please try again, or email us directly at
-          <a href="mailto:admin@wipeyourpaws.net">admin@wipeyourpaws.net</a>.
-        </div>
+          <div class="wyp-alert wyp-alert-error mb-4" role="alert" aria-live="assertive">
+            <strong>Something went wrong.</strong> Please try again, or email us directly at
+            <a href="mailto:admin@wipeyourpaws.net">admin@wipeyourpaws.net</a>.
+          </div>
         <?php elseif (!empty($flash_errors)): ?>
-        <div class="wyp-alert wyp-alert-error mb-4" id="form-error-summary" role="alert" aria-live="assertive" tabindex="-1">
-          <strong>Please correct the following errors:</strong>
-          <ul class="mb-0 mt-1">
-            <?php foreach ($flash_errors as $error): ?>
-              <?php
+          <div class="wyp-alert wyp-alert-error mb-4" id="form-error-summary" role="alert" aria-live="assertive" tabindex="-1">
+            <strong>Please correct the following errors:</strong>
+            <ul class="mb-0 mt-1">
+              <?php foreach ($flash_errors as $error): ?>
+                <?php
                 $safe_error = htmlspecialchars((string) $error, ENT_QUOTES, 'UTF-8');
                 $target = '';
                 if ($error === $name_error) {
-                    $target = '#contact-name';
+                  $target = '#contact-name';
                 } elseif ($error === $email_error) {
-                    $target = '#contact-email';
+                  $target = '#contact-email';
                 } elseif ($error === $message_error) {
-                    $target = '#contact-message';
+                  $target = '#contact-message';
                 }
-              ?>
-            <li>
-              <?php if ($target !== ''): ?>
-              <a href="<?= $target ?>"><?= $safe_error ?></a>
-              <?php else: ?>
-              <?= $safe_error ?>
-              <?php endif; ?>
-            </li>
-            <?php endforeach; ?>
-          </ul>
-        </div>
+                ?>
+                <li>
+                  <?php if ($target !== ''): ?>
+                    <a href="<?= $target ?>"><?= $safe_error ?></a>
+                  <?php else: ?>
+                    <?= $safe_error ?>
+                  <?php endif; ?>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
         <?php endif; ?>
 
         <div class="wyp-form">
@@ -112,16 +113,16 @@ $form_describedby = !empty($flash_errors)
           </p>
 
           <form action="contact_submit.php" method="post" novalidate
-                aria-describedby="<?= $form_describedby ?>">
+            aria-describedby="<?= $form_describedby ?>">
 
             <input type="hidden" name="csrf_token"
-                   value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
+              value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
 
             <!-- Honeypot: offscreen container, AT-accessible wrapper, hidden input -->
             <div class="honeypot-wrap">
               <label for="website" aria-hidden="true">Leave this field blank</label>
               <input type="text" id="website" name="website"
-                     tabindex="-1" autocomplete="off" aria-hidden="true">
+                tabindex="-1" autocomplete="off" aria-hidden="true">
             </div>
 
             <div class="row g-3">
@@ -133,14 +134,14 @@ $form_describedby = !empty($flash_errors)
                   <span class="sr-only">(required)</span>
                 </label>
                 <input type="text" class="form-control" id="contact-name"
-                       name="name" value="<?= $old_name ?>"
-                       placeholder="Jane Smith" autocomplete="name"
-                       maxlength="120" required aria-required="true"
-                       <?= $name_error ? 'aria-invalid="true" aria-describedby="contact-name-error"' : '' ?>>
+                  name="name" value="<?= $old_name ?>"
+                  placeholder="Jane Smith" autocomplete="name"
+                  maxlength="120" required aria-required="true"
+                  <?= $name_error ? 'aria-invalid="true" aria-describedby="contact-name-error"' : '' ?>>
                 <?php if ($name_error): ?>
-                <p class="form-error-text mt-2 mb-0" id="contact-name-error">
-                  <?= htmlspecialchars($name_error, ENT_QUOTES, 'UTF-8') ?>
-                </p>
+                  <p class="form-error-text mt-2 mb-0" id="contact-name-error">
+                    <?= htmlspecialchars($name_error, ENT_QUOTES, 'UTF-8') ?>
+                  </p>
                 <?php endif; ?>
               </div>
 
@@ -151,23 +152,23 @@ $form_describedby = !empty($flash_errors)
                   <span class="sr-only">(required)</span>
                 </label>
                 <input type="email" class="form-control" id="contact-email"
-                       name="email" value="<?= $old_email ?>"
-                       placeholder="you@example.com" autocomplete="email"
-                       maxlength="254" required aria-required="true"
-                       <?= $email_error ? 'aria-invalid="true" aria-describedby="contact-email-error"' : '' ?>>
+                  name="email" value="<?= $old_email ?>"
+                  placeholder="you@example.com" autocomplete="email"
+                  maxlength="254" required aria-required="true"
+                  <?= $email_error ? 'aria-invalid="true" aria-describedby="contact-email-error"' : '' ?>>
                 <?php if ($email_error): ?>
-                <p class="form-error-text mt-2 mb-0" id="contact-email-error">
-                  <?= htmlspecialchars($email_error, ENT_QUOTES, 'UTF-8') ?>
-                </p>
+                  <p class="form-error-text mt-2 mb-0" id="contact-email-error">
+                    <?= htmlspecialchars($email_error, ENT_QUOTES, 'UTF-8') ?>
+                  </p>
                 <?php endif; ?>
               </div>
 
               <div class="col-12">
                 <label for="contact-subject" class="form-label">Subject</label>
                 <input type="text" class="form-control" id="contact-subject"
-                       name="subject" value="<?= $old_subject ?>"
-                       placeholder="e.g. Dog-friendly trail tips in Monterey!"
-                       autocomplete="off" maxlength="200">
+                  name="subject" value="<?= $old_subject ?>"
+                  placeholder="e.g. Dog-friendly trail tips in Monterey!"
+                  autocomplete="off" maxlength="200">
               </div>
 
               <div class="col-12">
@@ -177,15 +178,15 @@ $form_describedby = !empty($flash_errors)
                   <span class="sr-only">(required)</span>
                 </label>
                 <textarea class="form-control" id="contact-message"
-                          name="message" rows="6"
-                          placeholder="Tell us about your furry friends, ask a question, or just say hi!"
-                          autocomplete="off"
-                          required aria-required="true"
-                          <?= $message_error ? 'aria-invalid="true" aria-describedby="contact-message-error"' : '' ?>><?= $old_msg ?></textarea>
+                  name="message" rows="6"
+                  placeholder="Tell us about your furry friends, ask a question, or just say hi!"
+                  autocomplete="off"
+                  required aria-required="true"
+                  <?= $message_error ? 'aria-invalid="true" aria-describedby="contact-message-error"' : '' ?>><?= $old_msg ?></textarea>
                 <?php if ($message_error): ?>
-                <p class="form-error-text mt-2 mb-0" id="contact-message-error">
-                  <?= htmlspecialchars($message_error, ENT_QUOTES, 'UTF-8') ?>
-                </p>
+                  <p class="form-error-text mt-2 mb-0" id="contact-message-error">
+                    <?= htmlspecialchars($message_error, ENT_QUOTES, 'UTF-8') ?>
+                  </p>
                 <?php endif; ?>
               </div>
 
@@ -252,17 +253,23 @@ $form_describedby = !empty($flash_errors)
         </div>
 
         <div class="contact-paw-box">
-          <div class="contact-paw-box__emoji" aria-hidden="true">🐕🐶</div>
-          <p class="contact-paw-box__text">
-            &ldquo;Chandra and Skipper are eagerly awaiting your message &mdash; and are
-            ready to give you a virtual paw-shake in return!&rdquo;
-          </p>
+
+          <div class="d-flex align-items-start gap-4">
+            <div class="dog-avatar-frame">
+              <img src="/images/skipper-icon-50x42.png" alt="skipper cartoon icon" class="mx-2" width="50" height="42" aria-hidden="true">
+            </div>
+            <p class="contact-paw-box__text">
+              Chandra and Skipper are eagerly awaiting your message — and are ready to give you a virtual paw-shake in return!
+            </p>
+            <div class="dog-avatar-frame">
+              <img src="/images/chandra icon 55x55.png" alt="chandra bust icon" class="mx-2" width="55" height="55" aria-hidden="true">
+            </div>
+          </div>
+
         </div>
 
       </div>
-
     </div>
-  </div>
 </section>
 
 <!--  MAP  -->
