@@ -48,8 +48,9 @@ $form_describedby = !empty($flash_errors)
     <span class="page-hero-emoji" aria-hidden="true">✉️🐾</span>
     <h1 class="page-hero-h1">Say Hello!</h1>
     <p class="page-hero-tagline">
-      We&rsquo;d love to hear from fellow small dog lovers &mdash; send us a note!
+      We'd love to hear from fellow small dog lovers - send us a note!
     </p>
+    <img src='/images/dog-overlay.png' alt='Many dogs looking up' class='img-fluid mx-auto rounded d-block shadow p-3 mb-5 bg-body-tertiary'>
   </div>
 </section>
 
