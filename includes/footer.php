@@ -104,7 +104,7 @@
     <hr class="footer-divider">
 
     <div class="row footer-bottom gy-2 align-items-center">
-      <div class="col-12 col-md">
+      <div class="col-12 col-md-auto">
         <span>&copy; <?= date('Y') ?> wipeyourpaws.net &mdash; All rights reserved.</span>
       </div>
       <div class="col-12 col-md-auto">
