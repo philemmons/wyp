@@ -1448,9 +1448,9 @@ p:last-child {
 .wyp-form .form-select,
 .form-control,
 .form-select {
-  border: 1px solid var(--b);
+  border: 1px solid var(--espresso);
   border-radius: var(--radius-sm);
-  background: #fffcf7;
+  background: var(--white);
   color: var(--text-strong);
   min-height: 2.75rem;
   padding: 0.65rem 0.85rem;
