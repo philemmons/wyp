@@ -12,6 +12,11 @@ declare(strict_types=1);
  * /diagnostics/smtp_delivery_test.php?key=YOUR_KEY&format=json
  */
 
+header('Content-Type: text/plain');
+var_dump(getenv('WYP_DIAG_KEY'));
+var_dump($_SERVER['WYP_DIAG_KEY'] ?? null);
+var_dump($_ENV['WYP_DIAG_KEY'] ?? null);
+
 $expectedAccessKey = (string) getenv('WYP_DIAG_KEY');
 $providedAccessKey = isset($_GET['key']) && is_string($_GET['key']) ? $_GET['key'] : '';
 $isJsonResponseRequested = (isset($_GET['format']) && $_GET['format'] === 'json');
