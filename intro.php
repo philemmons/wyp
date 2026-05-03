@@ -143,6 +143,7 @@ require_once 'includes/header.php';
       <div class="col-lg-6">
         <span class="section-eyebrow">Together, Always</span>
         <h2 class="section-title mb-3">The Best of Friends</h2>
+        <hr class="section-divider">
         <p class="story-body">
           Chandra and Skipper are more than just dogs — they are family, companions,
           and daily reminders of what truly matters in life. Whether they're chasing
