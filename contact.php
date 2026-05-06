@@ -57,7 +57,7 @@ require_once 'includes/header.php';
             }
           }
 
-          return '';
+          return 'notta';
         };
 
         // Support both legacy and cPanel-friendly env var naming.
