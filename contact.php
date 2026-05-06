@@ -48,7 +48,7 @@ require_once 'includes/header.php';
 
         // Google reCAPTCHA API keys settings 
         $secretKey  = getenv('g-secret-key');
-        print_r( $secretKey) ;
+        echo "this is the key"; print_r( $secretKey) ;
 
         // Email settings 
         $recipientEmail = getenv('mcf-info-email');
