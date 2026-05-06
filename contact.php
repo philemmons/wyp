@@ -248,7 +248,7 @@ require_once 'includes/header.php';
         <div class="dog-avatar-frame">
           <img src="/images/skipper-icon-50x42.png" alt="skipper cartoon icon" class="mx-2" width="50" height="42" aria-hidden="true">
         </div>
-        <p class="page-hero-tagline">
+        <p class="section-eyebrow">
           Skipper and Chandra are eagerly awaiting your message - and are ready to give you a virtual paw-shake in return!
         </p>
         <div class="dog-avatar-frame">
