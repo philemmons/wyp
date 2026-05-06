@@ -1590,6 +1590,11 @@ p:last-child {
   background-size: 62% 62%;
 }
 
+.gallery-carousel-shell .carousel-control-prev:hover .carousel-control-prev-icon,
+.gallery-carousel-shell .carousel-control-next:hover .carousel-control-next-icon {
+  background-color: #000;
+}
+
 .gallery-photo-item {
   display: block;
   text-decoration: none;
