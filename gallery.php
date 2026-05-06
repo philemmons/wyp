@@ -168,30 +168,13 @@ require_once 'includes/header.php';
 
 </header>
 
-<section class="wyp-section wyp-section-sm wyp-section-alt">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-7 text-center">
-        <div class="gallery-coming-soon">
-          <div class="gallery-coming-soon__icon" aria-hidden="true">&#128062;</div>
-          <h2 class="section-title">Photo Highlights</h2>
-          <p class="gallery-coming-soon__body">
-            Enjoy candid adventures and cozy moments from Monterey Bay with Chandra and Skipper.
-            Select any image to open a larger view.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!--  FULL GALLERY CAROUSEL (uses existing gallery preview styles as canonical structure)  -->
 <section class="wyp-section">
   <div class="container">
 
     <div class="text-center mb-5">
       <span class="section-eyebrow">Photo Collection</span>
-      <h2 class="section-title">Gallery Preview</h2>
+      <h2 class="section-title">Full Gallery Carousel</h2>
       <hr class="section-divider">
       <p class="gallery-tip-text">
         Tap or press Enter on any card for a larger view.
