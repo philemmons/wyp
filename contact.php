@@ -14,391 +14,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 
 $activePageKey = 'contact';
 
-// Create one CSRF token per session so forged cross-site POST requests fail token validation.
-if (empty($_SESSION['csrf_token'])) {
-  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
 
-$requestMethod = strtoupper((string) ($_SERVER['REQUEST_METHOD'] ?? 'GET'));
-if ($requestMethod !== 'GET' && $requestMethod !== 'POST') {
-  http_response_code(405);
-  header('Allow: GET, POST');
-  $requestMethod = 'GET';
-}
-
-// Centralize anti-spam thresholds so behavior is easy to tune without changing validation logic.
-$minSubmitSeconds = 3;
-$submitCooldownSeconds = 30;
-$ipWindowSeconds = 600;
-$ipMaxSubmissions = 5;
-
-// Read Google reCAPTCHA keys from environment so secrets are not hardcoded in source control.
-$recaptchaSiteKey = trim((string) getenv('g-site-key'));
-$recaptchaSecretKey = trim((string) getenv('g-secret-key'));
-$recaptchaEnabled = $recaptchaSiteKey !== '' && $recaptchaSecretKey !== '';
-$recaptchaNotice = '';
-
-if (($recaptchaSiteKey !== '' || $recaptchaSecretKey !== '') && !$recaptchaEnabled) {
-  $recaptchaNotice = 'Captcha is temporarily unavailable due to incomplete configuration. You can still submit the form.';
-}
-
-// Initialize default form and flash state so both GET and POST flows always render predictable values.
-$defaultPostData = [
-  'contact-name' => '',
-  'contact-em' => '',
-  'contact-subj' => '',
-  'contact-ta' => '',
-];
-
-$status = '';
-$statusMsg = '';
-$statusList = [];
-$fieldErrors = [];
-$postData = $defaultPostData;
-
-// Escape output once through a helper so every render path is consistently XSS-safe.
-$esc = static function (string $value): string {
-  return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-};
-
-$getPostValue = static function (string $field): string {
-  $value = $_POST[$field] ?? '';
-  return is_string($value) ? $value : '';
-};
-
-// Strip control bytes because they can obfuscate payloads and can also break logs, headers, or mail output.
-$stripControlChars = static function (string $value): string {
-  $sanitized = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $value);
-  return is_string($sanitized) ? $sanitized : $value;
-};
-
-$normalizeSpaces = static function (string $value): string {
-  $normalized = preg_replace('/\s+/u', ' ', $value);
-  return is_string($normalized) ? trim($normalized) : trim($value);
-};
-
-$normalizeLineEndings = static function (string $value): string {
-  return str_replace(["\r\n", "\r"], "\n", $value);
-};
-
-// Normalize message formatting so validation, storage, and outgoing email all process the same canonical text.
-$normalizeMessage = static function (string $value) use ($stripControlChars, $normalizeLineEndings): string {
-  $value = $stripControlChars($normalizeLineEndings($value));
-  $lines = explode("\n", $value);
-
-  foreach ($lines as &$line) {
-    $line = preg_replace('/[ \t]+/u', ' ', $line);
-    $line = is_string($line) ? trim($line) : '';
-  }
-  unset($line);
-
-  $normalized = trim(implode("\n", $lines));
-  $normalized = preg_replace("/\n{3,}/", "\n\n", $normalized);
-  return is_string($normalized) ? $normalized : trim($value);
-};
-
-// Detect header-injection tokens early so user input cannot create extra mail headers.
-$hasHeaderInjection = static function (string $value): bool {
-  return preg_match('/\r|\n|%0a|%0d|content-type:|bcc:|cc:|to:/i', $value) === 1;
-};
-
-$sanitizeHeader = static function (string $value): string {
-  $value = str_replace(["\r", "\n"], '', $value);
-  $value = preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
-  return is_string($value) ? trim($value) : '';
-};
-
-// Branch once on request method so write logic stays in POST and render logic stays in GET.
-$isPost = $requestMethod === 'POST';
-
-if ($isPost) {
-  // Collect raw form input first, then normalize it once so validation and email use identical sanitized values.
-  $submittedCsrfToken = trim($getPostValue('csrf_token'));
-  $sessionCsrfToken = (string) ($_SESSION['csrf_token'] ?? '');
-
-  $rawContactName = $getPostValue('contact-name');
-  $rawContactEmail = $getPostValue('contact-em');
-  $rawContactSubj = $getPostValue('contact-subj');
-  $rawContactTa = $getPostValue('contact-ta');
-  $littlebee = trim($getPostValue('littlebee'));
-  $recaptchaToken = trim($getPostValue('g-recaptcha-response'));
-
-  $contactName = $normalizeSpaces(strip_tags($stripControlChars($rawContactName)));
-  $contactEmail = strtolower($normalizeSpaces($stripControlChars($rawContactEmail)));
-  $contactSubj = $normalizeSpaces(strip_tags($stripControlChars($rawContactSubj)));
-  $contactTa = $normalizeMessage($rawContactTa);
-
-  $postData = [
-    'contact-name' => $contactName,
-    'contact-em' => $contactEmail,
-    'contact-subj' => $contactSubj,
-    'contact-ta' => $contactTa,
-  ];
-
-  $status = 'error';
-  $statusMsg = 'Please correct the highlighted issues and try again.';
-
-  $successMsg = 'Thanks for reaching out. Your message has been received, and we will respond as soon as we can.';
-
-  $now = time();
-  $formStartedAt = (int) ($_SESSION['contact_form_started_at'] ?? 0);
-  $lastSubmitAt = (int) ($_SESSION['contact_last_submit_at'] ?? 0);
-
-  $remoteIp = (string) ($_SERVER['REMOTE_ADDR'] ?? '');
-  $ipHash = hash('sha256', $remoteIp !== '' ? $remoteIp : 'unknown');
-
-  $ipRateStore = $_SESSION['contact_ip_rate_limit'] ?? [];
-  if (!is_array($ipRateStore)) {
-    $ipRateStore = [];
-  }
-
-  $ipTimestamps = $ipRateStore[$ipHash] ?? [];
-  if (!is_array($ipTimestamps)) {
-    $ipTimestamps = [];
-  }
-
-  $ipTimestamps = array_values(array_filter(
-    $ipTimestamps,
-    static fn($ts): bool => is_int($ts) && ($now - $ts) <= $ipWindowSeconds
-  ));
-
-  $submitTooFast = $formStartedAt > 0 && ($now - $formStartedAt) < $minSubmitSeconds;
-  $submitCoolingDown = $lastSubmitAt > 0 && ($now - $lastSubmitAt) < $submitCooldownSeconds;
-  $ipRateLimited = count($ipTimestamps) >= $ipMaxSubmissions;
-
-  // Examine Sunflower Name; return silent success so users cannot tune around detection.
-  if ($littlebee !== '') {
-    $status = 'success';
-    $statusMsg = $successMsg;
-    $statusList = [$successMsg];
-    $fieldErrors = [];
-    $postData = $defaultPostData;
-  } else {
-    // Validate CSRF with hash_equals to prevent timing leaks and block forged form submissions.
-    if (
-      $submittedCsrfToken === '' ||
-      $sessionCsrfToken === '' ||
-      !hash_equals($sessionCsrfToken, $submittedCsrfToken)
-    ) {
-      $statusList[] = 'Your session expired. Please refresh the page and try again.';
-    }
-
-    if (
-      $hasHeaderInjection($rawContactName) ||
-      $hasHeaderInjection($rawContactEmail) ||
-      $hasHeaderInjection($rawContactSubj)
-    ) {
-      $statusList[] = 'Invalid input detected. Please remove line breaks from name, email, and subject.';
-    }
-
-    // Run field validation only after anti-forgery checks so we avoid exposing unnecessary validation detail.
-    // Anti-spam timing/rate controls return silent success to reduce feedback loops for scripted abuse.
-    if (empty($statusList) && ($submitTooFast || $submitCoolingDown || $ipRateLimited)) {
-      $status = 'success';
-      $statusMsg = $successMsg;
-      $statusList = [$successMsg];
-      $fieldErrors = [];
-      $postData = $defaultPostData;
-    } else {
-      if ($contactName === '') {
-        $fieldErrors['contact-name'] = 'Please enter your name.';
-      } elseif (mb_strlen($contactName) > 120) {
-        $fieldErrors['contact-name'] = 'Name must be 120 characters or fewer.';
-      }
-
-      if ($contactEmail === '') {
-        $fieldErrors['contact-em'] = 'Please enter your email address.';
-      } elseif (mb_strlen($contactEmail) > 254) {
-        $fieldErrors['contact-em'] = 'Email must be 254 characters or fewer.';
-      } elseif (preg_match('/\.\./', $contactEmail) === 1 || filter_var($contactEmail, FILTER_VALIDATE_EMAIL) === false) {
-        $fieldErrors['contact-em'] = 'Please enter a valid email address, for example name@example.com.';
-      }
-
-      if ($contactSubj !== '' && mb_strlen($contactSubj) > 200) {
-        $fieldErrors['contact-subj'] = 'Subject must be 200 characters or fewer.';
-      }
-
-      if ($contactTa === '') {
-        $fieldErrors['contact-ta'] = 'Please enter a message so we know how to help.';
-      } elseif (mb_strlen($contactTa) < 10) {
-        $fieldErrors['contact-ta'] = 'Message must be at least 10 characters.';
-      } elseif (mb_strlen($contactTa) > 5000) {
-        $fieldErrors['contact-ta'] = 'Message must be 5,000 characters or fewer.';
-      }
-
-      // Verify reCAPTCHA server-side because client-side checks alone can be bypassed by direct POST requests.
-      if ($recaptchaEnabled) {
-        if ($recaptchaToken === '') {
-          $fieldErrors['contact-recaptcha'] = 'Please complete the captcha challenge before submitting.';
-        } else {
-          $verifyBody = http_build_query([
-            'secret' => $recaptchaSecretKey,
-            'response' => $recaptchaToken,
-            'remoteip' => $remoteIp,
-          ]);
-
-          $verifyResponse = '';
-
-          if (function_exists('curl_init')) {
-            $ch = curl_init('https://www.google.com/recaptcha/api/siteverify');
-            if ($ch !== false) {
-              curl_setopt_array($ch, [
-                CURLOPT_POST => true,
-                CURLOPT_POSTFIELDS => $verifyBody,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_TIMEOUT => 10,
-              ]);
-              $curlResponse = curl_exec($ch);
-              if (is_string($curlResponse)) {
-                $verifyResponse = $curlResponse;
-              }
-              curl_close($ch);
-            }
-          }
-
-          if ($verifyResponse === '') {
-            $streamContext = stream_context_create([
-              'http' => [
-                'method' => 'POST',
-                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-                'content' => $verifyBody,
-                'timeout' => 10,
-              ],
-            ]);
-
-            $streamResponse = @file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $streamContext);
-            if (is_string($streamResponse)) {
-              $verifyResponse = $streamResponse;
-            }
-          }
-
-          if ($verifyResponse === '') {
-            $statusList[] = 'Captcha verification is temporarily unavailable. Please try again shortly.';
-          } else {
-            $verifyJson = json_decode($verifyResponse, true);
-            $verifyOk = is_array($verifyJson) && !empty($verifyJson['success']);
-            if (!$verifyOk) {
-              $fieldErrors['contact-recaptcha'] = 'Captcha verification failed. Please try again.';
-            }
-          }
-        }
-      }
-
-      foreach ($fieldErrors as $fieldErrorMsg) {
-        $statusList[] = $fieldErrorMsg;
-      }
-
-      // Load mail config at send time so environment-specific addresses stay configurable outside app code.
-      if (empty($statusList)) {
-        $contactMailConfig = [];
-        $configPath = __DIR__ . '/config/contact_mail.php';
-
-        if (is_file($configPath)) {
-          $loadedConfig = require $configPath;
-          if (is_array($loadedConfig)) {
-            $contactMailConfig = $loadedConfig;
-          }
-        }
-
-        $siteName = $sanitizeHeader((string) ($contactMailConfig['site']['name'] ?? 'Wipe Your Paws'));
-        $toEmail = (string) ($contactMailConfig['site']['admin_email'] ?? 'admin@wipeyourpaws.net');
-        $fromEmail = (string) ($contactMailConfig['site']['from_email'] ?? 'noreply@wipeyourpaws.net');
-
-        if (filter_var($toEmail, FILTER_VALIDATE_EMAIL) === false) {
-          $toEmail = 'admin@wipeyourpaws.net';
-        }
-        if (filter_var($fromEmail, FILTER_VALIDATE_EMAIL) === false) {
-          $fromEmail = 'noreply@wipeyourpaws.net';
-        }
-
-        $mailSubject = $contactSubj !== '' ? $contactSubj : 'New message from contact form';
-        $mailSubject = '[wipeyourpaws.net] ' . $sanitizeHeader($mailSubject);
-
-        $mailBody = "New contact form submission\n\n";
-        $mailBody .= "Name: {$contactName}\n";
-        $mailBody .= "Email: {$contactEmail}\n";
-        $mailBody .= "Subject: {$contactSubj}\n\n";
-        $mailBody .= "Message:\n{$contactTa}\n";
-
-        // Keep From as site-owned for SPF/DMARC alignment, and use Reply-To for visitor address.
-        $mailHeaders = [
-          'MIME-Version: 1.0',
-          'Content-Type: text/plain; charset=UTF-8',
-          'Content-Transfer-Encoding: 8bit',
-          "From: {$siteName} <{$fromEmail}>",
-          'Reply-To: ' . $sanitizeHeader($contactEmail),
-          'X-Mailer: PHP/' . PHP_VERSION,
-        ];
-
-        $mailSent = @mail($toEmail, $mailSubject, $mailBody, implode("\r\n", $mailHeaders));
-
-        if ($mailSent) {
-          $status = 'success';
-          $statusMsg = $successMsg;
-          $statusList = [$successMsg];
-          $fieldErrors = [];
-          $postData = $defaultPostData;
-        } else {
-          $status = 'error';
-          $statusMsg = 'Something went wrong while sending your message. Please try again, or email us directly at admin@wipeyourpaws.net.';
-          $statusList = [$statusMsg];
-        }
-      }
-    }
-
-    if (!empty($statusList) && $status !== 'success') {
-      $status = 'error';
-      $statusMsg = 'Please correct the highlighted issues and try again.';
-    }
-  }
-
-  // Store outcome in session flash so PRG can render status on GET without repeating the POST action.
-  $_SESSION['contact_form_flash'] = [
-    'status' => $status,
-    'statusMsg' => $statusMsg,
-    'statusList' => $statusList,
-    'fieldErrors' => $fieldErrors,
-    'postData' => $postData,
-  ];
-
-  $ipTimestamps[] = $now;
-  $ipRateStore[$ipHash] = $ipTimestamps;
-  $_SESSION['contact_ip_rate_limit'] = $ipRateStore;
-  $_SESSION['contact_last_submit_at'] = $now;
-
-  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-
-  // Redirect after POST (PRG) so refresh repeats a safe GET page render instead of resubmitting email.
-  header('Location: /contact.php', true, 303);
-  exit;
-}
-
-// Read and clear flash on GET so messages are shown once and form-start timestamp resets for fill-time checks.
-$flash = $_SESSION['contact_form_flash'] ?? null;
-if (is_array($flash)) {
-  $status = (string) ($flash['status'] ?? '');
-  $statusMsg = (string) ($flash['statusMsg'] ?? '');
-  $statusList = isset($flash['statusList']) && is_array($flash['statusList']) ? $flash['statusList'] : [];
-  $fieldErrors = isset($flash['fieldErrors']) && is_array($flash['fieldErrors']) ? $flash['fieldErrors'] : [];
-  $postData = isset($flash['postData']) && is_array($flash['postData']) ? array_merge($defaultPostData, $flash['postData']) : $defaultPostData;
-}
-
-unset($_SESSION['contact_form_flash']);
-$_SESSION['contact_form_started_at'] = time();
-
-$contactNameError = (string) ($fieldErrors['contact-name'] ?? '');
-$contactEmError = (string) ($fieldErrors['contact-em'] ?? '');
-$contactSubjError = (string) ($fieldErrors['contact-subj'] ?? '');
-$contactTaError = (string) ($fieldErrors['contact-ta'] ?? '');
-$contactRecaptchaError = (string) ($fieldErrors['contact-recaptcha'] ?? '');
-
-$formDescribedBy = 'formRequiredNote';
-if ($status === 'error' && !empty($statusList)) {
-  $formDescribedBy .= ' formErrorSummary';
-}
-if ($recaptchaNotice !== '') {
-  $formDescribedBy .= ' recaptchaNote';
-}
 
 require_once 'includes/header.php';
 ?>
@@ -420,167 +36,201 @@ require_once 'includes/header.php';
     <div class="row g-5 justify-content-center">
 
       <div class="col-lg-7">
+        <?php
 
-        <?php if ($status === 'success' && !empty($statusList)): ?>
-          <div class="wyp-alert wyp-alert-success mb-4" role="status" aria-live="polite">
-            <strong>Message received!</strong>
-            <?= $esc((string) $statusList[0]) ?>
-          </div>
-        <?php elseif ($status === 'error' && !empty($statusList)): ?>
-          <!-- Error summary provides one focusable list so keyboard and screen-reader users can jump to each invalid field. -->
-          <div class="wyp-alert wyp-alert-error mb-4" id="formErrorSummary" role="alert" aria-live="assertive" tabindex="-1">
-            <strong>Please correct the following:</strong>
-            <ul class="mb-0 mt-1">
-              <?php foreach ($statusList as $errorMsg): ?>
-                <?php
-                $target = '';
-                if ($errorMsg === $contactNameError) {
-                  $target = '#contact-name';
-                } elseif ($errorMsg === $contactEmError) {
-                  $target = '#contact-em';
-                } elseif ($errorMsg === $contactSubjError) {
-                  $target = '#contact-subj';
-                } elseif ($errorMsg === $contactTaError) {
-                  $target = '#contact-ta';
-                } elseif ($errorMsg === $contactRecaptchaError) {
-                  $target = '#contact-recaptcha';
+        /**
+         * https://www.codexworld.com/new-google-recaptcha-with-php/
+         */
+
+        if (empty($_SESSION['csrf_token'])) {
+          $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
+        // Google reCAPTCHA API keys settings 
+        $secretKey  = getenv('g-secret-key');
+
+        // Email settings 
+        $recipientEmail = getenv('mcf-info-email');
+
+        // If the form is submitted 
+        $postData = $statusMsg = '';
+        $status = 'error';
+
+        if (isset($_POST['submit'])) {
+          $postData = $_POST;
+
+          if (
+            empty($_POST['csrf_token']) ||
+            !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
+          ) {
+            $statusMsg = 'Your session has expired. Please refresh and try again.';
+          } else {
+            // Validate form input fields
+            if (
+              !empty($_POST['contact-fn']) &&
+              !empty($_POST['contact-ln']) &&
+              !empty($_POST['contact-em']) &&
+              !empty($_POST['contact-subj']) &&
+              !empty($_POST['contact-ta']) &&
+              empty($_POST['beeName'])
+            ) {
+
+              // Validate reCAPTCHA checkbox 
+              if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
+
+                // Verify the reCAPTCHA API response 
+                $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secretKey . '&response=' . $_POST['g-recaptcha-response']);
+
+                // Decode JSON data of API response 
+                $responseData = json_decode($verifyResponse);
+
+                // If the reCAPTCHA API response is valid 
+                if ($responseData->success) {
+                  // Retrieve value from the form input fields 
+                  $firstName = !empty($_POST['contact-fn']) ? htmlspecialchars($_POST['contact-fn']) : '';
+                  $lastName = !empty($_POST['contact-ln']) ? htmlspecialchars($_POST['contact-ln']) : '';
+                  $email = !empty($_POST['contact-em']) ? htmlspecialchars($_POST['contact-em']) : '';
+                  $phone = !empty($_POST['contact-phone']) ? htmlspecialchars($_POST['contact-phone']) : '';
+                  $contactSubj = !empty($_POST['contact-subj']) ? htmlspecialchars($_POST['contact-subj']) : '';
+                  $contactMess = !empty($_POST['contact-ta']) ? htmlspecialchars($_POST['contact-ta']) : '';
+
+                  // Send email notification to the site admin 
+                  $to = $recipientEmail;
+                  $subject = 'MCF Contact Us Submitted';
+                  $htmlContent = " 
+                    <h4>MCF's Contact Us Form - EN</h4> 
+                    <p><b>Name: </b>" . $firstName . " " . $lastName . "</p> 
+                    <p><b>Email: </b>" . $email . "</p> 
+                    <p><b>Phone: </b>" . $phone . "</p> 
+                    <p><b>Subject: </b>" . $contactSubj . "</p> 
+                    <p><b>Message: </b>" . $contactMess . "</p> 
+                ";
+
+                  // Always set content-type when sending HTML email 
+                  $headers = "MIME-Version: 1.0" . "\r\n";
+                  $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                  // More headers 
+                  $headers .= 'From:' . $firstName . ' ' . $lastName . '<' . $email . '>' . "\r\n";
+
+                  // Send email 
+                  mail($to, $subject, $htmlContent, $headers);
+
+                  $status = 'success';
+                  $statusMsg = 'Thank you! Please allow up to 48 hours for a response.';
+                  $postData = '';
+                } else {
+                  $statusMsg = 'We apologize, reCaptcha verification failed, and  please try again.';
                 }
-                ?>
-                <li>
-                  <?php if ($target !== ''): ?>
-                    <a href="<?= $esc($target) ?>"><?= $esc((string) $errorMsg) ?></a>
-                  <?php else: ?>
-                    <?= $esc((string) $errorMsg) ?>
-                  <?php endif; ?>
-                </li>
-              <?php endforeach; ?>
-            </ul>
+              } else {
+                $statusMsg = 'Please check the reCAPTCHA checkbox to prove your human.';
+              }
+            } else {
+              $statusMsg = 'There wa one or more mandatory fields missing.';
+              if (!empty($_POST['beeName'])) {
+                $statusMsg = 'Are you Agent Smith?';
+              }
+            }
+          }
+        }
+
+        ?>
+
+        <div id="contact-us"></div>
+        <?php if (!empty($statusMsg)) { ?>
+          <div class="col-xl-8 col-lg-8 col-md-12 mb-5">
+            <div class="p-3 text-center text-bg-light hero-text-border" title="We are listening.">
+              <p class="mb-5 h5 status-msg <?php echo $status; ?>"><?php echo $statusMsg; ?></p>
+            </div>
           </div>
-        <?php endif; ?>
+        <?php } ?>
 
-        <div class="wyp-form">
-          <h2 class="section-title mb-1">Send Us a Message</h2>
+        <div class="col-xl-10 col-lg-10 col-md-12 mb-5">
+          <div class="p-3 text-bg-light hero-text-border" title="Millie's Crazy Flowers Contact Us Form.">
 
-          <p class="required-note" id="formRequiredNote">
-            Fields marked with
-            <span class="required-asterisk" aria-hidden="true">*</span>
-            <span class="visually-hidden">an asterisk</span>
-            are required.
-          </p>
+            <form action="contact.php" method="POST" class="row g-3 needs-validation" id="myForm" novalidate>
+              <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
-          <?php if ($recaptchaNotice !== ''): ?>
-            <p class="form-help" id="recaptchaNote" role="status" aria-live="polite">
-              <?= $esc($recaptchaNotice) ?>
-            </p>
-          <?php endif; ?>
+              <p class="fw-bold">We're open for any suggestion or just to have a chat.</p>
 
-          <form action="/contact.php" method="post" novalidate class="needs-validation contact-form" id="myForm"
-            aria-describedby="<?= $esc(trim($formDescribedBy)) ?>">
+              <div class="col-md-6">
+                <label for="beeName" aria-hidden="true" class="visually-hidden">Sunflower Name</label>
+                <input type="text" name="beeName" id="beeName" style="display:none">
 
-            <input type="hidden" name="csrf_token" value="<?= $esc((string) $_SESSION['csrf_token']) ?>">
-
-            <div class="visually-hidden" aria-hidden="true">
-              <label for="littlebee">Sunflower Name</label>
-              <input type="text" id="littlebee" name="littlebee" tabindex="-1" autocomplete="off" aria-hidden="true">
-            </div>
-
-            <div class="row g-3">
-
-              <div class="col-sm-6">
-                <label for="contact-name" class="form-label">
-                  Your Name
-                  <span class="required-asterisk" aria-hidden="true">*</span>
-                  <span class="visually-hidden">(required)</span>
-                </label>
-                <input type="text" class="form-control" id="contact-name"
-                  name="contact-name" value="<?= $esc((string) $postData['contact-name']) ?>"
-                  placeholder="Jane Smith" autocomplete="name"
-                  maxlength="120" required aria-required="true"
-                  <?= $contactNameError !== '' ? 'aria-invalid="true" aria-describedby="contact-name-error"' : '' ?>>
-                <?php if ($contactNameError !== ''): ?>
-                  <p class="form-error-text mt-2 mb-0" id="contact-name-error">
-                    <?= $esc($contactNameError) ?>
-                  </p>
-                <?php endif; ?>
-              </div>
-
-              <div class="col-sm-6">
-                <label for="contact-em" class="form-label">
-                  Email Address
-                  <span class="required-asterisk" aria-hidden="true">*</span>
-                  <span class="visually-hidden">(required)</span>
-                </label>
-                <input type="email" class="form-control" id="contact-em"
-                  name="contact-em" value="<?= $esc((string) $postData['contact-em']) ?>"
-                  placeholder="you@example.com" autocomplete="email"
-                  maxlength="254" required aria-required="true"
-                  <?= $contactEmError !== '' ? 'aria-invalid="true" aria-describedby="contact-em-error"' : '' ?>>
-                <?php if ($contactEmError !== ''): ?>
-                  <p class="form-error-text mt-2 mb-0" id="contact-em-error">
-                    <?= $esc($contactEmError) ?>
-                  </p>
-                <?php endif; ?>
-              </div>
-
-              <div class="col-12">
-                <label for="contact-subj" class="form-label">Subject</label>
-                <input type="text" class="form-control" id="contact-subj"
-                  name="contact-subj" value="<?= $esc((string) $postData['contact-subj']) ?>"
-                  placeholder="e.g. Dog-friendly trail tips in Monterey!"
-                  autocomplete="off" maxlength="200"
-                  <?= $contactSubjError !== '' ? 'aria-invalid="true" aria-describedby="contact-subj-error"' : '' ?>>
-                <?php if ($contactSubjError !== ''): ?>
-                  <p class="form-error-text mt-2 mb-0" id="contact-subj-error">
-                    <?= $esc($contactSubjError) ?>
-                  </p>
-                <?php endif; ?>
-              </div>
-
-              <div class="col-12">
-                <label for="contact-ta" class="form-label">
-                  Message
-                  <span class="required-asterisk" aria-hidden="true">*</span>
-                  <span class="visually-hidden">(required)</span>
-                </label>
-                <textarea class="form-control" id="contact-ta"
-                  name="contact-ta" rows="6" maxlength="5000"
-                  placeholder="Tell us about your furry friends, ask a question, or just say hi!"
-                  autocomplete="off" required aria-required="true"
-                  <?= $contactTaError !== '' ? 'aria-invalid="true" aria-describedby="contact-ta-error"' : '' ?>><?= $esc((string) $postData['contact-ta']) ?></textarea>
-                <?php if ($contactTaError !== ''): ?>
-                  <p class="form-error-text mt-2 mb-0" id="contact-ta-error">
-                    <?= $esc($contactTaError) ?>
-                  </p>
-                <?php endif; ?>
-              </div>
-
-              <?php if ($recaptchaEnabled): ?>
-                <div class="col-12">
-                  <div id="contact-recaptcha" class="g-recaptcha" data-sitekey="<?= $esc($recaptchaSiteKey) ?>"></div>
-                  <?php if ($contactRecaptchaError !== ''): ?>
-                    <p class="form-error-text mt-2 mb-0" id="contact-recaptcha-error">
-                      <?= $esc($contactRecaptchaError) ?>
-                    </p>
-                  <?php endif; ?>
+                <label for="contact-fn" class="form-label">First Name (Required)</label>
+                <input type="text" class="form-control" name="contact-fn" id="contact-fn" required>
+                <div class="invalid-feedback">
+                  Please enter your first name.
                 </div>
-              <?php endif; ?>
-
-              <div class="col-12 mt-2">
-                <button type="submit" class="btn-wyp btn-wyp-primary btn-submit me-2">
-                  <i class="bi bi-send-fill" aria-hidden="true"></i>
-                  Send Message
-                </button>
-                <button type="reset" class="btn-wyp btn-wyp-outline btn-submit" id="resetFormButton">
-                  Reset Form
-                </button>
-                <p class="contact-form-hint">
-                  <i class="bi bi-lock-fill me-1" aria-hidden="true"></i>
-                  Your information will only be used to respond to your message.
-                </p>
               </div>
 
-            </div>
-          </form>
+              <div class="col-md-6">
+                <label for="contact-ln" class="form-label">Last Name (Required)</label>
+                <input type="text" class="form-control" name="contact-ln" id="contact-ln" required>
+                <div class="invalid-feedback">
+                  Please enter your last name.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="contact-em" class="form-label">Email (Required)</label>
+                <input type="email" class="form-control" name="contact-em" id="contact-em" required>
+                <div class="invalid-feedback">
+                  Please enter your email.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="contact-phone" class="form-label">Phone (xxx.xxx.xxxx)</label>
+                <input type="tel" class="form-control" name="contact-phone" id="contact-phone" pattern="^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" placeholder="555.867.5309">
+                <div class="invalid-feedback">
+                  Optional, please enter a valid phone number.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="contact-subj" class="form-label">Subject (Required)</label>
+                <input type="text" class="form-control" name="contact-subj" id="contact-subj" required>
+                <div class="invalid-feedback">
+                  Please enter a subject.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="contact-ta" class="form-label">Question, Feedback or Improvement (Required)</label>
+                <textarea class="form-control" name="contact-ta" id="contact-ta" required></textarea>
+                <div class="invalid-feedback">
+                  Please type your message.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="g-recaptcha" data-sitekey=<?php echo getenv('g-site-key'); ?>></div>
+                <div>
+                  Note: The form will reset if unchecked.
+                </div>
+              </div>
+
+              <div class="col-md-6 text-center">
+                <button type="submit" class="btn mcf-button" name="submit">Submit Message</button>
+              </div>
+
+              <div class="col-md-6 text-center">
+                <button type="reset" class="btn mcf-button" name="reset" value="reset" onclick="return resetFields();" aria-labelledby="reset">Reset Form</button>
+                <div class="sr-only" id="reset" role="alert" aria-live="assertive" aria-atomic="true">
+                  <p>(A pop up will confirm your reset form)</p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-xl-8 col-lg-8 col-md-12 mb-5">
+          <div class="p-3 text-center hero-text-border banner" title="Please contact us with any questions, suggestions, or concerns.">
+            <section aria-label="Talk to Us">
+              <h2 class="h5 mb-6 px-3 px-md-0">Please allow us up to 48 hours to respond, and if you need assistance sooner, please email <?php echo getenv('mcf-to-email'); ?>
+              </h2>
+            </section>
+          </div>
         </div>
 
       </div>
@@ -668,9 +318,33 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<?php if ($recaptchaEnabled): ?>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<?php endif; ?>
 <script src="/js/contact_page.js?v=<?= filemtime(__DIR__ . '/js/contact_page.js'); ?>" defer></script>
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (() => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+</script>
+<script>
+  function resetFields() {
+    return confirm("Are you sure you want to reset all fields?");
+  }
+</script>
 
 <?php require_once 'includes/footer.php';
