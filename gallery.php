@@ -175,7 +175,7 @@ require_once 'includes/header.php';
 <!-- Page hero: gallery-specific layered header component -->
 <section class="monterey-hero image-header">
   <div class="container text-center page-hero-z">
-<header class="wyp-gallery-hero shadow" aria-labelledby="galleryHeroTitle">
+    <header class="wyp-gallery-hero shadow" aria-labelledby="galleryHeroTitle">
       <div class="wyp-gallery-hero-accent-top" aria-hidden="true"></div>
       <div class="wyp-gallery-hero-accent-bottom" aria-hidden="true"></div>
 
@@ -342,48 +342,26 @@ require_once 'includes/header.php';
   </div>
 </div>
 
-<!--  UPLOAD CTA  -->
-<section class="section-gallery-story wyp-section-accent">
-  <div class="container">
-    <div class="row g-4 align-items-center">
-
-      <div class="col-lg-8">
-        <h3 class="gallery-story-heading">
-          Have Photos of Your Small Pups? <span aria-hidden="true">&#128062;</span>
-        </h3>
-        <p class="gallery-story-body">
-          We'd love to feature photos from our community of small dog lovers!
-          Reach out to us through our contact form and share the joy your furry
-          family members bring to your world.
-        </p>
-      </div>
-
-      <div class="col-lg-4 text-lg-end">
-        <a href="contact.php" class="btn-wyp btn-wyp-primary">
-          Share Your Pup <span aria-hidden="true">&#128248;</span>
-        </a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <!--  ABOUT THE DOGS MINI SECTION  -->
-<section class="wyp-section wyp-section-sm wyp-section-alt">
+<section class="section-gallery-story wyp-section-accent">
   <div class="container">
     <div class="row g-4 justify-content-center">
 
       <div class="col-md-5">
         <div class="wyp-card wyp-info-card text-center p-4">
           <div class="card-header-band"></div>
-          <div class="gallery-dog-card-icon" aria-hidden="true">&#128021;</div>
+          <div class="gallery-dog-card-icon" aria-hidden="true">
+            <div class="dog-avatar-frame">
+              <img src="/images/chandra icon 55x55.png" alt="chandra bust icon" class="shadow mx-2" width="55" height="55" aria-hidden="true">
+            </div>
+          </div>
           <h3 class="section-title">Chandra</h3>
           <p class="gallery-dog-teaser">
             Our spirited Chihuahua princess - her gallery photos showcase
             her signature sunlit poses and diva energy.
           </p>
           <a href="intro.php" class="gallery-dog-link">
-            Read Chandra&rsquo;s Story <span aria-hidden="true">&rarr;</span>
+            Read Chandra's Story <span aria-hidden="true">→</span>
           </a>
         </div>
       </div>
@@ -391,14 +369,18 @@ require_once 'includes/header.php';
       <div class="col-md-5">
         <div class="wyp-card wyp-info-card text-center p-4">
           <div class="card-header-band dog-card-top-stripe--skipper"></div>
-          <div class="gallery-dog-card-icon" aria-hidden="true">&#128054;</div>
+          <div class="gallery-dog-card-icon" aria-hidden="true">
+            <div class="dog-avatar-frame">
+              <img src="/images/skipper-icon-50x42.png" alt="skipper cartoon icon" class="mx-2" width="50" height="42" aria-hidden="true">
+            </div>
+          </div>
           <h3 class="section-title">Skipper</h3>
           <p class="gallery-dog-teaser">
             Our adventurous Jack Chi explorer - expect candid action shots of
             beach zoomies and trail-sniffing expeditions.
           </p>
           <a href="intro.php" class="gallery-dog-link">
-            Read Skipper&rsquo;s Story <span aria-hidden="true">&rarr;</span>
+            Read Skipper's Story <span aria-hidden="true">→</span>
           </a>
         </div>
       </div>
