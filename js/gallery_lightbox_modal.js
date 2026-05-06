@@ -17,7 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
   galleryTriggers.forEach(function (trigger) {
     trigger.addEventListener("click", function () {
       lastFocusedTrigger = trigger;
-      var fullSrc = trigger.getAttribute("data-full-src") || trigger.getAttribute("href") || "";
+      var fullSrc =
+        trigger.getAttribute("data-fullsrc") ||
+        trigger.getAttribute("data-full-src") ||
+        trigger.getAttribute("href") ||
+        "";
       var altText = trigger.getAttribute("data-alt") || "";
       var captionText = trigger.getAttribute("data-caption") || "";
 
