@@ -137,35 +137,36 @@ $showSlideIndicators = ($validImageCount > 1 && $validImageCount <= 12);
 require_once 'includes/header.php';
 ?>
 
-<!-- Page hero: gallery-specific layered header component -->
-<header class="wyp-gallery-hero" aria-labelledby="galleryHeroTitle">
-  <div class="wyp-gallery-hero-accent-top" aria-hidden="true"></div>
-  <div class="wyp-gallery-hero-accent-bottom" aria-hidden="true"></div>
-
-  <div class="wyp-gallery-hero-photo" aria-hidden="true">
-    <picture>
-      <img
-        src="/images/gallery-header.jpg"
-        alt="Chandra and Skipper resting together on striped cushions on a caramel couch."
-        width="1920"
-        height="720"
-        loading="eager"
-        decoding="sync"
-        fetchpriority="high">
-    </picture>
-  </div>
-
-  <div class="wyp-gallery-hero-overlay" aria-hidden="true"></div>
-
-  <div class="wyp-gallery-hero-content">
-    <div class="wyp-gallery-hero-eyebrow">
-      <span class="wyp-gallery-hero-eyebrow-line" aria-hidden="true"></span>
-      <span>Chandra &amp; Skipper</span>
+<!-- Page hero: canonical WYP hero structure with gallery-specific media treatment -->
+<header class="contact-hero wyp-gallery-hero" aria-labelledby="galleryHeroTitle">
+  <div class="container page-hero-z">
+    <div class="wyp-gallery-hero-content">
+      <div class="row g-4 g-lg-5 align-items-center">
+        <div class="col-lg-6 order-2 order-lg-1 text-center text-lg-start">
+          <span class="section-eyebrow">PHOTO STORIES</span>
+          <h1 id="galleryHeroTitle" class="page-hero-h1 mb-2">Gallery</h1>
+          <p class="page-hero-tagline mb-0">
+            Moments of joy, muddy paws, adventures, and unforgettable memories from the Wipe Your Paws community.
+          </p>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2">
+          <div class="wyp-gallery-hero-media">
+            <picture>
+              <img
+                class="wyp-gallery-hero-image"
+                src="/images/gallery-header.jpg"
+                alt="Chandra and Skipper resting together on striped cushions on a caramel couch."
+                width="1920"
+                height="720"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high">
+            </picture>
+          </div>
+        </div>
+      </div>
     </div>
-    <h1 id="galleryHeroTitle">Media Gallery</h1>
-    <p>We're busy snapping adorable photos of Chandra and Skipper exploring Monterey Bay! This gallery will soon be filled with their cutest moments. Check back soon — it'll be paw-some!</p>
   </div>
-
 </header>
 
 <!--  FULL GALLERY CAROUSEL (uses existing gallery preview styles as canonical structure)  -->
