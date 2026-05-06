@@ -8,3 +8,4 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/philemmo/wyp/
     - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp .htaccess $DEPLOYPATH/.htaccess

@@ -46,12 +46,26 @@ require_once 'includes/header.php';
           $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
 
-        // Google reCAPTCHA API keys settings 
-        $secretKey  = getenv('g-secret-key');
-        echo "this is the key";print_r( $secretKey) ;
+        $readEnvironmentValue = static function (array $keys): string {
+          foreach ($keys as $key) {
+            $value = getenv($key);
+            if ($value !== false) {
+              $value = trim((string) $value);
+              if ($value !== '') {
+                return $value;
+              }
+            }
+          }
 
-        // Email settings 
-        $recipientEmail = getenv('wyp-email');
+          return '';
+        };
+
+        // Support both legacy and cPanel-friendly env var naming.
+        $secretKey = $readEnvironmentValue(['g-secret-key', 'G_SECRET_KEY', 'RECAPTCHA_SECRET_KEY']);
+        $siteKey = $readEnvironmentValue(['g-site-key', 'G_SITE_KEY', 'RECAPTCHA_SITE_KEY']);
+
+        // Email settings
+        $recipientEmail = $readEnvironmentValue(['wyp-email', 'WYP_EMAIL', 'CONTACT_RECIPIENT_EMAIL']);
 
         // If the form is submitted 
         $postData = $statusMsg = '';
@@ -76,17 +90,23 @@ require_once 'includes/header.php';
               empty($_POST['beeName'])
             ) {
 
-              // Validate reCAPTCHA checkbox 
+              // Validate reCAPTCHA checkbox
               if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
+                if ($secretKey === '' || $recipientEmail === '') {
+                  $statusMsg = 'Contact form configuration is incomplete. Please try again later.';
+                } else {
+                  // Verify reCAPTCHA with a fully encoded query to avoid malformed requests.
+                  $verifyUrl = 'https://www.google.com/recaptcha/api/siteverify?secret='
+                    . rawurlencode($secretKey)
+                    . '&response='
+                    . rawurlencode((string) $_POST['g-recaptcha-response']);
 
-                // Verify the reCAPTCHA API response 
-                $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secretKey . '&response=' . $_POST['g-recaptcha-response']);
+                  $verifyResponse = @file_get_contents($verifyUrl);
+                  $responseData = is_string($verifyResponse) ? json_decode($verifyResponse) : null;
+                  $isRecaptchaValid = is_object($responseData) && !empty($responseData->success);
 
-                // Decode JSON data of API response 
-                $responseData = json_decode($verifyResponse);
-
-                // If the reCAPTCHA API response is valid 
-                if ($responseData->success) {
+                  // If the reCAPTCHA API response is valid
+                  if ($isRecaptchaValid) {
                   // Retrieve value from the form input fields 
                   $firstName = !empty($_POST['contact-fn']) ? htmlspecialchars($_POST['contact-fn']) : '';
                   $lastName = !empty($_POST['contact-ln']) ? htmlspecialchars($_POST['contact-ln']) : '';
@@ -113,14 +133,18 @@ require_once 'includes/header.php';
                   // More headers 
                   $headers .= 'From:' . $firstName . ' ' . $lastName . '<' . $email . '>' . "\r\n";
 
-                  // Send email 
-                  mail($to, $subject, $htmlContent, $headers);
-
-                  $status = 'success';
-                  $statusMsg = 'Thank you! Please allow up to 48 hours for a response.';
-                  $postData = '';
+                  // Send email
+                  $emailWasSent = @mail($to, $subject, $htmlContent, $headers);
+                  if ($emailWasSent) {
+                    $status = 'success';
+                    $statusMsg = 'Thank you! Please allow up to 48 hours for a response.';
+                    $postData = '';
+                  } else {
+                    $statusMsg = 'Your message could not be delivered right now. Please try again later.';
+                  }
                 } else {
                   $statusMsg = 'We apologize, reCaptcha verification failed, and  please try again.';
+                }
                 }
               } else {
                 $statusMsg = 'Please check the reCAPTCHA checkbox to prove your human.';
@@ -140,7 +164,7 @@ require_once 'includes/header.php';
         <?php if (!empty($statusMsg)) { ?>
           <div class="col-xl-8 col-lg-8 col-md-12 mb-5">
             <div class="p-3 text-center text-bg-light hero-text-border" title="We are listening.">
-              <p class="mb-5 h5 status-msg <?php echo $status; ?>"><?php echo $statusMsg; ?></p>
+              <p id="formErrorSummary" tabindex="-1" class="mb-5 h5 status-msg <?php echo $status; ?>"><?php echo $statusMsg; ?></p>
             </div>
           </div>
         <?php } ?>
@@ -205,7 +229,7 @@ require_once 'includes/header.php';
               </div>
 
               <div class="col-md-12">
-                <div class="g-recaptcha" data-sitekey=<?php echo getenv('g-site-key'); ?>></div>
+                <div class="g-recaptcha" data-sitekey="<?= htmlspecialchars($siteKey, ENT_QUOTES, 'UTF-8') ?>"></div>
                 <div>
                   Note: The form will reset if unchecked.
                 </div>
@@ -216,7 +240,7 @@ require_once 'includes/header.php';
               </div>
 
               <div class="col-md-6 text-center">
-                <button type="reset" class="btn wyp-button" name="reset" value="reset" onclick="return resetFields();" aria-labelledby="reset">Reset Form</button>
+                <button type="reset" id="resetFormButton" class="btn wyp-button" name="reset" value="reset" onclick="return resetFields();" aria-labelledby="reset">Reset Form</button>
                 <div class="sr-only" id="reset" role="alert" aria-live="assertive" aria-atomic="true">
                   <p>(A pop up will confirm your reset form)</p>
                 </div>
@@ -228,7 +252,7 @@ require_once 'includes/header.php';
         <div class="col-xl-8 col-lg-8 col-md-12 mb-5">
           <div class="p-3 text-center hero-text-border banner" title="Please contact us with any questions, suggestions, or concerns.">
             <section aria-label="Talk to Us">
-              <h2 class="h5 mb-6 px-3 px-md-0">Please allow us up to 48 hours to respond, and if you need assistance sooner, please email <?php echo getenv('wyp-email'); ?>
+              <h2 class="h5 mb-6 px-3 px-md-0">Please allow us up to 48 hours to respond, and if you need assistance sooner, please email <?= htmlspecialchars($recipientEmail, ENT_QUOTES, 'UTF-8') ?>
               </h2>
             </section>
           </div>
