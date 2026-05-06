@@ -52,6 +52,11 @@ $pageDescriptionByKey = [
 $pageTitle       = $pageTitleByKey[$activePageKey]       ?? 'Wipe Your Paws';
 $pageDescription = $pageDescriptionByKey[$activePageKey] ?? 'Wipe Your Paws - Big Love for Small Paws.';
 
+$pageHeroPreloadImageByKey = [
+  'gallery' => '/images/gallery-header.jpg',
+];
+$pageHeroPreloadImage = $pageHeroPreloadImageByKey[$activePageKey] ?? null;
+
 // Build canonical URL (update BASE_URL when deploying)
 $siteBaseUrl    = 'https://wipeyourpaws.net';
 $pagePathByKey = [
@@ -79,6 +84,11 @@ $canonicalUrl   = $siteBaseUrl . '/' . ($pagePathByKey[$activePageKey] ?? '');
   <meta name="description" content="<?= htmlspecialchars($pageDescription) ?>">
   <meta name="author" content="wipeyourpaws.net">
   <meta name="theme-color" content="#F07822">
+
+  <?php if ($pageHeroPreloadImage !== null): ?>
+    <!-- LCP optimization: preload above-the-fold hero image on media-heavy pages -->
+    <link rel="preload" as="image" href="<?= htmlspecialchars($pageHeroPreloadImage, ENT_QUOTES, 'UTF-8') ?>" type="image/jpeg" fetchpriority="high">
+  <?php endif; ?>
 
   <!-- R4: Canonical URL -->
   <link rel="canonical" href="<?= htmlspecialchars($canonicalUrl) ?>">

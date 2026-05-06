@@ -137,16 +137,37 @@ $showSlideIndicators = ($validImageCount > 1 && $validImageCount <= 12);
 require_once 'includes/header.php';
 ?>
 
-<!--  PAGE HERO  -->
-<section class="gallery-hero">
-  <div class="container text-center page-hero-z">
-    <span class="page-hero-emoji" aria-hidden="true">&#128248;&#128062;&#10024;</span>
-    <h1 class="page-hero-h1">Media Gallery</h1>
-    <p class="page-hero-tagline">
-      Beautiful moments with Chandra &amp; Skipper.
+<!-- Page hero: gallery-specific layered header component -->
+<header class="wyp-gallery-hero" aria-labelledby="galleryHeroTitle">
+  <div class="wyp-gallery-hero-accent-top" aria-hidden="true"></div>
+  <div class="wyp-gallery-hero-accent-bottom" aria-hidden="true"></div>
+
+  <div class="wyp-gallery-hero-photo" aria-hidden="true">
+    <picture>
+      <img
+        src="/images/gallery-header.jpg"
+        alt="Chandra and Skipper resting together on striped cushions on a caramel couch."
+        width="1920"
+        height="720"
+        loading="eager"
+        decoding="sync"
+        fetchpriority="high">
+    </picture>
+  </div>
+
+  <div class="wyp-gallery-hero-overlay" aria-hidden="true"></div>
+
+  <div class="wyp-gallery-hero-content">
+    <div class="wyp-gallery-hero-eyebrow">
+      <span class="wyp-gallery-hero-eyebrow-line" aria-hidden="true"></span>
+      <span>PHOTO STORIES</span>
+    </div>
+    <h1 id="galleryHeroTitle">Gallery</h1>
+    <p>
+      Moments of joy, adventure, muddy paws, and unforgettable memories from the Wipe Your Paws community.
     </p>
   </div>
-</section>
+</header>
 
 <section class="wyp-section wyp-section-sm wyp-section-alt">
   <div class="container">
@@ -363,40 +384,6 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Populate the Bootstrap modal with the image selected from the carousel.
-    var modalElement = document.getElementById('galleryLightboxModal');
-    var modalImage = document.getElementById('galleryLightboxImage');
-    var modalCaption = document.getElementById('galleryLightboxCaption');
-    var galleryTriggers = document.querySelectorAll('.gallery-lightbox-trigger');
-    var lastFocusedTrigger = null;
-
-    galleryTriggers.forEach(function (trigger) {
-      trigger.addEventListener('click', function () {
-        lastFocusedTrigger = trigger;
-        var fullSrc = trigger.getAttribute('data-full-src') || trigger.getAttribute('href') || '';
-        var altText = trigger.getAttribute('data-alt') || '';
-        var captionText = trigger.getAttribute('data-caption') || '';
-
-        modalImage.setAttribute('src', fullSrc);
-        modalImage.setAttribute('alt', altText);
-        modalCaption.textContent = captionText;
-      });
-    });
-
-    if (modalElement) {
-      modalElement.addEventListener('hidden.bs.modal', function () {
-        modalImage.setAttribute('src', '');
-        modalImage.setAttribute('alt', '');
-        modalCaption.textContent = '';
-
-        if (lastFocusedTrigger) {
-          lastFocusedTrigger.focus();
-        }
-      });
-    }
-  });
-</script>
+<script src="/js/gallery_lightbox_modal.js?v=<?= filemtime(__DIR__ . '/js/gallery_lightbox_modal.js'); ?>" defer></script>
 
 <?php require_once 'includes/footer.php'; ?>
