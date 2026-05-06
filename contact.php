@@ -241,7 +241,22 @@ require_once 'includes/header.php';
     <p class="page-hero-tagline">
       We'd love to hear from fellow small dog lovers - send us a note!
     </p>
-    <img src='/images/dog-overlay.png' alt='Many dogs looking up' class='img-fluid mx-auto rounded d-block shadow-lg bg-warning-subtle'>
+    <img src="/images/dog-overlay.png" alt="Many dogs looking up" class="img-fluid mx-auto rounded d-block shadow-lg bg-warning-subtle">
+    <div class="contact-paw-box mt-5">
+
+      <div class="d-flex align-items-start gap-4">
+        <div class="dog-avatar-frame">
+          <img src="/images/skipper-icon-50x42.png" alt="skipper cartoon icon" class="mx-2" width="50" height="42" aria-hidden="true">
+        </div>
+        <p class="page-hero-tagline">
+          Skipper and Chandra are eagerly awaiting your message - and are ready to give you a virtual paw-shake in return!
+        </p>
+        <div class="dog-avatar-frame">
+          <img src="/images/chandra icon 55x55.png" alt="chandra bust icon" class="mx-2" width="55" height="55" aria-hidden="true">
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -447,7 +462,7 @@ require_once 'includes/header.php';
         </div>
       </div>
     </div>
-    
+
 </section>
 
 <!--  MAP  -->
