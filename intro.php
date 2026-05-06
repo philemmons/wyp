@@ -13,7 +13,7 @@ require_once 'includes/header.php';
   <div class="container text-center page-hero-z">
     <h1 class="page-hero-h1">Meet the Chihuahuas!</h1>
     <p class="page-hero-tagline">Faithful and Loving — Two small dogs with hearts <i class="bi bi-suit-heart-fill" aria-hidden="true"></i> the size of the ocean!</p>
-    <img src="/images/chandra and skipper.png" alt="two great dogs - chandra and skipper"  class="img-monterey-hero rounded mx-auto d-block shadow">
+    <img src="/images/chandra and skipper.png" alt="Chandra and Skipper posing together"  class="img-monterey-hero rounded mx-auto d-block shadow">
   </div>
 </section>
 
@@ -44,7 +44,7 @@ require_once 'includes/header.php';
           <h3 class="dog-name">Chandra</h3>
           <p class="dog-catchphrase">"Princess of the House"</p>
 
-          <img src='/images/chandra.jpg' alt='chandra' class='img-fluid rounded mx-auto d-block'>
+          <img src='/images/chandra.jpg' alt='Chandra the Chihuahua' class='img-fluid rounded mx-auto d-block'>
 
           <div class="my-3">
             <span class="dog-stat-chip"><i class="bi bi-gender-female" aria-hidden="true"></i> Female</span>
@@ -85,7 +85,7 @@ require_once 'includes/header.php';
           <h3 class="dog-name">Skipper</h3>
           <p class="dog-catchphrase">"The Little Explorer"</p>
 
-          <img src='/images/skipper on couch.jpg' alt='skipper' class='img-fluid rounded mx-auto d-block'>
+          <img src='/images/skipper on couch.jpg' alt='Skipper relaxing on the couch' class='img-fluid rounded mx-auto d-block'>
 
           <div class="my-3">
             <span class="dog-stat-chip"><i class="bi bi-gender-male" aria-hidden="true"></i> Male</span>
@@ -127,7 +127,7 @@ require_once 'includes/header.php';
     <div class="row align-items-center g-5">
 
       <div class="col-lg-6 text-center">
-        <img src='/images/chandra and skipper in bed.jpg' alt='sleeping chandra and skipper in bed' class='img-fluid rounded mx-auto d-block'>
+        <img src='/images/chandra and skipper in bed.jpg' alt='Chandra and Skipper sleeping together on a bed' class='img-fluid rounded mx-auto d-block'>
       </div>
 
       <div class="col-lg-6">

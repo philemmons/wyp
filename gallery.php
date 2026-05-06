@@ -236,12 +236,19 @@ require_once 'includes/header.php';
 
     <?php if ($validImageCount > 0): ?>
       <p id="galleryCarouselStatus" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+      <p id="galleryCarouselInstructions" class="visually-hidden">
+        Use left and right arrow keys to move between images. Press Enter to open the selected image in a dialog.
+      </p>
       <div
         id="galleryPhotoCarousel"
         class="carousel slide gallery-carousel-shell"
         data-bs-ride="false"
         data-bs-interval="false"
+        data-bs-keyboard="true"
         data-bs-touch="true"
+        tabindex="0"
+        aria-roledescription="carousel"
+        aria-describedby="galleryCarouselInstructions galleryCarouselStatus"
         aria-label="Chandra and Skipper photo carousel">
 
         <?php if ($showSlideIndicators): ?>
@@ -261,7 +268,7 @@ require_once 'includes/header.php';
         <div class="carousel-inner">
           <?php foreach ($galleryItems as $index => $galleryItem): ?>
             <!-- Each slide uses the existing gallery card styling and opens the Bootstrap modal lightbox. -->
-            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>" aria-label="Slide <?= (int) ($index + 1) ?> of <?= (int) $validImageCount ?>">
               <div class="gallery-placeholder-item gallery-carousel-card">
                 <button
                   type="button"
@@ -324,11 +331,11 @@ require_once 'includes/header.php';
 <div
   class="modal fade"
   id="galleryLightboxModal"
+  data-bs-keyboard="true"
   tabindex="-1"
   aria-labelledby="galleryLightboxTitle"
   aria-describedby="galleryLightboxCaption"
-  aria-modal="true"
-  role="dialog">
+  aria-modal="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">

@@ -334,7 +334,8 @@ main:focus {
   text-decoration: none;
 }
 
-.skip-link:focus {
+.skip-link:focus,
+.skip-link:focus-visible {
   top: 0;
 }
 
@@ -1557,7 +1558,7 @@ p:last-child {
   justify-content: center;
   width: 100%;
   max-width: 100%;
-  min-height: 484px;
+  min-height: min(484px, 75vh);
   margin-inline: auto;
   padding: 0;
   border: 0;
@@ -1581,6 +1582,8 @@ p:last-child {
 .gallery-carousel-shell .carousel-control-prev,
 .gallery-carousel-shell .carousel-control-next {
   width: 10%;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
 }
 
 .gallery-carousel-shell .carousel-control-prev-icon,
@@ -1926,6 +1929,20 @@ textarea.form-control {
 }
 
 .footer-nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+
+.footer-nav a:focus-visible,
+.social-circle:focus-visible,
+.quicklink-card:focus-visible,
+.gallery-dog-link:focus-visible {
+  box-shadow: var(--focus-outline);
+}
+
+.footer-nav a:focus-visible,
+.quicklink-card:focus-visible,
+.gallery-dog-link:focus-visible {
   text-decoration: underline;
   text-underline-offset: 0.16em;
 }
@@ -2309,6 +2326,14 @@ textarea.form-control {
 
   .wyp-gallery-hero {
     aspect-ratio: 4 / 3;
+  }
+
+  .gallery-carousel-trigger {
+    min-height: auto;
+  }
+
+  .gallery-photo-thumb {
+    max-height: min(60vh, 420px);
   }
 }
 

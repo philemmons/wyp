@@ -134,7 +134,7 @@ $canonicalUrl   = $siteBaseUrl . '/' . ($pagePathByKey[$activePageKey] ?? '');
 <body id="toTop">
 
   <!-- W1: Skip navigation — first focusable element on page (WCAG 2.4.1) -->
-  <a class="skip-link" href="#main-content" aria-label="Go To Main Content">Skip to main content</a>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <!-- Animated colour strip — purely decorative -->
   <div class="swirl-strip" aria-hidden="true" role="presentation"></div>

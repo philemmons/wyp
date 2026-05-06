@@ -5,9 +5,11 @@
   var myForm = document.getElementById('myForm');
   var resetFormButton = document.getElementById('resetFormButton');
   var formErrorSummary = document.getElementById('formErrorSummary');
+  var recaptchaGroup = document.getElementById('recaptcha-group');
   var recaptchaContainer = document.querySelector('.g-recaptcha[data-sitekey]');
   var recaptchaLoadError = document.getElementById('recaptchaLoadError');
   var recaptchaValidationError = document.getElementById('recaptchaValidationError');
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var recaptchaDidRender = false;
 
@@ -32,6 +34,10 @@
       return;
     }
 
+    if (recaptchaGroup) {
+      recaptchaGroup.setAttribute('aria-invalid', 'true');
+    }
+
     recaptchaValidationError.textContent = message;
     recaptchaValidationError.classList.remove('d-none');
     if (typeof recaptchaValidationError.focus === 'function') {
@@ -42,6 +48,10 @@
   function hideRecaptchaValidationError() {
     if (!recaptchaValidationError) {
       return;
+    }
+
+    if (recaptchaGroup) {
+      recaptchaGroup.removeAttribute('aria-invalid');
     }
 
     recaptchaValidationError.textContent = '';
@@ -98,6 +108,15 @@
     var firstInvalidField = myForm.querySelector('[aria-invalid="true"], :invalid');
     if (firstInvalidField && typeof firstInvalidField.focus === 'function') {
       firstInvalidField.focus();
+      return;
+    }
+
+    if (
+      recaptchaValidationError &&
+      !recaptchaValidationError.classList.contains('d-none') &&
+      typeof recaptchaValidationError.focus === 'function'
+    ) {
+      recaptchaValidationError.focus();
     }
   }
 
@@ -123,7 +142,10 @@
         showRecaptchaValidationError('Please complete reCAPTCHA before submitting.');
 
         if (recaptchaContainer && typeof recaptchaContainer.scrollIntoView === 'function') {
-          recaptchaContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          recaptchaContainer.scrollIntoView({
+            behavior: prefersReducedMotion ? 'auto' : 'smooth',
+            block: 'center'
+          });
         }
         return;
       }
@@ -154,7 +176,7 @@
   }
 
   // Focus summary after server-side errors so assistive tech announces issues immediately.
-  if (formErrorSummary) {
+  if (formErrorSummary && formErrorSummary.getAttribute('data-form-status') === 'error') {
     formErrorSummary.focus();
   }
 })();
