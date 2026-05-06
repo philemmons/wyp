@@ -2,7 +2,7 @@
 
 /**
  * 404.php — Custom Not Found page
- * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8
+ * wipeyourpaws.net · PHP 8.x · Bootstrap 5.3.8
  * Triggered by .htaccess: ErrorDocument 404 /404.php
  */
 http_response_code(404);

@@ -6,7 +6,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 /**
  * includes/header.php
  * Shared header + navbar — wipeyourpaws.net
- * PHP 8.5 · Bootstrap 5.3.8 · WCAG 2.1 AA rev.2
+ * PHP 8.x · Bootstrap 5.3.8 · WCAG 2.1 AA rev.2
  *
  * WCAG fixes applied:
  *   W1  — Skip-to-main link

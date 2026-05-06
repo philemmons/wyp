@@ -2,7 +2,7 @@
 
 /**
  * index.php — Homepage
- * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8
+ * wipeyourpaws.net · PHP 8.X · Bootstrap 5.3.8
  */
 $activePageKey = 'home';
 require_once 'includes/header.php';

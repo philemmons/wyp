@@ -2,7 +2,7 @@
 
 /**
  * contact.php - Contact Us
- * wipeyourpaws.net - PHP 8.5 - Bootstrap 5.3.8 - WCAG 2.1 AA
+ * wipeyourpaws.net - PHP 8.x - Bootstrap 5.3.8 - WCAG 2.1 AA
  */
 
 declare(strict_types=1);
@@ -65,6 +65,8 @@ $verifyRecaptcha = static function (string $secretKey, string $responseToken): b
   return is_array($decoded) && !empty($decoded['success']);
 };
 
+// Pull runtime configuration once so request handling stays deterministic and testable.
+// `CONTACT_RECIPIENT_EMAIL` acts as a compatibility fallback for older deployments.
 $siteKey = wyp_env('GOOGLE_RECAPTCHA_SITE_KEY');
 $secretKey = wyp_env('GOOGLE_RECAPTCHA_SECRET_KEY');
 $recipientEmail = wyp_env('WYP_EMAIL');
@@ -116,7 +118,9 @@ $postData = [
   'contact-ta' => '',
 ];
 
+// Process only explicit form submissions; plain GET requests render the page.
 if (isset($_POST['submit'])) {
+  // Persist posted values so the user does not lose input when validation fails.
   $postData['contact-name'] = $readPostedValue('contact-name');
   $postData['contact-em'] = $readPostedValue('contact-em');
   $postData['contact-subj'] = $readPostedValue('contact-subj');
@@ -126,6 +130,7 @@ if (isset($_POST['submit'])) {
   $honeypotValue = $readPostedValue('beeName');
   $recaptchaResponse = $readPostedValue('g-recaptcha-response');
 
+  // Fast-fail security checks first to avoid expensive work on invalid or bot traffic.
   if ($csrfTokenFromPost === '' || !hash_equals($_SESSION['csrf_token'], $csrfTokenFromPost)) {
     $statusMsg = 'Your session has expired. Please refresh and try again.';
   } elseif ($honeypotValue !== '') {
@@ -133,6 +138,7 @@ if (isset($_POST['submit'])) {
   } elseif (!$isFormConfigured) {
     $statusMsg = 'The contact form is temporarily unavailable due to server configuration. Please try again later.';
   } else {
+    // Domain validation runs only after security gates pass, so messages stay user-actionable.
     if ($postData['contact-em'] === '') {
       $fieldErrors['contact-em'] = 'Email is required.';
     } elseif (!filter_var($postData['contact-em'], FILTER_VALIDATE_EMAIL)) {
@@ -157,6 +163,7 @@ if (isset($_POST['submit'])) {
       $fieldErrors['recaptcha'] = 'reCAPTCHA verification failed. Please try again.';
     }
 
+    // Aggregate field-level errors into one decision point for clearer control flow.
     $hasFieldErrors = false;
     foreach ($fieldErrors as $fieldError) {
       if ($fieldError !== '') {
@@ -168,6 +175,8 @@ if (isset($_POST['submit'])) {
     if ($hasFieldErrors) {
       $statusMsg = 'Please review the highlighted fields and try again.';
     } else {
+      // Sanitize header-bound values separately from HTML output escaping.
+      // Headers need newline stripping; HTML needs entity escaping.
       $submittedName = $sanitizeHeaderValue($postData['contact-name']);
       $submittedEmail = filter_var($postData['contact-em'], FILTER_VALIDATE_EMAIL) ?: '';
       $submittedSubject = $sanitizeHeaderValue($postData['contact-subj']);
@@ -182,6 +191,7 @@ if (isset($_POST['submit'])) {
       $mailFromEmail = $formFromEmail !== '' ? $formFromEmail : $recipientEmail;
       $safeMailFromEmail = $sanitizeHeaderValue($mailFromEmail);
 
+      // Keep content HTML-formatted for readability in inboxes while preserving escaped user input.
       $htmlContent = "
         <h4>Wipe Your Paws Contact Form Submission</h4>
         <p><b>Name:</b> " . ($safeName !== '' ? $safeName : 'Not provided') . "</p>
@@ -199,11 +209,14 @@ if (isset($_POST['submit'])) {
         'X-Mailer: PHP/' . phpversion(),
       ];
 
+      // `@mail()` suppresses transport warnings from leaking to users;
+      // operations visibility still comes from server logs/error tracking.
       $emailWasSent = @mail($recipientEmail, $mailSubject, $htmlContent, implode("\r\n", $headers));
 
       if ($emailWasSent) {
         $status = 'success';
         $statusMsg = 'Thank you! Please allow up to 48 hours for a response.';
+        // Clear state after success to prevent accidental duplicate resubmissions from stale values.
         $postData = [
           'contact-name' => '',
           'contact-em' => '',
@@ -220,6 +233,7 @@ if (isset($_POST['submit'])) {
 require_once 'includes/header.php';
 ?>
 
+
 <!--  PAGE HERO  -->
 <section class="contact-hero">
   <div class="container text-center page-hero-z">
@@ -230,6 +244,7 @@ require_once 'includes/header.php';
     <img src='/images/dog-overlay.png' alt='Many dogs looking up' class='img-fluid mx-auto rounded d-block shadow-lg bg-warning-subtle'>
   </div>
 </section>
+
 
 <!--  MAIN CONTACT SECTION  -->
 <section class="wyp-section wyp-section-alt">
@@ -249,11 +264,14 @@ require_once 'includes/header.php';
 
         <div class="wyp-form" title="Wipe Your Paws Contact Us Form.">
 
+
           <form action="contact.php" method="POST" class="row g-3 needs-validation" id="myForm" novalidate>
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
 
+
             <p class="fw-bold mb-0">We're open for any suggestion or just to have a chat.</p>
             <p class="required-note mb-0" id="contact-required-note">Required fields: Email, Subject, and Message.</p>
+
 
             <?php if (!$isFormConfigured) { ?>
               <p class="form-error-text mb-0" role="status" aria-live="polite">
@@ -264,10 +282,12 @@ require_once 'includes/header.php';
               </p>
             <?php } ?>
 
+
             <div class="sunFlower-wrap" aria-hidden="true">
               <label for="beeName" class="visually-hidden">Leave this field empty</label>
               <input type="text" name="beeName" id="beeName" tabindex="-1" autocomplete="off">
             </div>
+
 
             <div class="col-md-12">
               <label for="contact-name" class="form-label">Name (optional)</label>
@@ -279,6 +299,7 @@ require_once 'includes/header.php';
                 maxlength="120"
                 value="<?= htmlspecialchars($postData['contact-name'], ENT_QUOTES, 'UTF-8') ?>">
             </div>
+
 
             <div class="col-md-12">
               <label for="contact-em" class="form-label">Email (required)</label>
@@ -297,6 +318,7 @@ require_once 'includes/header.php';
                   : 'Please enter a valid email address.' ?>
               </div>
             </div>
+
 
             <div class="col-md-12">
               <label for="contact-subj" class="form-label">Subject (required)</label>
@@ -317,6 +339,7 @@ require_once 'includes/header.php';
               </div>
             </div>
 
+
             <div class="col-md-12">
               <label for="contact-ta" class="form-label">Message (required)</label>
               <textarea
@@ -334,6 +357,7 @@ require_once 'includes/header.php';
               </div>
             </div>
 
+
             <div class="col-md-12">
               <?php if ($siteKey !== '') { ?>
                 <div class="g-recaptcha" data-sitekey="<?= htmlspecialchars($siteKey, ENT_QUOTES, 'UTF-8') ?>"></div>
@@ -350,9 +374,11 @@ require_once 'includes/header.php';
               </p>
             </div>
 
+
             <div class="col-md-6 text-center">
               <button type="submit" class="btn-wyp btn-wyp-primary" name="submit" <?= $isFormConfigured ? '' : 'disabled aria-disabled="true"' ?>>Submit Message</button>
             </div>
+
 
             <div class="col-md-6 text-center">
               <button type="reset" id="resetFormButton" class="btn-wyp btn-wyp-outline" name="reset" value="reset" aria-labelledby="reset">Reset Form</button>
@@ -423,15 +449,10 @@ require_once 'includes/header.php';
 
         </div>
 
-        <div class="mt-4">
-          <div class="wyp-card text-center" title="Please contact us with any questions, suggestions, or concerns.">
-
-            <section aria-label="Talk to Us">
-              <h2 class="h5 mb-0 px-3 px-md-0">Please allow us up to 48 hours to respond, and if you need assistance sooner, please email <?= htmlspecialchars($supportEmailForDisplay, ENT_QUOTES, 'UTF-8') ?>
-              </h2>
-            </section>
-            
-          </div>
+        <div class="wyp-card p-3 mt-4">
+          <section aria-label="Talking to Us">
+            <p class="fs-4 px-3 px-md-0">Please allow us up to 48 hours to respond, as we are walking the dogs.</p>
+          </section>
         </div>
 
       </div>

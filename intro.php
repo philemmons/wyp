@@ -2,7 +2,7 @@
 
 /**
  * intro.php — Meet the Chihuahuas
- * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8
+ * wipeyourpaws.net · PHP 8.x · Bootstrap 5.3.8
  */
 $activePageKey = 'intro';
 require_once 'includes/header.php';

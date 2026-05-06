@@ -2,7 +2,7 @@
 
 /**
  * gallery.php — Media Gallery
- * wipeyourpaws.net · PHP 8.5 · Bootstrap 5.3.8
+ * wipeyourpaws.net · PHP 8.x · Bootstrap 5.3.8
  */
 $activePageKey = 'gallery';
 require_once 'includes/header.php';

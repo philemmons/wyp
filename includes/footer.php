@@ -3,7 +3,7 @@
 /**
  * includes/footer.php
  * Shared footer - wipeyourpaws.net
- * PHP 8.5 - Bootstrap 5.3.8 - WCAG 2.1 AA
+ * PHP 8.x - Bootstrap 5.3.8 - WCAG 2.1 AA
  *
  * WCAG fixes:
  *   W2  - </main> closed here
