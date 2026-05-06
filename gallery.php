@@ -175,11 +175,11 @@ require_once 'includes/header.php';
 <!-- Page hero: gallery-specific layered header component -->
 <section class="monterey-hero image-header">
   <div class="container text-center page-hero-z">
-<header class="wyp-gallery-hero shadow-lg" aria-labelledby="galleryHeroTitle">
+<header class="wyp-gallery-hero shadow" aria-labelledby="galleryHeroTitle">
       <div class="wyp-gallery-hero-accent-top" aria-hidden="true"></div>
       <div class="wyp-gallery-hero-accent-bottom" aria-hidden="true"></div>
 
-      <div class="wyp-gallery-hero-photo shadow" aria-hidden="true">
+      <div class="wyp-gallery-hero-photo" aria-hidden="true">
         <picture>
           <img
             src="/images/gallery-header.jpg"
