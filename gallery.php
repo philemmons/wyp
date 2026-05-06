@@ -179,7 +179,7 @@ require_once 'includes/header.php';
       <div class="wyp-gallery-hero-accent-top" aria-hidden="true"></div>
       <div class="wyp-gallery-hero-accent-bottom" aria-hidden="true"></div>
 
-      <div class="wyp-gallery-hero-photo hero-image" aria-hidden="true">
+      <div class="wyp-gallery-hero-photo shadow" aria-hidden="true">
         <picture>
           <img
             src="/images/gallery-header.jpg"
