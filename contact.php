@@ -362,25 +362,14 @@ require_once 'includes/header.php';
             </div>
           </form>
         </div>
-
-        <div class="mt-4">
-          <div class="wyp-card text-center" title="Please contact us with any questions, suggestions, or concerns.">
-            <section aria-label="Talk to Us">
-              <h2 class="h5 mb-0 px-3 px-md-0">Please allow us up to 48 hours to respond, and if you need assistance sooner, please email <?= htmlspecialchars($supportEmailForDisplay, ENT_QUOTES, 'UTF-8') ?>
-              </h2>
-            </section>
-          </div>
-        </div>
-
       </div>
 
-      <div class="col-lg-5">
 
+
+      <div class="col-lg-5">
         <div class="contact-info-box mb-4">
           <h3>Get in Touch <span aria-hidden="true">&#128062;</span></h3>
-
           <address class="address-reset">
-
             <div class="contact-info-row">
               <div class="contact-info-icon" aria-hidden="true">&#9993;&#65039;</div>
               <div>
@@ -432,6 +421,17 @@ require_once 'includes/header.php';
             </div>
           </div>
 
+        </div>
+
+        <div class="mt-4">
+          <div class="wyp-card text-center" title="Please contact us with any questions, suggestions, or concerns.">
+
+            <section aria-label="Talk to Us">
+              <h2 class="h5 mb-0 px-3 px-md-0">Please allow us up to 48 hours to respond, and if you need assistance sooner, please email <?= htmlspecialchars($supportEmailForDisplay, ENT_QUOTES, 'UTF-8') ?>
+              </h2>
+            </section>
+            
+          </div>
         </div>
 
       </div>

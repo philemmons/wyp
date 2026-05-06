@@ -1,71 +1,77 @@
 # Shared Hosting Email Deliverability Checklist
 
-Use this sequence for cPanel/LiteSpeed troubleshooting in the current repository.
+Use this runbook for cPanel/LiteSpeed troubleshooting with the current repository.
 
 ## Prerequisites
 
-- Diagnostics endpoints must be reachable: `/diagnostics/mail_delivery_diagnostic.php` and `/diagnostics/smtp_delivery_test.php`.
-- Set `WYP_DIAG_KEY` in the same environment used by the app (`.env` loaded by `includes/init.php` or server env vars).
-- These scripts now load `includes/init.php` so they read the same `WYP_*` variables as `contact.php`.
+- Diagnostics routes must be reachable:
+  - `/diagnostics/mail_delivery_diagnostic.php`
+  - `/diagnostics/smtp_delivery_test.php`
+- Set `WYP_DIAG_KEY` and pass it as `?key=...`.
+- Diagnostics scripts load `includes/init.php` and therefore use the same environment model as the app.
+- Current bootstrap requires a root `.env` file; if `.env` is missing, diagnostics will fail before checks run.
 
-## 1. Run both diagnostics endpoints
+## 1. Capture baseline reports
 
 1. Open `/diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY`.
 2. Open `/diagnostics/smtp_delivery_test.php?key=YOUR_KEY`.
-3. Save output for host support.
+3. Save outputs for comparison and host escalation.
 
-## 2. Confirm native mail capability
+## 2. Confirm native mail path (`mail()`)
 
-1. In mail diagnostics output, confirm `mail_function_exists=true` and `mail_disabled=false`.
-2. Test `mail()` using `/diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY&mail_test_to=you@example.com`.
-3. If failing, ask host whether `mail()` is disabled, whether outbound caps apply, and whether messages are deferred in Track Delivery.
+1. In mail diagnostics output, verify:
+   - `mail_function_exists = true`
+   - `mail_disabled = false`
+2. Run test send:
+   - `/diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY&mail_test_to=you@example.com`
+3. If it fails, confirm with host:
+   - Whether `mail()` is disabled.
+   - Outbound hourly/domain limits.
+   - Exim or transport deferrals in server logs.
 
-## 3. Check SMTP connectivity first
+## 3. Check SMTP network reachability
 
-1. In diagnostics output, review SMTP port probes (`25`, `465`, `587`, `2525`).
-2. If `465/587` time out or refuse, confirm outbound SMTP policy with host.
-3. Prefer `587` + STARTTLS when relay supports it.
+1. In mail diagnostics output, review probe results for ports `25`, `465`, `587`, `2525`.
+2. If `465`/`587` fail, confirm outbound SMTP policy with host.
+3. Prefer `587` + STARTTLS when supported by relay.
 
-## 4. Test SMTP authentication and TLS (when PHPMailer is installed)
+## 4. Validate SMTP auth/TLS (PHPMailer required)
 
-1. If `smtp_delivery_test.php` reports `phpmailer_not_found`, install PHPMailer before send tests.
-2. Run `/diagnostics/smtp_delivery_test.php?key=YOUR_KEY&to=you@example.com&send=1`.
-3. Review `debug_log` for auth failures, TLS negotiation failures, and relay restrictions.
-4. Keep `WYP_SMTP_DEBUG=0` outside active troubleshooting.
+1. If `smtp_delivery_test.php` reports `phpmailer_not_found`, install PHPMailer first.
+2. Run:
+   - `/diagnostics/smtp_delivery_test.php?key=YOUR_KEY&to=you@example.com&send=1`
+3. Review:
+   - `smtp_connect`
+   - `send_attempt`
+   - `debug_log`
+4. Keep debug-level troubleshooting temporary.
 
-## 5. Validate DNS authentication
+## 5. Validate sender identity and DNS
 
-1. SPF: publish one SPF record for the sender domain and include all real sending systems.
-2. DKIM: publish the selector used by your relay and verify key validity.
-3. DMARC: publish `_dmarc.domain`, start with `p=none`, then tighten policy after report review.
-4. Ensure `From` domain aligns with SPF or DKIM identity.
+1. SPF: publish one valid SPF policy for your sender domain.
+2. DKIM: publish selector record used by your SMTP relay.
+3. DMARC: publish `_dmarc.<domain>` and start with monitoring policy.
+4. Confirm `From` domain alignment with authenticated sender identity.
 
-## 6. Verify reverse DNS and sender identity
+## 6. Validate mailbox and account state
 
-1. Request outbound sending IP from host.
-2. Confirm PTR resolves and aligns with HELO/EHLO hostname.
-3. Use domain-owned mailbox in `From`.
-4. Keep visitor email in `Reply-To`.
+1. Verify sender mailbox quota and account health.
+2. Verify SMTP credentials outside app (webmail/client test).
+3. Inspect recipient spam/junk folders and message headers.
+4. Avoid abrupt sender/template/domain changes during troubleshooting.
 
-## 7. Review mailbox and reputation factors
+## 7. Escalate with complete evidence
 
-1. Confirm sender mailbox is not over quota.
-2. Confirm credentials work in webmail/IMAP/SMTP.
-3. Check recipient spam/junk headers.
-4. Avoid sudden template or sender identity changes.
-
-## 8. Escalate with complete evidence
-
-Provide host support:
+Provide host support with:
 
 - UTC timestamp
-- sender and recipient
-- diagnostic output JSON/text
-- any SMTP debug excerpts
-- message-id if available
+- sender and recipient addresses
+- diagnostics output (JSON/text)
+- SMTP debug excerpts
+- message-id (if available)
 
 ## Cleanup
 
-1. Remove `diagnostics/` scripts from production after troubleshooting.
+1. Remove diagnostics scripts from production after troubleshooting.
 2. Remove or rotate `WYP_DIAG_KEY`.
-
+3. Remove temporary relaxed debugging settings.

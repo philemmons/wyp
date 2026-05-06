@@ -1,62 +1,58 @@
-# WCAG 2.1 Readability and Typography Checklist
+# WCAG 2.1 Readability and Accessibility Checklist
 
-Last updated: 2026-05-05
-Applies to: `css/style.css`, shared includes, and page templates.
+Last audited: 2026-05-05
+Applies to: `includes/header.php`, `includes/footer.php`, `contact.php`, `css/style.css`, `js/back_to_top_button.js`, `js/scroll_reveal_animations.js`, `js/contact_page.js`
 
 ## Scope
 
-This checklist tracks WCAG 2.1 AA-oriented readability, form accessibility, and keyboard interaction patterns currently implemented.
+This checklist tracks implemented WCAG 2.1 AA-oriented patterns for readability, keyboard interaction, and form accessibility.
 
 ## Verified Implementation
 
-- Shared skip link in `includes/header.php`: `a.skip-link` to `#main-content`
-- Landmark structure: `<nav>`, `<main id="main-content">`, `<footer>`
-- Active nav indication: `aria-current="page"` in main navigation
-- Focus styles: global `:focus-visible` ring in `css/style.css`
-- Reduced motion: CSS `@media (prefers-reduced-motion: reduce)` limits animation and smooth scrolling, and JS respects reduced motion in back-to-top behavior.
-- Contact form semantics in `contact.php`: labels map to controls, required fields are text-labeled, errors use `aria-live` and `role="alert"`, and invalid controls use `aria-invalid="true"` when server validation fails.
+- Skip link exists in `includes/header.php` and targets `<main id="main-content">`.
+- Shared landmark structure is present: `<nav>`, `<main>`, `<footer>`, and `<address>` blocks.
+- Current-page state is exposed with `aria-current="page"` in main navigation.
+- Focus indication is implemented with shared `:focus-visible` styling in `css/style.css`.
+- Contact form labels are explicitly associated with controls in `contact.php`.
+- Required fields are communicated in text (`Required fields: Email, Subject, and Message.`), not by asterisk-only signaling.
+- Server-side invalid states set `aria-invalid="true"` and show error feedback.
+- Error summary/status messaging uses `role`/`aria-live` patterns.
+- Reduced motion is respected in CSS media query and in JS (`prefers-reduced-motion`) for motion behavior.
+- Back-to-top control updates `tabindex` and `aria-hidden` based on visibility.
 
-## WCAG 2.1 AA Checklist
+## WCAG 2.1 AA Mapping
 
 - [x] 1.3.1 Info and Relationships
-- Labels, landmarks, and heading hierarchy are present in shared templates and form markup.
 - [x] 1.4.3 Contrast (Minimum)
-- Brand palette and text colors are defined via tokens and tuned in shared stylesheet.
 - [x] 1.4.4 Resize Text
-- Typography uses scalable units (`rem`, `clamp`) and root font size remains browser-scalable.
 - [x] 1.4.10 Reflow
-- Responsive breakpoints are implemented for major layout blocks.
 - [x] 1.4.12 Text Spacing
-- No restrictive text clipping rules were found in contact/page body content areas.
 - [x] 2.1.1 Keyboard
-- Navigation, form controls, and back-to-top interaction are keyboard-operable.
 - [x] 2.4.1 Bypass Blocks
-- Skip link is first focusable element in body.
 - [x] 2.4.7 Focus Visible
-- Focus indication is visible via shared `:focus-visible` styling.
 - [x] 3.3.1 Error Identification
-- Contact form surfaces field-level and summary-level errors.
 - [x] 3.3.2 Labels or Instructions
-- Required field behavior is communicated by explicit text, not asterisks alone.
 
 ## Current Gaps and Observations
 
-- `js/scroll_reveal_animations.js` targets `[data-animate]`, but no current templates include `data-animate` attributes. This is non-breaking but currently inactive behavior.
-- There is no automated accessibility test suite in this repository; verification is manual.
+- `js/scroll_reveal_animations.js` targets `[data-animate]`, but no current templates include `data-animate` attributes. This behavior is currently inactive but non-breaking.
+- Accessibility verification is manual; there is no automated accessibility test suite in this repository.
+- There is no documented color-contrast test artifact in repo; contrast checks are currently process-driven.
 
-## Manual Regression Pass
+## Manual Regression Checklist
 
-1. Test each page at 100%, 200%, and 400% zoom.
-2. Tab through header nav, page CTAs, form controls, and footer links.
-3. Confirm skip link appears on keyboard focus and moves focus into `<main>`.
-4. Submit contact form with missing values and verify clear error messaging.
-5. Enable reduced-motion OS setting and verify animations/transitions are minimized.
-6. Recheck contrast whenever palette tokens are changed in `css/style.css`.
+1. Test pages at 100%, 200%, and 400% zoom.
+2. Tab through skip link, primary nav, interactive content, form controls, and footer links.
+3. Confirm skip link appears on keyboard focus and focus can move to main content.
+4. Submit contact form with invalid/missing values and verify field-level and summary feedback.
+5. Confirm reCAPTCHA errors are announced and visible when token is missing or invalid.
+6. Enable reduced-motion OS setting and verify motion is minimized.
+7. Re-check color contrast whenever palette or token values change in `css/style.css`.
 
 ## Authoring Rules
 
-- Keep semantic labels and instructions aligned with form field IDs/names.
-- Preserve keyboard focus visibility for all interactive elements.
-- Keep required-field communication explicit in text.
-- Prefer scalable units and avoid fixed pixel text sizing for body content.
-- Preserve reduced-motion behavior in both CSS and JavaScript changes.
+- Keep semantic labels synchronized with input `id`/`name` attributes.
+- Keep required-field instructions explicit in visible text.
+- Preserve or improve `:focus-visible` states for all custom interactive components.
+- Preserve reduced-motion behavior when introducing new animations or scroll effects.
+- Validate new forms against keyboard-only and screen-reader interaction flows.
