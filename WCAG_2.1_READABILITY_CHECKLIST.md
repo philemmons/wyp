@@ -1,74 +1,62 @@
-# WCAG 2.1 Readability And Typography Checklist
+# WCAG 2.1 Readability and Typography Checklist
 
-Last updated: 2026-05-01
-Applies to: `/css/style.css` and page templates in this repo.
-Naming note: use canonical script names `js/scroll_reveal_animations.js` and `js/back_to_top_button.js` in docs/templates.
+Last updated: 2026-05-05
+Applies to: `css/style.css`, shared includes, and page templates.
 
 ## Scope
-This checklist focuses on WCAG 2.1 text readability and visual presentation topics:
-- Fonts and text style
-- Line spacing and paragraph spacing
-- Letter spacing and word spacing
-- Color contrast
-- Relative units and text resizing
-- Line length and alignment
 
-## Current Implementation Snapshot
-- Base readable typography is set in `body` and shared text rules.
-- Most body copy now uses a readable measure (`ch`-based width limits).
-- Hero and dark-surface text contrast was strengthened using darker gradients and overlays.
-- Small-text tokens were increased in key UI areas.
-- Motion reduction behavior remains in place (`prefers-reduced-motion`).
+This checklist tracks WCAG 2.1 AA-oriented readability, form accessibility, and keyboard interaction patterns currently implemented.
 
-## WCAG Criteria Checklist
+## Verified Implementation
 
-### A/AA Criteria
+- Shared skip link in `includes/header.php`: `a.skip-link` to `#main-content`
+- Landmark structure: `<nav>`, `<main id="main-content">`, `<footer>`
+- Active nav indication: `aria-current="page"` in main navigation
+- Focus styles: global `:focus-visible` ring in `css/style.css`
+- Reduced motion: CSS `@media (prefers-reduced-motion: reduce)` limits animation and smooth scrolling, and JS respects reduced motion in back-to-top behavior.
+- Contact form semantics in `contact.php`: labels map to controls, required fields are text-labeled, errors use `aria-live` and `role="alert"`, and invalid controls use `aria-invalid="true"` when server validation fails.
 
-- [x] **1.4.3 Contrast (Minimum)**
-  - Primary body and UI text combinations are tuned for >= 4.5:1 for normal-size text.
-  - Dark-surface sections (nav/footer/cta/heroes) were updated to improve white/yellow text contrast.
+## WCAG 2.1 AA Checklist
 
-- [x] **1.4.4 Resize Text**
-  - Text uses relative sizing (`rem`, `clamp`) rather than fixed px text sizes.
-  - `html` keeps browser text scaling support (`font-size: 100%`, `-webkit-text-size-adjust: 100%`).
+- [x] 1.3.1 Info and Relationships
+- Labels, landmarks, and heading hierarchy are present in shared templates and form markup.
+- [x] 1.4.3 Contrast (Minimum)
+- Brand palette and text colors are defined via tokens and tuned in shared stylesheet.
+- [x] 1.4.4 Resize Text
+- Typography uses scalable units (`rem`, `clamp`) and root font size remains browser-scalable.
+- [x] 1.4.10 Reflow
+- Responsive breakpoints are implemented for major layout blocks.
+- [x] 1.4.12 Text Spacing
+- No restrictive text clipping rules were found in contact/page body content areas.
+- [x] 2.1.1 Keyboard
+- Navigation, form controls, and back-to-top interaction are keyboard-operable.
+- [x] 2.4.1 Bypass Blocks
+- Skip link is first focusable element in body.
+- [x] 2.4.7 Focus Visible
+- Focus indication is visible via shared `:focus-visible` styling.
+- [x] 3.3.1 Error Identification
+- Contact form surfaces field-level and summary-level errors.
+- [x] 3.3.2 Labels or Instructions
+- Required field behavior is communicated by explicit text, not asterisks alone.
 
-- [x] **1.4.10 Reflow**
-  - Mobile breakpoints and grid adjustments are present.
-  - Long text blocks use constrained measures and wrapping safeguards.
+## Current Gaps and Observations
 
-- [x] **1.4.12 Text Spacing**
-  - No restrictive fixed text containers for paragraph content.
-  - Readability rules allow increased line/word/letter spacing without clipping.
+- `js/scroll_reveal_animations.js` targets `[data-animate]`, but no current templates include `data-animate` attributes. This is non-breaking but currently inactive behavior.
+- There is no automated accessibility test suite in this repository; verification is manual.
 
-### AAA-Oriented Readability Preferences (1.4.8 Visual Presentation guidance)
+## Manual Regression Pass
 
-- [x] Line length generally constrained to readable measures (about 45-76ch depending on context).
-- [x] Paragraph line-height raised for body copy and long-form text.
-- [x] Long informational text is left-aligned in most sections.
-- [x] Paragraph spacing is standardized via shared spacing tokens.
-- [x] Decorative/script fonts reduced in some information-heavy headings.
+1. Test each page at 100%, 200%, and 400% zoom.
+2. Tab through header nav, page CTAs, form controls, and footer links.
+3. Confirm skip link appears on keyboard focus and moves focus into `<main>`.
+4. Submit contact form with missing values and verify clear error messaging.
+5. Enable reduced-motion OS setting and verify animations/transitions are minimized.
+6. Recheck contrast whenever palette tokens are changed in `css/style.css`.
 
-## Selector-Level Quick Audit
-Use this section as a fast maintenance checklist when editing styles.
+## Authoring Rules
 
-- [x] `body`, `main p`, `main li` keep readable defaults.
-- [x] `.wyp-navbar`, `.wyp-footer`, `.home-cta-strip` maintain dark enough backgrounds for light text.
-- [x] `.wyp-hero::before`, `.monterey-hero::before`, `.contact-hero::before`, `.gallery-hero::before`, `.error-hero::before` preserve text contrast over gradients.
-- [x] `.feature-tile-copy`, `.intro-duo-copy`, `.intro-together-copy`, `.monterey-intro-copy`, `.summary-callout-copy`, `.gallery-notice-copy`, `.gallery-upload-copy`, `.contact-sidebar-copy`, `.error-hero-copy` stay measure-limited and readable.
-- [x] `.required-note`, `.contact-privacy-note`, `.footer-bottom`, `.error-link-meta` remain legible (avoid shrinking below practical small-text sizes).
-
-## Regression Test Procedure
-Run this manual check after major visual edits:
-
-1. Open each page at 100%, 200%, and 400% zoom.
-2. Confirm no text overlaps/clipping in nav, cards, forms, footer, and hero areas.
-3. Verify keyboard focus visibility on links/buttons/inputs.
-4. Check contrast of any newly introduced color pair against WCAG targets.
-5. Confirm long text remains readable (line length and alignment) on desktop and mobile widths.
-
-## Authoring Rules For Future Edits
-- Prefer `rem`, `%`, `clamp`, `ch` for typography and layout.
-- Keep normal text contrast >= 4.5:1 (AA minimum).
-- Use `max-inline-size` for long copy blocks.
-- Avoid tiny uppercase text with heavy letter spacing.
-- If adding bright gradients behind text, add a contrast-preserving overlay or switch to darker text/background pair.
+- Keep semantic labels and instructions aligned with form field IDs/names.
+- Preserve keyboard focus visibility for all interactive elements.
+- Keep required-field communication explicit in text.
+- Prefer scalable units and avoid fixed pixel text sizing for body content.
+- Preserve reduced-motion behavior in both CSS and JavaScript changes.

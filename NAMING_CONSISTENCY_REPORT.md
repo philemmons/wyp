@@ -1,70 +1,41 @@
 # Naming Consistency Report
 
-## Scope
-- Completed a project-wide naming refactor across PHP templates, shared includes, contact form handling, diagnostics routes, JavaScript modules, and setup documentation.
-- Preserved behavior while normalizing identifier and file naming to Clean Code intent-revealing standards.
+This file records the naming conventions that are currently true in the repository.
 
-## Renamed Concepts
-- Page context variable: `$page_id` -> `$activePageKey`.
-- Navigation metadata variables in shared header renamed to intent-revealing names:
-  - `$nav_items` -> `$primaryNavigationLinks`
-  - `$page_titles` -> `$pageTitleByKey`
-  - `$page_descriptions` -> `$pageDescriptionByKey`
-  - `$base_url` -> `$siteBaseUrl`
-  - `$page_paths` -> `$pagePathByKey`
-  - `$canonical` -> `$canonicalUrl`
-- Contact form state/session naming normalized:
-  - `form_sent` -> `contact_form_submission_succeeded`
-  - `form_confirmation_sent` -> `contact_form_confirmation_sent`
-  - `form_error` -> `contact_form_submission_failed`
-  - `form_errors` -> `contact_form_error_messages`
-  - `form_field_errors` -> `contact_form_field_errors`
-  - `form_values` -> `contact_form_previous_values`
-  - `csrf_token` -> `contact_form_csrf_token`
-  - `contact_submit_times` -> `contact_form_submission_timestamps`
-- Contact form honeypot field renamed for clarity:
-  - `website` -> `contact_website`.
-- Contact submission handler helper names refactored to clear responsibilities:
-  - `$maskEmailAddress`, `$logContactFormEvent`, `$readPostField`, `$normalizeWhitespace`, `$resolveClientIpAddress`, `$sanitizeHeaderValue`, `$loadPhpMailer`, `$sendViaNativeMailTransport`, `$sendViaSmtpTransport`, `$sendWithPreferredMailTransport`, etc.
+## Confirmed Naming Conventions
 
-## File and Module Renames
-- `contact_submit.php` -> `process_contact_form_submission.php`
-- `js/backToTop.js` -> `js/back_to_top_button.js`
-- `js/app.js` -> `js/scroll_reveal_animations.js`
-- `diagnostics/mail_diagnostic.php` -> `diagnostics/mail_delivery_diagnostic.php`
-- `diagnostics/smtp_test.php` -> `diagnostics/smtp_delivery_test.php`
-- `diagnostics/PHPMailer_PRODUCTION_TEMPLATE.php` -> `diagnostics/phpmailer_production_mailer_factory.php`
+- PHP variables and helper names use `camelCase`.
+- File names use snake_case where a file was intentionally renamed (`back_to_top_button.js`, `scroll_reveal_animations.js`, `mail_delivery_diagnostic.php`).
+- Page context key is `$activePageKey`.
+- Shared navigation arrays in `includes/header.php` use intent-revealing names: `$primaryNavigationLinks`, `$pageTitleByKey`, `$pageDescriptionByKey`, `$pagePathByKey`, `$canonicalUrl`.
 
-## Vocabulary Normalization
-- Standardized mail/delivery vocabulary around:
-  - delivery, confirmation, recipient, outbound, transport, diagnostics.
-- Standardized contact form vocabulary around:
-  - submission, field errors, previous values, CSRF token, rate limits.
-- Standardized page context vocabulary around:
-  - active page key, navigation links, canonical URL.
+## Canonical Route and Script Names
 
-## Ambiguous Names Removed
-- Replaced ambiguous loop names like `$l`, `$ph`, `$cat`, and `$i` with descriptive alternatives:
-  - `$navigationCard`, `$previewCard`, `$highlightCategory`, `$itemIndex`, `$highlightItem`, `$featuredSpot`.
-- Replaced short generic JS identifiers:
-  - `ready` -> `runWhenDomReady`
-  - `elements` -> `animatedElements`
-  - `observer` -> `animationObserver`
-  - `backToTopBtn` -> `backToTopButton`
+- Contact page and submit target: `contact.php`
+- Back-to-top script: `js/back_to_top_button.js`
+- Reveal animation script: `js/scroll_reveal_animations.js`
+- Mail diagnostics script: `diagnostics/mail_delivery_diagnostic.php`
+- SMTP diagnostics script: `diagnostics/smtp_delivery_test.php`
+- PHPMailer factory example: `diagnostics/phpmailer_production_mailer_factory.php`
 
-## Domain Naming Improvements
-- Contact workflow identifiers now directly match user-visible behavior and business purpose:
-  - submission succeeded/failed
-  - confirmation sent
-  - previous form values
-  - mail delivery diagnostics
-- Diagnostics scripts now communicate operational intent by file name and variable naming.
+## Legacy Compatibility Redirects
 
-## Validation
-- Ran PHP syntax checks across all PHP files.
-- Result: `ALL_PHP_LINT_OK`
+`.htaccess` keeps 301 redirects for legacy names:
 
-## Routing And Crawl Artifact Alignment
-- Updated `.htaccess` with permanent redirects from legacy pre-refactor routes to canonical snake_case routes.
-- Updated `robots.txt` disallow entries to include both canonical internal endpoints and legacy renamed diagnostic routes.
-- Updated `sitemap.xml` metadata dates to reflect the current post-refactor state.
+- `contact_submit.php` to `contact.php`
+- `js/backToTop.js` to `js/back_to_top_button.js`
+- `js/app.js` to `js/scroll_reveal_animations.js`
+- `diagnostics/mail_diagnostic.php` to `diagnostics/mail_delivery_diagnostic.php`
+- `diagnostics/smtp_test.php` to `diagnostics/smtp_delivery_test.php`
+- `diagnostics/PHPMailer_PRODUCTION_TEMPLATE.php` to `diagnostics/phpmailer_production_mailer_factory.php`
+
+## Current Intentional Exceptions
+
+- CSRF session key remains `$_SESSION['csrf_token']` in `contact.php`.
+- Honeypot field name is `beeName`.
+- Form field names remain hyphenated for frontend compatibility: `contact-name`, `contact-em`, `contact-subj`, `contact-ta`.
+
+## Notes for Future Refactors
+
+- If session keys or form field names are renamed, update `contact.php`, `js/contact_page.js`, and related docs in `README.md` and `CONTACT_MAIL_SETUP.md`.
+- Keep route redirects in `.htaccess` during transition windows.

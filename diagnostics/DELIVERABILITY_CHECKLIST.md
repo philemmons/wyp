@@ -1,92 +1,71 @@
-# Shared Hosting Email Deliverability Checklist (cPanel/LiteSpeed)
+# Shared Hosting Email Deliverability Checklist
 
-Use this checklist in order. It is tuned for PHP 8.x + cPanel shared hosting.
-Use canonical diagnostic endpoints (`mail_delivery_diagnostic.php`, `smtp_delivery_test.php`) after the naming convention refactor.
+Use this sequence for cPanel/LiteSpeed troubleshooting in the current repository.
 
-## 1) Run diagnostics endpoints
+## Prerequisites
 
-1. Set a temporary server env var: `WYP_DIAG_KEY`.
-2. Open:
-   - `/diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY`
-   - `/diagnostics/smtp_delivery_test.php?key=YOUR_KEY`
-3. Save output for support tickets.
+- Diagnostics endpoints must be reachable: `/diagnostics/mail_delivery_diagnostic.php` and `/diagnostics/smtp_delivery_test.php`.
+- Set `WYP_DIAG_KEY` as a server environment variable.
+- These scripts read `getenv('WYP_DIAG_KEY')` directly and do not load `includes/init.php`.
 
-## 2) Outbound SMTP ports and connectivity
+## 1. Run both diagnostics endpoints
 
-1. In `mail_delivery_diagnostic.php`, confirm SMTP host port probes for `25`, `465`, `587`.
-2. If `465/587` fail with timeout/refused, ask host if outbound SMTP is blocked.
-3. Prefer `587 + STARTTLS` for authenticated relay.
+1. Open `/diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY`.
+2. Open `/diagnostics/smtp_delivery_test.php?key=YOUR_KEY`.
+3. Save output for host support.
 
-## 3) PHP mail() availability and throttling
+## 2. Confirm native mail capability
 
-1. Confirm `mail_function_exists=true` and `mail_disabled=false`.
-2. Run mail test:
-   - `/diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY&mail_test_to=you@example.com`
-3. If `mail()` returns false or warnings:
-   - ask host if `mail()` is disabled
-   - ask for hourly/domain throttling limits
-   - check Exim deferrals in cPanel Track Delivery
+1. In mail diagnostics output, confirm `mail_function_exists=true` and `mail_disabled=false`.
+2. Test `mail()` using `/diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY&mail_test_to=you@example.com`.
+3. If failing, ask host whether `mail()` is disabled, whether outbound caps apply, and whether messages are deferred in Track Delivery.
 
-## 4) SMTP authentication and TLS
+## 3. Check SMTP connectivity first
 
-1. Use SMTP route:
-   - `/diagnostics/smtp_delivery_test.php?key=YOUR_KEY&send=1&to=you@example.com`
-2. Review `debug_log`:
-   - auth errors: bad username/password, account restrictions
-   - TLS errors: cert mismatch, protocol issues
-3. Keep `WYP_SMTP_DEBUG=0` in production.
+1. In diagnostics output, review SMTP port probes (`25`, `465`, `587`, `2525`).
+2. If `465/587` time out or refuse, confirm outbound SMTP policy with host.
+3. Prefer `587` + STARTTLS when relay supports it.
 
-## 5) DNS authentication (SPF, DKIM, DMARC)
+## 4. Test SMTP authentication and TLS (when PHPMailer is installed)
 
-1. SPF:
-   - publish `v=spf1 ...` on the sender domain.
-   - include all actual outbound senders (host relay, third-party SMTP).
-2. DKIM:
-   - enable DKIM in cPanel Email Deliverability.
-   - verify selector exists and key length is current best practice.
-3. DMARC:
-   - publish `_dmarc.domain`.
-   - start with `p=none`, collect reports, then raise policy.
-4. Alignment:
-   - `From:` domain should align with SPF or DKIM domain.
+1. If `smtp_delivery_test.php` reports `phpmailer_not_found`, install PHPMailer before send tests.
+2. Run `/diagnostics/smtp_delivery_test.php?key=YOUR_KEY&to=you@example.com&send=1`.
+3. Review `debug_log` for auth failures, TLS negotiation failures, and relay restrictions.
+4. Keep `WYP_SMTP_DEBUG=0` outside active troubleshooting.
 
-## 6) Reverse DNS (PTR)
+## 5. Validate DNS authentication
 
-1. Get outbound sender IP from host support (shared hosting often hides this).
-2. Test PTR mapping.
-3. Ask host to ensure PTR and HELO hostname alignment for outbound mail IP.
+1. SPF: publish one SPF record for the sender domain and include all real sending systems.
+2. DKIM: publish the selector used by your relay and verify key validity.
+3. DMARC: publish `_dmarc.domain`, start with `p=none`, then tighten policy after report review.
+4. Ensure `From` domain aligns with SPF or DKIM identity.
 
-## 7) From/Reply-To/header alignment
+## 6. Verify reverse DNS and sender identity
 
-1. `From:` must be a real mailbox on your domain (for example `noreply@domain`).
-2. Avoid using visitor email in `From:`.
-3. Put visitor address in `Reply-To`.
-4. Keep envelope sender (`Return-Path`) on the same domain when possible.
+1. Request outbound sending IP from host.
+2. Confirm PTR resolves and aligns with HELO/EHLO hostname.
+3. Use domain-owned mailbox in `From`.
+4. Keep visitor email in `Reply-To`.
 
-## 8) Mailbox quota and account health
+## 7. Review mailbox and reputation factors
 
-1. cPanel -> Email Accounts -> verify sender mailbox not over quota.
-2. Ensure mailbox can authenticate via webmail/IMAP/SMTP.
-3. Check suspended/locked email accounts.
+1. Confirm sender mailbox is not over quota.
+2. Confirm credentials work in webmail/IMAP/SMTP.
+3. Check recipient spam/junk headers.
+4. Avoid sudden template or sender identity changes.
 
-## 9) Spam filtering and reputation checks
+## 8. Escalate with complete evidence
 
-1. Check recipient spam/junk folder and full headers.
-2. Verify Gmail/Yahoo acceptance using test inboxes.
-3. Avoid link-heavy/keyword-heavy templates.
-4. Keep consistent sender identity and low complaint rates.
+Provide host support:
 
-## 10) cPanel-specific logs and escalation
+- UTC timestamp
+- sender and recipient
+- diagnostic output JSON/text
+- any SMTP debug excerpts
+- message-id if available
 
-1. cPanel Track Delivery: identify reject/deferral reason codes.
-2. If shared host blocks access to deeper logs, open a ticket with:
-   - timestamp
-   - sender, recipient
-   - message id (if available)
-   - outputs from both diagnostics scripts
+## Cleanup
 
-## Cleanup after testing
-
-1. Remove `diagnostics/` scripts from production.
-2. Remove `WYP_DIAG_KEY`.
+1. Remove `diagnostics/` scripts from production after troubleshooting.
+2. Remove or rotate `WYP_DIAG_KEY`.
 

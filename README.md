@@ -1,167 +1,199 @@
-# Wipe Your Paws (wipeyourpaws.net)
+# Wipe Your Paws
 
-Big Love for Small Paws.
+Multi-page PHP site for wipeyourpaws.net, built with shared PHP templates, Bootstrap 5.3.8, and a single canonical stylesheet.
 
-A multi-page PHP website for the small dog community in Monterey Bay, California, featuring Chandra (Chihuahua) and Skipper (Chihuahua x Jack Russell mix).
+## Overview
 
-## Current Status
+- Public pages: `index.php`, `intro.php`, `monterey.php`, `gallery.php`, `contact.php`
+- Custom error pages: `403.php`, `404.php`
+- Shared layout includes: `includes/header.php`, `includes/footer.php`
+- Contact bootstrap: `includes/init.php` (loads `.env` and exposes `wyp_env()`)
+- Canonical CSS: `css/style.css`
+- JavaScript modules: `js/analytics.js`, `js/back_to_top_button.js`, `js/scroll_reveal_animations.js`, `js/contact_page.js`
 
-This codebase now uses a centralized, canonical design system and shared template structure:
-
-- Canonical stylesheet: `/css/style.css`
-- Legacy `/assets/` CSS path is deprecated
-- Shared layout includes: `includes/header.php` and `includes/footer.php`
-- Session-safe include behavior (`session_start` guarded against duplicate start)
-- Inline `style=""` removed from templates in favor of reusable classes
-- Canonical file naming is snake_case for renamed handlers/scripts
-- Legacy renamed routes are redirected to canonical targets in `.htaccess`
-
-## Technology Stack
-
-- PHP 8.0+
-- HTML5 + ARIA landmarks
-- CSS Custom Properties (design tokens)
-- Bootstrap 5.3.8
-- Bootstrap Icons 1.11.3
-- Google Fonts: Berkshire Swash, Nunito, Playfair Display
-
-## Project Structure
+## Current Project Structure
 
 ```text
-wipeyourpaws/
+/
+|-- .cpanel.yml
+|-- .env.example
+|-- .htaccess
+|-- 403.php
+|-- 404.php
+|-- contact.php
+|-- gallery.php
 |-- index.php
 |-- intro.php
 |-- monterey.php
-|-- gallery.php
-|-- contact.php
-|-- 403.php
-|-- 404.php
-|-- .htaccess
-|-- .env.example
 |-- robots.txt
 |-- sitemap.xml
-|-- includes/
-|   |-- init.php
-|   |-- header.php
-|   `-- footer.php
+|-- config/
+|   `-- contact_mail.php
 |-- css/
 |   `-- style.css
+|-- diagnostics/
+|   |-- mail_delivery_diagnostic.php
+|   |-- smtp_delivery_test.php
+|   |-- phpmailer_production_mailer_factory.php
+|   `-- DELIVERABILITY_CHECKLIST.md
+|-- includes/
+|   |-- footer.php
+|   |-- header.php
+|   `-- init.php
 |-- js/
-|   |-- scroll_reveal_animations.js
-|   `-- back_to_top_button.js
+|   |-- analytics.js
+|   |-- back_to_top_button.js
+|   |-- contact_page.js
+|   `-- scroll_reveal_animations.js
 `-- images/
 ```
 
-## Design System Notes
+## Runtime Architecture
 
-The canonical design source was standardized across templates using `wyp-*` classes.
+- `includes/header.php` starts output buffering, ensures session start, renders `<head>`, navbar, skip link, and opens `<main id="main-content">`.
+- `includes/footer.php` closes `</main>`, renders footer, and loads JS bundles with cache-busting `filemtime()` query strings.
+- `contact.php` calls `includes/init.php` first so environment variables are available before form processing.
+- `includes/init.php` treats `.env` as mandatory and throws `RuntimeException` when missing or unreadable.
 
-### Key canonical classes
+## Contact Form Behavior
 
-- Buttons: `.btn-wyp`, `.btn-wyp-primary`, `.btn-wyp-secondary`, `.btn-wyp-outline`, `.btn-wyp-ghost`, `.btn-submit`
-- Sections: `.wyp-section`, `.wyp-section-sm`, `.wyp-section-alt`, `.wyp-section-accent`
-- Cards: `.wyp-card`, `.wyp-feature-card`, `.wyp-info-card`
-- Layout: `.wyp-grid-2`, `.wyp-grid-3`, `.wyp-grid-auto`, `.wyp-stack`
-- Utilities: `.text-balance`, `.flow`, `.container-narrow`, `.shadow-hover`, `.radius-brand`
+`contact.php` currently handles both display and submission.
 
-### Token system
+- `contact-name` is optional and acts as a single combined name field.
+- `contact-em`, `contact-subj`, and `contact-ta` are required.
+- `beeName` is a hidden honeypot and must remain empty.
+- CSRF token is stored in `$_SESSION['csrf_token']` and verified with `hash_equals()`.
+- Email uses `FILTER_VALIDATE_EMAIL`; subject max length is `150`; message max length is `5000`.
+- reCAPTCHA response is required and verified server-side at `https://www.google.com/recaptcha/api/siteverify`.
+- Frontend script `js/contact_page.js` applies Bootstrap validation, blocks submit without reCAPTCHA token, and focuses the first invalid control.
+- Submission currently sends via native PHP `mail()` with visitor email in `Reply-To`.
+- If configuration values are missing or invalid, submit is disabled and the form shows a setup message.
 
-Core tokens are defined in `:root` within `/css/style.css`, including:
+## Environment Configuration
 
-- Color aliases (`--color-primary`, `--color-secondary`, `--color-accent`, etc.)
-- Spacing aliases (`--space-xs` ... `--space-xl`)
-- Radius aliases (`--radius-brand`, `--radius-pill`)
-- Motion aliases (`--transition-fast`, `--transition-base`, `--transition-slow`)
+Copy `.env.example` to `.env` in the project root (same level as `contact.php`).
 
-## Apache (.htaccess)
-
-Current `.htaccess` behavior:
-
-- `DirectoryIndex index.php`
-- Canonical redirect: `/index.php` -> `/`
-- Blocks direct access to `.env` files
-- Legacy redirect compatibility for renamed files (for example `contact_submit.php` -> `contact.php`)
-- Extensionless PHP fallback routing (if matching `.php` exists)
-- Custom error documents:
-  - `ErrorDocument 403 /403.php`
-  - `ErrorDocument 404 /404.php`
-- Security headers:
-  - `X-Content-Type-Options: nosniff`
-  - `X-Frame-Options: SAMEORIGIN`
-  - `Referrer-Policy: strict-origin-when-cross-origin`
-- Static asset/browser caching rules for CSS/JS/images/fonts
-
-## CSS Location Standard
-
-- Main stylesheet: `/css/style.css`
-- Legacy `/assets/` CSS paths are deprecated
-- New pages should reference `/css/style.css`
-- CSS should remain centralized unless a page-specific stylesheet is explicitly justified
-
-## Accessibility and UX
-
-The site includes:
-
-- Skip link (`#main-content`)
-- Visible `:focus-visible` states
-- Reduced-motion support (`prefers-reduced-motion`)
-- Semantic landmarks and heading structure
-- Keyboard-friendly navigation patterns
-
-## Contact Form Security
-
-`contact.php` includes:
-
-- CSRF token validation (`hash_equals`)
-- Honeypot check
-- Input validation and length guards
-- Header injection protections for email headers
-- Server-side Google reCAPTCHA verification
-- Environment-based key loading (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`)
-
-## Environment Variables (.env)
-
-Copy `.env.example` to `.env` and set real values:
+### Required for contact form
 
 ```text
 WYP_EMAIL=admin@example.com
-WYP_FORM_FROM_EMAIL=noreply@example.com
 GOOGLE_RECAPTCHA_SITE_KEY=your_recaptcha_site_key_here
 GOOGLE_RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key_here
 ```
 
-Notes:
+### Optional for contact form
 
-- `.env` is ignored by git and should never be committed.
-- `GOOGLE_RECAPTCHA_SECRET_KEY` is used server-side only and is never rendered to the browser.
-- If required values are missing, the contact form disables submit and logs a developer-facing configuration error.
+```text
+WYP_FORM_FROM_EMAIL=noreply@example.com
+CONTACT_RECIPIENT_EMAIL=admin@example.com
+```
+
+### Optional for diagnostics and SMTP experiments
+
+```text
+WYP_SMTP_ENABLED=0
+WYP_SMTP_HOST=smtp.example.com
+WYP_SMTP_PORT=587
+WYP_SMTP_ENCRYPTION=tls
+WYP_SMTP_AUTH=1
+WYP_SMTP_USERNAME=noreply@example.com
+WYP_SMTP_PASSWORD=replace_with_smtp_password
+WYP_SMTP_TIMEOUT=15
+WYP_DKIM_ENABLED=0
+WYP_DKIM_DOMAIN=example.com
+WYP_DKIM_SELECTOR=default
+WYP_DKIM_PRIVATE_KEY_PATH=/absolute/path/to/private.pem
+WYP_DKIM_IDENTITY=noreply@example.com
+WYP_DKIM_PASSPHRASE=
+```
+
+### Development-only values
+
+Use only in local or controlled troubleshooting environments.
+
+```text
+WYP_SMTP_DEBUG=0
+WYP_SMTP_ALLOW_SELF_SIGNED=0
+```
+
+Do not enable verbose SMTP debug output or self-signed TLS bypass in production.
+
+### Production-only recommendation
+
+```text
+WYP_DIAG_KEY=replace_with_temporary_random_key
+```
+
+`WYP_DIAG_KEY` is read directly with `getenv()` in diagnostics scripts and is best set as a server environment variable in cPanel, not committed to `.env`.
+
+## Security Posture
+
+- `.htaccess` blocks `.env` access.
+- `.htaccess` sets `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, and `Referrer-Policy: strict-origin-when-cross-origin`.
+- Contact form defenses include CSRF validation, honeypot (`beeName`), required-field validation, header newline stripping, output escaping, and reCAPTCHA verification.
+- Deployment and canonical URLs assume HTTPS (`https://wipeyourpaws.net`).
+- No CSP header is currently configured in `.htaccess`.
+- No nonce-based CSP flow is currently implemented.
+
+## Accessibility Baseline (WCAG 2.1 AA)
+
+- Skip link to `#main-content`
+- Keyboard-visible focus styling via `:focus-visible`
+- Form labels for all inputs and explicit required-field text (no required asterisk dependence)
+- Error feedback and invalid states using Bootstrap + ARIA (`aria-invalid`, `role="alert"`, `aria-live`)
+- Reduced motion handling in CSS (`prefers-reduced-motion`) and JS scrolling behavior
+- Semantic landmarks (`<nav>`, `<main>`, `<footer>`, `<address>`)
+
+## Asset and Frontend Conventions
+
+- Keep shared styles in `css/style.css`.
+- Keep page behavior in dedicated files under `js/`.
+- Use cache-busting query strings from `filemtime()` in include templates.
+- Keep Bootstrap classes plus project classes (`wyp-*`) consistent across pages.
+
+## Deployment Workflow (cPanel/shared hosting)
+
+`.cpanel.yml` currently deploys with:
+
+- `cp -R * $DEPLOYPATH`
+- `cp .htaccess $DEPLOYPATH/.htaccess`
+
+Important implications:
+
+- Dotfiles other than explicitly copied `.htaccess` are not included by `*`.
+- Upload `.env` manually in cPanel File Manager after first deployment or environment changes.
+- Confirm file permissions allow Apache/PHP to read `.env`.
 
 ## Local Development
 
-1. Serve the project from your web root (Apache recommended).
-2. Confirm PHP 8.0+.
-3. Visit `/` for homepage.
-4. Syntax check templates (optional):
+1. Use Apache/PHP from the project root.
+2. Create `.env` from `.env.example`.
+3. Open `/contact.php` and verify reCAPTCHA keys are configured.
+4. Optional lint checks:
 
 ```bash
-php -l index.php
+php -l contact.php
+php -l includes/init.php
+php -l includes/header.php
+php -l includes/footer.php
 ```
 
-## Deployment Notes
+## Diagnostics and Deliverability
 
-- Ensure `/css/style.css` is deployed (this is the active stylesheet).
-- Ensure `includes/init.php` and `.env.example` are deployed.
-- Create a real `.env` file on the server (do not commit it).
+- See `diagnostics/DELIVERABILITY_CHECKLIST.md` for operational checks.
+- Remove diagnostics scripts from production after troubleshooting.
 
-### FastComet/cPanel `.env` setup
+## Troubleshooting
 
-1. In cPanel File Manager, navigate to your site root (`public_html` or addon domain document root).
-2. Create `.env` in that directory (same level as `contact.php`) or one directory above if your hosting layout allows it.
-3. Copy values from `.env.example` and replace placeholders with real credentials.
-4. Confirm `.htaccess` with the `.env` deny rule is deployed.
-5. Because `.cpanel.yml` deploys `*` and not dotfiles, upload `.env` manually in cPanel after each first-time environment setup.
+- Contact form shows "temporarily unavailable": verify required environment values and valid email format in `WYP_EMAIL`.
+- Runtime exception about `.env`: ensure `.env` exists and is readable at project root.
+- reCAPTCHA fails: verify site/secret keys match the deployed domain and do not contain extra whitespace.
+- SMTP diagnostics report `phpmailer_not_found`: install PHPMailer before SMTP send tests.
 
----
+## Maintenance Notes
 
-Maintained for wipeyourpaws.net.
+- Keep documentation aligned with current file names and routing rules in `.htaccess`.
+- Update `sitemap.xml` `<lastmod>` when content changes.
+- Review docs after any change to form fields, validation, deployment scripts, or security headers.
+- See `DOCUMENTATION_AUDIT_SUMMARY.md` for the latest documentation audit record.
 
