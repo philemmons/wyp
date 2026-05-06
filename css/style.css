@@ -918,26 +918,17 @@ p:last-child {
 
 .wyp-gallery-hero-overlay {
   position: absolute;
-  /* Extend overlay 20% beyond the image edge to create extra legibility space for copy. */
-  inset: 0 -20% 0 0;
+  inset: 0;
   z-index: 2;
-  background:
-    linear-gradient(
-      to left,
-      rgba(237, 182, 30, 0.9) 0%,
-      rgba(241, 196, 62, 0.75) 34%,
-      rgba(245, 210, 100, 0.26) 58%,
-      rgba(245, 210, 100, 0) 100%
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(245, 210, 100, 0) 0%,
-      rgba(245, 210, 100, 0) 58%,
-      rgba(245, 210, 100, 0.5) 70%,
-      rgba(243, 200, 70, 0.9) 81%,
-      rgba(240, 190, 45, 0.97) 90%,
-      rgba(237, 182, 30, 1) 100%
-    );
+  background: linear-gradient(
+    to bottom,
+    rgba(245, 210, 100, 0) 0%,
+    rgba(245, 210, 100, 0) 58%,
+    rgba(245, 210, 100, 0.5) 70%,
+    rgba(243, 200, 70, 0.9) 81%,
+    rgba(240, 190, 45, 0.97) 90%,
+    rgba(237, 182, 30, 1) 100%
+  );
 }
 
 .wyp-gallery-hero-accent-top,
@@ -962,14 +953,14 @@ p:last-child {
   position: absolute;
   right: 0;
   bottom: 0;
-  width: min(62%, 52rem);
+  width: min(58%, 48rem);
   min-height: 42%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
   gap: 0.35rem;
-  padding: 0 6% 1.5% 0;
+  padding: 0 5% 1.5% 0;
   z-index: 3;
   text-align: right;
   color: var(--black);
@@ -2185,9 +2176,9 @@ textarea.form-control {
   }
 
   .wyp-gallery-hero-content {
-    width: min(74%, 44rem);
+    width: min(72%, 42rem);
     min-height: 46%;
-    padding: 0 5.25% 1.5% 0;
+    padding: 0 4.5% 1.5% 0;
   }
 }
 
