@@ -445,21 +445,6 @@ require_once 'includes/header.php';
           </p>
         </div>
 
-        <div class="contact-paw-box">
-
-          <div class="d-flex align-items-start gap-4">
-            <div class="dog-avatar-frame">
-              <img src="/images/skipper-icon-50x42.png" alt="skipper cartoon icon" class="mx-2" width="50" height="42" aria-hidden="true">
-            </div>
-            <p class="contact-paw-box__text">
-              Skipper and Chandra are eagerly awaiting your message - and are ready to give you a virtual paw-shake in return!
-            </p>
-            <div class="dog-avatar-frame">
-              <img src="/images/chandra icon 55x55.png" alt="chandra bust icon" class="mx-2" width="55" height="55" aria-hidden="true">
-            </div>
-          </div>
-
-        </div>
       </div>
     </div>
 
