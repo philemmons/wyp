@@ -89,6 +89,7 @@ $supportedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'bmp', 'avif'];
 $galleryItems = [];
 $galleryPathIssues = [];
 $vagueAltTextFilenames = [];
+$widestThumbnailWidth = 0;
 
 if (!is_dir($galleryThumbnailDirectoryAbsolutePath)) {
   $galleryPathIssues[] = 'Gallery thumbnail directory not found: ' . $galleryThumbnailDirectoryAbsolutePath;
@@ -159,6 +160,10 @@ if (!is_dir($galleryThumbnailDirectoryAbsolutePath)) {
         'width' => (int) $dimensions[0],
         'height' => (int) $dimensions[1],
       ];
+
+      if ((int) $dimensions[0] > $widestThumbnailWidth) {
+        $widestThumbnailWidth = (int) $dimensions[0];
+      }
     }
   }
 }
@@ -217,7 +222,7 @@ require_once 'includes/header.php';
       <span class="section-eyebrow">Photo Collection</span>
       <h2 class="section-title">Full Gallery Carousel</h2>
       <hr class="section-divider">
-      <p class="gallery-tip-text">
+      <p class="gallery-tip-text gallery-carousel-intro-tip">
         Tap or press Enter on any card for a larger view.
       </p>
     </div>
@@ -238,6 +243,7 @@ require_once 'includes/header.php';
       <div
         id="galleryPhotoCarousel"
         class="carousel slide gallery-carousel-shell"
+        style="--gallery-carousel-max-thumb-width: <?= (int) $widestThumbnailWidth ?>px;"
         data-bs-ride="false"
         data-bs-interval="false"
         data-bs-touch="true"
@@ -262,7 +268,6 @@ require_once 'includes/header.php';
             <!-- Each slide uses the existing gallery card styling and opens the Bootstrap modal lightbox. -->
             <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
               <div class="gallery-placeholder-item gallery-carousel-card">
-                <span class="gallery-coming-badge">View Full</span>
                 <button
                   type="button"
                   class="gallery-photo-item gallery-carousel-trigger gallery-lightbox-trigger"
