@@ -244,7 +244,7 @@ require_once 'includes/header.php';
     <img src="/images/dog-overlay.png" alt="Many dogs looking up" class="img-fluid mx-auto rounded d-block shadow-lg bg-warning-subtle">
     <div class="contact-paw-box mt-5">
 
-      <div class="d-flex align-items-start gap-4">
+      <div class="d-flex align-items-start">
         <div class="dog-avatar-frame">
           <img src="/images/skipper-icon-50x42.png" alt="skipper cartoon icon" class="mx-2" width="50" height="42" aria-hidden="true">
         </div>
