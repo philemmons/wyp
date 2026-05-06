@@ -61,11 +61,11 @@ require_once 'includes/header.php';
         };
 
         // Support both legacy and cPanel-friendly env var naming.
-        $secretKey = $readEnvironmentValue(['g-secret-key', 'G_SECRET_KEY', 'RECAPTCHA_SECRET_KEY']);
-        $siteKey = $readEnvironmentValue(['g-site-key', 'G_SITE_KEY', 'RECAPTCHA_SITE_KEY']);
+        $secretKey = $readEnvironmentValue(['GOOGLE_RECAPTCHA_SECRET_KEY', 'G_SECRET_KEY', 'RECAPTCHA_SECRET_KEY']);
+        $siteKey = $readEnvironmentValue(['GOOGLE_RECAPTCHA_SITE_KEY', 'G_SITE_KEY', 'RECAPTCHA_SITE_KEY']);
 
         // Email settings
-        $recipientEmail = $readEnvironmentValue(['wyp-email', 'WYP_EMAIL', 'CONTACT_RECIPIENT_EMAIL']);
+        $recipientEmail = $readEnvironmentValue(['WYP_EMAIL', 'WYP_EMAIL', 'CONTACT_RECIPIENT_EMAIL']);
 
         // If the form is submitted 
         $postData = $statusMsg = '';
