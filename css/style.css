@@ -1535,7 +1535,7 @@ p:last-child {
 
 /***** Gallery Lightbox + Dynamic Thumbnails *****/
 .gallery-carousel-shell {
-  width: min(100%, calc(var(--gallery-carousel-max-thumb-width, 0px) + 2.5rem));
+  width: min(100%, calc(484px + 2.5rem));
   max-width: 100%;
   margin-inline: auto;
 }

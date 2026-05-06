@@ -89,7 +89,6 @@ $supportedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'bmp', 'avif'];
 $galleryItems = [];
 $galleryPathIssues = [];
 $vagueAltTextFilenames = [];
-$widestThumbnailWidth = 0;
 
 if (!is_dir($galleryThumbnailDirectoryAbsolutePath)) {
   $galleryPathIssues[] = 'Gallery thumbnail directory not found: ' . $galleryThumbnailDirectoryAbsolutePath;
@@ -160,10 +159,6 @@ if (!is_dir($galleryThumbnailDirectoryAbsolutePath)) {
         'width' => (int) $dimensions[0],
         'height' => (int) $dimensions[1],
       ];
-
-      if ((int) $dimensions[0] > $widestThumbnailWidth) {
-        $widestThumbnailWidth = (int) $dimensions[0];
-      }
     }
   }
 }
@@ -243,7 +238,6 @@ require_once 'includes/header.php';
       <div
         id="galleryPhotoCarousel"
         class="carousel slide gallery-carousel-shell"
-        style="--gallery-carousel-max-thumb-width: <?= (int) $widestThumbnailWidth ?>px;"
         data-bs-ride="false"
         data-bs-interval="false"
         data-bs-touch="true"
