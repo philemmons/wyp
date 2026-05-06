@@ -352,7 +352,7 @@ require_once 'includes/header.php';
           <div class="card-header-band"></div>
           <div class="gallery-dog-card-icon" aria-hidden="true">
             <div class="dog-avatar-frame">
-              <img src="/images/chandra icon 55x55.png" alt="chandra bust icon" class="shadow mx-2" width="55" height="55" aria-hidden="true">
+              <img src="/images/chandra icon 55x55.png" alt="chandra bust icon" class="mx-2" width="55" height="55" aria-hidden="true">
             </div>
           </div>
           <h3 class="section-title">Chandra</h3>

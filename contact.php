@@ -252,7 +252,7 @@ require_once 'includes/header.php';
           Skipper and Chandra are eagerly awaiting your message - and are ready to give you a virtual paw-shake in return!
         </p>
         <div class="dog-avatar-frame">
-          <img src="/images/chandra icon 55x55.png" alt="chandra bust icon" class="shadow mx-2" width="55" height="55" aria-hidden="true">
+          <img src="/images/chandra icon 55x55.png" alt="chandra bust icon" class="mx-2" width="55" height="55" aria-hidden="true">
         </div>
       </div>
 
