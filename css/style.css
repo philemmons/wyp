@@ -654,7 +654,7 @@ p:last-child {
 /***** 4. HERO SECTIONS *****/
 .wyp-hero {
   position: relative;
-  min-height: 78vh;
+  min-height: 65vh;
   display: grid;
   align-items: center;
   isolation: isolate;
