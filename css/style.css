@@ -2292,8 +2292,6 @@ textarea.form-control {
   }
 
   .wyp-gallery-hero-content p {
-    max-width: 28ch;
-    font-size: clamp(0.85rem, 3.8vw, 1rem);
     line-height: 1.5;
   }
 }
