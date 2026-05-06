@@ -127,6 +127,10 @@ $canonicalUrl   = $siteBaseUrl . '/' . ($pagePathByKey[$activePageKey] ?? '');
 
   <!-- Canonical site stylesheet -->
   <link rel="stylesheet" href="/css/style.css?v=<?= filemtime(__DIR__ . '/../css/style.css'); ?>">
+
+  <!-- reCAPTCHA widget -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 
 <body id="toTop">

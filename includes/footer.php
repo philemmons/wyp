@@ -129,9 +129,6 @@
   defer>
 </script>
 
-<!-- reCAPTCHA widget -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
 <!-- Back to Top -->
 <script src="/js/back_to_top_button.js?v=<?= filemtime(__DIR__ . '/../js/back_to_top_button.js'); ?>" defer></script>
 
