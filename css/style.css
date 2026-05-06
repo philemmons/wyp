@@ -1420,6 +1420,7 @@ p:last-child {
 .required-note {
   margin-bottom: 1rem;
   font-size: 0.9rem;
+  color: var(--text-dark);
 }
 
 .required-asterisk {
@@ -1497,6 +1498,11 @@ textarea.form-control {
   font-size: 0.9rem;
   font-weight: 800;
   color: #7b1818;
+}
+
+.wyp-form .g-recaptcha {
+  display: inline-block;
+  max-width: 100%;
 }
 
 .contact-form-hint {
@@ -2009,6 +2015,11 @@ textarea.form-control {
   .container,
   .container-fluid {
     padding-inline: 0.95rem;
+  }
+
+  .wyp-form .g-recaptcha {
+    transform: scale(0.92);
+    transform-origin: left top;
   }
 
   .btn-wyp,

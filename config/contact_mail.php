@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/../includes/init.php';
+
 /**
  * Contact mail configuration for contact form delivery.
  *
@@ -23,24 +25,24 @@ return [
         'from_email' => 'noreply@wipeyourpaws.net',
     ],
     'smtp' => [
-        'enabled' => getenv('WYP_SMTP_ENABLED') === '1',
-        'host' => (string) (getenv('WYP_SMTP_HOST') ?: ''),
-        'port' => (int) (getenv('WYP_SMTP_PORT') ?: 587),
-        'encryption' => (string) (getenv('WYP_SMTP_ENCRYPTION') ?: 'tls'), // tls|ssl|none
-        'auth' => getenv('WYP_SMTP_AUTH') !== '0',
-        'username' => (string) (getenv('WYP_SMTP_USERNAME') ?: ''),
-        'password' => (string) (getenv('WYP_SMTP_PASSWORD') ?: ''),
-        'timeout' => (int) (getenv('WYP_SMTP_TIMEOUT') ?: 15),
-        'debug' => (int) (getenv('WYP_SMTP_DEBUG') ?: 0), // 0 for production
-        'allow_self_signed' => getenv('WYP_SMTP_ALLOW_SELF_SIGNED') === '1',
+        'enabled' => wyp_env('WYP_SMTP_ENABLED') === '1',
+        'host' => wyp_env('WYP_SMTP_HOST'),
+        'port' => (int) (wyp_env('WYP_SMTP_PORT', '587')),
+        'encryption' => wyp_env('WYP_SMTP_ENCRYPTION', 'tls'), // tls|ssl|none
+        'auth' => wyp_env('WYP_SMTP_AUTH', '1') !== '0',
+        'username' => wyp_env('WYP_SMTP_USERNAME'),
+        'password' => wyp_env('WYP_SMTP_PASSWORD'),
+        'timeout' => (int) (wyp_env('WYP_SMTP_TIMEOUT', '15')),
+        'debug' => (int) (wyp_env('WYP_SMTP_DEBUG', '0')), // 0 for production
+        'allow_self_signed' => wyp_env('WYP_SMTP_ALLOW_SELF_SIGNED') === '1',
     ],
     'dkim' => [
-        'enabled' => getenv('WYP_DKIM_ENABLED') === '1',
-        'domain' => (string) (getenv('WYP_DKIM_DOMAIN') ?: 'wipeyourpaws.net'),
-        'selector' => (string) (getenv('WYP_DKIM_SELECTOR') ?: ''),
-        'private_key_path' => (string) (getenv('WYP_DKIM_PRIVATE_KEY_PATH') ?: ''),
-        'identity' => (string) (getenv('WYP_DKIM_IDENTITY') ?: ''),
-        'passphrase' => (string) (getenv('WYP_DKIM_PASSPHRASE') ?: ''),
+        'enabled' => wyp_env('WYP_DKIM_ENABLED') === '1',
+        'domain' => wyp_env('WYP_DKIM_DOMAIN', 'wipeyourpaws.net'),
+        'selector' => wyp_env('WYP_DKIM_SELECTOR'),
+        'private_key_path' => wyp_env('WYP_DKIM_PRIVATE_KEY_PATH'),
+        'identity' => wyp_env('WYP_DKIM_IDENTITY'),
+        'passphrase' => wyp_env('WYP_DKIM_PASSPHRASE'),
     ],
     'logging' => [
         'path' => __DIR__ . '/../logs/contact-mail.log',

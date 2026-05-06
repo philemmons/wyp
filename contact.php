@@ -7,6 +7,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/includes/init.php';
+
 // Start session storage so CSRF tokens, flash messages, and anti-spam timers persist between requests.
 if (session_status() !== PHP_SESSION_ACTIVE) {
   session_start();
@@ -14,7 +16,206 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 
 $activePageKey = 'contact';
 
+if (empty($_SESSION['csrf_token'])) {
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 
+/**
+ * Remove line-break characters to prevent header injection in any header-bound value.
+ */
+$sanitizeHeaderValue = static function (string $value): string {
+  $cleanValue = str_replace(["\r", "\n"], ' ', $value);
+  return trim(preg_replace('/\s+/', ' ', $cleanValue) ?? '');
+};
+
+/**
+ * Read and trim a posted value from the request body.
+ */
+$readPostedValue = static function (string $key): string {
+  $rawValue = $_POST[$key] ?? '';
+  return trim((string) $rawValue);
+};
+
+/**
+ * Verify a reCAPTCHA token with Google using server-side secret key.
+ */
+$verifyRecaptcha = static function (string $secretKey, string $responseToken): bool {
+  $requestBody = http_build_query([
+    'secret' => $secretKey,
+    'response' => $responseToken,
+  ], '', '&', PHP_QUERY_RFC3986);
+
+  $streamContext = stream_context_create([
+    'http' => [
+      'method' => 'POST',
+      'header' => "Content-Type: application/x-www-form-urlencoded\r\n"
+        . 'Content-Length: ' . strlen($requestBody) . "\r\n",
+      'content' => $requestBody,
+      'timeout' => 10,
+      'ignore_errors' => true,
+    ],
+  ]);
+
+  $responseBody = @file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $streamContext);
+  if (!is_string($responseBody) || $responseBody === '') {
+    return false;
+  }
+
+  $decoded = json_decode($responseBody, true);
+  return is_array($decoded) && !empty($decoded['success']);
+};
+
+$siteKey = wyp_env('GOOGLE_RECAPTCHA_SITE_KEY');
+$secretKey = wyp_env('GOOGLE_RECAPTCHA_SECRET_KEY');
+$recipientEmail = wyp_env('WYP_EMAIL');
+if ($recipientEmail === '') {
+  $recipientEmail = wyp_env('CONTACT_RECIPIENT_EMAIL');
+}
+
+$formFromEmail = wyp_env('WYP_FORM_FROM_EMAIL');
+
+$formConfigurationIssues = [];
+if ($siteKey === '') {
+  $formConfigurationIssues[] = 'GOOGLE_RECAPTCHA_SITE_KEY';
+}
+if ($secretKey === '') {
+  $formConfigurationIssues[] = 'GOOGLE_RECAPTCHA_SECRET_KEY';
+}
+if ($recipientEmail === '' || !filter_var($recipientEmail, FILTER_VALIDATE_EMAIL)) {
+  $formConfigurationIssues[] = 'WYP_EMAIL';
+}
+if ($formFromEmail !== '' && !filter_var($formFromEmail, FILTER_VALIDATE_EMAIL)) {
+  $formConfigurationIssues[] = 'WYP_FORM_FROM_EMAIL';
+}
+
+$isFormConfigured = $formConfigurationIssues === [];
+if (!$isFormConfigured) {
+  error_log(
+    'Contact form configuration issue. Missing or invalid environment values: '
+      . implode(', ', $formConfigurationIssues)
+  );
+}
+
+$supportEmailForDisplay = filter_var($recipientEmail, FILTER_VALIDATE_EMAIL)
+  ? $recipientEmail
+  : 'admin@wipeyourpaws.net';
+
+$status = 'error';
+$statusMsg = '';
+$fieldErrors = [
+  'contact-em' => '',
+  'contact-subj' => '',
+  'contact-ta' => '',
+  'recaptcha' => '',
+];
+
+$postData = [
+  'contact-name' => '',
+  'contact-em' => '',
+  'contact-subj' => '',
+  'contact-ta' => '',
+];
+
+if (isset($_POST['submit'])) {
+  $postData['contact-name'] = $readPostedValue('contact-name');
+  $postData['contact-em'] = $readPostedValue('contact-em');
+  $postData['contact-subj'] = $readPostedValue('contact-subj');
+  $postData['contact-ta'] = $readPostedValue('contact-ta');
+
+  $csrfTokenFromPost = (string) ($_POST['csrf_token'] ?? '');
+  $honeypotValue = $readPostedValue('beeName');
+  $recaptchaResponse = $readPostedValue('g-recaptcha-response');
+
+  if ($csrfTokenFromPost === '' || !hash_equals($_SESSION['csrf_token'], $csrfTokenFromPost)) {
+    $statusMsg = 'Your session has expired. Please refresh and try again.';
+  } elseif ($honeypotValue !== '') {
+    $statusMsg = 'Spam protection triggered. Please try again.';
+  } elseif (!$isFormConfigured) {
+    $statusMsg = 'The contact form is temporarily unavailable due to server configuration. Please try again later.';
+  } else {
+    if ($postData['contact-em'] === '') {
+      $fieldErrors['contact-em'] = 'Email is required.';
+    } elseif (!filter_var($postData['contact-em'], FILTER_VALIDATE_EMAIL)) {
+      $fieldErrors['contact-em'] = 'Please enter a valid email address.';
+    }
+
+    if ($postData['contact-subj'] === '') {
+      $fieldErrors['contact-subj'] = 'Subject is required.';
+    } elseif (strlen($postData['contact-subj']) > 150) {
+      $fieldErrors['contact-subj'] = 'Subject must be 150 characters or fewer.';
+    }
+
+    if ($postData['contact-ta'] === '') {
+      $fieldErrors['contact-ta'] = 'Message is required.';
+    } elseif (strlen($postData['contact-ta']) > 5000) {
+      $fieldErrors['contact-ta'] = 'Message must be 5000 characters or fewer.';
+    }
+
+    if ($recaptchaResponse === '') {
+      $fieldErrors['recaptcha'] = 'Please complete reCAPTCHA before submitting.';
+    } elseif (!$verifyRecaptcha($secretKey, $recaptchaResponse)) {
+      $fieldErrors['recaptcha'] = 'reCAPTCHA verification failed. Please try again.';
+    }
+
+    $hasFieldErrors = false;
+    foreach ($fieldErrors as $fieldError) {
+      if ($fieldError !== '') {
+        $hasFieldErrors = true;
+        break;
+      }
+    }
+
+    if ($hasFieldErrors) {
+      $statusMsg = 'Please review the highlighted fields and try again.';
+    } else {
+      $submittedName = $sanitizeHeaderValue($postData['contact-name']);
+      $submittedEmail = filter_var($postData['contact-em'], FILTER_VALIDATE_EMAIL) ?: '';
+      $submittedSubject = $sanitizeHeaderValue($postData['contact-subj']);
+      $submittedMessage = trim($postData['contact-ta']);
+
+      $safeName = htmlspecialchars($submittedName, ENT_QUOTES, 'UTF-8');
+      $safeEmail = htmlspecialchars((string) $submittedEmail, ENT_QUOTES, 'UTF-8');
+      $safeSubject = htmlspecialchars($submittedSubject, ENT_QUOTES, 'UTF-8');
+      $safeMessage = nl2br(htmlspecialchars($submittedMessage, ENT_QUOTES, 'UTF-8'));
+
+      $mailSubject = 'WYP Contact Us Submitted: ' . substr($submittedSubject, 0, 120);
+      $mailFromEmail = $formFromEmail !== '' ? $formFromEmail : $recipientEmail;
+      $safeMailFromEmail = $sanitizeHeaderValue($mailFromEmail);
+
+      $htmlContent = "
+        <h4>Wipe Your Paws Contact Form Submission</h4>
+        <p><b>Name:</b> " . ($safeName !== '' ? $safeName : 'Not provided') . "</p>
+        <p><b>Email:</b> " . $safeEmail . "</p>
+        <p><b>Subject:</b> " . $safeSubject . "</p>
+        <p><b>Message:</b><br>" . $safeMessage . "</p>
+        <p><b>reCAPTCHA:</b> Verified</p>
+      ";
+
+      $headers = [
+        'MIME-Version: 1.0',
+        'Content-type:text/html;charset=UTF-8',
+        'From: Wipe Your Paws Contact Form <' . $safeMailFromEmail . '>',
+        'Reply-To: ' . $safeEmail,
+        'X-Mailer: PHP/' . phpversion(),
+      ];
+
+      $emailWasSent = @mail($recipientEmail, $mailSubject, $htmlContent, implode("\r\n", $headers));
+
+      if ($emailWasSent) {
+        $status = 'success';
+        $statusMsg = 'Thank you! Please allow up to 48 hours for a response.';
+        $postData = [
+          'contact-name' => '',
+          'contact-em' => '',
+          'contact-subj' => '',
+          'contact-ta' => '',
+        ];
+      } else {
+        $statusMsg = 'Your message could not be delivered right now. Please try again later.';
+      }
+    }
+  }
+}
 
 require_once 'includes/header.php';
 ?>
@@ -36,239 +237,136 @@ require_once 'includes/header.php';
     <div class="row g-5 justify-content-center">
 
       <div class="col-lg-7">
-        <?php
-
-        /**
-         * https://www.codexworld.com/new-google-recaptcha-with-php/
-         */
-
-        if (empty($_SESSION['csrf_token'])) {
-          $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-        }
-
-        $readEnvironmentValue = static function (array $keys): string {
-          foreach ($keys as $key) {
-            $value = getenv($key);
-            if ($value !== false) {
-              $value = trim((string) $value);
-              if ($value !== '') {
-                return $value;
-              }
-            }
-          }
-
-          return '';
-        };
-
-        // Prefer standardized variable names first, then legacy fallbacks.
-        $secretKey = $readEnvironmentValue([
-          'GOOGLE_RECAPTCHA_SECRET_KEY',
-          'RECAPTCHA_SECRET_KEY',
-          'G_SECRET_KEY',
-          'g-secret-key',
-        ]);
-        $siteKey = $readEnvironmentValue([
-          'GOOGLE_RECAPTCHA_SITE_KEY',
-          'RECAPTCHA_SITE_KEY',
-          'G_SITE_KEY',
-          'g-site-key',
-        ]);
-
-        // Email settings
-        $recipientEmail = $readEnvironmentValue(['WYP_EMAIL', 'CONTACT_RECIPIENT_EMAIL', 'wyp-email']);
-
-        // If the form is submitted 
-        $postData = $statusMsg = '';
-        $status = 'error';
-
-        if (isset($_POST['submit'])) {
-          $postData = $_POST;
-
-          if (
-            empty($_POST['csrf_token']) ||
-            !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
-          ) {
-            $statusMsg = 'Your session has expired. Please refresh and try again.';
-          } else {
-            // Validate form input fields
-            if (
-              !empty($_POST['contact-fn']) &&
-              !empty($_POST['contact-ln']) &&
-              !empty($_POST['contact-em']) &&
-              !empty($_POST['contact-subj']) &&
-              !empty($_POST['contact-ta']) &&
-              empty($_POST['beeName'])
-            ) {
-
-              // Validate reCAPTCHA checkbox
-              if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
-                if ($secretKey === '' || $recipientEmail === '') {
-                  $statusMsg = 'Contact form configuration is incomplete. Please try again later.';
-                } else {
-                  // Verify reCAPTCHA with a fully encoded query to avoid malformed requests.
-                  $verifyUrl = 'https://www.google.com/recaptcha/api/siteverify?secret='
-                    . rawurlencode($secretKey)
-                    . '&response='
-                    . rawurlencode((string) $_POST['g-recaptcha-response']);
-
-                  $verifyResponse = @file_get_contents($verifyUrl);
-                  $responseData = is_string($verifyResponse) ? json_decode($verifyResponse) : null;
-                  $isRecaptchaValid = is_object($responseData) && !empty($responseData->success);
-
-                  // If the reCAPTCHA API response is valid
-                  if ($isRecaptchaValid) {
-                  // Retrieve value from the form input fields 
-                  $firstName = !empty($_POST['contact-fn']) ? htmlspecialchars($_POST['contact-fn']) : '';
-                  $lastName = !empty($_POST['contact-ln']) ? htmlspecialchars($_POST['contact-ln']) : '';
-                  $email = !empty($_POST['contact-em']) ? htmlspecialchars($_POST['contact-em']) : '';
-                  $phone = !empty($_POST['contact-phone']) ? htmlspecialchars($_POST['contact-phone']) : '';
-                  $contactSubj = !empty($_POST['contact-subj']) ? htmlspecialchars($_POST['contact-subj']) : '';
-                  $contactMess = !empty($_POST['contact-ta']) ? htmlspecialchars($_POST['contact-ta']) : '';
-
-                  // Send email notification to the site admin 
-                  $to = $recipientEmail;
-                  $subject = 'WYP Contact Us Submitted';
-                  $htmlContent = " 
-                    <h4>Wipe Your Paw's Contact Us Form - EN</h4> 
-                    <p><b>Name: </b>" . $firstName . " " . $lastName . "</p> 
-                    <p><b>Email: </b>" . $email . "</p> 
-                    <p><b>Phone: </b>" . $phone . "</p> 
-                    <p><b>Subject: </b>" . $contactSubj . "</p> 
-                    <p><b>Message: </b>" . $contactMess . "</p> 
-                ";
-
-                  // Always set content-type when sending HTML email 
-                  $headers = "MIME-Version: 1.0" . "\r\n";
-                  $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-                  // More headers 
-                  $headers .= 'From:' . $firstName . ' ' . $lastName . '<' . $email . '>' . "\r\n";
-
-                  // Send email
-                  $emailWasSent = @mail($to, $subject, $htmlContent, $headers);
-                  if ($emailWasSent) {
-                    $status = 'success';
-                    $statusMsg = 'Thank you! Please allow up to 48 hours for a response.';
-                    $postData = '';
-                  } else {
-                    $statusMsg = 'Your message could not be delivered right now. Please try again later.';
-                  }
-                } else {
-                  $statusMsg = 'We apologize, reCaptcha verification failed, and  please try again.';
-                }
-                }
-              } else {
-                $statusMsg = 'Please check the reCAPTCHA checkbox to prove your human.';
-              }
-            } else {
-              $statusMsg = 'There wa one or more mandatory fields missing.';
-              if (!empty($_POST['beeName'])) {
-                $statusMsg = 'Are you Agent Smith?';
-              }
-            }
-          }
-        }
-
-        ?>
 
         <div id="contact-us"></div>
-        <?php if (!empty($statusMsg)) { ?>
-          <div class="col-xl-8 col-lg-8 col-md-12 mb-5">
-            <div class="p-3 text-center text-bg-light hero-text-border" title="We are listening.">
-              <p id="formErrorSummary" tabindex="-1" class="mb-5 h5 status-msg <?php echo $status; ?>"><?php echo $statusMsg; ?></p>
+        <?php if ($statusMsg !== '') { ?>
+          <div class="mb-4">
+            <div class="wyp-alert <?= $status === 'success' ? 'wyp-alert-success' : 'wyp-alert-error' ?>" title="We are listening.">
+              <p id="formErrorSummary" tabindex="-1" data-form-status="<?= htmlspecialchars($status, ENT_QUOTES, 'UTF-8') ?>" class="mb-0 h6 status-msg"><?php echo htmlspecialchars($statusMsg, ENT_QUOTES, 'UTF-8'); ?></p>
             </div>
           </div>
         <?php } ?>
 
-        <div class="col-xl-10 col-lg-10 col-md-12 mb-5">
-          <div class="p-3 text-bg-light hero-text-border" title="Millie's Crazy Flowers Contact Us Form.">
+        <div class="wyp-form" title="Wipe Your Paws Contact Us Form.">
 
-            <form action="contact.php" method="POST" class="row g-3 needs-validation" id="myForm" novalidate>
-              <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+          <form action="contact.php" method="POST" class="row g-3 needs-validation" id="myForm" novalidate>
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
 
-              <p class="fw-bold">We're open for any suggestion or just to have a chat.</p>
+            <p class="fw-bold mb-0">We're open for any suggestion or just to have a chat.</p>
+            <p class="required-note mb-0" id="contact-required-note">Required fields: Email, Subject, and Message.</p>
 
-              <div class="col-md-6">
-                <label for="beeName" aria-hidden="true" class="visually-hidden">Sunflower Name</label>
-                <input type="text" name="beeName" id="beeName" style="display:none">
+            <?php if (!$isFormConfigured) { ?>
+              <p class="form-error-text mb-0" role="status" aria-live="polite">
+                Contact form is temporarily unavailable due to server configuration.
+              </p>
+              <p class="form-help mb-0" role="status" aria-live="polite">
+                Developer setup required: add valid values for <?php echo htmlspecialchars(implode(', ', $formConfigurationIssues), ENT_QUOTES, 'UTF-8'); ?> in your environment.
+              </p>
+            <?php } ?>
 
-                <label for="contact-fn" class="form-label">First Name (Required)</label>
-                <input type="text" class="form-control" name="contact-fn" id="contact-fn" required>
-                <div class="invalid-feedback">
-                  Please enter your first name.
-                </div>
+            <div class="honeypot-wrap" aria-hidden="true">
+              <label for="beeName" class="visually-hidden">Leave this field empty</label>
+              <input type="text" name="beeName" id="beeName" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="col-md-12">
+              <label for="contact-name" class="form-label">Name (optional)</label>
+              <input
+                type="text"
+                class="form-control"
+                name="contact-name"
+                id="contact-name"
+                maxlength="120"
+                value="<?= htmlspecialchars($postData['contact-name'], ENT_QUOTES, 'UTF-8') ?>">
+            </div>
+
+            <div class="col-md-12">
+              <label for="contact-em" class="form-label">Email (required)</label>
+              <input
+                type="email"
+                class="form-control <?= $fieldErrors['contact-em'] !== '' ? 'is-invalid' : '' ?>"
+                name="contact-em"
+                id="contact-em"
+                required
+                aria-describedby="contact-em-error"
+                <?= $fieldErrors['contact-em'] !== '' ? 'aria-invalid="true"' : '' ?>
+                value="<?= htmlspecialchars($postData['contact-em'], ENT_QUOTES, 'UTF-8') ?>">
+              <div id="contact-em-error" class="invalid-feedback">
+                <?= $fieldErrors['contact-em'] !== ''
+                  ? htmlspecialchars($fieldErrors['contact-em'], ENT_QUOTES, 'UTF-8')
+                  : 'Please enter a valid email address.' ?>
               </div>
+            </div>
 
-              <div class="col-md-6">
-                <label for="contact-ln" class="form-label">Last Name (Required)</label>
-                <input type="text" class="form-control" name="contact-ln" id="contact-ln" required>
-                <div class="invalid-feedback">
-                  Please enter your last name.
-                </div>
+            <div class="col-md-12">
+              <label for="contact-subj" class="form-label">Subject (required)</label>
+              <input
+                type="text"
+                class="form-control <?= $fieldErrors['contact-subj'] !== '' ? 'is-invalid' : '' ?>"
+                name="contact-subj"
+                id="contact-subj"
+                required
+                maxlength="150"
+                aria-describedby="contact-subj-error"
+                <?= $fieldErrors['contact-subj'] !== '' ? 'aria-invalid="true"' : '' ?>
+                value="<?= htmlspecialchars($postData['contact-subj'], ENT_QUOTES, 'UTF-8') ?>">
+              <div id="contact-subj-error" class="invalid-feedback">
+                <?= $fieldErrors['contact-subj'] !== ''
+                  ? htmlspecialchars($fieldErrors['contact-subj'], ENT_QUOTES, 'UTF-8')
+                  : 'Please enter a subject.' ?>
               </div>
+            </div>
 
-              <div class="col-md-6">
-                <label for="contact-em" class="form-label">Email (Required)</label>
-                <input type="email" class="form-control" name="contact-em" id="contact-em" required>
-                <div class="invalid-feedback">
-                  Please enter your email.
-                </div>
+            <div class="col-md-12">
+              <label for="contact-ta" class="form-label">Message (required)</label>
+              <textarea
+                class="form-control <?= $fieldErrors['contact-ta'] !== '' ? 'is-invalid' : '' ?>"
+                name="contact-ta"
+                id="contact-ta"
+                required
+                maxlength="5000"
+                aria-describedby="contact-ta-error"
+                <?= $fieldErrors['contact-ta'] !== '' ? 'aria-invalid="true"' : '' ?>><?= htmlspecialchars($postData['contact-ta'], ENT_QUOTES, 'UTF-8') ?></textarea>
+              <div id="contact-ta-error" class="invalid-feedback">
+                <?= $fieldErrors['contact-ta'] !== ''
+                  ? htmlspecialchars($fieldErrors['contact-ta'], ENT_QUOTES, 'UTF-8')
+                  : 'Please type your message.' ?>
               </div>
+            </div>
 
-              <div class="col-md-6">
-                <label for="contact-phone" class="form-label">Phone (xxx.xxx.xxxx)</label>
-                <input type="tel" class="form-control" name="contact-phone" id="contact-phone" pattern="^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" placeholder="555.867.5309">
-                <div class="invalid-feedback">
-                  Optional, please enter a valid phone number.
-                </div>
-              </div>
+            <div class="col-md-12">
+              <?php if ($siteKey !== '') { ?>
+                <div class="g-recaptcha" data-sitekey="<?= htmlspecialchars($siteKey, ENT_QUOTES, 'UTF-8') ?>"></div>
+                <p id="recaptchaLoadError" class="form-error-text d-none mb-0" role="status" aria-live="polite">
+                  reCAPTCHA could not be loaded. Please refresh and try again.
+                </p>
+              <?php } else { ?>
+                <p class="form-error-text mb-0" role="status" aria-live="polite">
+                  reCAPTCHA is currently unavailable due to a server configuration issue.
+                </p>
+              <?php } ?>
+              <p id="recaptchaValidationError" class="form-error-text mb-0 <?= $fieldErrors['recaptcha'] === '' ? 'd-none' : '' ?>" role="alert" aria-live="assertive">
+                <?= htmlspecialchars($fieldErrors['recaptcha'], ENT_QUOTES, 'UTF-8') ?>
+              </p>
+            </div>
 
-              <div class="col-md-12">
-                <label for="contact-subj" class="form-label">Subject (Required)</label>
-                <input type="text" class="form-control" name="contact-subj" id="contact-subj" required>
-                <div class="invalid-feedback">
-                  Please enter a subject.
-                </div>
-              </div>
+            <div class="col-md-6 text-center">
+              <button type="submit" class="btn-wyp btn-wyp-primary" name="submit" <?= $isFormConfigured ? '' : 'disabled aria-disabled="true"' ?>>Submit Message</button>
+            </div>
 
-              <div class="col-md-12">
-                <label for="contact-ta" class="form-label">Question, Feedback or Improvement (Required)</label>
-                <textarea class="form-control" name="contact-ta" id="contact-ta" required></textarea>
-                <div class="invalid-feedback">
-                  Please type your message.
-                </div>
+            <div class="col-md-6 text-center">
+              <button type="reset" id="resetFormButton" class="btn-wyp btn-wyp-outline" name="reset" value="reset" aria-labelledby="reset">Reset Form</button>
+              <div class="sr-only" id="reset" role="alert" aria-live="assertive" aria-atomic="true">
+                <p>(A pop up will confirm your reset form)</p>
               </div>
-
-              <div class="col-md-12">
-                <?php if ($siteKey !== '') { ?>
-                  <div class="g-recaptcha" data-sitekey="<?= htmlspecialchars($siteKey, ENT_QUOTES, 'UTF-8') ?>"></div>
-                  <p id="recaptchaLoadError" class="form-error-text d-none mb-0" role="status" aria-live="polite">
-                    reCAPTCHA could not be loaded. Please refresh and try again.
-                  </p>
-                <?php } else { ?>
-                  <p class="form-error-text mb-0" role="status" aria-live="polite">
-                    reCAPTCHA is currently unavailable due to a server configuration issue.
-                  </p>
-                <?php } ?>
-              </div>
-
-              <div class="col-md-6 text-center">
-                <button type="submit" class="btn-wyp btn-wyp-primary" name="submit" <?= $siteKey === '' ? 'disabled aria-disabled="true"' : '' ?>>Submit Message</button>
-              </div>
-
-              <div class="col-md-6 text-center">
-                <button type="reset" id="resetFormButton" class="btn-wyp btn-wyp-outline" name="reset" value="reset" aria-labelledby="reset">Reset Form</button>
-                <div class="sr-only" id="reset" role="alert" aria-live="assertive" aria-atomic="true">
-                  <p>(A pop up will confirm your reset form)</p>
-                </div>
-              </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
 
-        <div class="col-xl-8 col-lg-8 col-md-12 mb-5">
-          <div class="p-3 text-center hero-text-border banner" title="Please contact us with any questions, suggestions, or concerns.">
+        <div class="mt-4">
+          <div class="wyp-card text-center" title="Please contact us with any questions, suggestions, or concerns.">
             <section aria-label="Talk to Us">
-              <h2 class="h5 mb-6 px-3 px-md-0">Please allow us up to 48 hours to respond, and if you need assistance sooner, please email <?= htmlspecialchars($recipientEmail, ENT_QUOTES, 'UTF-8') ?>
+              <h2 class="h5 mb-0 px-3 px-md-0">Please allow us up to 48 hours to respond, and if you need assistance sooner, please email <?= htmlspecialchars($supportEmailForDisplay, ENT_QUOTES, 'UTF-8') ?>
               </h2>
             </section>
           </div>
@@ -315,7 +413,7 @@ require_once 'includes/header.php';
 
           <p class="contact-info-note">
             Whether you have questions about small dog care, want to share your own
-            pup&rsquo;s story, or just want to say hi &mdash; we love hearing from
+            pup&rsquo;s story, or just want to say hi - we love hearing from
             the small dog community! <i class="bi bi-suit-heart-fill" aria-hidden="true"></i><span class="visually-hidden">LOVE</span>
           </p>
         </div>
@@ -327,7 +425,7 @@ require_once 'includes/header.php';
               <img src="/images/skipper-icon-50x42.png" alt="skipper cartoon icon" class="mx-2" width="50" height="42" aria-hidden="true">
             </div>
             <p class="contact-paw-box__text">
-              Skipper and Chandra are eagerly awaiting your message &mdash; and are ready to give you a virtual paw-shake in return!
+              Skipper and Chandra are eagerly awaiting your message - and are ready to give you a virtual paw-shake in return!
             </p>
             <div class="dog-avatar-frame">
               <img src="/images/chandra icon 55x55.png" alt="chandra bust icon" class="mx-2" width="55" height="55" aria-hidden="true">

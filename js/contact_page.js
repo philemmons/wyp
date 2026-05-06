@@ -7,6 +7,7 @@
   var formErrorSummary = document.getElementById('formErrorSummary');
   var recaptchaContainer = document.querySelector('.g-recaptcha[data-sitekey]');
   var recaptchaLoadError = document.getElementById('recaptchaLoadError');
+  var recaptchaValidationError = document.getElementById('recaptchaValidationError');
 
   var recaptchaDidRender = false;
 
@@ -24,6 +25,24 @@
     if (recaptchaLoadError) {
       recaptchaLoadError.classList.add('d-none');
     }
+  }
+
+  function showRecaptchaValidationError(message) {
+    if (!recaptchaValidationError) {
+      return;
+    }
+
+    recaptchaValidationError.textContent = message;
+    recaptchaValidationError.classList.remove('d-none');
+  }
+
+  function hideRecaptchaValidationError() {
+    if (!recaptchaValidationError) {
+      return;
+    }
+
+    recaptchaValidationError.textContent = '';
+    recaptchaValidationError.classList.add('d-none');
   }
 
   function initializeRecaptcha() {
@@ -81,6 +100,8 @@
 
   // Mirror Bootstrap validation behavior on submit so invalid forms never post to the server.
   myForm.addEventListener('submit', function (event) {
+    hideRecaptchaValidationError();
+
     if (!myForm.checkValidity()) {
       event.preventDefault();
       event.stopPropagation();
@@ -96,7 +117,11 @@
       if (!hasRecaptchaResponse) {
         event.preventDefault();
         event.stopPropagation();
-        showRecaptchaLoadError();
+        showRecaptchaValidationError('Please complete reCAPTCHA before submitting.');
+
+        if (recaptchaContainer && typeof recaptchaContainer.scrollIntoView === 'function') {
+          recaptchaContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
         return;
       }
     }
@@ -115,6 +140,7 @@
 
       window.setTimeout(function () {
         myForm.classList.remove('was-validated');
+        hideRecaptchaValidationError();
 
         var invalidMarkedFields = myForm.querySelectorAll('[aria-invalid="true"]');
         invalidMarkedFields.forEach(function (field) {
@@ -127,6 +153,8 @@
   // Focus summary after server-side errors so assistive tech announces issues immediately.
   if (formErrorSummary) {
     formErrorSummary.focus();
-    focusFirstInvalidField();
+    if (formErrorSummary.getAttribute('data-form-status') === 'error') {
+      focusFirstInvalidField();
+    }
   }
 })();

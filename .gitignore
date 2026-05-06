@@ -5,3 +5,6 @@ robots.txt
 images/original/
 /logs/
 /*.log
+.env
+.env.*
+!.env.example

@@ -2,8 +2,8 @@
 
 ## Canonical endpoint naming
 
-- Submit handler: `/process_contact_form_submission.php`
-- Legacy `/contact_submit.php` is redirected for compatibility, but integrations should use the canonical handler path.
+- Contact form page and submit target: `/contact.php`
+- Legacy `/contact_submit.php` is redirected for compatibility.
 
 ## 1) Install PHPMailer
 
@@ -13,11 +13,11 @@ Use Composer in the project root:
 composer require phpmailer/phpmailer
 ```
 
-This creates `vendor/autoload.php`, which `process_contact_form_submission.php` auto-detects.
+This creates `vendor/autoload.php`, which you can load from `contact.php` if you switch from native `mail()` to PHPMailer.
 
 ## 2) SMTP environment variables
 
-Set these on your server:
+Set these on your server (`.env` for local/shared-hosting or cPanel Environment Variables):
 
 ```text
 WYP_SMTP_ENABLED=1
@@ -29,6 +29,15 @@ WYP_SMTP_USERNAME=noreply@wipeyourpaws.net
 WYP_SMTP_PASSWORD=your_app_password
 WYP_SMTP_TIMEOUT=15
 WYP_SMTP_DEBUG=0
+```
+
+Contact form + reCAPTCHA variables:
+
+```text
+WYP_EMAIL=admin@wipeyourpaws.net
+WYP_FORM_FROM_EMAIL=noreply@wipeyourpaws.net
+GOOGLE_RECAPTCHA_SITE_KEY=your_recaptcha_site_key_here
+GOOGLE_RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key_here
 ```
 
 Optional local test only:
@@ -50,10 +59,9 @@ WYP_DKIM_PASSPHRASE=
 
 ## 4) Delivery behavior
 
-- Admin notification is always attempted first.
-- Respondent confirmation is attempted separately.
-- If SMTP fails, system falls back to native `mail()`.
-- If respondent confirmation fails, submission still succeeds if admin mail succeeded.
+- Current `contact.php` sends an admin notification using native `mail()`.
+- If you add PHPMailer SMTP delivery, keep admin notification as the primary send path.
+- Consider a native `mail()` fallback only if your host supports it and you need resilience.
 
 ## 5) Logging
 

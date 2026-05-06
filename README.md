@@ -34,13 +34,14 @@ wipeyourpaws/
 |-- monterey.php
 |-- gallery.php
 |-- contact.php
-|-- process_contact_form_submission.php
 |-- 403.php
 |-- 404.php
 |-- .htaccess
+|-- .env.example
 |-- robots.txt
 |-- sitemap.xml
 |-- includes/
+|   |-- init.php
 |   |-- header.php
 |   `-- footer.php
 |-- css/
@@ -78,7 +79,8 @@ Current `.htaccess` behavior:
 
 - `DirectoryIndex index.php`
 - Canonical redirect: `/index.php` -> `/`
-- Legacy redirect compatibility for renamed files (for example `contact_submit.php` -> `process_contact_form_submission.php`)
+- Blocks direct access to `.env` files
+- Legacy redirect compatibility for renamed files (for example `contact_submit.php` -> `contact.php`)
 - Extensionless PHP fallback routing (if matching `.php` exists)
 - Custom error documents:
   - `ErrorDocument 403 /403.php`
@@ -108,13 +110,31 @@ The site includes:
 
 ## Contact Form Security
 
-`process_contact_form_submission.php` includes:
+`contact.php` includes:
 
 - CSRF token validation (`hash_equals`)
 - Honeypot check
 - Input validation and length guards
 - Header injection protections for email headers
-- PRG pattern with session-based flash messages
+- Server-side Google reCAPTCHA verification
+- Environment-based key loading (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`)
+
+## Environment Variables (.env)
+
+Copy `.env.example` to `.env` and set real values:
+
+```text
+WYP_EMAIL=admin@example.com
+WYP_FORM_FROM_EMAIL=noreply@example.com
+GOOGLE_RECAPTCHA_SITE_KEY=your_recaptcha_site_key_here
+GOOGLE_RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key_here
+```
+
+Notes:
+
+- `.env` is ignored by git and should never be committed.
+- `GOOGLE_RECAPTCHA_SECRET_KEY` is used server-side only and is never rendered to the browser.
+- If required values are missing, the contact form disables submit and logs a developer-facing configuration error.
 
 ## Local Development
 
@@ -130,7 +150,16 @@ php -l index.php
 ## Deployment Notes
 
 - Ensure `/css/style.css` is deployed (this is the active stylesheet).
-- If switching to SMTP delivery, replace `mail()` in `process_contact_form_submission.php` with PHPMailer.
+- Ensure `includes/init.php` and `.env.example` are deployed.
+- Create a real `.env` file on the server (do not commit it).
+
+### FastComet/cPanel `.env` setup
+
+1. In cPanel File Manager, navigate to your site root (`public_html` or addon domain document root).
+2. Create `.env` in that directory (same level as `contact.php`) or one directory above if your hosting layout allows it.
+3. Copy values from `.env.example` and replace placeholders with real credentials.
+4. Confirm `.htaccess` with the `.env` deny rule is deployed.
+5. Because `.cpanel.yml` deploys `*` and not dotfiles, upload `.env` manually in cPanel after each first-time environment setup.
 
 ---
 
