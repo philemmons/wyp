@@ -48,10 +48,10 @@ require_once 'includes/header.php';
 
         // Google reCAPTCHA API keys settings 
         $secretKey  = getenv('g-secret-key');
-        echo "this is the key"; print_r( $secretKey) ;
+        echo "this is the key";print_r( $secretKey) ;
 
         // Email settings 
-        $recipientEmail = getenv('mcf-info-email');
+        $recipientEmail = getenv('wyp-email');
 
         // If the form is submitted 
         $postData = $statusMsg = '';
@@ -97,9 +97,9 @@ require_once 'includes/header.php';
 
                   // Send email notification to the site admin 
                   $to = $recipientEmail;
-                  $subject = 'MCF Contact Us Submitted';
+                  $subject = 'WYP Contact Us Submitted';
                   $htmlContent = " 
-                    <h4>MCF's Contact Us Form - EN</h4> 
+                    <h4>Wipe Your Paw's Contact Us Form - EN</h4> 
                     <p><b>Name: </b>" . $firstName . " " . $lastName . "</p> 
                     <p><b>Email: </b>" . $email . "</p> 
                     <p><b>Phone: </b>" . $phone . "</p> 
@@ -212,11 +212,11 @@ require_once 'includes/header.php';
               </div>
 
               <div class="col-md-6 text-center">
-                <button type="submit" class="btn mcf-button" name="submit">Submit Message</button>
+                <button type="submit" class="btn wyp-button" name="submit">Submit Message</button>
               </div>
 
               <div class="col-md-6 text-center">
-                <button type="reset" class="btn mcf-button" name="reset" value="reset" onclick="return resetFields();" aria-labelledby="reset">Reset Form</button>
+                <button type="reset" class="btn wyp-button" name="reset" value="reset" onclick="return resetFields();" aria-labelledby="reset">Reset Form</button>
                 <div class="sr-only" id="reset" role="alert" aria-live="assertive" aria-atomic="true">
                   <p>(A pop up will confirm your reset form)</p>
                 </div>
@@ -228,7 +228,7 @@ require_once 'includes/header.php';
         <div class="col-xl-8 col-lg-8 col-md-12 mb-5">
           <div class="p-3 text-center hero-text-border banner" title="Please contact us with any questions, suggestions, or concerns.">
             <section aria-label="Talk to Us">
-              <h2 class="h5 mb-6 px-3 px-md-0">Please allow us up to 48 hours to respond, and if you need assistance sooner, please email <?php echo getenv('mcf-to-email'); ?>
+              <h2 class="h5 mb-6 px-3 px-md-0">Please allow us up to 48 hours to respond, and if you need assistance sooner, please email <?php echo getenv('wyp-email'); ?>
               </h2>
             </section>
           </div>
