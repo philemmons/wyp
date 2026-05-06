@@ -160,13 +160,12 @@ require_once 'includes/header.php';
   <div class="wyp-gallery-hero-content">
     <div class="wyp-gallery-hero-eyebrow">
       <span class="wyp-gallery-hero-eyebrow-line" aria-hidden="true"></span>
-      <span>PHOTO STORIES</span>
+      <span>Chandra &amp; Skipper</span>
     </div>
-    <h1 id="galleryHeroTitle">Gallery</h1>
-    <p>
-      Moments of joy, adventure, muddy paws, and unforgettable memories from the Wipe Your Paws community.
-    </p>
+    <h1 id="galleryHeroTitle">Media Gallery</h1>
+    <p>We're busy snapping adorable photos of Chandra and Skipper exploring Monterey Bay! This gallery will soon be filled with their cutest moments. Check back soon — it'll be paw-some!</p>
   </div>
+
 </header>
 
 <section class="wyp-section wyp-section-sm wyp-section-alt">

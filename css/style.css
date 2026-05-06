@@ -993,12 +993,10 @@ p:last-child {
 }
 
 .wyp-gallery-hero-content p {
-  max-width: 34ch;
   margin: 0;
   font-family: var(--font-body);
   font-size: clamp(0.95rem, 1.6vw, 1.375rem);
   font-weight: 700;
-  line-height: 1.6;
   color: var(--black);
 }
 
