@@ -138,35 +138,41 @@ require_once 'includes/header.php';
 ?>
 
 <!-- Page hero: gallery-specific layered header component -->
-<header class="wyp-gallery-hero" aria-labelledby="galleryHeroTitle">
-  <div class="wyp-gallery-hero-accent-top" aria-hidden="true"></div>
-  <div class="wyp-gallery-hero-accent-bottom" aria-hidden="true"></div>
+<section class="monterey-hero image-header">
+  <div class="container text-center page-hero-z">
+    <header class="wyp-gallery-hero" aria-labelledby="galleryHeroTitle">
+      <div class="wyp-gallery-hero-accent-top" aria-hidden="true"></div>
+      <div class="wyp-gallery-hero-accent-bottom" aria-hidden="true"></div>
 
-  <div class="wyp-gallery-hero-photo" aria-hidden="true">
-    <picture>
-      <img
-        src="/images/gallery-header.jpg"
-        alt="Chandra and Skipper resting together on striped cushions on a caramel couch."
-        width="1920"
-        height="720"
-        loading="eager"
-        decoding="sync"
-        fetchpriority="high">
-    </picture>
+      <div class="wyp-gallery-hero-photo" aria-hidden="true">
+        <picture>
+          <img
+            src="/images/gallery-header.jpg"
+            alt="Chandra and Skipper resting together on striped cushions on a caramel couch."
+            width="1920"
+            height="720"
+            loading="eager"
+            decoding="sync"
+            fetchpriority="high">
+        </picture>
+      </div>
+
+      <div class="wyp-gallery-hero-overlay" aria-hidden="true"></div>
+
+      <div class="wyp-gallery-hero-content">
+        <div class="wyp-gallery-hero-eyebrow">
+          <span class="wyp-gallery-hero-eyebrow-line" aria-hidden="true"></span>
+          <span>Chandra &amp; Skipper</span>
+        </div>
+        <h1 id="galleryHeroTitle">Media Gallery</h1>
+        <p>We're busy snapping adorable photos of Chandra and Skipper exploring Monterey Bay! This gallery will soon be filled with their cutest moments. Check back soon — it'll be paw-some!</p>
+      </div>
+
+    </header>
   </div>
+</section>
 
-  <div class="wyp-gallery-hero-overlay" aria-hidden="true"></div>
 
-  <div class="wyp-gallery-hero-content">
-    <div class="wyp-gallery-hero-eyebrow">
-      <span class="wyp-gallery-hero-eyebrow-line" aria-hidden="true"></span>
-      <span>Chandra &amp; Skipper</span>
-    </div>
-    <h1 id="galleryHeroTitle">Media Gallery</h1>
-    <p>We're busy snapping adorable photos of Chandra and Skipper exploring Monterey Bay! This gallery will soon be filled with their cutest moments. Check back soon — it'll be paw-some!</p>
-  </div>
-
-</header>
 
 <!--  FULL GALLERY CAROUSEL (uses existing gallery preview styles as canonical structure)  -->
 <section class="wyp-section">
