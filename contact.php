@@ -57,15 +57,25 @@ require_once 'includes/header.php';
             }
           }
 
-          return 'notta';
+          return '';
         };
 
-        // Support both legacy and cPanel-friendly env var naming.
-        $secretKey = getenv('G_SECRET_KEY');
-        $siteKey = getenv('G_SITE_KEY');
+        // Prefer standardized variable names first, then legacy fallbacks.
+        $secretKey = $readEnvironmentValue([
+          'GOOGLE_RECAPTCHA_SECRET_KEY',
+          'RECAPTCHA_SECRET_KEY',
+          'G_SECRET_KEY',
+          'g-secret-key',
+        ]);
+        $siteKey = $readEnvironmentValue([
+          'GOOGLE_RECAPTCHA_SITE_KEY',
+          'RECAPTCHA_SITE_KEY',
+          'G_SITE_KEY',
+          'g-site-key',
+        ]);
 
         // Email settings
-        $recipientEmail = $readEnvironmentValue(['WYP_EMAIL', 'WYP_EMAIL', 'CONTACT_RECIPIENT_EMAIL']);
+        $recipientEmail = $readEnvironmentValue(['WYP_EMAIL', 'CONTACT_RECIPIENT_EMAIL', 'wyp-email']);
 
         // If the form is submitted 
         $postData = $statusMsg = '';
@@ -229,18 +239,24 @@ require_once 'includes/header.php';
               </div>
 
               <div class="col-md-12">
-                <div class="g-recaptcha" data-sitekey="<?= htmlspecialchars($siteKey, ENT_QUOTES, 'UTF-8') ?>"></div>
-                <div>
-                  Note: The form will reset if unchecked.
-                </div>
+                <?php if ($siteKey !== '') { ?>
+                  <div class="g-recaptcha" data-sitekey="<?= htmlspecialchars($siteKey, ENT_QUOTES, 'UTF-8') ?>"></div>
+                  <p id="recaptchaLoadError" class="form-error-text d-none mb-0" role="status" aria-live="polite">
+                    reCAPTCHA could not be loaded. Please refresh and try again.
+                  </p>
+                <?php } else { ?>
+                  <p class="form-error-text mb-0" role="status" aria-live="polite">
+                    reCAPTCHA is currently unavailable due to a server configuration issue.
+                  </p>
+                <?php } ?>
               </div>
 
               <div class="col-md-6 text-center">
-                <button type="submit" class="btn wyp-button" name="submit">Submit Message</button>
+                <button type="submit" class="btn-wyp btn-wyp-primary" name="submit" <?= $siteKey === '' ? 'disabled aria-disabled="true"' : '' ?>>Submit Message</button>
               </div>
 
               <div class="col-md-6 text-center">
-                <button type="reset" id="resetFormButton" class="btn wyp-button" name="reset" value="reset" onclick="return resetFields();" aria-labelledby="reset">Reset Form</button>
+                <button type="reset" id="resetFormButton" class="btn-wyp btn-wyp-outline" name="reset" value="reset" aria-labelledby="reset">Reset Form</button>
                 <div class="sr-only" id="reset" role="alert" aria-live="assertive" aria-atomic="true">
                   <p>(A pop up will confirm your reset form)</p>
                 </div>
@@ -344,32 +360,5 @@ require_once 'includes/header.php';
 </section>
 
 <script src="/js/contact_page.js?v=<?= filemtime(__DIR__ . '/js/contact_page.js'); ?>" defer></script>
-
-<script>
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
-  (() => {
-    'use strict'
-
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.querySelectorAll('.needs-validation')
-
-    // Loop over them and prevent submission
-    Array.from(forms).forEach(form => {
-      form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-
-        form.classList.add('was-validated')
-      }, false)
-    })
-  })()
-</script>
-<script>
-  function resetFields() {
-    return confirm("Are you sure you want to reset all fields?");
-  }
-</script>
 
 <?php require_once 'includes/footer.php';

@@ -72,16 +72,7 @@ $canonicalUrl   = $siteBaseUrl . '/' . ($pagePathByKey[$activePageKey] ?? '');
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-STD5V42M8L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'G-STD5V42M8L');
-  </script>
+  <script src="/js/analytics.js?v=<?= filemtime(__DIR__ . '/../js/analytics.js'); ?>" defer></script>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -104,10 +95,10 @@ $canonicalUrl   = $siteBaseUrl . '/' . ($pagePathByKey[$activePageKey] ?? '');
   <title><?= htmlspecialchars($pageTitle) ?></title>
 
   <!-- Favicon — to be added -->
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16.png">
   <link rel="icon" type="image/x-icon" href="/images/favicons/favicon.ico">
-  <link rel="apple-touch-icon" href="images/favicons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png">
 
   <!-- Bootstrap 5.3.8 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
@@ -127,9 +118,6 @@ $canonicalUrl   = $siteBaseUrl . '/' . ($pagePathByKey[$activePageKey] ?? '');
 
   <!-- Canonical site stylesheet -->
   <link rel="stylesheet" href="/css/style.css?v=<?= filemtime(__DIR__ . '/../css/style.css'); ?>">
-
-  <!-- reCAPTCHA widget -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </head>
 

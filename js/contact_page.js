@@ -5,10 +5,71 @@
   var myForm = document.getElementById('myForm');
   var resetFormButton = document.getElementById('resetFormButton');
   var formErrorSummary = document.getElementById('formErrorSummary');
+  var recaptchaContainer = document.querySelector('.g-recaptcha[data-sitekey]');
+  var recaptchaLoadError = document.getElementById('recaptchaLoadError');
+
+  var recaptchaDidRender = false;
 
   if (!myForm) {
     return;
   }
+
+  function showRecaptchaLoadError() {
+    if (recaptchaLoadError) {
+      recaptchaLoadError.classList.remove('d-none');
+    }
+  }
+
+  function hideRecaptchaLoadError() {
+    if (recaptchaLoadError) {
+      recaptchaLoadError.classList.add('d-none');
+    }
+  }
+
+  function initializeRecaptcha() {
+    if (!recaptchaContainer) {
+      return;
+    }
+
+    var siteKey = (recaptchaContainer.getAttribute('data-sitekey') || '').trim();
+    if (!siteKey) {
+      showRecaptchaLoadError();
+      return;
+    }
+
+    window.wypRecaptchaOnload = function () {
+      if (!window.grecaptcha || typeof window.grecaptcha.render !== 'function') {
+        showRecaptchaLoadError();
+        return;
+      }
+
+      try {
+        window.grecaptcha.render(recaptchaContainer, { sitekey: siteKey });
+        recaptchaDidRender = true;
+        hideRecaptchaLoadError();
+      } catch (error) {
+        showRecaptchaLoadError();
+      }
+    };
+
+    var existingRecaptchaScript = document.querySelector('script[src*="google.com/recaptcha/api.js"]');
+    if (!existingRecaptchaScript) {
+      var recaptchaApiScript = document.createElement('script');
+      recaptchaApiScript.src = 'https://www.google.com/recaptcha/api.js?onload=wypRecaptchaOnload&render=explicit';
+      recaptchaApiScript.async = true;
+      recaptchaApiScript.defer = true;
+      recaptchaApiScript.onerror = showRecaptchaLoadError;
+      document.head.appendChild(recaptchaApiScript);
+    }
+
+    window.setTimeout(function () {
+      if (!recaptchaDidRender) {
+        showRecaptchaLoadError();
+      }
+    }, 7000);
+  }
+
+  initializeRecaptcha();
 
   // Move focus to the first invalid control so keyboard users land where correction is needed first.
   function focusFirstInvalidField() {
@@ -26,6 +87,18 @@
       myForm.classList.add('was-validated');
       focusFirstInvalidField();
       return;
+    }
+
+    if (recaptchaContainer) {
+      var recaptchaResponseField = myForm.querySelector('textarea[name="g-recaptcha-response"]');
+      var hasRecaptchaResponse = recaptchaResponseField && recaptchaResponseField.value.trim() !== '';
+
+      if (!hasRecaptchaResponse) {
+        event.preventDefault();
+        event.stopPropagation();
+        showRecaptchaLoadError();
+        return;
+      }
     }
 
     myForm.classList.add('was-validated');
