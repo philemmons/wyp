@@ -1096,8 +1096,7 @@ p:last-child {
 .gallery-coming-soon,
 .error-card,
 .wyp-form,
-.quicklink-card,
-.hero-image {
+.quicklink-card{
   position: relative;
   background: var(--surface-1);
   border: 1px solid var(--border-soft);
@@ -1133,8 +1132,7 @@ p:last-child {
 .monterey-category-card:hover,
 .quicklink-card:hover,
 .wyp-feature-card:hover,
-.wyp-info-card:hover,
-.hero-image:hover {
+.wyp-info-card:hover{
   transform: translateY(-4px);
   box-shadow: var(--shadow-warm);
   border-color: var(--border-mid);
