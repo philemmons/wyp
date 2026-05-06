@@ -1509,7 +1509,6 @@ p:last-child {
 .gallery-placeholder-item {
   text-align: center;
   padding: 1.2rem 0.7rem;
-  background: linear-gradient(180deg, #ffffff, #fff5e8);
 }
 
 .gallery-coming-badge {
