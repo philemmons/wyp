@@ -8,7 +8,7 @@
  * WCAG fixes:
  *   W2  - </main> closed here
  *   W4  - aria-label="Footer navigation" on footer <nav>
- *   W7  - prefers-reduced-motion handled in scroll_reveal_animations.js
+ *   W7  - prefers-reduced-motion handled in scroll_reveal_controller.js
  *   W14 - aria-hidden="true" on decorative Bootstrap icons
  *   R2  - <noscript> style restores element visibility if JS disabled
  */
@@ -130,10 +130,10 @@
 </script>
 
 <!-- Back to Top -->
-<script src="/js/back_to_top_button.js?v=<?= filemtime(__DIR__ . '/../js/back_to_top_button.js'); ?>" defer></script>
+<script src="/js/back_to_top_control.js?v=<?= filemtime(__DIR__ . '/../js/back_to_top_control.js'); ?>" defer></script>
 
 <!-- App JS (replaces inline animation script) -->
-<script src="/js/scroll_reveal_animations.js?v=<?= filemtime(__DIR__ . '/../js/scroll_reveal_animations.js'); ?>" defer></script>
+<script src="/js/scroll_reveal_controller.js?v=<?= filemtime(__DIR__ . '/../js/scroll_reveal_controller.js'); ?>" defer></script>
 
 </body>
 

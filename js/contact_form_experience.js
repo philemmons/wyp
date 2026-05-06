@@ -2,18 +2,18 @@
   'use strict';
 
   // Cache key elements once so handlers reuse the same nodes and avoid repeated DOM queries.
-  var myForm = document.getElementById('myForm');
-  var resetFormButton = document.getElementById('resetFormButton');
-  var formErrorSummary = document.getElementById('formErrorSummary');
+  var contactForm = document.getElementById('contactForm');
+  var resetContactFormButton = document.getElementById('resetContactFormButton');
+  var contactFormStatusSummary = document.getElementById('contactFormStatusSummary');
   var recaptchaGroup = document.getElementById('recaptcha-group');
-  var recaptchaContainer = document.querySelector('.g-recaptcha[data-sitekey]');
+  var recaptchaWidgetContainer = document.querySelector('.g-recaptcha[data-sitekey]');
   var recaptchaLoadError = document.getElementById('recaptchaLoadError');
   var recaptchaValidationError = document.getElementById('recaptchaValidationError');
-  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var userPrefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var recaptchaDidRender = false;
+  var hasRecaptchaRendered = false;
 
-  if (!myForm) {
+  if (!contactForm) {
     return;
   }
 
@@ -58,13 +58,13 @@
     recaptchaValidationError.classList.add('d-none');
   }
 
-  function initializeRecaptcha() {
-    if (!recaptchaContainer) {
+  function initializeRecaptchaWidget() {
+    if (!recaptchaWidgetContainer) {
       return;
     }
 
-    var siteKey = (recaptchaContainer.getAttribute('data-sitekey') || '').trim();
-    if (!siteKey) {
+    var recaptchaSiteKey = (recaptchaWidgetContainer.getAttribute('data-sitekey') || '').trim();
+    if (!recaptchaSiteKey) {
       showRecaptchaLoadError();
       return;
     }
@@ -76,8 +76,8 @@
       }
 
       try {
-        window.grecaptcha.render(recaptchaContainer, { sitekey: siteKey });
-        recaptchaDidRender = true;
+        window.grecaptcha.render(recaptchaWidgetContainer, { sitekey: recaptchaSiteKey });
+        hasRecaptchaRendered = true;
         hideRecaptchaLoadError();
       } catch (error) {
         showRecaptchaLoadError();
@@ -95,17 +95,17 @@
     }
 
     window.setTimeout(function () {
-      if (!recaptchaDidRender) {
+      if (!hasRecaptchaRendered) {
         showRecaptchaLoadError();
       }
     }, 7000);
   }
 
-  initializeRecaptcha();
+  initializeRecaptchaWidget();
 
   // Move focus to the first invalid control so keyboard users land where correction is needed first.
   function focusFirstInvalidField() {
-    var firstInvalidField = myForm.querySelector('[aria-invalid="true"], :invalid');
+    var firstInvalidField = contactForm.querySelector('[aria-invalid="true"], :invalid');
     if (firstInvalidField && typeof firstInvalidField.focus === 'function') {
       firstInvalidField.focus();
       return;
@@ -121,19 +121,19 @@
   }
 
   // Mirror Bootstrap validation behavior on submit so invalid forms never post to the server.
-  myForm.addEventListener('submit', function (event) {
+  contactForm.addEventListener('submit', function (event) {
     hideRecaptchaValidationError();
 
-    if (!myForm.checkValidity()) {
+    if (!contactForm.checkValidity()) {
       event.preventDefault();
       event.stopPropagation();
-      myForm.classList.add('was-validated');
+      contactForm.classList.add('was-validated');
       focusFirstInvalidField();
       return;
     }
 
-    if (recaptchaContainer) {
-      var recaptchaResponseField = myForm.querySelector('textarea[name="g-recaptcha-response"]');
+    if (recaptchaWidgetContainer) {
+      var recaptchaResponseField = contactForm.querySelector('textarea[name="g-recaptcha-response"]');
       var hasRecaptchaResponse = recaptchaResponseField && recaptchaResponseField.value.trim() !== '';
 
       if (!hasRecaptchaResponse) {
@@ -141,9 +141,9 @@
         event.stopPropagation();
         showRecaptchaValidationError('Please complete reCAPTCHA before submitting.');
 
-        if (recaptchaContainer && typeof recaptchaContainer.scrollIntoView === 'function') {
-          recaptchaContainer.scrollIntoView({
-            behavior: prefersReducedMotion ? 'auto' : 'smooth',
+        if (recaptchaWidgetContainer && typeof recaptchaWidgetContainer.scrollIntoView === 'function') {
+          recaptchaWidgetContainer.scrollIntoView({
+            behavior: userPrefersReducedMotion ? 'auto' : 'smooth',
             block: 'center'
           });
         }
@@ -151,12 +151,12 @@
       }
     }
 
-    myForm.classList.add('was-validated');
+    contactForm.classList.add('was-validated');
   });
 
   // Confirm reset to prevent accidental data loss, then clear validation state for a clean retry.
-  if (resetFormButton) {
-    resetFormButton.addEventListener('click', function (event) {
+  if (resetContactFormButton) {
+    resetContactFormButton.addEventListener('click', function (event) {
       var shouldReset = window.confirm('Clear all form fields?');
       if (!shouldReset) {
         event.preventDefault();
@@ -164,10 +164,10 @@
       }
 
       window.setTimeout(function () {
-        myForm.classList.remove('was-validated');
+        contactForm.classList.remove('was-validated');
         hideRecaptchaValidationError();
 
-        var invalidMarkedFields = myForm.querySelectorAll('[aria-invalid="true"]');
+        var invalidMarkedFields = contactForm.querySelectorAll('[aria-invalid="true"]');
         invalidMarkedFields.forEach(function (field) {
           field.removeAttribute('aria-invalid');
         });
@@ -176,7 +176,7 @@
   }
 
   // Focus summary after server-side errors so assistive tech announces issues immediately.
-  if (formErrorSummary && formErrorSummary.getAttribute('data-form-status') === 'error') {
-    formErrorSummary.focus();
+  if (contactFormStatusSummary && contactFormStatusSummary.getAttribute('data-form-status') === 'error') {
+    contactFormStatusSummary.focus();
   }
 })();

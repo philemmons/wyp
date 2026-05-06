@@ -1,7 +1,7 @@
 # WCAG 2.1 Readability and Accessibility Checklist
 
 Last audited: 2026-05-06  
-Applies to: `includes/header.php`, `index.php`, `intro.php`, `contact.php`, `gallery.php`, `css/style.css`, `js/contact_page.js`, `js/gallery_lightbox_modal.js`
+Applies to: `includes/header.php`, `index.php`, `intro.php`, `contact.php`, `gallery.php`, `css/style.css`, `js/contact_form_experience.js`, `js/gallery_lightbox_controller.js`
 
 ## Scope
 

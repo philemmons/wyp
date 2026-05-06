@@ -58,8 +58,8 @@ $pageHeroPreloadImageByKey = [
 $pageHeroPreloadImage = $pageHeroPreloadImageByKey[$activePageKey] ?? null;
 
 // Build canonical URL (update BASE_URL when deploying)
-$siteBaseUrl    = 'https://wipeyourpaws.net';
-$pagePathByKey = [
+$siteBaseUrl = 'https://wipeyourpaws.net';
+$canonicalPagePathByKey = [
   'home'     => '',
   'intro'    => 'intro.php',
   'monterey' => 'monterey.php',
@@ -68,7 +68,7 @@ $pagePathByKey = [
   'error403' => '403.php',
   'error404' => '404.php',
 ];
-$canonicalUrl   = $siteBaseUrl . '/' . ($pagePathByKey[$activePageKey] ?? '');
+$canonicalUrl = $siteBaseUrl . '/' . ($canonicalPagePathByKey[$activePageKey] ?? '');
 ?>
 <!DOCTYPE html>
 <html lang="en">

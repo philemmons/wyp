@@ -17,7 +17,7 @@ if (is_file($bootstrapFilePath)) {
     require_once $bootstrapFilePath;
 }
 
-$readEnvironmentValue = static function (string $key, string $default = ''): string {
+$resolveEnvironmentValue = static function (string $key, string $default = ''): string {
     if (function_exists('wyp_env')) {
         return wyp_env($key, $default);
     }
@@ -30,22 +30,22 @@ $readEnvironmentValue = static function (string $key, string $default = ''): str
     return trim((string) $value);
 };
 
-$readEnvironmentFlag = static function (string $key, bool $default) use ($readEnvironmentValue): bool {
-    $value = strtolower($readEnvironmentValue($key, $default ? '1' : '0'));
+$resolveEnvironmentFlag = static function (string $key, bool $default) use ($resolveEnvironmentValue): bool {
+    $value = strtolower($resolveEnvironmentValue($key, $default ? '1' : '0'));
     return in_array($value, ['1', 'true', 'yes', 'on'], true);
 };
 
-$expectedAccessKey = $readEnvironmentValue('WYP_DIAG_KEY');
-$providedAccessKey = isset($_GET['key']) && is_string($_GET['key']) ? $_GET['key'] : '';
-$isJsonResponseRequested = (isset($_GET['format']) && $_GET['format'] === 'json');
+$configuredDiagnosticAccessKey = $resolveEnvironmentValue('WYP_DIAG_KEY');
+$requestedDiagnosticAccessKey = isset($_GET['key']) && is_string($_GET['key']) ? $_GET['key'] : '';
+$shouldReturnJson = (isset($_GET['format']) && $_GET['format'] === 'json');
 
-if ($expectedAccessKey === '' || $providedAccessKey === '' || !hash_equals($expectedAccessKey, $providedAccessKey)) {
+if ($configuredDiagnosticAccessKey === '' || $requestedDiagnosticAccessKey === '' || !hash_equals($configuredDiagnosticAccessKey, $requestedDiagnosticAccessKey)) {
     http_response_code(403);
     $message = [
         'ok' => false,
-        'error' => $expectedAccessKey === '' ? 'WYP_DIAG_KEY is not set' : 'Invalid key',
+        'error' => $configuredDiagnosticAccessKey === '' ? 'WYP_DIAG_KEY is not set' : 'Invalid key',
     ];
-    if ($isJsonResponseRequested) {
+    if ($shouldReturnJson) {
         header('Content-Type: application/json; charset=UTF-8');
         echo json_encode($message, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         exit;
@@ -55,7 +55,7 @@ if ($expectedAccessKey === '' || $providedAccessKey === '' || !hash_equals($expe
     exit;
 }
 
-$loadPhpMailer = static function (): array {
+$loadPhpMailerDependencies = static function (): array {
     $class = 'PHPMailer\\PHPMailer\\PHPMailer';
     if (class_exists($class)) {
         return ['ok' => true, 'reason' => 'already_loaded'];
@@ -85,41 +85,41 @@ $loadPhpMailer = static function (): array {
 };
 
 $siteDisplayName = 'Wipe Your Paws';
-$adminRecipientEmail = $readEnvironmentValue('WYP_EMAIL');
+$adminRecipientEmail = $resolveEnvironmentValue('WYP_EMAIL');
 if ($adminRecipientEmail === '') {
-    $adminRecipientEmail = $readEnvironmentValue('CONTACT_RECIPIENT_EMAIL');
+    $adminRecipientEmail = $resolveEnvironmentValue('CONTACT_RECIPIENT_EMAIL');
 }
-$configuredFromAddress = $readEnvironmentValue('WYP_FORM_FROM_EMAIL');
+$configuredFromAddress = $resolveEnvironmentValue('WYP_FORM_FROM_EMAIL');
 $fromEmailAddress = filter_var($configuredFromAddress, FILTER_VALIDATE_EMAIL)
     ? $configuredFromAddress
     : (filter_var($adminRecipientEmail, FILTER_VALIDATE_EMAIL) ? $adminRecipientEmail : 'noreply@example.com');
-$defaultSmtpPort = (int) $readEnvironmentValue('WYP_SMTP_PORT', '587');
+$defaultSmtpPort = (int) $resolveEnvironmentValue('WYP_SMTP_PORT', '587');
 if ($defaultSmtpPort <= 0) {
     $defaultSmtpPort = 587;
 }
-$defaultSmtpTimeout = (int) $readEnvironmentValue('WYP_SMTP_TIMEOUT', '15');
+$defaultSmtpTimeout = (int) $resolveEnvironmentValue('WYP_SMTP_TIMEOUT', '15');
 if ($defaultSmtpTimeout < 3) {
     $defaultSmtpTimeout = 15;
 }
 
-$smtpSettings = [
+$smtpConfiguration = [
     'host' => isset($_GET['host']) && is_string($_GET['host']) && $_GET['host'] !== ''
         ? trim($_GET['host'])
-        : $readEnvironmentValue('WYP_SMTP_HOST'),
+        : $resolveEnvironmentValue('WYP_SMTP_HOST'),
     'port' => isset($_GET['port']) ? (int) $_GET['port'] : $defaultSmtpPort,
     'encryption' => isset($_GET['encryption']) && is_string($_GET['encryption']) && $_GET['encryption'] !== ''
         ? strtolower(trim($_GET['encryption']))
-        : strtolower($readEnvironmentValue('WYP_SMTP_ENCRYPTION', 'tls')),
-    'auth' => isset($_GET['auth']) ? ($_GET['auth'] === '1') : $readEnvironmentFlag('WYP_SMTP_AUTH', true),
-    'username' => isset($_GET['username']) && is_string($_GET['username']) ? trim($_GET['username']) : $readEnvironmentValue('WYP_SMTP_USERNAME'),
-    'password' => isset($_GET['password']) && is_string($_GET['password']) ? $_GET['password'] : $readEnvironmentValue('WYP_SMTP_PASSWORD'),
+        : strtolower($resolveEnvironmentValue('WYP_SMTP_ENCRYPTION', 'tls')),
+    'auth' => isset($_GET['auth']) ? ($_GET['auth'] === '1') : $resolveEnvironmentFlag('WYP_SMTP_AUTH', true),
+    'username' => isset($_GET['username']) && is_string($_GET['username']) ? trim($_GET['username']) : $resolveEnvironmentValue('WYP_SMTP_USERNAME'),
+    'password' => isset($_GET['password']) && is_string($_GET['password']) ? $_GET['password'] : $resolveEnvironmentValue('WYP_SMTP_PASSWORD'),
     'timeout' => isset($_GET['timeout']) ? max(3, (int) $_GET['timeout']) : $defaultSmtpTimeout,
 ];
 
-$shouldSendTestMessage = isset($_GET['send']) && $_GET['send'] === '1';
+$shouldSendDiagnosticMessage = isset($_GET['send']) && $_GET['send'] === '1';
 $recipientEmailAddress = isset($_GET['to']) && is_string($_GET['to']) && $_GET['to'] !== '' ? trim($_GET['to']) : $adminRecipientEmail;
 
-$probeSmtpPort = static function (string $host, int $port): array {
+$testSmtpPortConnectivity = static function (string $host, int $port): array {
     if ($host === '' || $port <= 0) {
         return ['ok' => false, 'error' => 'host_or_port_missing'];
     }
@@ -137,16 +137,16 @@ $probeSmtpPort = static function (string $host, int $port): array {
     return ['ok' => true, 'latency_ms' => $latency, 'banner' => is_string($banner) ? trim($banner) : ''];
 };
 
-$diagnosticReport = [
+$smtpDiagnosticReport = [
     'generated_at_utc' => gmdate('c'),
     'smtp' => [
-        'host' => $smtpSettings['host'],
-        'port' => $smtpSettings['port'],
-        'encryption' => $smtpSettings['encryption'],
-        'auth' => $smtpSettings['auth'],
-        'username_set' => $smtpSettings['username'] !== '',
-        'password_set' => $smtpSettings['password'] !== '',
-        'timeout' => $smtpSettings['timeout'],
+        'host' => $smtpConfiguration['host'],
+        'port' => $smtpConfiguration['port'],
+        'encryption' => $smtpConfiguration['encryption'],
+        'auth' => $smtpConfiguration['auth'],
+        'username_set' => $smtpConfiguration['username'] !== '',
+        'password_set' => $smtpConfiguration['password'] !== '',
+        'timeout' => $smtpConfiguration['timeout'],
     ],
     'mail_routing' => [
         'contact_recipient_email' => $adminRecipientEmail,
@@ -154,7 +154,7 @@ $diagnosticReport = [
         'resolved_from_email' => $fromEmailAddress,
     ],
     'to' => $recipientEmailAddress,
-    'port_probe' => $probeSmtpPort($smtpSettings['host'], $smtpSettings['port']),
+    'port_probe' => $testSmtpPortConnectivity($smtpConfiguration['host'], $smtpConfiguration['port']),
     'phpmailer' => [
         'loaded' => false,
         'load_reason' => '',
@@ -164,18 +164,18 @@ $diagnosticReport = [
     'debug_log' => [],
 ];
 
-$phpMailerLoaderStatus = $loadPhpMailer();
-$diagnosticReport['phpmailer']['loaded'] = (bool) ($phpMailerLoaderStatus['ok'] ?? false);
-$diagnosticReport['phpmailer']['load_reason'] = (string) ($phpMailerLoaderStatus['reason'] ?? '');
+$phpMailerDependencyStatus = $loadPhpMailerDependencies();
+$smtpDiagnosticReport['phpmailer']['loaded'] = (bool) ($phpMailerDependencyStatus['ok'] ?? false);
+$smtpDiagnosticReport['phpmailer']['load_reason'] = (string) ($phpMailerDependencyStatus['reason'] ?? '');
 
-if (!$diagnosticReport['phpmailer']['loaded']) {
-    if ($isJsonResponseRequested) {
+if (!$smtpDiagnosticReport['phpmailer']['loaded']) {
+    if ($shouldReturnJson) {
         header('Content-Type: application/json; charset=UTF-8');
-        echo json_encode($diagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        echo json_encode($smtpDiagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         exit;
     }
     header('Content-Type: text/plain; charset=UTF-8');
-    echo json_encode($diagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    echo json_encode($smtpDiagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     exit;
 }
 
@@ -184,36 +184,36 @@ $phpMailerClass = 'PHPMailer\\PHPMailer\\PHPMailer';
 try {
     $mail = new $phpMailerClass(true);
     $mail->isSMTP();
-    $mail->Host = $smtpSettings['host'];
-    $mail->Port = (int) $smtpSettings['port'];
-    $mail->SMTPAuth = (bool) $smtpSettings['auth'];
-    $mail->Username = (string) $smtpSettings['username'];
-    $mail->Password = (string) $smtpSettings['password'];
-    $mail->Timeout = (int) $smtpSettings['timeout'];
+    $mail->Host = $smtpConfiguration['host'];
+    $mail->Port = (int) $smtpConfiguration['port'];
+    $mail->SMTPAuth = (bool) $smtpConfiguration['auth'];
+    $mail->Username = (string) $smtpConfiguration['username'];
+    $mail->Password = (string) $smtpConfiguration['password'];
+    $mail->Timeout = (int) $smtpConfiguration['timeout'];
     $mail->CharSet = 'UTF-8';
     $mail->Encoding = 'base64';
     $mail->SMTPDebug = 3;
-    $mail->Debugoutput = static function (string $line, int $level) use (&$diagnosticReport): void {
-        $diagnosticReport['debug_log'][] = '[' . $level . '] ' . $line;
+    $mail->Debugoutput = static function (string $line, int $level) use (&$smtpDiagnosticReport): void {
+        $smtpDiagnosticReport['debug_log'][] = '[' . $level . '] ' . $line;
     };
 
-    if ($smtpSettings['encryption'] === 'ssl') {
+    if ($smtpConfiguration['encryption'] === 'ssl') {
         $mail->SMTPSecure = $phpMailerClass::ENCRYPTION_SMTPS;
-    } elseif ($smtpSettings['encryption'] === 'tls') {
+    } elseif ($smtpConfiguration['encryption'] === 'tls') {
         $mail->SMTPSecure = $phpMailerClass::ENCRYPTION_STARTTLS;
     } else {
         $mail->SMTPSecure = '';
     }
 
     $connected = $mail->smtpConnect();
-    $diagnosticReport['smtp_connect'] = [
+    $smtpDiagnosticReport['smtp_connect'] = [
         'ok' => (bool) $connected,
         'error_info' => (string) $mail->ErrorInfo,
     ];
 
-    if ($connected && $shouldSendTestMessage) {
+    if ($connected && $shouldSendDiagnosticMessage) {
         if (!filter_var($recipientEmailAddress, FILTER_VALIDATE_EMAIL)) {
-            $diagnosticReport['send_attempt'] = [
+            $smtpDiagnosticReport['send_attempt'] = [
                 'ok' => false,
                 'error' => 'Invalid recipient address',
             ];
@@ -229,7 +229,7 @@ try {
             $mail->addCustomHeader('X-Diagnostic', 'smtp_delivery_test.php');
 
             $sent = $mail->send();
-            $diagnosticReport['send_attempt'] = [
+            $smtpDiagnosticReport['send_attempt'] = [
                 'ok' => (bool) $sent,
                 'error_info' => (string) $mail->ErrorInfo,
             ];
@@ -238,16 +238,16 @@ try {
 
     $mail->smtpClose();
 } catch (\Throwable $e) {
-    $diagnosticReport['smtp_connect'] = [
+    $smtpDiagnosticReport['smtp_connect'] = [
         'ok' => false,
         'error_class' => get_class($e),
         'error_message' => $e->getMessage(),
     ];
 }
 
-if ($isJsonResponseRequested) {
+if ($shouldReturnJson) {
     header('Content-Type: application/json; charset=UTF-8');
-    echo json_encode($diagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    echo json_encode($smtpDiagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     exit;
 }
 
@@ -255,6 +255,7 @@ header('Content-Type: text/html; charset=UTF-8');
 echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>SMTP Test</title>';
 echo '<style>body{font-family:Arial,sans-serif;max-width:980px;margin:24px auto;padding:0 12px}pre{background:#f5f5f5;padding:12px;border-radius:8px;overflow:auto}</style>';
 echo '</head><body><h1>SMTP Test Route</h1><p>Temporary endpoint. Remove after troubleshooting.</p>';
-echo '<pre>' . htmlspecialchars(json_encode($diagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), ENT_QUOTES, 'UTF-8') . '</pre>';
+echo '<pre>' . htmlspecialchars(json_encode($smtpDiagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), ENT_QUOTES, 'UTF-8') . '</pre>';
 echo '</body></html>';
+
 

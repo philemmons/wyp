@@ -10,7 +10,7 @@ $activePageKey = 'gallery';
  * Convert the first 8 consecutive digits in a filename into MM-DD-YYYY.
  * Example: 20230319_123456.jpg -> 03-19-2023
  */
-function formatGalleryDateFromFilename(string $fileBaseName): ?string
+function parseCapturedDateFromFilename(string $fileBaseName): ?string
 {
   if (!preg_match('/(\d{8})/', $fileBaseName, $matches)) {
     return null;
@@ -32,9 +32,9 @@ function formatGalleryDateFromFilename(string $fileBaseName): ?string
  * Build alt text from filename components plus date when available.
  * Returns [altText, isVagueFilename].
  */
-function buildGalleryAltText(string $fileBaseName): array
+function composeGalleryImageAltText(string $fileBaseName): array
 {
-  $formattedDate = formatGalleryDateFromFilename($fileBaseName);
+  $formattedCaptureDate = parseCapturedDateFromFilename($fileBaseName);
   $normalized = preg_replace('/\(\d+\)/', ' ', $fileBaseName) ?? $fileBaseName;
   $normalized = preg_replace('/\d{8}/', ' ', $normalized) ?? $normalized;
   $normalized = preg_replace('/\d{6}/', ' ', $normalized) ?? $normalized;
@@ -46,16 +46,16 @@ function buildGalleryAltText(string $fileBaseName): array
 
   if ($isVagueFilename) {
     $altText = 'Chandra and Skipper gallery photo';
-    if ($formattedDate !== null) {
-      $altText .= ' from ' . $formattedDate;
+    if ($formattedCaptureDate !== null) {
+      $altText .= ' from ' . $formattedCaptureDate;
     }
     return [$altText, true];
   }
 
   $descriptor = ucwords(implode(' ', array_slice($words, 0, 6)));
   $altText = $descriptor . ' with Chandra and Skipper';
-  if ($formattedDate !== null) {
-    $altText .= ' on ' . $formattedDate;
+  if ($formattedCaptureDate !== null) {
+    $altText .= ' on ' . $formattedCaptureDate;
   }
 
   return [$altText, false];
@@ -66,7 +66,7 @@ function buildGalleryAltText(string $fileBaseName): array
  * a trailing "_thumb" segment before the extension.
  * Example: dog-beach_thumb.webp -> dog-beach.webp
  */
-function thumbnailFilenameToFullFilename(string $thumbnailFilename): string
+function deriveFullSizeFilenameFromThumbnail(string $thumbnailFilename): string
 {
   $extension = pathinfo($thumbnailFilename, PATHINFO_EXTENSION);
   $baseName = pathinfo($thumbnailFilename, PATHINFO_FILENAME);
@@ -79,85 +79,85 @@ function thumbnailFilenameToFullFilename(string $thumbnailFilename): string
   return $fullBaseName . '.' . $extension;
 }
 
-$expectedImageCount = 76;
+$expectedGalleryImageCount = 76;
 $galleryThumbnailDirectoryAbsolutePath = __DIR__ . '/images/gallery-thumbnails';
 $galleryThumbnailDirectoryWebPath = '/images/gallery-thumbnails';
-$galleryFullDirectoryAbsolutePath = __DIR__ . '/images/gallery';
-$galleryFullDirectoryWebPath = '/images/gallery';
+$galleryFullSizeDirectoryAbsolutePath = __DIR__ . '/images/gallery';
+$galleryFullSizeDirectoryWebPath = '/images/gallery';
 $supportedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'bmp', 'avif'];
 
 $galleryItems = [];
-$galleryPathIssues = [];
-$vagueAltTextFilenames = [];
+$galleryAssetIssues = [];
+$genericAltTextFilenames = [];
 
 if (!is_dir($galleryThumbnailDirectoryAbsolutePath)) {
-  $galleryPathIssues[] = 'Gallery thumbnail directory not found: ' . $galleryThumbnailDirectoryAbsolutePath;
-} elseif (!is_dir($galleryFullDirectoryAbsolutePath)) {
-  $galleryPathIssues[] = 'Gallery full-size directory not found: ' . $galleryFullDirectoryAbsolutePath;
+  $galleryAssetIssues[] = 'Gallery thumbnail directory not found: ' . $galleryThumbnailDirectoryAbsolutePath;
+} elseif (!is_dir($galleryFullSizeDirectoryAbsolutePath)) {
+  $galleryAssetIssues[] = 'Gallery full-size directory not found: ' . $galleryFullSizeDirectoryAbsolutePath;
 } else {
   // Discover thumbnails from /images/gallery-thumbnails so carousel images stay optimized.
   $directoryEntries = scandir($galleryThumbnailDirectoryAbsolutePath);
   if ($directoryEntries === false) {
-    $galleryPathIssues[] = 'Unable to read thumbnail directory: ' . $galleryThumbnailDirectoryAbsolutePath;
+    $galleryAssetIssues[] = 'Unable to read thumbnail directory: ' . $galleryThumbnailDirectoryAbsolutePath;
   } else {
-    foreach ($directoryEntries as $entry) {
-      if ($entry === '.' || $entry === '..') {
+    foreach ($directoryEntries as $thumbnailFilename) {
+      if ($thumbnailFilename === '.' || $thumbnailFilename === '..') {
         continue;
       }
 
-      $thumbnailAbsolutePath = $galleryThumbnailDirectoryAbsolutePath . DIRECTORY_SEPARATOR . $entry;
+      $thumbnailAbsolutePath = $galleryThumbnailDirectoryAbsolutePath . DIRECTORY_SEPARATOR . $thumbnailFilename;
       if (!is_file($thumbnailAbsolutePath)) {
         continue;
       }
 
-      $extension = strtolower(pathinfo($entry, PATHINFO_EXTENSION));
+      $extension = strtolower(pathinfo($thumbnailFilename, PATHINFO_EXTENSION));
       if (!in_array($extension, $supportedExtensions, true)) {
         continue;
       }
 
       if (!is_readable($thumbnailAbsolutePath)) {
-        $galleryPathIssues[] = 'Unreadable thumbnail skipped: ' . $entry;
+        $galleryAssetIssues[] = 'Unreadable thumbnail skipped: ' . $thumbnailFilename;
         continue;
       }
 
-      $fullSizeFilename = thumbnailFilenameToFullFilename($entry);
-      $fullSizeAbsolutePath = $galleryFullDirectoryAbsolutePath . DIRECTORY_SEPARATOR . $fullSizeFilename;
+      $fullSizeFilename = deriveFullSizeFilenameFromThumbnail($thumbnailFilename);
+      $fullSizeAbsolutePath = $galleryFullSizeDirectoryAbsolutePath . DIRECTORY_SEPARATOR . $fullSizeFilename;
       if (!is_file($fullSizeAbsolutePath)) {
-        $galleryPathIssues[] = 'Missing matching full-size image for thumbnail: ' . $entry . ' -> ' . $fullSizeFilename;
+        $galleryAssetIssues[] = 'Missing matching full-size image for thumbnail: ' . $thumbnailFilename . ' -> ' . $fullSizeFilename;
         continue;
       }
 
       if (!is_readable($fullSizeAbsolutePath)) {
-        $galleryPathIssues[] = 'Unreadable full-size image skipped: ' . $fullSizeFilename;
+        $galleryAssetIssues[] = 'Unreadable full-size image skipped: ' . $fullSizeFilename;
         continue;
       }
 
-      $dimensions = @getimagesize($thumbnailAbsolutePath);
-      if ($dimensions === false) {
-        $galleryPathIssues[] = 'Invalid thumbnail metadata skipped: ' . $entry;
+      $thumbnailDimensions = @getimagesize($thumbnailAbsolutePath);
+      if ($thumbnailDimensions === false) {
+        $galleryAssetIssues[] = 'Invalid thumbnail metadata skipped: ' . $thumbnailFilename;
         continue;
       }
 
       $fileBaseName = pathinfo($fullSizeFilename, PATHINFO_FILENAME);
       // Build filename-based alt text and date-aware caption for every valid image.
-      [$altText, $isVagueFilename] = buildGalleryAltText($fileBaseName);
-      if ($isVagueFilename) {
-        $vagueAltTextFilenames[] = $fullSizeFilename;
+      [$altText, $hasGenericFilename] = composeGalleryImageAltText($fileBaseName);
+      if ($hasGenericFilename) {
+        $genericAltTextFilenames[] = $fullSizeFilename;
       }
 
-      $formattedDate = formatGalleryDateFromFilename($fileBaseName);
-      $captionText = $formattedDate !== null
-        ? ('Captured on ' . $formattedDate)
+      $formattedCaptureDate = parseCapturedDateFromFilename($fileBaseName);
+      $captionText = $formattedCaptureDate !== null
+        ? ('Captured on ' . $formattedCaptureDate)
         : 'Captured date unavailable';
 
       $galleryItems[] = [
-        'filename' => $entry,
-        'thumb_src' => $galleryThumbnailDirectoryWebPath . '/' . rawurlencode($entry),
-        'full_src' => $galleryFullDirectoryWebPath . '/' . rawurlencode($fullSizeFilename),
+        'filename' => $thumbnailFilename,
+        'thumbnail_src' => $galleryThumbnailDirectoryWebPath . '/' . rawurlencode($thumbnailFilename),
+        'full_size_src' => $galleryFullSizeDirectoryWebPath . '/' . rawurlencode($fullSizeFilename),
         'alt' => $altText,
         'caption' => $captionText,
-        'width' => (int) $dimensions[0],
-        'height' => (int) $dimensions[1],
+        'thumbnail_width' => (int) $thumbnailDimensions[0],
+        'thumbnail_height' => (int) $thumbnailDimensions[1],
       ];
     }
   }
@@ -167,7 +167,7 @@ $validImageCount = count($galleryItems);
 if ($galleryItems !== []) {
   shuffle($galleryItems);
 }
-$showSlideIndicators = ($validImageCount > 1 && $validImageCount <= 12);
+$shouldRenderSlideIndicators = ($validImageCount > 1 && $validImageCount <= 12);
 
 require_once 'includes/header.php';
 ?>
@@ -222,16 +222,16 @@ require_once 'includes/header.php';
       </p>
     </div>
 
-    <?php if ($validImageCount !== $expectedImageCount): ?>
+    <?php if ($validImageCount !== $expectedGalleryImageCount): ?>
       <!-- TODO: Gallery image count mismatch. Expected 76 thumbnails in /images/gallery-thumbnails, found <?= (int) $validImageCount ?> valid images. -->
     <?php endif; ?>
 
-    <?php if ($vagueAltTextFilenames !== []): ?>
-      <!-- TODO: Replace generic alt text with scene-specific alt text for these vague filenames: <?= htmlspecialchars(implode(', ', $vagueAltTextFilenames), ENT_QUOTES, 'UTF-8') ?> -->
+    <?php if ($genericAltTextFilenames !== []): ?>
+      <!-- TODO: Replace generic alt text with scene-specific alt text for these vague filenames: <?= htmlspecialchars(implode(', ', $genericAltTextFilenames), ENT_QUOTES, 'UTF-8') ?> -->
     <?php endif; ?>
 
-    <?php if ($galleryPathIssues !== []): ?>
-      <!-- TODO: Fix gallery path/image issues: <?= htmlspecialchars(implode(' | ', $galleryPathIssues), ENT_QUOTES, 'UTF-8') ?> -->
+    <?php if ($galleryAssetIssues !== []): ?>
+      <!-- TODO: Fix gallery path/image issues: <?= htmlspecialchars(implode(' | ', $galleryAssetIssues), ENT_QUOTES, 'UTF-8') ?> -->
     <?php endif; ?>
 
     <?php if ($validImageCount > 0): ?>
@@ -251,7 +251,7 @@ require_once 'includes/header.php';
         aria-describedby="galleryCarouselInstructions galleryCarouselStatus"
         aria-label="Chandra and Skipper photo carousel">
 
-        <?php if ($showSlideIndicators): ?>
+        <?php if ($shouldRenderSlideIndicators): ?>
           <div class="carousel-indicators">
             <?php foreach ($galleryItems as $index => $galleryItem): ?>
               <button
@@ -275,17 +275,17 @@ require_once 'includes/header.php';
                   class="gallery-photo-item gallery-carousel-trigger gallery-lightbox-trigger"
                   data-bs-toggle="modal"
                   data-bs-target="#galleryLightboxModal"
-                  data-fullsrc="<?= htmlspecialchars($galleryItem['full_src'], ENT_QUOTES, 'UTF-8') ?>"
-                  data-full-src="<?= htmlspecialchars($galleryItem['full_src'], ENT_QUOTES, 'UTF-8') ?>"
+                  data-fullsrc="<?= htmlspecialchars($galleryItem['full_size_src'], ENT_QUOTES, 'UTF-8') ?>"
+                  data-full-src="<?= htmlspecialchars($galleryItem['full_size_src'], ENT_QUOTES, 'UTF-8') ?>"
                   data-alt="<?= htmlspecialchars($galleryItem['alt'], ENT_QUOTES, 'UTF-8') ?>"
                   data-caption="<?= htmlspecialchars($galleryItem['caption'], ENT_QUOTES, 'UTF-8') ?>"
                   aria-label="Open larger gallery image <?= (int) ($index + 1) ?>: <?= htmlspecialchars($galleryItem['alt'], ENT_QUOTES, 'UTF-8') ?>">
                   <img
-                    src="<?= htmlspecialchars($galleryItem['thumb_src'], ENT_QUOTES, 'UTF-8') ?>"
+                    src="<?= htmlspecialchars($galleryItem['thumbnail_src'], ENT_QUOTES, 'UTF-8') ?>"
                     class="gallery-photo-thumb gallery-carousel-image"
                     alt="<?= htmlspecialchars($galleryItem['alt'], ENT_QUOTES, 'UTF-8') ?>"
-                    width="<?= (int) $galleryItem['width'] ?>"
-                    height="<?= (int) $galleryItem['height'] ?>"
+                    width="<?= (int) $galleryItem['thumbnail_width'] ?>"
+                    height="<?= (int) $galleryItem['thumbnail_height'] ?>"
                     loading="lazy"
                     decoding="async">
                 </button>
@@ -397,6 +397,6 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<script src="/js/gallery_lightbox_modal.js?v=<?= filemtime(__DIR__ . '/js/gallery_lightbox_modal.js'); ?>" defer></script>
+<script src="/js/gallery_lightbox_controller.js?v=<?= filemtime(__DIR__ . '/js/gallery_lightbox_controller.js'); ?>" defer></script>
 
 <?php require_once 'includes/footer.php'; ?>

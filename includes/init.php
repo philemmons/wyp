@@ -6,17 +6,17 @@ declare(strict_types=1);
 // without caring where variables came from.
 // We intentionally make .env mandatory here to fail fast if configuration is missing.
 $dotenvPath = dirname(__DIR__) . '/.env';
-$lines = file($dotenvPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+$dotenvLines = file($dotenvPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-if ($lines === false) {
+if ($dotenvLines === false) {
   // RuntimeException is deliberate: we want a hard failure in misconfigured environments
   // rather than silently running with missing secrets.
   throw new RuntimeException('Mandatory .env file could not be loaded at: ' . $dotenvPath);
 }
 
 // Parse each .env line into KEY=VALUE and publish to process/server env arrays.
-foreach ($lines as $line) {
-  $trimmedLine = trim($line);
+foreach ($dotenvLines as $dotenvLine) {
+  $trimmedLine = trim($dotenvLine);
 
   // Allow blank lines and comments for readability in .env files.
   if ($trimmedLine === '' || str_starts_with($trimmedLine, '#')) {

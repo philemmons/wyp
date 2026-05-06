@@ -20,7 +20,7 @@ if (is_file($bootstrapFilePath)) {
     require_once $bootstrapFilePath;
 }
 
-$readEnvironmentValue = static function (string $key, string $default = ''): string {
+$resolveEnvironmentValue = static function (string $key, string $default = ''): string {
     if (function_exists('wyp_env')) {
         return wyp_env($key, $default);
     }
@@ -33,18 +33,18 @@ $readEnvironmentValue = static function (string $key, string $default = ''): str
     return trim((string) $value);
 };
 
-$expectedAccessKey = $readEnvironmentValue('WYP_DIAG_KEY');
-$providedAccessKey = isset($_GET['key']) && is_string($_GET['key']) ? $_GET['key'] : '';
-$isJsonResponseRequested = (isset($_GET['format']) && $_GET['format'] === 'json');
+$configuredDiagnosticAccessKey = $resolveEnvironmentValue('WYP_DIAG_KEY');
+$requestedDiagnosticAccessKey = isset($_GET['key']) && is_string($_GET['key']) ? $_GET['key'] : '';
+$shouldReturnJson = (isset($_GET['format']) && $_GET['format'] === 'json');
 
-if ($expectedAccessKey === '') {
+if ($configuredDiagnosticAccessKey === '') {
     http_response_code(403);
     $message = [
         'ok' => false,
         'error' => 'WYP_DIAG_KEY is not set on the server.',
         'hint' => 'Set an environment variable WYP_DIAG_KEY and pass it as ?key=...',
     ];
-    if ($isJsonResponseRequested) {
+    if ($shouldReturnJson) {
         header('Content-Type: application/json; charset=UTF-8');
         echo json_encode($message, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         exit;
@@ -54,9 +54,9 @@ if ($expectedAccessKey === '') {
     exit;
 }
 
-if ($providedAccessKey === '' || !hash_equals($expectedAccessKey, $providedAccessKey)) {
+if ($requestedDiagnosticAccessKey === '' || !hash_equals($configuredDiagnosticAccessKey, $requestedDiagnosticAccessKey)) {
     http_response_code(403);
-    if ($isJsonResponseRequested) {
+    if ($shouldReturnJson) {
         header('Content-Type: application/json; charset=UTF-8');
         echo json_encode(['ok' => false, 'error' => 'Invalid key'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         exit;
@@ -66,22 +66,22 @@ if ($providedAccessKey === '' || !hash_equals($expectedAccessKey, $providedAcces
     exit;
 }
 
-$recipientEmailAddress = $readEnvironmentValue('WYP_EMAIL');
+$recipientEmailAddress = $resolveEnvironmentValue('WYP_EMAIL');
 if ($recipientEmailAddress === '') {
-    $recipientEmailAddress = $readEnvironmentValue('CONTACT_RECIPIENT_EMAIL');
+    $recipientEmailAddress = $resolveEnvironmentValue('CONTACT_RECIPIENT_EMAIL');
 }
 
-$configuredFromAddress = $readEnvironmentValue('WYP_FORM_FROM_EMAIL');
+$configuredFromAddress = $resolveEnvironmentValue('WYP_FORM_FROM_EMAIL');
 $fromEmailAddress = filter_var($configuredFromAddress, FILTER_VALIDATE_EMAIL)
     ? $configuredFromAddress
     : (filter_var($recipientEmailAddress, FILTER_VALIDATE_EMAIL) ? $recipientEmailAddress : 'noreply@example.com');
 
-$defaultSmtpHost = $readEnvironmentValue('WYP_SMTP_HOST');
-$defaultSmtpPort = (int) $readEnvironmentValue('WYP_SMTP_PORT', '587');
+$defaultSmtpHost = $resolveEnvironmentValue('WYP_SMTP_HOST');
+$defaultSmtpPort = (int) $resolveEnvironmentValue('WYP_SMTP_PORT', '587');
 if ($defaultSmtpPort <= 0) {
     $defaultSmtpPort = 587;
 }
-$defaultDkimSelector = $readEnvironmentValue('WYP_DKIM_SELECTOR', 'default');
+$defaultDkimSelector = $resolveEnvironmentValue('WYP_DKIM_SELECTOR', 'default');
 
 $fromEmailDomain = strtolower((string) substr(strrchr($fromEmailAddress, '@') ?: '', 1));
 $domain = isset($_GET['domain']) && is_string($_GET['domain']) && $_GET['domain'] !== ''
@@ -96,7 +96,7 @@ $smtpHost = isset($_GET['smtp_host']) && is_string($_GET['smtp_host']) && $_GET[
     ? trim($_GET['smtp_host'])
     : $defaultSmtpHost;
 
-$smtpPortsToProbe = [25, 465, 587, 2525];
+$smtpPortsToTest = [25, 465, 587, 2525];
 
 $disabledPhpFunctions = array_filter(array_map(
     static fn (string $v): string => trim($v),
@@ -106,7 +106,7 @@ $disabledPhpFunctions = array_filter(array_map(
 $isMailFunctionAvailable = function_exists('mail');
 $isMailFunctionDisabled = in_array('mail', $disabledPhpFunctions, true);
 
-$probeSmtpPort = static function (string $host, int $port): array {
+$testSmtpPortConnectivity = static function (string $host, int $port): array {
     if ($host === '') {
         return [
             'host' => $host,
@@ -148,7 +148,7 @@ $probeSmtpPort = static function (string $host, int $port): array {
     ];
 };
 
-$lookupDnsTxtRecords = static function (string $name): array {
+$lookupDnsTxtValues = static function (string $name): array {
     $records = dns_get_record($name, DNS_TXT);
     if (!is_array($records)) {
         return [];
@@ -164,22 +164,22 @@ $lookupDnsTxtRecords = static function (string $name): array {
 };
 
 $spfTxtRecords = array_values(array_filter(
-    $lookupDnsTxtRecords($domain),
+    $lookupDnsTxtValues($domain),
     static fn (string $txt): bool => stripos($txt, 'v=spf1') === 0
 ));
 
 $dmarcTxtRecords = array_values(array_filter(
-    $lookupDnsTxtRecords('_dmarc.' . $domain),
+    $lookupDnsTxtValues('_dmarc.' . $domain),
     static fn (string $txt): bool => stripos($txt, 'v=DMARC1') === 0
 ));
 
-$dkimTxtRecords = $lookupDnsTxtRecords($selector . '._domainkey.' . $domain);
+$dkimTxtRecords = $lookupDnsTxtValues($selector . '._domainkey.' . $domain);
 
-$reverseDnsCheck = ['checked' => false];
+$reverseDnsStatus = ['checked' => false];
 $outboundIpAddress = isset($_GET['outbound_ip']) && is_string($_GET['outbound_ip']) ? trim($_GET['outbound_ip']) : '';
 if ($outboundIpAddress !== '' && filter_var($outboundIpAddress, FILTER_VALIDATE_IP)) {
     $ptr = gethostbyaddr($outboundIpAddress);
-    $reverseDnsCheck = [
+    $reverseDnsStatus = [
         'checked' => true,
         'ip' => $outboundIpAddress,
         'ptr' => $ptr,
@@ -187,16 +187,16 @@ if ($outboundIpAddress !== '' && filter_var($outboundIpAddress, FILTER_VALIDATE_
     ];
 }
 
-$mailFunctionTest = ['attempted' => false];
-$mailFunctionTestRecipient = isset($_GET['mail_test_to']) && is_string($_GET['mail_test_to']) ? trim($_GET['mail_test_to']) : '';
-if ($mailFunctionTestRecipient !== '') {
-    $mailFunctionTest['attempted'] = true;
-    if (!filter_var($mailFunctionTestRecipient, FILTER_VALIDATE_EMAIL)) {
-        $mailFunctionTest['ok'] = false;
-        $mailFunctionTest['error'] = 'Invalid mail_test_to email format';
+$mailFunctionTestResult = ['attempted' => false];
+$mailFunctionTestResultRecipient = isset($_GET['mail_test_to']) && is_string($_GET['mail_test_to']) ? trim($_GET['mail_test_to']) : '';
+if ($mailFunctionTestResultRecipient !== '') {
+    $mailFunctionTestResult['attempted'] = true;
+    if (!filter_var($mailFunctionTestResultRecipient, FILTER_VALIDATE_EMAIL)) {
+        $mailFunctionTestResult['ok'] = false;
+        $mailFunctionTestResult['error'] = 'Invalid mail_test_to email format';
     } elseif (!$isMailFunctionAvailable || $isMailFunctionDisabled) {
-        $mailFunctionTest['ok'] = false;
-        $mailFunctionTest['error'] = 'mail() unavailable or disabled';
+        $mailFunctionTestResult['ok'] = false;
+        $mailFunctionTestResult['error'] = 'mail() unavailable or disabled';
     } else {
         $subject = 'WYP diagnostic mail() test ' . gmdate('c');
         $body = "This is a diagnostic mail() test.\r\n"
@@ -212,23 +212,23 @@ if ($mailFunctionTestRecipient !== '') {
         $headerBlob = implode("\r\n", $headers);
 
         $errorBeforeSend = error_get_last();
-        $ok = @mail($mailFunctionTestRecipient, $subject, $body, $headerBlob, '-f' . $fromEmailAddress);
+        $ok = @mail($mailFunctionTestResultRecipient, $subject, $body, $headerBlob, '-f' . $fromEmailAddress);
         $errorAfterSend = error_get_last();
         $warning = '';
         if ($errorAfterSend !== $errorBeforeSend && isset($errorAfterSend['message']) && is_string($errorAfterSend['message'])) {
             $warning = $errorAfterSend['message'];
         }
-        $mailFunctionTest['ok'] = $ok;
-        $mailFunctionTest['warning'] = $warning;
+        $mailFunctionTestResult['ok'] = $ok;
+        $mailFunctionTestResult['warning'] = $warning;
     }
 }
 
-$smtpPortProbeResults = [];
-foreach ($smtpPortsToProbe as $port) {
-    $smtpPortProbeResults[] = $probeSmtpPort($smtpHost, $port);
+$smtpPortTestResults = [];
+foreach ($smtpPortsToTest as $port) {
+    $smtpPortTestResults[] = $testSmtpPortConnectivity($smtpHost, $port);
 }
 
-$diagnosticReport = [
+$mailDiagnosticReport = [
     'generated_at_utc' => gmdate('c'),
     'server' => [
         'hostname' => gethostname(),
@@ -261,15 +261,15 @@ $diagnosticReport = [
     'smtp_connectivity' => [
         'smtp_host' => $smtpHost,
         'configured_smtp_port' => $defaultSmtpPort,
-        'port_tests' => $smtpPortProbeResults,
+        'port_tests' => $smtpPortTestResults,
     ],
     'mail_routing' => [
         'contact_recipient_email' => $recipientEmailAddress,
         'configured_from_email' => $configuredFromAddress,
         'resolved_from_email' => $fromEmailAddress,
     ],
-    'reverse_dns' => $reverseDnsCheck,
-    'mail_test' => $mailFunctionTest,
+    'reverse_dns' => $reverseDnsStatus,
+    'mail_test' => $mailFunctionTestResult,
     'manual_checks' => [
         'mailbox_quota' => 'Check cPanel -> Email Accounts -> Storage usage and quota for sending mailbox.',
         'spam_filtering' => 'Check recipient spam/junk folders and cPanel Track Delivery logs.',
@@ -278,9 +278,9 @@ $diagnosticReport = [
     ],
 ];
 
-if ($isJsonResponseRequested) {
+if ($shouldReturnJson) {
     header('Content-Type: application/json; charset=UTF-8');
-    echo json_encode($diagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    echo json_encode($mailDiagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     exit;
 }
 
@@ -291,7 +291,8 @@ echo '</head><body>';
 echo '<h1>Mail Diagnostics</h1>';
 echo '<p>Temporary endpoint. Remove after troubleshooting.</p>';
 echo '<h2>Summary</h2>';
-echo '<pre>' . htmlspecialchars(json_encode($diagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), ENT_QUOTES, 'UTF-8') . '</pre>';
+echo '<pre>' . htmlspecialchars(json_encode($mailDiagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), ENT_QUOTES, 'UTF-8') . '</pre>';
 echo '</body></html>';
+
 
 

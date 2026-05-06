@@ -14,7 +14,7 @@
 
 
   // Config
-  const SCROLL_THRESHOLD = 200; // px before button appears
+  const SCROLL_OFFSET_TO_REVEAL_BUTTON = 200; // px before button appears
 
 
   // Element reference
@@ -25,16 +25,16 @@
 
 
   // Accessibility: Reduced motion preference
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const userPrefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 
   // Scroll handler (throttled)
-  let ticking = false;
+  let isAnimationFramePending = false;
 
-  function handleScroll() {
+  function updateBackToTopVisibility() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-    if (scrollTop > SCROLL_THRESHOLD) {
+    if (scrollTop > SCROLL_OFFSET_TO_REVEAL_BUTTON) {
       backToTopButton.classList.add('visible');
       backToTopButton.setAttribute('tabindex', '0');
       backToTopButton.setAttribute('aria-hidden', 'false');
@@ -44,18 +44,18 @@
       backToTopButton.setAttribute('aria-hidden', 'true');
     }
 
-    ticking = false;
+    isAnimationFramePending = false;
   }
 
-  function onScroll() {
-    if (!ticking) {
-      window.requestAnimationFrame(handleScroll);
-      ticking = true;
+  function queueBackToTopVisibilityUpdate() {
+    if (!isAnimationFramePending) {
+      window.requestAnimationFrame(updateBackToTopVisibility);
+      isAnimationFramePending = true;
     }
   }
 
   // Attach optimized scroll listener
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', queueBackToTopVisibilityUpdate, { passive: true });
 
 
   // Click handler (scroll to top)
@@ -64,12 +64,12 @@
 
     window.scrollTo({
       top: 0,
-      behavior: prefersReducedMotion ? 'auto' : 'smooth'
+      behavior: userPrefersReducedMotion ? 'auto' : 'smooth'
     });
   });
 
 
   // Initial state (prevents flash of button)
-  handleScroll();
+  updateBackToTopVisibility();
 
 })();

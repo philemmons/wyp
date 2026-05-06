@@ -129,21 +129,21 @@ $montereyHighlightCategories = [
 
     <div class="row g-3 mt-4">
       <?php
-      $featuredDogFriendlySpots = [
-        ['bi-umbrella', 'Carmel Beach',             'One of California\'s most beautiful dog-friendly beaches'],
-        ['bi-tree', 'Garrapata State Park',       'Stunning coastal trails where leashed dogs are welcome'],
-        ['bi-person-walking', 'Monterey Bay Coastal Trail', '18-mile multi-use path along the scenic bay'],
-        ['bi-heart-fill', 'Carmel City Beach',          'Off-leash beach access for well-behaved dogs'],
-        ['bi-water', 'Cannery Row',                'Historic waterfront with dog-welcoming shops & eateries'],
-        ['bi-stars', 'Monterey Bay Aquarium',      'Leashed dogs welcome in outdoor areas'],
+      $featuredDogFriendlyLocations = [
+        ['icon_class' => 'bi-umbrella', 'name' => 'Carmel Beach', 'description' => 'One of California\'s most beautiful dog-friendly beaches'],
+        ['icon_class' => 'bi-tree', 'name' => 'Garrapata State Park', 'description' => 'Stunning coastal trails where leashed dogs are welcome'],
+        ['icon_class' => 'bi-person-walking', 'name' => 'Monterey Bay Coastal Trail', 'description' => '18-mile multi-use path along the scenic bay'],
+        ['icon_class' => 'bi-heart-fill', 'name' => 'Carmel City Beach', 'description' => 'Off-leash beach access for well-behaved dogs'],
+        ['icon_class' => 'bi-water', 'name' => 'Cannery Row', 'description' => 'Historic waterfront with dog-welcoming shops & eateries'],
+        ['icon_class' => 'bi-stars', 'name' => 'Monterey Bay Aquarium', 'description' => 'Leashed dogs welcome in outdoor areas'],
       ];
-      foreach ($featuredDogFriendlySpots as $featuredSpot): ?>
+      foreach ($featuredDogFriendlyLocations as $dogFriendlyLocation): ?>
         <div class="col-md-4 col-sm-6">
           <div class="wyp-card wyp-feature-card p-3 d-flex align-items-start gap-3 h-100 monterey-location-border-left">
-            <i class="bi <?= htmlspecialchars($featuredSpot[0]) ?> emoji-md" aria-hidden="true"></i>
+            <i class="bi <?= htmlspecialchars($dogFriendlyLocation['icon_class']) ?> emoji-md" aria-hidden="true"></i>
             <div>
-              <strong class="spot-name"><?= htmlspecialchars($featuredSpot[1]) ?></strong>
-              <p class="spot-desc"><?= htmlspecialchars($featuredSpot[2]) ?></p>
+              <strong class="spot-name"><?= htmlspecialchars($dogFriendlyLocation['name']) ?></strong>
+              <p class="spot-desc"><?= htmlspecialchars($dogFriendlyLocation['description']) ?></p>
             </div>
           </div>
         </div>

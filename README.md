@@ -8,7 +8,7 @@ Multi-page PHP site for `wipeyourpaws.net`, built with shared PHP includes, Boot
 - Custom error pages: `403.php`, `404.php`
 - Shared includes: `includes/header.php`, `includes/footer.php`, `includes/init.php`
 - Canonical CSS: `css/style.css`
-- JavaScript modules: `js/analytics.js`, `js/back_to_top_button.js`, `js/scroll_reveal_animations.js`, `js/contact_page.js`
+- JavaScript modules: `js/analytics.js`, `js/back_to_top_control.js`, `js/scroll_reveal_controller.js`, `js/contact_form_experience.js`, `js/gallery_lightbox_controller.js`
 - Operational diagnostics: `diagnostics/mail_delivery_diagnostic.php`, `diagnostics/smtp_delivery_test.php`
 
 ## Current Project Structure
@@ -46,10 +46,11 @@ Multi-page PHP site for `wipeyourpaws.net`, built with shared PHP includes, Boot
 |   `-- init.php
 `-- js/
     |-- analytics.js
-    |-- back_to_top_button.js
-    |-- contact_page.js
+    |-- back_to_top_control.js
+    |-- contact_form_experience.js
+    |-- gallery_lightbox_controller.js
     |-- index.php
-    `-- scroll_reveal_animations.js
+    `-- scroll_reveal_controller.js
 ```
 
 ## Runtime Architecture
@@ -84,7 +85,7 @@ Multi-page PHP site for `wipeyourpaws.net`, built with shared PHP includes, Boot
 
 ### Validation flow (client-side)
 
-- `js/contact_page.js` applies Bootstrap validation (`needs-validation`/`was-validated`).
+- `js/contact_form_experience.js` applies Bootstrap validation (`needs-validation`/`was-validated`).
 - Prevents submit when HTML validity fails.
 - Loads reCAPTCHA script dynamically and blocks submit until token is present.
 - Focuses first invalid control on failure and focuses summary message after server response.
@@ -189,9 +190,10 @@ See `WCAG_2.1_READABILITY_CHECKLIST.md` for detailed manual regression checks.
 - Shared design tokens and component styles live in `css/style.css`.
 - JavaScript responsibilities are split by concern:
   - `analytics.js`: Google Analytics initialization
-  - `back_to_top_button.js`: back-to-top visibility + behavior
-  - `scroll_reveal_animations.js`: IntersectionObserver reveal behavior
-  - `contact_page.js`: contact form UX and reCAPTCHA flow
+  - `back_to_top_control.js`: back-to-top visibility + behavior
+  - `scroll_reveal_controller.js`: IntersectionObserver reveal behavior
+  - `contact_form_experience.js`: contact form UX and reCAPTCHA flow
+  - `gallery_lightbox_controller.js`: gallery modal and carousel keyboard behavior
 - CSS/JS assets are loaded with `filemtime()` cache-busting query strings.
 
 ## Deployment Workflow (cPanel/shared hosting)
