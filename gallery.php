@@ -73,6 +73,7 @@ $vagueAltTextFilenames = [];
 if (!is_dir($galleryDirectoryAbsolutePath)) {
   $galleryPathIssues[] = 'Gallery directory not found: ' . $galleryDirectoryAbsolutePath;
 } else {
+  // Discover images from /images/gallery so we avoid hardcoding image blocks.
   $directoryEntries = scandir($galleryDirectoryAbsolutePath);
   if ($directoryEntries === false) {
     $galleryPathIssues[] = 'Unable to read gallery directory: ' . $galleryDirectoryAbsolutePath;
@@ -104,6 +105,7 @@ if (!is_dir($galleryDirectoryAbsolutePath)) {
       }
 
       $fileBaseName = pathinfo($entry, PATHINFO_FILENAME);
+      // Build filename-based alt text and date-aware caption for every valid image.
       [$altText, $isVagueFilename] = buildGalleryAltText($fileBaseName);
       if ($isVagueFilename) {
         $vagueAltTextFilenames[] = $entry;
@@ -130,6 +132,7 @@ $validImageCount = count($galleryItems);
 if ($galleryItems !== []) {
   shuffle($galleryItems);
 }
+$showSlideIndicators = ($validImageCount > 1 && $validImageCount <= 12);
 
 require_once 'includes/header.php';
 ?>
@@ -162,7 +165,7 @@ require_once 'includes/header.php';
   </div>
 </section>
 
-<!--  FULL GALLERY GRID (uses existing gallery preview classes as canonical structure)  -->
+<!--  FULL GALLERY CAROUSEL (uses existing gallery preview styles as canonical structure)  -->
 <section class="wyp-section">
   <div class="container">
 
@@ -187,31 +190,87 @@ require_once 'includes/header.php';
       <!-- TODO: Fix gallery path/image issues: <?= htmlspecialchars(implode(' | ', $galleryPathIssues), ENT_QUOTES, 'UTF-8') ?> -->
     <?php endif; ?>
 
-    <div class="gallery-placeholder-grid">
-      <?php foreach ($galleryItems as $index => $galleryItem): ?>
-        <a
-          href="<?= htmlspecialchars($galleryItem['src'], ENT_QUOTES, 'UTF-8') ?>"
-          class="gallery-placeholder-item gallery-photo-item gallery-lightbox-trigger"
-          data-bs-toggle="modal"
-          data-bs-target="#galleryLightboxModal"
-          data-full-src="<?= htmlspecialchars($galleryItem['src'], ENT_QUOTES, 'UTF-8') ?>"
-          data-alt="<?= htmlspecialchars($galleryItem['alt'], ENT_QUOTES, 'UTF-8') ?>"
-          data-caption="<?= htmlspecialchars($galleryItem['caption'], ENT_QUOTES, 'UTF-8') ?>"
-          aria-label="Open larger gallery image <?= (int) ($index + 1) ?>: <?= htmlspecialchars($galleryItem['alt'], ENT_QUOTES, 'UTF-8') ?>">
-          <span class="gallery-coming-badge">View Full</span>
-          <img
-            src="<?= htmlspecialchars($galleryItem['src'], ENT_QUOTES, 'UTF-8') ?>"
-            class="gallery-photo-thumb"
-            alt="<?= htmlspecialchars($galleryItem['alt'], ENT_QUOTES, 'UTF-8') ?>"
-            width="<?= (int) $galleryItem['width'] ?>"
-            height="<?= (int) $galleryItem['height'] ?>"
-            loading="lazy"
-            decoding="async">
-          <p class="spot-name mt-2 mb-0">Chandra &amp; Skipper</p>
-          <p class="gallery-tip-text mb-0"><?= htmlspecialchars($galleryItem['caption'], ENT_QUOTES, 'UTF-8') ?></p>
-        </a>
-      <?php endforeach; ?>
-    </div>
+    <?php if ($validImageCount > 0): ?>
+      <div
+        id="galleryPhotoCarousel"
+        class="carousel slide gallery-carousel-shell"
+        data-bs-ride="false"
+        data-bs-interval="false"
+        data-bs-touch="true"
+        aria-label="Chandra and Skipper photo carousel">
+
+        <?php if ($showSlideIndicators): ?>
+          <div class="carousel-indicators">
+            <?php foreach ($galleryItems as $index => $galleryItem): ?>
+              <button
+                type="button"
+                data-bs-target="#galleryPhotoCarousel"
+                data-bs-slide-to="<?= (int) $index ?>"
+                class="<?= $index === 0 ? 'active' : '' ?>"
+                <?= $index === 0 ? 'aria-current="true"' : '' ?>
+                aria-label="Go to slide <?= (int) ($index + 1) ?>"></button>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
+
+        <div class="carousel-inner">
+          <?php foreach ($galleryItems as $index => $galleryItem): ?>
+            <!-- Each slide uses the existing gallery card styling and opens the Bootstrap modal lightbox. -->
+            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+              <div class="gallery-placeholder-item gallery-carousel-card">
+                <span class="gallery-coming-badge">View Full</span>
+                <button
+                  type="button"
+                  class="gallery-photo-item gallery-carousel-trigger gallery-lightbox-trigger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#galleryLightboxModal"
+                  data-full-src="<?= htmlspecialchars($galleryItem['src'], ENT_QUOTES, 'UTF-8') ?>"
+                  data-alt="<?= htmlspecialchars($galleryItem['alt'], ENT_QUOTES, 'UTF-8') ?>"
+                  data-caption="<?= htmlspecialchars($galleryItem['caption'], ENT_QUOTES, 'UTF-8') ?>"
+                  aria-label="Open larger gallery image <?= (int) ($index + 1) ?>: <?= htmlspecialchars($galleryItem['alt'], ENT_QUOTES, 'UTF-8') ?>">
+                  <img
+                    src="<?= htmlspecialchars($galleryItem['src'], ENT_QUOTES, 'UTF-8') ?>"
+                    class="gallery-photo-thumb gallery-carousel-image"
+                    alt="<?= htmlspecialchars($galleryItem['alt'], ENT_QUOTES, 'UTF-8') ?>"
+                    width="<?= (int) $galleryItem['width'] ?>"
+                    height="<?= (int) $galleryItem['height'] ?>"
+                    loading="lazy"
+                    decoding="async">
+                </button>
+                <p class="spot-name mt-2 mb-0">Chandra &amp; Skipper</p>
+                <p class="gallery-tip-text mb-0"><?= htmlspecialchars($galleryItem['caption'], ENT_QUOTES, 'UTF-8') ?></p>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        </div>
+
+        <?php if ($validImageCount > 1): ?>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#galleryPhotoCarousel"
+            data-bs-slide="prev"
+            aria-label="Previous gallery image">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#galleryPhotoCarousel"
+            data-bs-slide="next"
+            aria-label="Next gallery image">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          </button>
+        <?php endif; ?>
+
+      </div>
+    <?php else: ?>
+      <div class="gallery-coming-soon text-center">
+        <p class="gallery-coming-soon__body mb-0">
+          Gallery images are currently unavailable. Please check back soon.
+        </p>
+      </div>
+    <?php endif; ?>
 
   </div>
 </section>
@@ -306,6 +365,7 @@ require_once 'includes/header.php';
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    // Populate the Bootstrap modal with the image selected from the carousel.
     var modalElement = document.getElementById('galleryLightboxModal');
     var modalImage = document.getElementById('galleryLightboxImage');
     var modalCaption = document.getElementById('galleryLightboxCaption');
