@@ -1554,9 +1554,11 @@ p:last-child {
 
 .gallery-carousel-trigger {
   display: flex;
+  align-items: center;
   justify-content: center;
-  width: auto;
+  width: 100%;
   max-width: 100%;
+  min-height: 484px;
   margin-inline: auto;
   padding: 0;
   border: 0;
@@ -1611,9 +1613,9 @@ p:last-child {
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: none;
+  max-height: 484px;
   object-fit: contain;
-  margin: 1.1rem auto 0;
+  margin: 0 auto;
   border: 1px solid var(--border-soft);
   border-radius: clamp(0.8rem, 1.8vw, 1rem);
   background-color: #fff;
