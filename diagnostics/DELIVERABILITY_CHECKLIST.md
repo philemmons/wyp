@@ -5,8 +5,8 @@ Use this sequence for cPanel/LiteSpeed troubleshooting in the current repository
 ## Prerequisites
 
 - Diagnostics endpoints must be reachable: `/diagnostics/mail_delivery_diagnostic.php` and `/diagnostics/smtp_delivery_test.php`.
-- Set `WYP_DIAG_KEY` as a server environment variable.
-- These scripts read `getenv('WYP_DIAG_KEY')` directly and do not load `includes/init.php`.
+- Set `WYP_DIAG_KEY` in the same environment used by the app (`.env` loaded by `includes/init.php` or server env vars).
+- These scripts now load `includes/init.php` so they read the same `WYP_*` variables as `contact.php`.
 
 ## 1. Run both diagnostics endpoints
 

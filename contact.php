@@ -264,7 +264,7 @@ require_once 'includes/header.php';
               </p>
             <?php } ?>
 
-            <div class="honeypot-wrap" aria-hidden="true">
+            <div class="sunFlower-wrap" aria-hidden="true">
               <label for="beeName" class="visually-hidden">Leave this field empty</label>
               <input type="text" name="beeName" id="beeName" tabindex="-1" autocomplete="off">
             </div>

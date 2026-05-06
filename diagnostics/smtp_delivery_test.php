@@ -12,7 +12,30 @@ declare(strict_types=1);
  * /diagnostics/smtp_delivery_test.php?key=YOUR_KEY&format=json
  */
 
-$expectedAccessKey = (string) getenv('WYP_DIAG_KEY');
+$bootstrapFilePath = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'init.php';
+if (is_file($bootstrapFilePath)) {
+    require_once $bootstrapFilePath;
+}
+
+$readEnvironmentValue = static function (string $key, string $default = ''): string {
+    if (function_exists('wyp_env')) {
+        return wyp_env($key, $default);
+    }
+
+    $value = getenv($key);
+    if ($value === false) {
+        return $default;
+    }
+
+    return trim((string) $value);
+};
+
+$readEnvironmentFlag = static function (string $key, bool $default) use ($readEnvironmentValue): bool {
+    $value = strtolower($readEnvironmentValue($key, $default ? '1' : '0'));
+    return in_array($value, ['1', 'true', 'yes', 'on'], true);
+};
+
+$expectedAccessKey = $readEnvironmentValue('WYP_DIAG_KEY');
 $providedAccessKey = isset($_GET['key']) && is_string($_GET['key']) ? $_GET['key'] : '';
 $isJsonResponseRequested = (isset($_GET['format']) && $_GET['format'] === 'json');
 
@@ -61,25 +84,36 @@ $loadPhpMailer = static function (): array {
         : ['ok' => false, 'reason' => 'load_failed'];
 };
 
-$mailConfigurationFilePath = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'contact_mail.php';
-$mailConfiguration = is_file($mailConfigurationFilePath) ? require $mailConfigurationFilePath : [];
-
-$siteDisplayName = (string) ($mailConfiguration['site']['name'] ?? 'Wipe Your Paws');
-$fromEmailAddress = (string) ($mailConfiguration['site']['from_email'] ?? 'noreply@example.com');
-$adminRecipientEmail = (string) ($mailConfiguration['site']['admin_email'] ?? $fromEmailAddress);
+$siteDisplayName = 'Wipe Your Paws';
+$adminRecipientEmail = $readEnvironmentValue('WYP_EMAIL');
+if ($adminRecipientEmail === '') {
+    $adminRecipientEmail = $readEnvironmentValue('CONTACT_RECIPIENT_EMAIL');
+}
+$configuredFromAddress = $readEnvironmentValue('WYP_FORM_FROM_EMAIL');
+$fromEmailAddress = filter_var($configuredFromAddress, FILTER_VALIDATE_EMAIL)
+    ? $configuredFromAddress
+    : (filter_var($adminRecipientEmail, FILTER_VALIDATE_EMAIL) ? $adminRecipientEmail : 'noreply@example.com');
+$defaultSmtpPort = (int) $readEnvironmentValue('WYP_SMTP_PORT', '587');
+if ($defaultSmtpPort <= 0) {
+    $defaultSmtpPort = 587;
+}
+$defaultSmtpTimeout = (int) $readEnvironmentValue('WYP_SMTP_TIMEOUT', '15');
+if ($defaultSmtpTimeout < 3) {
+    $defaultSmtpTimeout = 15;
+}
 
 $smtpSettings = [
     'host' => isset($_GET['host']) && is_string($_GET['host']) && $_GET['host'] !== ''
         ? trim($_GET['host'])
-        : (string) ($mailConfiguration['smtp']['host'] ?? ''),
-    'port' => isset($_GET['port']) ? (int) $_GET['port'] : (int) ($mailConfiguration['smtp']['port'] ?? 587),
+        : $readEnvironmentValue('WYP_SMTP_HOST'),
+    'port' => isset($_GET['port']) ? (int) $_GET['port'] : $defaultSmtpPort,
     'encryption' => isset($_GET['encryption']) && is_string($_GET['encryption']) && $_GET['encryption'] !== ''
         ? strtolower(trim($_GET['encryption']))
-        : strtolower((string) ($mailConfiguration['smtp']['encryption'] ?? 'tls')),
-    'auth' => isset($_GET['auth']) ? ($_GET['auth'] === '1') : (bool) ($mailConfiguration['smtp']['auth'] ?? true),
-    'username' => isset($_GET['username']) && is_string($_GET['username']) ? trim($_GET['username']) : (string) ($mailConfiguration['smtp']['username'] ?? ''),
-    'password' => isset($_GET['password']) && is_string($_GET['password']) ? $_GET['password'] : (string) ($mailConfiguration['smtp']['password'] ?? ''),
-    'timeout' => isset($_GET['timeout']) ? max(3, (int) $_GET['timeout']) : (int) ($mailConfiguration['smtp']['timeout'] ?? 15),
+        : strtolower($readEnvironmentValue('WYP_SMTP_ENCRYPTION', 'tls')),
+    'auth' => isset($_GET['auth']) ? ($_GET['auth'] === '1') : $readEnvironmentFlag('WYP_SMTP_AUTH', true),
+    'username' => isset($_GET['username']) && is_string($_GET['username']) ? trim($_GET['username']) : $readEnvironmentValue('WYP_SMTP_USERNAME'),
+    'password' => isset($_GET['password']) && is_string($_GET['password']) ? $_GET['password'] : $readEnvironmentValue('WYP_SMTP_PASSWORD'),
+    'timeout' => isset($_GET['timeout']) ? max(3, (int) $_GET['timeout']) : $defaultSmtpTimeout,
 ];
 
 $shouldSendTestMessage = isset($_GET['send']) && $_GET['send'] === '1';
@@ -113,6 +147,11 @@ $diagnosticReport = [
         'username_set' => $smtpSettings['username'] !== '',
         'password_set' => $smtpSettings['password'] !== '',
         'timeout' => $smtpSettings['timeout'],
+    ],
+    'mail_routing' => [
+        'contact_recipient_email' => $adminRecipientEmail,
+        'configured_from_email' => $configuredFromAddress,
+        'resolved_from_email' => $fromEmailAddress,
     ],
     'to' => $recipientEmailAddress,
     'port_probe' => $probeSmtpPort($smtpSettings['host'], $smtpSettings['port']),
@@ -218,5 +257,4 @@ echo '<style>body{font-family:Arial,sans-serif;max-width:980px;margin:24px auto;
 echo '</head><body><h1>SMTP Test Route</h1><p>Temporary endpoint. Remove after troubleshooting.</p>';
 echo '<pre>' . htmlspecialchars(json_encode($diagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), ENT_QUOTES, 'UTF-8') . '</pre>';
 echo '</body></html>';
-
 

@@ -15,7 +15,25 @@ declare(strict_types=1);
  * /diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY&outbound_ip=203.0.113.10
  */
 
-$expectedAccessKey = (string) getenv('WYP_DIAG_KEY');
+$bootstrapFilePath = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'init.php';
+if (is_file($bootstrapFilePath)) {
+    require_once $bootstrapFilePath;
+}
+
+$readEnvironmentValue = static function (string $key, string $default = ''): string {
+    if (function_exists('wyp_env')) {
+        return wyp_env($key, $default);
+    }
+
+    $value = getenv($key);
+    if ($value === false) {
+        return $default;
+    }
+
+    return trim((string) $value);
+};
+
+$expectedAccessKey = $readEnvironmentValue('WYP_DIAG_KEY');
 $providedAccessKey = isset($_GET['key']) && is_string($_GET['key']) ? $_GET['key'] : '';
 $isJsonResponseRequested = (isset($_GET['format']) && $_GET['format'] === 'json');
 
@@ -48,13 +66,22 @@ if ($providedAccessKey === '' || !hash_equals($expectedAccessKey, $providedAcces
     exit;
 }
 
-$mailConfigurationFilePath = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'contact_mail.php';
-$mailConfiguration = is_file($mailConfigurationFilePath) ? require $mailConfigurationFilePath : [];
+$recipientEmailAddress = $readEnvironmentValue('WYP_EMAIL');
+if ($recipientEmailAddress === '') {
+    $recipientEmailAddress = $readEnvironmentValue('CONTACT_RECIPIENT_EMAIL');
+}
 
-$fromEmailAddress = (string) ($mailConfiguration['site']['from_email'] ?? 'noreply@example.com');
-$defaultSmtpHost = (string) ($mailConfiguration['smtp']['host'] ?? '');
-$defaultSmtpPort = (int) ($mailConfiguration['smtp']['port'] ?? 587);
-$defaultDkimSelector = (string) ($mailConfiguration['dkim']['selector'] ?? 'default');
+$configuredFromAddress = $readEnvironmentValue('WYP_FORM_FROM_EMAIL');
+$fromEmailAddress = filter_var($configuredFromAddress, FILTER_VALIDATE_EMAIL)
+    ? $configuredFromAddress
+    : (filter_var($recipientEmailAddress, FILTER_VALIDATE_EMAIL) ? $recipientEmailAddress : 'noreply@example.com');
+
+$defaultSmtpHost = $readEnvironmentValue('WYP_SMTP_HOST');
+$defaultSmtpPort = (int) $readEnvironmentValue('WYP_SMTP_PORT', '587');
+if ($defaultSmtpPort <= 0) {
+    $defaultSmtpPort = 587;
+}
+$defaultDkimSelector = $readEnvironmentValue('WYP_DKIM_SELECTOR', 'default');
 
 $fromEmailDomain = strtolower((string) substr(strrchr($fromEmailAddress, '@') ?: '', 1));
 $domain = isset($_GET['domain']) && is_string($_GET['domain']) && $_GET['domain'] !== ''
@@ -236,6 +263,11 @@ $diagnosticReport = [
         'configured_smtp_port' => $defaultSmtpPort,
         'port_tests' => $smtpPortProbeResults,
     ],
+    'mail_routing' => [
+        'contact_recipient_email' => $recipientEmailAddress,
+        'configured_from_email' => $configuredFromAddress,
+        'resolved_from_email' => $fromEmailAddress,
+    ],
     'reverse_dns' => $reverseDnsCheck,
     'mail_test' => $mailFunctionTest,
     'manual_checks' => [
@@ -261,6 +293,5 @@ echo '<p>Temporary endpoint. Remove after troubleshooting.</p>';
 echo '<h2>Summary</h2>';
 echo '<pre>' . htmlspecialchars(json_encode($diagnosticReport, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), ENT_QUOTES, 'UTF-8') . '</pre>';
 echo '</body></html>';
-
 
 

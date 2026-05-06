@@ -9,7 +9,7 @@ This document describes the current mail behavior in the repository and the opti
 - Trigger: POST to `contact.php` with `submit`
 - Recipient source: `WYP_EMAIL` first, then `CONTACT_RECIPIENT_EMAIL` fallback.
 - From source: `WYP_FORM_FROM_EMAIL` when valid; otherwise recipient address.
-- Security checks before sending: CSRF validation, honeypot check (`beeName`), required field validation, email format validation, server-side reCAPTCHA verification, and header newline stripping.
+- Security checks before sending: CSRF validation, honeypot check, required field validation, email format validation, server-side reCAPTCHA verification, and header newline stripping.
 
 ## Important Clarification
 

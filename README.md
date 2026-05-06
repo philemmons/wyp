@@ -130,7 +130,7 @@ WYP_DIAG_KEY=replace_with_temporary_random_key
 
 - `.htaccess` blocks `.env` access.
 - `.htaccess` sets `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, and `Referrer-Policy: strict-origin-when-cross-origin`.
-- Contact form defenses include CSRF validation, honeypot (`beeName`), required-field validation, header newline stripping, output escaping, and reCAPTCHA verification.
+- Contact form defenses include CSRF validation, honeypot, required-field validation, header newline stripping, output escaping, and reCAPTCHA verification.
 - Deployment and canonical URLs assume HTTPS (`https://wipeyourpaws.net`).
 - No CSP header is currently configured in `.htaccess`.
 - No nonce-based CSP flow is currently implemented.
