@@ -268,9 +268,7 @@ require_once 'includes/header.php';
           <form action="contact.php" method="POST" class="row g-3 needs-validation" id="myForm" novalidate>
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
 
-
             <h2 class="section-title">We're open for any suggestion or just to have a chat.</h2>
-
 
             <?php if (!$isFormConfigured) { ?>
               <p class="form-error-text mb-0" role="status" aria-live="polite">
@@ -447,15 +445,9 @@ require_once 'includes/header.php';
           </div>
 
         </div>
-
-        <div class="wyp-card p-3 mt-4">
-          <section aria-label="Talking to Us">
-            <p class="fs-4 px-3 px-md-0">Please allow us up to 48 hours to respond, as we are walking the dogs.</p>
-          </section>
-        </div>
-
       </div>
     </div>
+    
 </section>
 
 <!--  MAP  -->
