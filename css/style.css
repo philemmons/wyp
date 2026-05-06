@@ -1545,6 +1545,8 @@ p:last-child {
 }
 
 .gallery-carousel-trigger {
+  display: flex;
+  justify-content: center;
   width: 100%;
   padding: 0;
   border: 0;
@@ -1579,10 +1581,12 @@ p:last-child {
 
 .gallery-photo-thumb {
   display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  margin-top: 1.1rem;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  margin: 1.1rem auto 0;
   border: 1px solid var(--border-soft);
   border-radius: clamp(0.8rem, 1.8vw, 1rem);
   background-color: #fff;
