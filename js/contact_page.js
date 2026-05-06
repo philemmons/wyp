@@ -34,6 +34,9 @@
 
     recaptchaValidationError.textContent = message;
     recaptchaValidationError.classList.remove('d-none');
+    if (typeof recaptchaValidationError.focus === 'function') {
+      recaptchaValidationError.focus();
+    }
   }
 
   function hideRecaptchaValidationError() {
@@ -153,8 +156,5 @@
   // Focus summary after server-side errors so assistive tech announces issues immediately.
   if (formErrorSummary) {
     formErrorSummary.focus();
-    if (formErrorSummary.getAttribute('data-form-status') === 'error') {
-      focusFirstInvalidField();
-    }
   }
 })();

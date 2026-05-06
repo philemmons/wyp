@@ -183,7 +183,7 @@ require_once 'includes/header.php';
         <picture>
           <img
             src="/images/gallery-header.jpg"
-            alt="Chandra and Skipper resting together on striped cushions on a caramel couch."
+            alt=""
             width="1920"
             height="720"
             loading="eager"
@@ -235,6 +235,7 @@ require_once 'includes/header.php';
     <?php endif; ?>
 
     <?php if ($validImageCount > 0): ?>
+      <p id="galleryCarouselStatus" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
       <div
         id="galleryPhotoCarousel"
         class="carousel slide gallery-carousel-shell"
@@ -352,7 +353,7 @@ require_once 'includes/header.php';
           <div class="card-header-band"></div>
           <div class="gallery-dog-card-icon" aria-hidden="true">
             <div class="dog-avatar-frame">
-              <img src="/images/chandra icon 55x55.png" alt="chandra bust icon" class="mx-2" width="55" height="55" aria-hidden="true">
+              <img src="/images/chandra icon 55x55.png" alt="" class="mx-2" width="55" height="55" aria-hidden="true">
             </div>
           </div>
           <h3 class="section-title">Chandra</h3>
@@ -371,7 +372,7 @@ require_once 'includes/header.php';
           <div class="card-header-band dog-card-top-stripe--skipper"></div>
           <div class="gallery-dog-card-icon" aria-hidden="true">
             <div class="dog-avatar-frame">
-              <img src="/images/skipper-icon-50x42.png" alt="skipper cartoon icon" class="mx-2" width="50" height="42" aria-hidden="true">
+              <img src="/images/skipper-icon-50x42.png" alt="" class="mx-2" width="50" height="42" aria-hidden="true">
             </div>
           </div>
           <h3 class="section-title">Skipper</h3>

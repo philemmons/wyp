@@ -68,7 +68,7 @@ require_once 'includes/header.php';
           </ul>
 
           <div class="dog-avatar-frame mt-4">
-            <img src='/images/chandra icon 55x55.png' alt="chandra bust icon" width=55 height=55 aria-hidden="true">
+            <img src='/images/chandra icon 55x55.png' alt="" width=55 height=55 aria-hidden="true">
           </div>
 
           <div class="dog-breed-badge">Chihuahua</div>
@@ -109,7 +109,7 @@ require_once 'includes/header.php';
           </ul>
 
           <div class="dog-avatar-frame mt-4">
-            <img src='/images/skipper-icon-50x42.png' alt="skipper cartoon icon" width=50 height=42 aria-hidden="true">
+            <img src='/images/skipper-icon-50x42.png' alt="" width=50 height=42 aria-hidden="true">
           </div>
 
           <div class="dog-breed-badge">Chihuahua and Jack Russell</div>
@@ -171,7 +171,7 @@ require_once 'includes/header.php';
         <div class="wyp-card wyp-info-card h-100 meet-the-pups-border-left">
           <div class="p-4">
             <h3 class="breed-fact-heading">
-              <img src='/images/chandra icon 55x55.png' alt="chandra bust icon" width=55 height=55 aria-hidden="true"> Chihuahua
+              <img src='/images/chandra icon 55x55.png' alt="" width=55 height=55 aria-hidden="true"> Chihuahua
             </h3>
             <ul class="trait-list">
               <li>World's smallest recognized dog breed</li>
@@ -189,7 +189,7 @@ require_once 'includes/header.php';
         <div class="wyp-card wyp-info-card h-100 meet-the-pups-border-left">
           <div class="p-4">
             <h3 class="breed-fact-heading">
-              <img src='/images/skipper-icon-50x42.png' alt="skipper cartoon icon" width=50 height=42 aria-hidden="true"> Chihuahua and Jack Russell Terrier
+              <img src='/images/skipper-icon-50x42.png' alt="" width=50 height=42 aria-hidden="true"> Chihuahua and Jack Russell Terrier
             </h3>
             <ul class="trait-list">
               <li>Affectionately known as a "Jack Chi" or "Chi-Jack"</li>

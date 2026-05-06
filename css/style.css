@@ -270,7 +270,6 @@ body {
     var(--surface-page);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  overflow-x: clip;
 }
 
 video,

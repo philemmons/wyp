@@ -145,7 +145,7 @@ $canonicalUrl   = $siteBaseUrl . '/' . ($pagePathByKey[$activePageKey] ?? '');
 
       <a class="navbar-brand d-flex align-items-center" href="/">
         <!-- W14: decorative icon is aria-hidden -->
-        <img class="paw-brand-icon" src="/images/black-paw.png" alt="doggie paw print waving" aria-hidden="true">
+        <img class="paw-brand-icon" src="/images/black-paw.png" alt="" aria-hidden="true">
         <div>
           Wipe Your Paws
           <span>Big Love for Small Paws</span>

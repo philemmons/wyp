@@ -246,13 +246,13 @@ require_once 'includes/header.php';
 
       <div class="d-flex align-items-start">
         <div class="dog-avatar-frame">
-          <img src="/images/skipper-icon-50x42.png" alt="skipper cartoon icon" class="mx-2" width="50" height="42" aria-hidden="true">
+          <img src="/images/skipper-icon-50x42.png" alt="" class="mx-2" width="50" height="42" aria-hidden="true">
         </div>
         <p class="section-eyebrow">
           Skipper and Chandra are eagerly awaiting your message - and are ready to give you a virtual paw-shake in return!
         </p>
         <div class="dog-avatar-frame">
-          <img src="/images/chandra icon 55x55.png" alt="chandra bust icon" class="mx-2" width="55" height="55" aria-hidden="true">
+          <img src="/images/chandra icon 55x55.png" alt="" class="mx-2" width="55" height="55" aria-hidden="true">
         </div>
       </div>
 
@@ -272,7 +272,7 @@ require_once 'includes/header.php';
         <?php if ($statusMsg !== '') { ?>
           <div class="mb-4">
             <div class="wyp-alert <?= $status === 'success' ? 'wyp-alert-success' : 'wyp-alert-error' ?>" title="We are listening.">
-              <p id="formErrorSummary" tabindex="-1" data-form-status="<?= htmlspecialchars($status, ENT_QUOTES, 'UTF-8') ?>" class="mb-0 h6 status-msg"><?php echo htmlspecialchars($statusMsg, ENT_QUOTES, 'UTF-8'); ?></p>
+              <p id="formErrorSummary" tabindex="-1" data-form-status="<?= htmlspecialchars($status, ENT_QUOTES, 'UTF-8') ?>" role="<?= $status === 'error' ? 'alert' : 'status' ?>" aria-live="<?= $status === 'error' ? 'assertive' : 'polite' ?>" aria-atomic="true" class="mb-0 h6 status-msg"><?php echo htmlspecialchars($statusMsg, ENT_QUOTES, 'UTF-8'); ?></p>
             </div>
           </div>
         <?php } ?>
@@ -284,6 +284,7 @@ require_once 'includes/header.php';
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
 
             <h2 class="section-title">We're open for any suggestion or just to have a chat.</h2>
+            <p id="contact-required-note" class="form-help mb-0">Fields marked "(required)" must be completed before submitting.</p>
 
             <?php if (!$isFormConfigured) { ?>
               <p class="form-error-text mb-0" role="status" aria-live="polite">
@@ -309,6 +310,7 @@ require_once 'includes/header.php';
                 name="contact-name"
                 id="contact-name"
                 maxlength="120"
+                autocomplete="name"
                 value="<?= htmlspecialchars($postData['contact-name'], ENT_QUOTES, 'UTF-8') ?>">
             </div>
 
@@ -321,7 +323,8 @@ require_once 'includes/header.php';
                 name="contact-em"
                 id="contact-em"
                 required
-                aria-describedby="contact-em-error"
+                autocomplete="email"
+                aria-describedby="contact-required-note contact-em-error"
                 <?= $fieldErrors['contact-em'] !== '' ? 'aria-invalid="true"' : '' ?>
                 value="<?= htmlspecialchars($postData['contact-em'], ENT_QUOTES, 'UTF-8') ?>">
               <div id="contact-em-error" class="invalid-feedback">
@@ -341,9 +344,10 @@ require_once 'includes/header.php';
                 id="contact-subj"
                 required
                 maxlength="150"
-                aria-describedby="contact-subj-error"
+                aria-describedby="contact-required-note contact-subj-hint contact-subj-error"
                 <?= $fieldErrors['contact-subj'] !== '' ? 'aria-invalid="true"' : '' ?>
                 value="<?= htmlspecialchars($postData['contact-subj'], ENT_QUOTES, 'UTF-8') ?>">
+              <p id="contact-subj-hint" class="form-help mb-0">Subject limit: 150 characters.</p>
               <div id="contact-subj-error" class="invalid-feedback">
                 <?= $fieldErrors['contact-subj'] !== ''
                   ? htmlspecialchars($fieldErrors['contact-subj'], ENT_QUOTES, 'UTF-8')
@@ -360,8 +364,9 @@ require_once 'includes/header.php';
                 id="contact-ta"
                 required
                 maxlength="5000"
-                aria-describedby="contact-ta-error"
+                aria-describedby="contact-required-note contact-ta-hint contact-ta-error"
                 <?= $fieldErrors['contact-ta'] !== '' ? 'aria-invalid="true"' : '' ?>><?= htmlspecialchars($postData['contact-ta'], ENT_QUOTES, 'UTF-8') ?></textarea>
+              <p id="contact-ta-hint" class="form-help mb-0">Message limit: 5000 characters.</p>
               <div id="contact-ta-error" class="invalid-feedback">
                 <?= $fieldErrors['contact-ta'] !== ''
                   ? htmlspecialchars($fieldErrors['contact-ta'], ENT_QUOTES, 'UTF-8')
@@ -381,7 +386,7 @@ require_once 'includes/header.php';
                   reCAPTCHA is currently unavailable due to a server configuration issue.
                 </p>
               <?php } ?>
-              <p id="recaptchaValidationError" class="form-error-text mb-0 <?= $fieldErrors['recaptcha'] === '' ? 'd-none' : '' ?>" role="alert" aria-live="assertive">
+              <p id="recaptchaValidationError" tabindex="-1" class="form-error-text mb-0 <?= $fieldErrors['recaptcha'] === '' ? 'd-none' : '' ?>" role="alert" aria-live="assertive" aria-atomic="true">
                 <?= htmlspecialchars($fieldErrors['recaptcha'], ENT_QUOTES, 'UTF-8') ?>
               </p>
             </div>
@@ -393,8 +398,8 @@ require_once 'includes/header.php';
 
 
             <div class="col-md-6 text-center">
-              <button type="reset" id="resetFormButton" class="btn-wyp btn-wyp-outline" name="reset" value="reset" aria-labelledby="reset">Reset Form</button>
-              <div class="sr-only" id="reset" role="alert" aria-live="assertive" aria-atomic="true">
+              <button type="reset" id="resetFormButton" class="btn-wyp btn-wyp-outline" name="reset" value="reset" aria-describedby="reset-help">Reset Form</button>
+              <div class="sr-only" id="reset-help">
                 <p>(A pop up will confirm your reset form)</p>
               </div>
             </div>
