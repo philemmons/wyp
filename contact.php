@@ -269,8 +269,7 @@ require_once 'includes/header.php';
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
 
 
-            <p class="fw-bold mb-0">We're open for any suggestion or just to have a chat.</p>
-            <p class="required-note mb-0" id="contact-required-note">Required fields: Email, Subject, and Message.</p>
+            <h2 class="section-title">We're open for any suggestion or just to have a chat.</h2>
 
 
             <?php if (!$isFormConfigured) { ?>
