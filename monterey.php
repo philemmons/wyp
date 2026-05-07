@@ -69,99 +69,113 @@ $montereyHighlightCategories = [
 </section>
 
 <!--  CATEGORIES  -->
-<aside>
-<div class="wyp-section" aria-label="Monterey highlights">
+
+<div class="wyp-section">
   <div class="container">
     <div class="row g-4">
+
       <?php foreach ($montereyHighlightCategories as $highlightCategory): ?>
         <div class="col-12 col-md-6">
           <div class="monterey-category-card <?= htmlspecialchars($highlightCategory['theme']) ?> h-100">
             <div class="d-flex align-items-start gap-3">
               <span class="category-icon" aria-hidden="true"><?= $highlightCategory['icon'] ?></span>
               <div class="flex-grow-1">
-                <section aria-label= <?= htmlspecialchars($highlightCategory['aria']) ?> >
-                <h2 class="monterey-cat-heading section-title fs-3"><?= htmlspecialchars($highlightCategory['title']) ?></h2>
-                <p class="category-item-body mt-2 mb-0"><?= htmlspecialchars($highlightCategory['body']) ?></p>
+                <section aria-label=<?= htmlspecialchars($highlightCategory['aria']) ?>>
+                  <h2 class="monterey-cat-heading section-title fs-3"><?= htmlspecialchars($highlightCategory['title']) ?></h2>
+                  <p class="category-item-body mt-2 mb-0"><?= htmlspecialchars($highlightCategory['body']) ?></p>
                 </section>
               </div>
             </div>
           </div>
         </div>
       <?php endforeach; ?>
+
     </div>
   </div>
-      </div>
-</aside>
+</div>
+
 
 <!--  SUMMARY CALLOUT  -->
-<section class="section-cta wyp-section-accent" aria-label="Monterey summary">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="wyp-card wyp-info-card">
-          <div class="p-4 p-lg-5 text-center">
-            <img src='images/gold paw award-small.png' alt='' class="img-fluid rounded mx-auto d-block" aria-hidden="true">
-            <h2 class="spots-heading">The Bottom Line</h2>
-            <hr class="section-divider">
-            <p class="spots-intro">
-              Overall, Monterey, California, stands out as a haven for dog lovers due to its picturesque
-              setting, welcoming community, and abundance of dog-friendly amenities and activities.
-              It&rsquo;s no wonder Chandra and Skipper feel right at home here!
-            </p>
-            <div>
-              <a href="contact.php" class="btn btn-wyp btn-wyp-primary">
-                We&rsquo;d Love to Hear from You
-                <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
-              </a>
+<aside>
+  <div class="section-cta wyp-section-accent">
+    <div class="container">
+      <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+          <div class="wyp-card wyp-info-card">
+            <div class="p-4 p-lg-5 text-center">
+              <img src='images/gold paw award-small.png' alt='' class="img-fluid rounded mx-auto d-block" aria-hidden="true">
+              <section aria-label="Monterey summary">
+                <h2 class="spots-heading">The Bottom Line</h2>
+                <hr class="section-divider">
+                <p class="spots-intro">
+                  Overall, Monterey, California, stands out as a haven for dog lovers due to its picturesque
+                  setting, welcoming community, and abundance of dog-friendly amenities and activities.
+                  It&rsquo;s no wonder Chandra and Skipper feel right at home here!
+                </p>
+              </section>
+              <div>
+                <a href="contact.php" class="btn btn-wyp btn-wyp-primary">
+                  We&rsquo;d Love to Hear from You
+                  <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
-</section>
+</aside>
 
 <!--  INTERACTIVE MAP  -->
-<section class="wyp-section wyp-section-alt" aria-label="Monterey map and featured spots">
-  <div class="container">
-    <div class="text-center mb-4">
-      <span class="section-eyebrow">Find Us Here</span>
-      <h2 class="section-title">Monterey Bay, California</h2>
-      <hr class="section-divider">
-    </div>
-    <div class="map-wrapper">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51729.2!2d-121.9177!3d36.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de15c59e1e2fd%3A0xeabe3a9b9c9b1efc!2sMonterey%2C%20CA!5e0!3m2!1sen!2sus!4v1699999999"
-        width="100%" height="420" allowfullscreen=""
-        loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-        title="Interactive map showing Monterey Bay, California">
-      </iframe>
-    </div>
+<article>
+  <div class="wyp-section wyp-section-alt">
+    <div class="container">
+      <div class="text-center mb-4">
+        <span class="section-eyebrow">Find Us Here</span>
+        <section aria-label="Monterey Map Title">
+          <h2 class="section-title">Monterey Bay, California</h2>
+          <hr class="section-divider">
+        </section>
+      </div>
+      <section aria-label='Google Map'>
+        <div class="map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51729.2!2d-121.9177!3d36.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de15c59e1e2fd%3A0xeabe3a9b9c9b1efc!2sMonterey%2C%20CA!5e0!3m2!1sen!2sus!4v1699999999"
+            width="100%" height="420" allowfullscreen=""
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Interactive map showing Monterey Bay, California">
+          </iframe>
+        </div>
+      </section>
 
-    <div class="row g-3 mt-4">
-      <?php
-      $featuredDogFriendlyLocations = [
-        ['icon_class' => 'bi-umbrella', 'name' => 'Carmel Beach', 'description' => 'One of California\'s most beautiful dog-friendly beaches'],
-        ['icon_class' => 'bi-tree', 'name' => 'Garrapata State Park', 'description' => 'Stunning coastal trails where leashed dogs are welcome'],
-        ['icon_class' => 'bi-person-walking', 'name' => 'Monterey Bay Coastal Trail', 'description' => '18-mile multi-use path along the scenic bay'],
-        ['icon_class' => 'bi-heart-fill', 'name' => 'Carmel City Beach', 'description' => 'Off-leash beach access for well-behaved dogs'],
-        ['icon_class' => 'bi-water', 'name' => 'Cannery Row', 'description' => 'Historic waterfront with dog-welcoming shops & eateries'],
-        ['icon_class' => 'bi-stars', 'name' => 'Monterey Bay Aquarium', 'description' => 'Leashed dogs welcome in outdoor areas'],
-      ];
-      foreach ($featuredDogFriendlyLocations as $dogFriendlyLocation): ?>
-        <div class="col-md-4 col-sm-6">
-          <div class="wyp-card wyp-feature-card p-3 d-flex align-items-start gap-3 h-100 monterey-location-border-left">
-            <i class="bi <?= htmlspecialchars($dogFriendlyLocation['icon_class']) ?> emoji-md" aria-hidden="true"></i>
-            <div>
-              <strong class="spot-name"><?= htmlspecialchars($dogFriendlyLocation['name']) ?></strong>
-              <p class="spot-desc"><?= htmlspecialchars($dogFriendlyLocation['description']) ?></p>
+      <div class="row g-3 mt-4">
+        <?php
+        $featuredDogFriendlyLocations = [
+          ['icon_class' => 'bi-umbrella', 'name' => 'Carmel Beach', 'description' => 'One of California\'s most beautiful dog-friendly beaches'],
+          ['icon_class' => 'bi-tree', 'name' => 'Garrapata State Park', 'description' => 'Stunning coastal trails where leashed dogs are welcome'],
+          ['icon_class' => 'bi-person-walking', 'name' => 'Monterey Bay Coastal Trail', 'description' => '18-mile multi-use path along the scenic bay'],
+          ['icon_class' => 'bi-heart-fill', 'name' => 'Carmel City Beach', 'description' => 'Off-leash beach access for well-behaved dogs'],
+          ['icon_class' => 'bi-water', 'name' => 'Cannery Row', 'description' => 'Historic waterfront with dog-welcoming shops & eateries'],
+          ['icon_class' => 'bi-stars', 'name' => 'Monterey Bay Aquarium', 'description' => 'Leashed dogs welcome in outdoor areas'],
+        ];
+        foreach ($featuredDogFriendlyLocations as $dogFriendlyLocation): ?>
+          <div class="col-md-4 col-sm-6">
+            <div class="wyp-card wyp-feature-card p-3 d-flex align-items-start gap-3 h-100 monterey-location-border-left">
+              <i class="bi <?= htmlspecialchars($dogFriendlyLocation['icon_class']) ?> emoji-md" aria-hidden="true"></i>
+              <div>
+                <strong class="spot-name"><?= htmlspecialchars($dogFriendlyLocation['name']) ?></strong>
+                <p class="spot-desc"><?= htmlspecialchars($dogFriendlyLocation['description']) ?></p>
+              </div>
             </div>
           </div>
-        </div>
-      <?php endforeach; ?>
-    </div>
+        <?php endforeach; ?>
+      </div>
 
+    </div>
   </div>
-</section>
+</article>
 
 <?php require_once 'includes/footer.php'; ?>
