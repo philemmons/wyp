@@ -126,7 +126,7 @@
 
   /* Focus */
   --focus-ring: var(--blue);
-  --focus-outline: 0 0 0 2px var(--white), 0 0 0 5px var(--focus-ring);
+  --focus-outline: 0 0 0 2px var(--white), 0 0 0 5px var(--focus-ring) !important;
 
   /* Gallery hero */
   --wyp-gallery-hero-accent-gradient: linear-gradient(
