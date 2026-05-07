@@ -47,34 +47,38 @@ require_once 'includes/header.php';
 </section>
 
 <!--  QUICK LINKS STRIP  -->
-<section class="quicklinks-section wyp-section-alt" aria-label="Helpful links">
-    <div class="container">
-        <h2 class="quicklinks-title text-center">Where would you like to go?</h2>
-        <nav aria-label="Error page navigation">
-            <div class="row g-3 justify-content-center">
-                <?php
-                $quickLinkCards = [
-                    ['index.php',    '🏠', 'Home',         'Start at the beginning'],
-                    ['intro.php',    '🐶', 'Meet the Pups', 'Get to know Chandra &amp; Skipper'],
-                    ['monterey.php', '🌊', 'Why Monterey',  'Discover our beautiful home'],
-                    ['gallery.php',  '📸', 'Gallery',       'Photos coming soon!'],
-                    ['contact.php',  '✉️', 'Contact Us',     'Say hello'],
-                ];
-                foreach ($quickLinkCards as $quickLinkCard): ?>
-                    <div class="col-sm-4 col-md-2">
-                        <a href="<?= $quickLinkCard[0] ?>" class="quicklink-card">
-                            <span class="quicklink-icon" aria-hidden="true"><?= $quickLinkCard[1] ?></span>
-                            <?= $quickLinkCard[2] ?>
-                            <span class="quicklink-subtitle"><?= $quickLinkCard[3] ?></span>
-                        </a>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </nav>
+<aside>
+    <div class="quicklinks-section wyp-section-alt">
+        <div class="container">
+
+            <section aria-label="Helpful links">
+                <h2 class="quicklinks-title text-center">Where would you like to go?</h2>
+            </section>
+
+            <nav aria-label="403 error">
+                <div class="row g-3 justify-content-center">
+                    <?php
+                    $quickLinkCards = [
+                        ['index.php',    '🏠', 'Home',         'Start at the beginning'],
+                        ['intro.php',    '🐶', 'Meet the Pups', 'Get to know Chandra &amp; Skipper'],
+                        ['monterey.php', '🌊', 'Why Monterey',  'Discover our beautiful home'],
+                        ['gallery.php',  '📸', 'Gallery',       'Photos coming soon!'],
+                        ['contact.php',  '✉️', 'Contact Us',     'Say hello'],
+                    ];
+                    foreach ($quickLinkCards as $quickLinkCard): ?>
+                        <div class="col-sm-4 col-md-2">
+                            <a href="<?= $quickLinkCard[0] ?>" class="quicklink-card">
+                                <span class="quicklink-icon" aria-hidden="true"><?= $quickLinkCard[1] ?></span>
+                                <?= $quickLinkCard[2] ?>
+                                <span class="quicklink-subtitle"><?= $quickLinkCard[3] ?></span>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </nav>
+
+        </div>
     </div>
-</section>
+</aside>
 
 <?php require_once 'includes/footer.php'; ?>
-
-
-
