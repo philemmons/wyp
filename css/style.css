@@ -653,13 +653,7 @@ p:last-child {
 }
 
 .wyp-navbar .nav-link:focus-visible {
-  background: #00f;
-  color: #fff !important;
   box-shadow: 0 0 0 2px #fff, 0 0 0 5px #00f;
-}
-
-.wyp-navbar .nav-link:focus-visible::after {
-  background: #fff;
 }
 
 /***** 4. HERO SECTIONS *****/
