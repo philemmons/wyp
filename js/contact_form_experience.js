@@ -4,6 +4,8 @@
   // Cache key elements once so handlers reuse the same nodes and avoid repeated DOM queries.
   var contactForm = document.getElementById('contactForm');
   var resetContactFormButton = document.getElementById('resetContactFormButton');
+  var resetConfirmModalElement = document.getElementById('contactResetConfirmModal');
+  var confirmResetContactFormButton = document.getElementById('confirmResetContactFormButton');
   var contactFormStatusSummary = document.getElementById('contactFormStatusSummary');
   var recaptchaGroup = document.getElementById('recaptcha-group');
   var recaptchaWidgetContainer = document.querySelector('.g-recaptcha[data-sitekey]');
@@ -15,6 +17,25 @@
 
   if (!contactForm) {
     return;
+  }
+
+  function clearContactFormState() {
+    contactForm.reset();
+    contactForm.classList.remove('was-validated');
+    hideRecaptchaValidationError();
+
+    var invalidMarkedFields = contactForm.querySelectorAll('[aria-invalid="true"]');
+    invalidMarkedFields.forEach(function (field) {
+      field.removeAttribute('aria-invalid');
+    });
+
+    if (window.grecaptcha && typeof window.grecaptcha.reset === 'function' && recaptchaWidgetContainer) {
+      try {
+        window.grecaptcha.reset();
+      } catch (error) {
+        // no-op: if widget is not rendered yet, there is nothing to reset
+      }
+    }
   }
 
   function showRecaptchaLoadError() {
@@ -154,25 +175,33 @@
     contactForm.classList.add('was-validated');
   });
 
-  // Confirm reset to prevent accidental data loss, then clear validation state for a clean retry.
+  // Reset confirmation modal: branded Bootstrap dialog with JS fallback.
   if (resetContactFormButton) {
-    resetContactFormButton.addEventListener('click', function (event) {
-      var shouldReset = window.confirm('Clear all form fields?');
-      if (!shouldReset) {
-        event.preventDefault();
-        return;
-      }
+    var canUseBootstrapModal = !!(
+      resetConfirmModalElement &&
+      window.bootstrap &&
+      typeof window.bootstrap.Modal.getOrCreateInstance === 'function'
+    );
 
-      window.setTimeout(function () {
-        contactForm.classList.remove('was-validated');
-        hideRecaptchaValidationError();
+    if (canUseBootstrapModal && confirmResetContactFormButton) {
+      var resetConfirmModalInstance = window.bootstrap.Modal.getOrCreateInstance(resetConfirmModalElement);
 
-        var invalidMarkedFields = contactForm.querySelectorAll('[aria-invalid="true"]');
-        invalidMarkedFields.forEach(function (field) {
-          field.removeAttribute('aria-invalid');
-        });
-      }, 0);
-    });
+      confirmResetContactFormButton.addEventListener('click', function () {
+        clearContactFormState();
+        resetConfirmModalInstance.hide();
+        resetContactFormButton.focus();
+      });
+    } else {
+      resetContactFormButton.addEventListener('click', function (event) {
+        var shouldReset = window.confirm('Clear all form fields?');
+        if (!shouldReset) {
+          event.preventDefault();
+          return;
+        }
+
+        clearContactFormState();
+      });
+    }
   }
 
   // Focus summary after server-side errors so assistive tech announces issues immediately.

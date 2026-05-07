@@ -470,7 +470,7 @@ require_once 'includes/header.php';
 
 
             <div class="col-md-6 text-center">
-              <button type="reset" id="resetContactFormButton" class="btn btn-wyp btn-wyp-outline" name="reset" value="reset" aria-describedby="reset-help">Reset Form</button>
+              <button type="button" id="resetContactFormButton" class="btn btn-wyp btn-wyp-outline" name="reset" value="reset" aria-describedby="reset-help" data-bs-toggle="modal" data-bs-target="#contactResetConfirmModal">Reset Form</button>
               <span class="visually-hidden" id="reset-help">A confirmation dialog appears before this form is reset.</span>
             </div>
           </form>
@@ -524,6 +524,35 @@ require_once 'includes/header.php';
     </div>
 
 </section>
+
+<!-- Reset confirmation modal -->
+<div
+  class="modal fade contact-reset-modal"
+  id="contactResetConfirmModal"
+  tabindex="-1"
+  aria-labelledby="contactResetConfirmTitle"
+  aria-describedby="contactResetConfirmBody"
+  aria-modal="true"
+  role="dialog"
+  data-bs-keyboard="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="h5 mb-0 section-title" id="contactResetConfirmTitle">Reset this form?</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close reset confirmation"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0" id="contactResetConfirmBody">
+          This will clear all fields in the contact form, including any unsaved message text.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-wyp btn-wyp-outline" data-bs-dismiss="modal">Keep Editing</button>
+        <button type="button" class="btn btn-wyp btn-wyp-primary" id="confirmResetContactFormButton">Yes, Reset Form</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--  MAP  -->
 <section class="wyp-section wyp-section-sm">
