@@ -1530,28 +1530,6 @@ p:last-child {
   font-weight: 800;
 }
 
-.contact-reset-modal .modal-content {
-  background: linear-gradient(180deg, #ffffff, #fff6e9);
-  border: 1px solid var(--border-mid);
-}
-
-.contact-reset-modal .modal-header {
-  background: linear-gradient(145deg, #fff2d7, #ffe7be);
-}
-
-.contact-reset-modal #contactResetConfirmTitle,
-.contact-reset-modal .modal-body p {
-  color: var(--text-strong);
-}
-
-.contact-reset-modal .modal-footer {
-  gap: 0.5rem;
-}
-
-.contact-reset-modal .btn-close:focus-visible {
-  box-shadow: var(--focus-outline);
-}
-
 .error-card {
   margin-inline: auto;
   max-width: 46rem;

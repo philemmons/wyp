@@ -3,9 +3,6 @@
 
   // Cache key elements once so handlers reuse the same nodes and avoid repeated DOM queries.
   var contactForm = document.getElementById('contactForm');
-  var resetContactFormButton = document.getElementById('resetContactFormButton');
-  var resetConfirmModalElement = document.getElementById('contactResetConfirmModal');
-  var confirmResetContactFormButton = document.getElementById('confirmResetContactFormButton');
   var contactFormStatusSummary = document.getElementById('contactFormStatusSummary');
   var recaptchaGroup = document.getElementById('recaptcha-group');
   var recaptchaWidgetContainer = document.querySelector('.g-recaptcha[data-sitekey]');
@@ -17,25 +14,6 @@
 
   if (!contactForm) {
     return;
-  }
-
-  function clearContactFormState() {
-    contactForm.reset();
-    contactForm.classList.remove('was-validated');
-    hideRecaptchaValidationError();
-
-    var invalidMarkedFields = contactForm.querySelectorAll('[aria-invalid="true"]');
-    invalidMarkedFields.forEach(function (field) {
-      field.removeAttribute('aria-invalid');
-    });
-
-    if (window.grecaptcha && typeof window.grecaptcha.reset === 'function' && recaptchaWidgetContainer) {
-      try {
-        window.grecaptcha.reset();
-      } catch (error) {
-        // no-op: if widget is not rendered yet, there is nothing to reset
-      }
-    }
   }
 
   function showRecaptchaLoadError() {
@@ -174,46 +152,6 @@
 
     contactForm.classList.add('was-validated');
   });
-
-  // Reset confirmation modal: branded Bootstrap dialog with JS fallback.
-  if (resetContactFormButton) {
-    function canUseBootstrapModal() {
-      return !!(
-        resetConfirmModalElement &&
-        window.bootstrap &&
-        window.bootstrap.Modal &&
-        typeof window.bootstrap.Modal.getOrCreateInstance === 'function'
-      );
-    }
-
-    if (confirmResetContactFormButton && resetConfirmModalElement) {
-      confirmResetContactFormButton.addEventListener('click', function () {
-        clearContactFormState();
-
-        if (canUseBootstrapModal()) {
-          window.bootstrap.Modal.getOrCreateInstance(resetConfirmModalElement).hide();
-        }
-
-        resetContactFormButton.focus();
-      });
-    }
-
-    resetContactFormButton.addEventListener('click', function (event) {
-      event.preventDefault();
-
-      if (canUseBootstrapModal()) {
-        window.bootstrap.Modal.getOrCreateInstance(resetConfirmModalElement).show();
-        return;
-      }
-
-      var shouldReset = window.confirm('Clear all form fields?');
-      if (!shouldReset) {
-        return;
-      }
-
-      clearContactFormState();
-    });
-  }
 
   // Focus summary after server-side errors so assistive tech announces issues immediately.
   if (contactFormStatusSummary && contactFormStatusSummary.getAttribute('data-form-status') === 'error') {

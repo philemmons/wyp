@@ -470,7 +470,7 @@ require_once 'includes/header.php';
 
 
             <div class="col-md-6 text-center">
-              <button type="button" id="resetContactFormButton" class="btn btn-wyp btn-wyp-outline" name="reset" value="reset" aria-describedby="reset-help">Reset Form</button>
+              <button type="button" id="resetContactFormButton" class="btn btn-wyp btn-wyp-outline" name="reset" value="reset" aria-describedby="reset-help" data-bs-toggle="modal" data-bs-target="#contactResetConfirmModal">Reset Form</button>
               <span class="visually-hidden" id="reset-help">A confirmation dialog appears before this form is reset.</span>
             </div>
           </form>
@@ -527,7 +527,7 @@ require_once 'includes/header.php';
 
 <!-- Reset confirmation modal -->
 <div
-  class="modal fade contact-reset-modal"
+  class="modal fade"
   id="contactResetConfirmModal"
   tabindex="-1"
   aria-labelledby="contactResetConfirmTitle"
@@ -538,7 +538,7 @@ require_once 'includes/header.php';
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="h5 mb-0 section-title" id="contactResetConfirmTitle">Reset this form?</h2>
+        <h2 class="modal-title fs-5" id="contactResetConfirmTitle">Reset this form?</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close reset confirmation"></button>
       </div>
       <div class="modal-body">
@@ -547,8 +547,8 @@ require_once 'includes/header.php';
         </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-wyp btn-wyp-outline" data-bs-dismiss="modal">Keep Editing</button>
-        <button type="button" class="btn btn-wyp btn-wyp-primary" id="confirmResetContactFormButton">Yes, Reset Form</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keep Editing</button>
+        <button type="reset" class="btn btn-danger" form="contactForm" data-bs-dismiss="modal">Yes, Reset Form</button>
       </div>
     </div>
   </div>
