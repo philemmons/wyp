@@ -120,65 +120,75 @@ require_once 'includes/header.php';
 </section>
 
 <!--  QUOTE STRIP  -->
-<section class="section-quote" aria-label="Dog quote">
-  <div class="container text-center">
-    <p class="section-quote__text">
-      "The world would be a nicer place if everyone had the ability to love as unconditionally as a dog."
-    </p>
-    <p class="section-quote__attr">— M.K. Clinton</p>
-  </div>
-</section>
+<aside aria-label="Dog quote">
+  <section class="section-quote">
+    <div class="container text-center">
+      <p class="section-quote__text">
+        "The world would be a nicer place if everyone had the ability to love as unconditionally as a dog."
+      </p>
+      <p class="section-quote__attr">— M.K. Clinton</p>
+    </div>
+  </section>
+</aside>
 
 <!--  LOCATION TEASER  -->
-<section class="wyp-section section-teaser" aria-label="Monterey teaser">
-  <div class="container">
-    <div class="row align-items-center g-5">
+<article>
+  <div class="wyp-section section-teaser">
+    <div class="container">
+      <div class="row align-items-center g-5">
 
-      <div class="col-lg-6">
-        <span class="section-eyebrow">Our Home Base</span>
-        <h2 class="section-title mb-3">Monterey Bay, California</h2>
-        <p class="section-teaser__copy">
-          Nestled along California's stunning central coast, Monterey Bay is one of the
-          most dog-welcoming destinations in the country. With miles of coastal trails,
-          dog-friendly beaches, and a community that loves four-legged friends, it's the
-          perfect home for small paw adventurers like Chandra and Skipper.
-        </p>
-        <a href="monterey.php" class="btn btn-wyp btn-wyp-primary mt-2">
-          Why We Love It Here
-        </a>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="map-wrapper">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51729.2!2d-121.9177!3d36.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de15c59e1e2fd%3A0xeabe3a9b9c9b1efc!2sMonterey%2C%20CA!5e0!3m2!1sen!2sus!4v1699999999"
-            width="100%" height="320" allowfullscreen=""
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            title="Interactive map showing Monterey Bay, California">
-          </iframe>
+        <div class="col-lg-6">
+          <span class="section-eyebrow">Our Home Base</span>
+          <section aria-label="Monterey description">
+            <h2 class="section-title mb-3">Monterey Bay, California</h2>
+            <p class="section-teaser__copy">
+              Nestled along California's stunning central coast, Monterey Bay is one of the
+              most dog-welcoming destinations in the country. With miles of coastal trails,
+              dog-friendly beaches, and a community that loves four-legged friends, it's the
+              perfect home for small paw adventurers like Chandra and Skipper.
+            </p>
+            <a href="monterey.php" class="btn btn-wyp btn-wyp-primary mt-2">
+              Why We Love It Here
+            </a>
+          </section>
         </div>
-      </div>
 
+        <div class="col-lg-6">
+          <section aria-label='Monterey Map'>
+            <div class="map-wrapper">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51729.2!2d-121.9177!3d36.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de15c59e1e2fd%3A0xeabe3a9b9c9b1efc!2sMonterey%2C%20CA!5e0!3m2!1sen!2sus!4v1699999999"
+                width="100%" height="320" allowfullscreen=""
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                title="Interactive map showing Monterey Bay, California">
+              </iframe>
+            </div>
+          </section>
+        </div>
+
+      </div>
     </div>
-  </div>
-</section>
+
+</article>
 
 <!--  CTA STRIP  -->
-<section class="section-cta wyp-section-accent" aria-label="Contact call to action">
-  <div class="container">
-    <h2 class="section-cta__h2">
-      Want to Say Hi? <span aria-hidden="true">🐾</span>
-    </h2>
-    <p class="section-cta__p hero-tagline">
-      We'd love to hear from fellow small dog lovers! Drop us a message anytime.
-    </p>
-    <a href="contact.php" class="btn btn-wyp btn-wyp-outline">
-      <div>
-        Get in Touch
-        <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
-      </div>
-    </a>
-  </div>
-</section>
+<aside aria-label="Contact call to action">
+  <section class="section-cta wyp-section-accent">
+    <div class="container">
+      <h2 class="section-cta__h2">
+        Want to Say Hi? <span aria-hidden="true">🐾</span>
+      </h2>
+      <p class="section-cta__p hero-tagline">
+        We'd love to hear from fellow small dog lovers! Drop us a message anytime.
+      </p>
+      <a href="contact.php" class="btn btn-wyp btn-wyp-outline">
+        <div>
+          Get in Touch
+          <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
+        </div>
+      </a>
+    </div>
+  </section>
+</aside>
 
 <?php require_once 'includes/footer.php'; ?>
