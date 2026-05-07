@@ -36,14 +36,14 @@ $montereyHighlightCategories = [
 ?>
 
 <!--  PAGE HERO  -->
-<section class="monterey-hero image-header">
+<section class="monterey-hero image-header" aria-label="Why Monterey hero">
   <div class="container text-center page-hero-z">
     <img src='images/why-monterey-header.png' alt='Why Monterey? A paradise where small dogs and their people thrive' class='img-fluid rounded mx-auto d-block shadow'>
   </div>
 </section>
 
 <!--  INTRO PARAGRAPH  -->
-<section class="wyp-section wyp-section-sm wyp-section-alt">
+<section class="wyp-section wyp-section-sm wyp-section-alt" aria-label="Monterey introduction">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8 text-center">
@@ -62,7 +62,7 @@ $montereyHighlightCategories = [
 </section>
 
 <!--  CATEGORIES  -->
-<section class="wyp-section">
+<section class="wyp-section" aria-label="Monterey highlights">
   <div class="container">
     <div class="row g-4">
       <?php foreach ($montereyHighlightCategories as $highlightCategory): ?>
@@ -71,7 +71,7 @@ $montereyHighlightCategories = [
             <div class="d-flex align-items-start gap-3">
               <span class="category-icon" aria-hidden="true"><?= $highlightCategory['icon'] ?></span>
               <div class="flex-grow-1">
-                <p class="monterey-cat-heading section-title fs-3"><?= htmlspecialchars($highlightCategory['title']) ?></h2>
+                <h2 class="monterey-cat-heading section-title fs-3"><?= htmlspecialchars($highlightCategory['title']) ?></h2>
                 <p class="category-item-body mt-2 mb-0"><?= htmlspecialchars($highlightCategory['body']) ?></p>
               </div>
             </div>
@@ -83,7 +83,7 @@ $montereyHighlightCategories = [
 </section>
 
 <!--  SUMMARY CALLOUT  -->
-<section class="section-cta wyp-section-accent">
+<section class="section-cta wyp-section-accent" aria-label="Monterey summary">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
@@ -111,7 +111,7 @@ $montereyHighlightCategories = [
 </section>
 
 <!--  INTERACTIVE MAP  -->
-<section class="wyp-section wyp-section-alt">
+<section class="wyp-section wyp-section-alt" aria-label="Monterey map and featured spots">
   <div class="container">
     <div class="text-center mb-4">
       <span class="section-eyebrow">Find Us Here</span>

@@ -11,7 +11,7 @@ require_once 'includes/header.php';
 ?>
 
 <!--  ERROR HERO  -->
-<section class="error-hero">
+<section class="error-hero" aria-label="403 error message">
 
     <span class="paw-float" aria-hidden="true">🐾</span>
     <span class="paw-float" aria-hidden="true">🐾</span>
@@ -47,7 +47,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  QUICK LINKS STRIP  -->
-<section class="quicklinks-section wyp-section-alt">
+<section class="quicklinks-section wyp-section-alt" aria-label="Helpful links">
     <div class="container">
         <h2 class="quicklinks-title text-center">Where would you like to go?</h2>
         <nav aria-label="Error page navigation">

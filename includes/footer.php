@@ -7,7 +7,7 @@
  *
  * WCAG fixes:
  *   W2  - </main> closed here
- *   W4  - aria-label="Footer navigation" on footer <nav>
+ *   W4  - aria-label="Footer" on footer <nav>
  *   W7  - prefers-reduced-motion handled in scroll_reveal_controller.js
  *   W14 - aria-hidden="true" on decorative Bootstrap icons
  *   R2  - <noscript> style restores element visibility if JS disabled
@@ -60,7 +60,7 @@
       <!-- Quick Links -->
       <div class="col">
         <h3 class="footer-col-heading">Quick Links</h3>
-        <nav aria-label="Footer navigation" class="footer-nav d-flex flex-column gap-2">
+        <nav aria-label="Footer" class="footer-nav d-flex flex-column gap-2">
           <a href="index.php">Home</a>
           <a href="intro.php">Meet the Pups</a>
           <a href="monterey.php">Why Monterey</a>

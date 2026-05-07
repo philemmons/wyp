@@ -292,7 +292,7 @@ require_once 'includes/header.php';
 
 
 <!--  PAGE HERO  -->
-<section class="contact-hero">
+<section class="contact-hero" aria-label="Contact page hero">
   <div class="container text-center page-hero-z">
     <h1 class="page-hero-h1">Say Hello!</h1>
     <p class="page-hero-tagline">
@@ -319,7 +319,7 @@ require_once 'includes/header.php';
 
 
 <!--  MAIN CONTACT SECTION  -->
-<section class="wyp-section wyp-section-alt">
+<section class="wyp-section wyp-section-alt" aria-label="Contact form and details">
   <div class="container">
     <div class="row g-5 justify-content-center">
 
@@ -555,7 +555,7 @@ require_once 'includes/header.php';
 </div>
 
 <!--  MAP  -->
-<section class="wyp-section wyp-section-sm">
+<section class="wyp-section wyp-section-sm" aria-label="Contact location map">
   <div class="container">
     <div class="text-center mb-4">
       <span class="section-eyebrow">Where to Find Us</span>

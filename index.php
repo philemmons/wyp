@@ -9,7 +9,7 @@ require_once 'includes/header.php';
 ?>
 
 <!--  HERO SECTION  -->
-<section class="wyp-hero">
+<section class="wyp-hero" aria-label="Homepage hero">
 
   <span class="paw-float" aria-hidden="true">🐾</span>
   <span class="paw-float" aria-hidden="true">🐾</span>
@@ -51,7 +51,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  WELCOME FEATURE TILES  -->
-<section class="wyp-section wyp-section-alt">
+<section class="wyp-section wyp-section-alt" aria-label="Welcome features">
   <div class="container">
 
     <div class="text-center mb-5">
@@ -120,7 +120,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  QUOTE STRIP  -->
-<section class="section-quote">
+<section class="section-quote" aria-label="Dog quote">
   <div class="container text-center">
     <p class="section-quote__text">
       "The world would be a nicer place if everyone had the ability to love as unconditionally as a dog."
@@ -130,7 +130,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  LOCATION TEASER  -->
-<section class="wyp-section section-teaser">
+<section class="wyp-section section-teaser" aria-label="Monterey teaser">
   <div class="container">
     <div class="row align-items-center g-5">
 
@@ -164,7 +164,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  CTA STRIP  -->
-<section class="section-cta wyp-section-accent">
+<section class="section-cta wyp-section-accent" aria-label="Contact call to action">
   <div class="container">
     <h2 class="section-cta__h2">
       Want to Say Hi? <span aria-hidden="true">🐾</span>
@@ -182,4 +182,3 @@ require_once 'includes/header.php';
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
-

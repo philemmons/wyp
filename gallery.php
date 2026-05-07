@@ -173,7 +173,7 @@ require_once 'includes/header.php';
 ?>
 
 <!-- Page hero: gallery-specific layered header component -->
-<section class="monterey-hero image-header">
+<section class="monterey-hero image-header" aria-label="Gallery page hero">
   <div class="container text-center page-hero-z">
     <header class="wyp-gallery-hero shadow">
       <div class="wyp-gallery-hero-accent-top" aria-hidden="true"></div>
@@ -210,7 +210,7 @@ require_once 'includes/header.php';
 
 
 <!--  FULL GALLERY CAROUSEL (uses existing gallery preview styles as canonical structure)  -->
-<section class="wyp-section">
+<section class="wyp-section" aria-label="Gallery carousel">
   <div class="container">
 
     <div class="text-center mb-5">
@@ -247,9 +247,7 @@ require_once 'includes/header.php';
         data-bs-keyboard="true"
         data-bs-touch="true"
         tabindex="0"
-        role="region"
-        aria-describedby="galleryCarouselInstructions galleryCarouselStatus"
-        aria-label="Chandra and Skipper photo carousel">
+        aria-describedby="galleryCarouselInstructions galleryCarouselStatus">
 
         <?php if ($shouldRenderSlideIndicators): ?>
           <div class="carousel-indicators">
@@ -352,7 +350,7 @@ require_once 'includes/header.php';
 </div>
 
 <!--  ABOUT THE DOGS MINI SECTION  -->
-<section class="section-gallery-story wyp-section-accent">
+<section class="section-gallery-story wyp-section-accent" aria-label="About Chandra and Skipper">
   <div class="container">
     <div class="row g-4 justify-content-center">
 

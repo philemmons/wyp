@@ -9,7 +9,7 @@ require_once 'includes/header.php';
 ?>
 
 <!--  PAGE HERO  -->
-<section class="monterey-hero intro-hero">
+<section class="monterey-hero intro-hero" aria-label="Meet the Chihuahuas hero">
   <div class="container text-center page-hero-z">
     <h1 class="page-hero-h1">Meet the Chihuahuas!</h1>
     <p class="page-hero-tagline">Faithful and Loving — Two small dogs with hearts <i class="bi bi-suit-heart-fill" aria-hidden="true"></i> the size of the ocean!</p>
@@ -19,7 +19,7 @@ require_once 'includes/header.php';
 
 
 <!--  DOG PROFILES  -->
-<section class="wyp-section">
+<section class="wyp-section" aria-label="Dog profiles">
   <div class="container">
 
     <div class="text-center mb-5">
@@ -122,7 +122,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  TOGETHER SECTION  -->
-<section class="wyp-section wyp-section-sm wyp-section-accent">
+<section class="wyp-section wyp-section-sm wyp-section-accent" aria-label="Chandra and Skipper together">
   <div class="container">
     <div class="row align-items-center g-5">
 
@@ -156,7 +156,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  BREED QUICK FACTS  -->
-<section class="wyp-section wyp-section-alt">
+<section class="wyp-section wyp-section-alt" aria-label="Breed quick facts">
   <div class="container">
 
     <div class="text-center mb-5">
@@ -208,4 +208,3 @@ require_once 'includes/header.php';
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
-

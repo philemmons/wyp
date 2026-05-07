@@ -9,7 +9,7 @@ ob_start();
  *   W1  — Skip-to-main link
  *   W2  — <main> landmark opened here (closed in footer.php)
  *   W3  — aria-current="page" on active nav item
- *   W4  — aria-label="Main navigation" on <nav>
+ *   W4  — aria-label="Primary" on <nav>
  *   B5  — Google Fonts loaded via <link> only (CSS @import removed)
  *   R3  — og:url, og:type, og:image placeholders added
  *   R4  — <link rel="canonical"> added
@@ -135,48 +135,51 @@ $canonicalUrl = $siteBaseUrl . '/' . ($canonicalPagePathByKey[$activePageKey] ??
   <!-- Animated colour strip — purely decorative -->
   <div class="swirl-strip" aria-hidden="true" role="presentation"></div>
 
-  <!-- W4: aria-label="Main navigation" distinguishes this <nav> from footer nav -->
-  <nav class="navbar navbar-expand-lg wyp-navbar" aria-label="Main navigation">
-    <div class="container">
+  <!-- Top-level banner landmark for site identity and primary navigation -->
+  <header class="wyp-site-header">
+    <!-- W4: aria-label distinguishes this repeated <nav> landmark from footer nav -->
+    <nav class="navbar navbar-expand-lg wyp-navbar" aria-label="Primary">
+      <div class="container">
 
-      <a class="navbar-brand d-flex align-items-center" href="/">
-        <!-- W14: decorative icon is aria-hidden -->
-        <img class="paw-brand-icon" src="/images/black-paw.png" alt="" aria-hidden="true">
-        <div>
-          Wipe Your Paws
-          <span>Big Love for Small Paws</span>
+        <a class="navbar-brand d-flex align-items-center" href="/">
+          <!-- W14: decorative icon is aria-hidden -->
+          <img class="paw-brand-icon" src="/images/black-paw.png" alt="" aria-hidden="true">
+          <div>
+            Wipe Your Paws
+            <span>Big Love for Small Paws</span>
+          </div>
+        </a>
+
+        <button class="navbar-toggler" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#wypNav"
+          aria-controls="wypNav"
+          aria-expanded="false"
+          aria-label="Toggle menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="wypNav">
+          <ul class="navbar-nav ms-auto gap-1">
+            <?php foreach ($primaryNavigationLinks as $navKey => $navigationLink):
+              $isCurrentPage = ($activePageKey === $navKey);
+            ?>
+              <li class="nav-item">
+                <!-- W3: aria-current="page" and "(current)" communicates active page to screen readers -->
+                <a class="nav-link <?= $isCurrentPage ? 'active' : '' ?>"
+                  href="<?= htmlspecialchars($navigationLink['href']) ?>"
+                  <?= $isCurrentPage ? 'aria-current="page"' : '' ?>>
+                  <?= htmlspecialchars($navigationLink['label']) ?>
+                  <?= $isCurrentPage ? '<span class="visually-hidden">(current)</span>' : '' ?>
+                </a>
+              </li>
+            <?php endforeach; ?>
+          </ul>
         </div>
-      </a>
 
-      <button class="navbar-toggler" type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#wypNav"
-        aria-controls="wypNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation menu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="wypNav">
-        <ul class="navbar-nav ms-auto gap-1">
-          <?php foreach ($primaryNavigationLinks as $navKey => $navigationLink):
-            $isCurrentPage = ($activePageKey === $navKey);
-          ?>
-            <li class="nav-item">
-              <!-- W3: aria-current="page" and "(current)" communicates active page to screen readers -->
-              <a class="nav-link <?= $isCurrentPage ? 'active' : '' ?>"
-                href="<?= htmlspecialchars($navigationLink['href']) ?>"
-                <?= $isCurrentPage ? 'aria-current="page"' : '' ?>>
-                <?= htmlspecialchars($navigationLink['label']) ?>
-                <?= $isCurrentPage ? '<span class="visually-hidden">(current)</span>' : '' ?>
-              </a>
-            </li>
-          <?php endforeach; ?>
-        </ul>
       </div>
-
-    </div>
-  </nav>
+    </nav>
+  </header>
 
   <!-- W2: <main> landmark — target for skip link; tabindex="-1" allows programmatic focus -->
   <main id="main-content" tabindex="-1">
