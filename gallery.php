@@ -350,51 +350,59 @@ require_once 'includes/header.php';
 </div>
 
 <!--  ABOUT THE DOGS MINI SECTION  -->
-<section class="section-gallery-story wyp-section-accent" aria-label="About Chandra and Skipper">
-  <div class="container">
-    <div class="row g-4 justify-content-center">
+<article>
+  <div class="section-gallery-story wyp-section-accent" aria-label="About Chandra and Skipper">
+    <div class="container">
+      <div class="row g-4 justify-content-center">
 
-      <div class="col-md-5">
-        <div class="wyp-card wyp-info-card text-center p-4">
-          <div class="card-header-band"></div>
-          <div class="gallery-dog-card-icon" aria-hidden="true">
-            <div class="dog-avatar-frame">
-              <img src="/images/chandra icon 55x55.png" alt="" class="mx-2" width="55" height="55" aria-hidden="true">
+        <div class="col-md-5">
+          <div class="wyp-card wyp-info-card text-center p-4">
+            <div class="card-header-band"></div>
+            <div class="gallery-dog-card-icon" aria-hidden="true">
+              <div class="dog-avatar-frame">
+                <img src="/images/chandra icon 55x55.png" alt="" class="mx-2" width="55" height="55" aria-hidden="true">
+              </div>
             </div>
-          </div>
-          <h3 class="section-title">Chandra</h3>
-          <p class="gallery-dog-teaser">
-            Our spirited Chihuahua princess - her gallery photos showcase
-            her signature sunlit poses and diva energy.
-          </p>
-          <a href="intro.php" class="gallery-dog-link">
-            Read Chandra's Story <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
 
-      <div class="col-md-5">
-        <div class="wyp-card wyp-info-card text-center p-4">
-          <div class="card-header-band dog-card-top-stripe--skipper"></div>
-          <div class="gallery-dog-card-icon" aria-hidden="true">
-            <div class="dog-avatar-frame">
-              <img src="/images/skipper-icon-50x42.png" alt="" class="mx-2" width="50" height="42" aria-hidden="true">
+            <section aria-label='Chandra Profile'>
+              <h3 class="section-title">Chandra</h3>
+              <p class="gallery-dog-teaser">
+                Our spirited Chihuahua princess - her gallery photos showcase
+                her signature sunlit poses and diva energy.
+              </p>
+              <a href="intro.php" class="gallery-dog-link">
+                Read Chandra's Story <span aria-hidden="true">→</span>
+              </a>
+            </section>
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <div class="wyp-card wyp-info-card text-center p-4">
+            <div class="card-header-band dog-card-top-stripe--skipper"></div>
+            <div class="gallery-dog-card-icon" aria-hidden="true">
+              <div class="dog-avatar-frame">
+                <img src="/images/skipper-icon-50x42.png" alt="" class="mx-2" width="50" height="42" aria-hidden="true">
+              </div>
             </div>
+            
+            <section aria-label='Skipper Profile'>
+              <h3 class="section-title">Skipper</h3>
+              <p class="gallery-dog-teaser">
+                Our adventurous Jack Chi explorer - expect candid action shots of
+                beach zoomies and trail-sniffing expeditions.
+              </p>
+              <a href="intro.php" class="gallery-dog-link">
+                Read Skipper's Story <span aria-hidden="true">→</span>
+              </a>
+            </section>
           </div>
-          <h3 class="section-title">Skipper</h3>
-          <p class="gallery-dog-teaser">
-            Our adventurous Jack Chi explorer - expect candid action shots of
-            beach zoomies and trail-sniffing expeditions.
-          </p>
-          <a href="intro.php" class="gallery-dog-link">
-            Read Skipper's Story <span aria-hidden="true">→</span>
-          </a>
         </div>
-      </div>
 
+      </div>
     </div>
   </div>
-</section>
+</article>
 
 <script src="/js/gallery_lightbox_controller.js?v=<?= filemtime(__DIR__ . '/js/gallery_lightbox_controller.js'); ?>" defer></script>
 
