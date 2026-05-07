@@ -139,7 +139,7 @@ require_once 'includes/header.php';
 
         <div class="col-lg-6">
           <span class="section-eyebrow">Our Home Base</span>
-          <section aria-label="Monterey description">
+          <section aria-label="Dog Friendly Location">
             <h2 class="section-title mb-3">Monterey Bay, California</h2>
             <p class="section-teaser__copy">
               Nestled along California's stunning central coast, Monterey Bay is one of the

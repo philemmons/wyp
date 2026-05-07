@@ -555,25 +555,29 @@ require_once 'includes/header.php';
 </div>
 
 <!--  MAP  -->
-<section class="wyp-section wyp-section-sm" aria-label="Contact location map">
+<article></article>
+<div class="wyp-section wyp-section-sm" aria-label="Contact location map">
   <div class="container">
     <div class="text-center mb-4">
       <span class="section-eyebrow">Where to Find Us</span>
-      <h2 class="section-title">Monterey Bay, California</h2>
-      <hr class="section-divider">
+      <section aria-label='Monterey Bay Location'>
+        <h2 class="section-title">Monterey Bay, California</h2>
+        <hr class="section-divider">
+        <section>
     </div>
-    <div class="map-wrapper ratio ratio-16x9">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51729.2!2d-121.9177!3d36.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de15c59e1e2fd%3A0xeabe3a9b9c9b1efc!2sMonterey%2C%20CA!5e0!3m2!1sen!2sus"
-        allowfullscreen
-        loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-        title="Google map showing Monterey Bay, California">
-      </iframe>
-    </div>
+    <section aria-label='Google Map'>
+      <div class="map-wrapper ratio ratio-16x9">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51729.2!2d-121.9177!3d36.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de15c59e1e2fd%3A0xeabe3a9b9c9b1efc!2sMonterey%2C%20CA!5e0!3m2!1sen!2sus"
+          allowfullscreen
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Google map showing Monterey Bay, California">
+        </iframe>
+      </div>
+    </section>
   </div>
-</section>
 
-<script src="/js/contact_form_experience.js?v=<?= filemtime(__DIR__ . '/js/contact_form_experience.js'); ?>" defer></script>
 
-<?php require_once 'includes/footer.php';
+  <script src="/js/contact_form_experience.js?v=<?= filemtime(__DIR__ . '/js/contact_form_experience.js'); ?>" defer></script>
 
+  <?php require_once 'includes/footer.php';
