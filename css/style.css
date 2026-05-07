@@ -898,6 +898,10 @@ p:last-child {
   transform: scaleX(1);
 }
 
+.btn.btn-wyp[class*="btn-wyp-"]:hover {
+  color: var(--black);
+}
+
 .btn-wyp:focus-visible,
 .quicklink-card:focus-visible,
 .social-circle:focus-visible,
@@ -1981,5 +1985,4 @@ p:last-child {
     transition-duration: 0.01ms !important;
   }
 }
-
 
