@@ -104,6 +104,10 @@
 
 /* Component-scoped tokens */
 /* Button tokens */
+.btn:hover {
+    --bs-btn-hover-color: inherit !important;
+}
+
 .btn-wyp {
   --btn-bg: var(--white);
   --btn-text: var(--espresso);
