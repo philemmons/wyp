@@ -470,7 +470,7 @@ require_once 'includes/header.php';
 
 
             <div class="col-md-6 text-center">
-              <button type="button" id="resetContactFormButton" class="btn btn-wyp btn-wyp-outline" name="reset" value="reset" aria-describedby="reset-help" data-bs-toggle="modal" data-bs-target="#contactResetConfirmModal">Reset Form</button>
+              <button type="button" id="resetContactFormButton" class="btn btn-wyp btn-wyp-outline" name="reset" value="reset" aria-describedby="reset-help">Reset Form</button>
               <span class="visually-hidden" id="reset-help">A confirmation dialog appears before this form is reset.</span>
             </div>
           </form>

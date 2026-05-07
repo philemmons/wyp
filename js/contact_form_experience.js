@@ -177,31 +177,42 @@
 
   // Reset confirmation modal: branded Bootstrap dialog with JS fallback.
   if (resetContactFormButton) {
-    var canUseBootstrapModal = !!(
-      resetConfirmModalElement &&
-      window.bootstrap &&
-      typeof window.bootstrap.Modal.getOrCreateInstance === 'function'
-    );
+    function canUseBootstrapModal() {
+      return !!(
+        resetConfirmModalElement &&
+        window.bootstrap &&
+        window.bootstrap.Modal &&
+        typeof window.bootstrap.Modal.getOrCreateInstance === 'function'
+      );
+    }
 
-    if (canUseBootstrapModal && confirmResetContactFormButton) {
-      var resetConfirmModalInstance = window.bootstrap.Modal.getOrCreateInstance(resetConfirmModalElement);
-
+    if (confirmResetContactFormButton && resetConfirmModalElement) {
       confirmResetContactFormButton.addEventListener('click', function () {
         clearContactFormState();
-        resetConfirmModalInstance.hide();
-        resetContactFormButton.focus();
-      });
-    } else {
-      resetContactFormButton.addEventListener('click', function (event) {
-        var shouldReset = window.confirm('Clear all form fields?');
-        if (!shouldReset) {
-          event.preventDefault();
-          return;
+
+        if (canUseBootstrapModal()) {
+          window.bootstrap.Modal.getOrCreateInstance(resetConfirmModalElement).hide();
         }
 
-        clearContactFormState();
+        resetContactFormButton.focus();
       });
     }
+
+    resetContactFormButton.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      if (canUseBootstrapModal()) {
+        window.bootstrap.Modal.getOrCreateInstance(resetConfirmModalElement).show();
+        return;
+      }
+
+      var shouldReset = window.confirm('Clear all form fields?');
+      if (!shouldReset) {
+        return;
+      }
+
+      clearContactFormState();
+    });
   }
 
   // Focus summary after server-side errors so assistive tech announces issues immediately.
