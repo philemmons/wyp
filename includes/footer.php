@@ -59,7 +59,7 @@
 
       <!-- Quick Links -->
       <div class="col">
-        <h2 class="footer-col-heading">Quick Links</h2>
+        <h3 class="footer-col-heading">Quick Links</h3>
         <nav aria-label="Footer navigation" class="footer-nav d-flex flex-column gap-2">
           <a href="index.php">Home</a>
           <a href="intro.php">Meet the Pups</a>
@@ -71,7 +71,7 @@
 
       <!-- Contact -->
       <div class="col">
-        <h2 class="footer-col-heading">Get in Touch</h2>
+        <h3 class="footer-col-heading">Get in Touch</h3>
         <address class="footer-contact-address d-flex flex-column gap-2">
           <div>
             <i class="bi bi-envelope-fill me-2 footer-icon" aria-hidden="true"></i>
@@ -86,12 +86,12 @@
 
       <!-- Fun fact -->
       <div class="col">
-        <h2 class="footer-col-heading">
+        <h3 class="footer-col-heading">
           <span>
             Did You Know?
             <img src='/images/skipper-icon.png' alt="" width=35 height=30 aria-hidden="true">
           </span>
-        </h2>
+        </h3>
         <p class="footer-col-body">
           Chihuahuas are the world's smallest dog breed but are known for having
           some of the biggest personalities! Despite their tiny stature, they are

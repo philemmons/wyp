@@ -1636,7 +1636,7 @@ p:last-child {
 }
 
 .footer-col-heading {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.15rem;
   margin-bottom: 0.7rem;
   letter-spacing: 0.12em;
