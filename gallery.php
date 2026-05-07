@@ -350,8 +350,8 @@ require_once 'includes/header.php';
 </div>
 
 <!--  ABOUT THE DOGS MINI SECTION  -->
-<article>
-  <div class="section-gallery-story wyp-section-accent" aria-label="About Chandra and Skipper">
+<article aria-label="About Chandra and Skipper">
+  <div class="section-gallery-story wyp-section-accent">
     <div class="container">
       <div class="row g-4 justify-content-center">
 
@@ -385,7 +385,7 @@ require_once 'includes/header.php';
                 <img src="/images/skipper-icon-50x42.png" alt="" class="mx-2" width="50" height="42" aria-hidden="true">
               </div>
             </div>
-            
+
             <section aria-label='Skipper Profile'>
               <h3 class="section-title">Skipper</h3>
               <p class="gallery-dog-teaser">
