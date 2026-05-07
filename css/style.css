@@ -585,7 +585,7 @@ p:last-child {
 .wyp-navbar .navbar-brand span {
   display: block;
   font-family: var(--font-body);
-  font-size: 0.68rem;
+  font-size: 0.70rem;
   letter-spacing: 0.12em;
   font-weight: 800;
   text-transform: uppercase;
