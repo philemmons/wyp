@@ -858,11 +858,6 @@ p:last-child {
     radial-gradient(circle at 76% 84%, rgba(255, 140, 99, 0.1), transparent 35%);
 }
 
-.img-monterey-hero{
-  width: 70%;
-  height:auto;
-}
-
 .page-hero-z {
   position: relative;
   z-index: 1;

@@ -13,7 +13,7 @@ require_once 'includes/header.php';
   <div class="container text-center page-hero-z">
     <h1 class="page-hero-h1">Meet the Chihuahuas!</h1>
     <p class="page-hero-tagline">Faithful and Loving — Two small dogs with hearts <i class="bi bi-suit-heart-fill" aria-hidden="true"></i> the size of the ocean!</p>
-    <img src="/images/chandra and skipper.png" alt="Chandra and Skipper posing together"  class="img-monterey-hero rounded mx-auto d-block shadow">
+    <img src="/images/chandra and skipper.png" alt="Chandra and Skipper posing together"  class="img-fluid rounded mx-auto d-block shadow">
   </div>
 </section>
 
