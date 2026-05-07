@@ -12,24 +12,28 @@ $montereyHighlightCategories = [
     'icon'  => '<i class="bi bi-sunrise"></i>',
     'title' => 'Outdoor Access and Natural Beauty',
     'theme' => 'monterey-theme-primary',
+    'aria'  =>  '\'Natural Beauty\'',
     'body'  => 'Monterey\'s coastal landscape makes it an exceptional destination for dogs and their owners. Scenic spots like Carmel Beach, Garrapata State Park, and the Monterey Bay Coastal Recreation Trail offer ample space for walks and outdoor adventures. The area\'s mild, temperate climate means these spaces are enjoyable year-round, without the discomfort of extreme heat or cold.',
   ],
   [
     'icon'  => '<i class="bi bi-cup-hot"></i>',
     'title' => 'Dog-Friendly Culture and Community',
     'theme' => 'monterey-theme-mauve',
+    'aria'  =>  '\'Dog Culture\'',
     'body'  => 'Monterey has a genuinely welcoming attitude toward dogs across daily life. Restaurants, cafés, and shops regularly accommodate pets, and many go the extra mile with water bowls and treats. The local dog community is active and well-organized, with clubs, training groups, and regular meetups that make it easy for owners to connect and for dogs to socialize.',
   ],
   [
     'icon'  => '<i class="bi bi-calendar-event"></i>',
     'title' => 'Accommodations and Events',
     'theme' => 'monterey-theme-deep',
+    'aria'  =>  '\'Dog Events\'',
     'body'  => 'Travelers with dogs are well catered to in Monterey. A solid range of hotels and vacation rentals accept pets, removing the usual stress of finding suitable lodging. Throughout the year, the area also hosts dog-centric events, including parades, shows, and adoption gatherings, that bring the community together around a shared love of dogs.',
   ],
   [
     'icon'  => '<i class="bi bi-house-heart"></i>',
     'title' => 'Services, Amenities, and Local Character',
     'theme' => 'monterey-theme-light',
+    'aria'  =>  '\'Dog Services\'',
     'body'  => 'Practical needs are well covered, with quality veterinary care, grooming, boarding, and training services readily available. Several off-leash parks and beaches give dogs the freedom to run and explore. Beyond the amenities, Monterey\'s broader character adds to its appeal — its environmental ethic keeps public spaces clean and safe, historic sites like Cannery Row welcome leashed dogs, and the locals themselves are known for being genuinely warm toward visiting pets and their owners.',
   ],
 ];
@@ -38,6 +42,9 @@ $montereyHighlightCategories = [
 <!--  PAGE HERO  -->
 <section class="monterey-hero image-header" aria-label="Why Monterey hero">
   <div class="container text-center page-hero-z">
+    <div class='visually-hidden'>
+      <h1>Why Monterey? A paradise where small dogs and their people thrive.</h1>
+    </div>
     <img src='images/why-monterey-header.png' alt='Why Monterey? A paradise where small dogs and their people thrive' class='img-fluid rounded mx-auto d-block shadow'>
   </div>
 </section>
@@ -48,7 +55,7 @@ $montereyHighlightCategories = [
     <div class="row justify-content-center">
       <div class="col-lg-8 text-center">
         <span class="section-eyebrow">Our Home</span>
-        <h1 class="section-title mb-3">A Haven for Dog Lovers</h1>
+        <h2 class="section-title mb-3">A Haven for Dog Lovers</h2>
         <hr class="section-divider">
         <p class="monterey-intro__copy">
           Monterey, California, is a unique place for dog lovers due to a combination of its natural beauty,
@@ -62,7 +69,8 @@ $montereyHighlightCategories = [
 </section>
 
 <!--  CATEGORIES  -->
-<section class="wyp-section" aria-label="Monterey highlights">
+<aside>
+<div class="wyp-section" aria-label="Monterey highlights">
   <div class="container">
     <div class="row g-4">
       <?php foreach ($montereyHighlightCategories as $highlightCategory): ?>
@@ -71,8 +79,10 @@ $montereyHighlightCategories = [
             <div class="d-flex align-items-start gap-3">
               <span class="category-icon" aria-hidden="true"><?= $highlightCategory['icon'] ?></span>
               <div class="flex-grow-1">
+                <section aria-label=<?= htmlspecialchars($highlightCategory['aria']) ?> >
                 <h2 class="monterey-cat-heading section-title fs-3"><?= htmlspecialchars($highlightCategory['title']) ?></h2>
                 <p class="category-item-body mt-2 mb-0"><?= htmlspecialchars($highlightCategory['body']) ?></p>
+                </section>
               </div>
             </div>
           </div>
@@ -80,7 +90,8 @@ $montereyHighlightCategories = [
       <?php endforeach; ?>
     </div>
   </div>
-</section>
+      </div>
+</aside>
 
 <!--  SUMMARY CALLOUT  -->
 <section class="section-cta wyp-section-accent" aria-label="Monterey summary">
@@ -154,4 +165,3 @@ $montereyHighlightCategories = [
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
-
