@@ -33,29 +33,32 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4 align-items-start">
 
       <!-- Brand column -->
-      <div class="col">
-        <div class="footer-brand mb-1">
-          Wipe Your Paws
+      <section aria-label='Brand'>
+        <div class="col">
+          <div class="footer-brand mb-1">
+            Wipe Your Paws
+          </div>
+          <div class="footer-tagline mb-3">
+            Big Love for Small Paws <span aria-hidden="true">??</span>
+          </div>
+          <p class="footer-desc">
+            Celebrating the joy of small dogs with Chandra &amp; Skipper <i class="bi bi-suit-heart-fill" aria-hidden="true"></i>
+            your cozy corner of the internet for small paw enthusiasts.
+          </p>
+          <div class="mt-3">
+            <a href="https://www.facebook.com/" class="social-circle" aria-label="Visit Facebook">
+              <i class="bi bi-facebook" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.instagram.com/" class="social-circle" aria-label="Visit Instagram">
+              <i class="bi bi-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.tiktok.com/" class="social-circle" aria-label="Visit TikTok">
+              <i class="bi bi-tiktok" aria-hidden="true"></i>
+            </a>
+          </div>
         </div>
-        <div class="footer-tagline mb-3">
-          Big Love for Small Paws <span aria-hidden="true">??</span>
-        </div>
-        <p class="footer-desc">
-          Celebrating the joy of small dogs with Chandra &amp; Skipper <i class="bi bi-suit-heart-fill" aria-hidden="true"></i>
-          your cozy corner of the internet for small paw enthusiasts.
-        </p>
-        <div class="mt-3">
-          <a href="https://www.facebook.com/" class="social-circle" aria-label="Visit Facebook">
-            <i class="bi bi-facebook" aria-hidden="true"></i>
-          </a>
-          <a href="https://www.instagram.com/" class="social-circle" aria-label="Visit Instagram">
-            <i class="bi bi-instagram" aria-hidden="true"></i>
-          </a>
-          <a href="https://www.tiktok.com/" class="social-circle" aria-label="Visit TikTok">
-            <i class="bi bi-tiktok" aria-hidden="true"></i>
-          </a>
-        </div>
-      </div>
+      </section>
+
 
       <!-- Quick Links -->
       <div class="col">
@@ -69,51 +72,60 @@
         </nav>
       </div>
 
+
       <!-- Contact -->
-      <div class="col">
-        <h3 class="footer-col-heading">Get in Touch</h3>
-        <address class="footer-contact-address d-flex flex-column gap-2">
-          <div>
-            <i class="bi bi-envelope-fill me-2 footer-icon" aria-hidden="true"></i>
-            <a href="mailto:admin@wipeyourpaws.net" class="text-break">admin@wipeyourpaws.net</a>
-          </div>
-          <div>
-            <i class="bi bi-geo-alt-fill me-2 footer-icon" aria-hidden="true"></i>
-            Monterey Bay, CA
-          </div>
-        </address>
-      </div>
+      <section aria-label='Contact'>
+        <div class="col">
+          <h3 class="footer-col-heading">Get in Touch</h3>
+          <address class="footer-contact-address d-flex flex-column gap-2">
+            <div>
+              <i class="bi bi-envelope-fill me-2 footer-icon" aria-hidden="true"></i>
+              <a href="mailto:admin@wipeyourpaws.net" class="text-break">admin@wipeyourpaws.net</a>
+            </div>
+            <div>
+              <i class="bi bi-geo-alt-fill me-2 footer-icon" aria-hidden="true"></i>
+              Monterey Bay, CA
+            </div>
+          </address>
+        </div>
+      </section>
+
 
       <!-- Fun fact -->
-      <div class="col">
-        <h3 class="footer-col-heading">
-          <span>
-            Did You Know?
-            <img src='/images/skipper-icon.png' alt="" width=35 height=30 aria-hidden="true">
-          </span>
-        </h3>
-        <p class="footer-col-body">
-          Chihuahuas are the world's smallest dog breed but are known for having
-          some of the biggest personalities! Despite their tiny stature, they are
-          fiercely loyal and love to cuddle.
-        </p>
-      </div>
-
+      <section aria-label='Contact'>
+        <div class="col">
+          <h3 class="footer-col-heading">
+            <span>
+              Did You Know?
+              <img src='/images/skipper-icon.png' alt="" width=35 height=30 aria-hidden="true">
+            </span>
+          </h3>
+          <p class="footer-col-body">
+            Chihuahuas are the world's smallest dog breed but are known for having
+            some of the biggest personalities! Despite their tiny stature, they are
+            fiercely loyal and love to cuddle.
+          </p>
+        </div>
+      </section>
     </div>
+
 
     <hr class="footer-divider">
 
-    <div class="row footer-bottom gy-2 align-items-center">
-      <div class="col-12 col-md-auto">
-        <span>&copy; <?= date('Y') ?> wipeyourpaws.net &mdash; All rights reserved.</span>
+    <section aria-label='copyright'>
+      <div class="row footer-bottom gy-2 align-items-center">
+        <div class="col-12 col-md-auto">
+          <span>&copy; <?= date('Y') ?> wipeyourpaws.net &mdash; All rights reserved.</span>
+        </div>
+        <div class="col-12 col-md-auto">
+          <span>
+            Made with <i class="bi bi-suit-heart-fill" aria-hidden="true"></i><span class="visually-hidden">LOVE</span> for Chandra &amp; Skipper
+            <span aria-hidden="true">🐾</span>
+          </span>
+        </div>
       </div>
-      <div class="col-12 col-md-auto">
-        <span>
-          Made with <i class="bi bi-suit-heart-fill" aria-hidden="true"></i><span class="visually-hidden">LOVE</span> for Chandra &amp; Skipper
-          <span aria-hidden="true">🐾</span>
-        </span>
-      </div>
-    </div>
+    </section>
+
 
   </div>
 </footer>
