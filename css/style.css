@@ -28,6 +28,7 @@
   --cinnamon: #A24B12;
   --espresso: #1d0e07;
   --sky-blue: #55b7ff;
+  --blue: #0000ff;
   --nose-pink: #ffb6c1;
   --white: #ffffff;
   --black: #000000;
@@ -124,7 +125,7 @@
   --size-paw-xl: clamp(3.8rem, 6.8vw, 5.8rem);
 
   /* Focus */
-  --focus-ring: var(--sky-blue);
+  --focus-ring: var(--blue);
   --focus-outline: 0 0 0 2px var(--white), 0 0 0 5px var(--focus-ring);
 
   /* Gallery hero */
