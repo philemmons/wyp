@@ -35,10 +35,10 @@ require_once 'includes/header.php';
       </p>
 
       <div class="error-btn-row">
-        <a href="/" class="btn-wyp btn-wyp-primary">
+        <a href="/" class="btn btn-wyp btn-wyp-primary">
           <span aria-hidden="true">🏠</span> Back to Home
         </a>
-        <a href="/contact.php" class="btn-wyp btn-wyp-outline">
+        <a href="/contact.php" class="btn btn-wyp btn-wyp-outline">
           Contact Us
         </a>
       </div>
@@ -76,5 +76,6 @@ require_once 'includes/header.php';
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
+
 
 

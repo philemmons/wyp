@@ -31,10 +31,10 @@ require_once 'includes/header.php';
             friends together!
           </p>
           <div class="d-flex flex-wrap gap-3">
-            <a href="intro.php" class="btn-wyp btn-wyp-primary">
+            <a href="intro.php" class="btn btn-wyp btn-wyp-primary">
               Meet Chandra &amp; Skipper
             </a>
-            <a href="monterey.php" class="btn-wyp btn-wyp-outline">
+            <a href="monterey.php" class="btn btn-wyp btn-wyp-outline">
               Explore Monterey
             </a>
           </div>
@@ -73,7 +73,7 @@ require_once 'includes/header.php';
               Chihuahua-Jack Russell mix. Two tiny dogs with the biggest hearts you'll
               ever encounter.
             </p>
-            <a href="intro.php" class="btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
+            <a href="intro.php" class="btn btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
               Their Story <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
             </a>
           </div>
@@ -91,7 +91,7 @@ require_once 'includes/header.php';
               coastal trails, welcoming cafés, and a community that truly adores furry
               companions of every size.
             </p>
-            <a href="monterey.php" class="btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
+            <a href="monterey.php" class="btn btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
               Explore <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
             </a>
           </div>
@@ -108,7 +108,7 @@ require_once 'includes/header.php';
               Our photo gallery is coming soon! We're busy snapping adorable pictures
               of Chandra and Skipper. Check back soon to see all their cute adventures.
             </p>
-            <a href="gallery.php" class="btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
+            <a href="gallery.php" class="btn btn-wyp btn-wyp-primary btn-wyp-sm mt-3">
               Peek Inside <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
             </a>
           </div>
@@ -143,7 +143,7 @@ require_once 'includes/header.php';
           dog-friendly beaches, and a community that loves four-legged friends, it's the
           perfect home for small paw adventurers like Chandra and Skipper.
         </p>
-        <a href="monterey.php" class="btn-wyp btn-wyp-primary mt-2">
+        <a href="monterey.php" class="btn btn-wyp btn-wyp-primary mt-2">
           Why We Love It Here
         </a>
       </div>
@@ -172,7 +172,7 @@ require_once 'includes/header.php';
     <p class="section-cta__p hero-tagline">
       We'd love to hear from fellow small dog lovers! Drop us a message anytime.
     </p>
-    <a href="contact.php" class="btn-wyp btn-wyp-white">
+    <a href="contact.php" class="btn btn-wyp btn-wyp-white">
       <div>
         Get in Touch
         <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
@@ -182,3 +182,4 @@ require_once 'includes/header.php';
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
+

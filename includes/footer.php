@@ -109,7 +109,7 @@
       </div>
       <div class="col-12 col-md-auto">
         <span>
-          Made with <i class="bi bi-suit-heart-fill" aria-hidden="true"></i><span class="sr-only">LOVE</span> for Chandra &amp; Skipper
+          Made with <i class="bi bi-suit-heart-fill" aria-hidden="true"></i><span class="visually-hidden">LOVE</span> for Chandra &amp; Skipper
           <span aria-hidden="true">🐾</span>
         </span>
       </div>

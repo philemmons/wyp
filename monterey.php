@@ -98,7 +98,7 @@ $montereyHighlightCategories = [
               It&rsquo;s no wonder Chandra and Skipper feel right at home here!
             </p>
             <div>
-              <a href="contact.php" class="btn-wyp btn-wyp-primary">
+              <a href="contact.php" class="btn btn-wyp btn-wyp-primary">
                 We&rsquo;d Love to Hear from You
                 <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
               </a>
@@ -154,3 +154,4 @@ $montereyHighlightCategories = [
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
+

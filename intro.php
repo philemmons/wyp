@@ -146,8 +146,8 @@ require_once 'includes/header.php';
           enormous joy to the lives they touch. <span aria-hidden="true">🐾</span>
         </p>
         <div class="mt-3">
-          <a href="gallery.php" class="btn-wyp btn-wyp-primary me-2">See the Gallery</a>
-          <a href="contact.php" class="btn-wyp btn-wyp-outline-light">Say Hello</a>
+          <a href="gallery.php" class="btn btn-wyp btn-wyp-primary me-2">See the Gallery</a>
+          <a href="contact.php" class="btn btn-wyp btn-wyp-outline-light">Say Hello</a>
         </div>
       </div>
 
@@ -208,3 +208,4 @@ require_once 'includes/header.php';
 </section>
 
 <?php require_once 'includes/footer.php'; ?>
+

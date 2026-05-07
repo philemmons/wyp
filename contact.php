@@ -465,12 +465,12 @@ require_once 'includes/header.php';
 
 
             <div class="col-md-6 text-center">
-              <button type="submit" class="btn-wyp btn-wyp-primary" name="submit" <?= $isContactFormConfigured ? '' : 'disabled aria-disabled="true"' ?>>Submit Message</button>
+              <button type="submit" class="btn btn-wyp btn-wyp-primary" name="submit" <?= $isContactFormConfigured ? '' : 'disabled aria-disabled="true"' ?>>Submit Message</button>
             </div>
 
 
             <div class="col-md-6 text-center">
-              <button type="reset" id="resetContactFormButton" class="btn-wyp btn-wyp-outline" name="reset" value="reset" aria-describedby="reset-help">Reset Form</button>
+              <button type="reset" id="resetContactFormButton" class="btn btn-wyp btn-wyp-outline" name="reset" value="reset" aria-describedby="reset-help">Reset Form</button>
               <span class="visually-hidden" id="reset-help">A confirmation dialog appears before this form is reset.</span>
             </div>
           </form>
@@ -547,3 +547,4 @@ require_once 'includes/header.php';
 <script src="/js/contact_form_experience.js?v=<?= filemtime(__DIR__ . '/js/contact_form_experience.js'); ?>" defer></script>
 
 <?php require_once 'includes/footer.php';
+
