@@ -175,7 +175,7 @@ require_once 'includes/header.php';
 <!-- Page hero: gallery-specific layered header component -->
 <section class="monterey-hero image-header">
   <div class="container text-center page-hero-z">
-    <header class="wyp-gallery-hero shadow" aria-labelledby="galleryHeroTitle">
+    <header class="wyp-gallery-hero shadow">
       <div class="wyp-gallery-hero-accent-top" aria-hidden="true"></div>
       <div class="wyp-gallery-hero-accent-bottom" aria-hidden="true"></div>
 
@@ -247,7 +247,7 @@ require_once 'includes/header.php';
         data-bs-keyboard="true"
         data-bs-touch="true"
         tabindex="0"
-        aria-roledescription="carousel"
+        role="region"
         aria-describedby="galleryCarouselInstructions galleryCarouselStatus"
         aria-label="Chandra and Skipper photo carousel">
 
@@ -268,7 +268,7 @@ require_once 'includes/header.php';
         <div class="carousel-inner">
           <?php foreach ($galleryItems as $index => $galleryItem): ?>
             <!-- Each slide uses the existing gallery card styling and opens the Bootstrap modal lightbox. -->
-            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>" aria-label="Slide <?= (int) ($index + 1) ?> of <?= (int) $validImageCount ?>">
+            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>" role="group" aria-roledescription="slide" aria-label="Slide <?= (int) ($index + 1) ?> of <?= (int) $validImageCount ?>">
               <div class="gallery-placeholder-item gallery-carousel-card">
                 <button
                   type="button"
