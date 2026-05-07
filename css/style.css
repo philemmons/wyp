@@ -32,6 +32,7 @@
   --nose-pink: #ffb6c1;
   --white: #ffffff;
   --black: #000000;
+  --metallic: #999B9B;
 
   /* Brand legacy aliases used in templates */
   --orange-primary: var(--tangerine);
@@ -896,6 +897,7 @@ p:last-child {
 
 .btn.btn-wyp[class*="btn-wyp-"]:hover {
   color: var(--black);
+  border-color: var(--metallic);
 }
 
 .btn-wyp:focus-visible,
