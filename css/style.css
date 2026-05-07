@@ -1717,7 +1717,7 @@ textarea.form-control {
 .form-help {
   margin-top: 0.45rem;
   font-size: 0.9rem;
-  color: var(--text-dark);
+  color: var(--text-strong);
 }
 
 .form-error-text {
