@@ -33,7 +33,7 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4 align-items-start">
 
       <!-- Brand column -->
-      <section aria-label='Brand'>
+      <section aria-label="Site brand and social links">
         <div class="col">
           <div class="footer-brand mb-1">
             Wipe Your Paws
@@ -74,7 +74,7 @@
 
 
       <!-- Contact -->
-      <section aria-label='Contact'>
+      <section aria-label="Footer contact information">
         <div class="col">
           <h3 class="footer-col-heading">Get in Touch</h3>
           <address class="footer-contact-address d-flex flex-column gap-2">
@@ -92,7 +92,7 @@
 
 
       <!-- Fun fact -->
-      <section aria-label='Contact'>
+      <section aria-label="Did you know fact">
         <div class="col">
           <h3 class="footer-col-heading">
             <span>
@@ -112,7 +112,7 @@
 
     <hr class="footer-divider">
 
-    <section aria-label='copyright'>
+    <section aria-label="Copyright and attribution">
       <div class="row footer-bottom gy-2 align-items-center">
         <div class="col-12 col-md-auto">
           <span>&copy; <?= date('Y') ?> wipeyourpaws.net &mdash; All rights reserved.</span>
