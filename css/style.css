@@ -469,7 +469,6 @@ p:last-child {
 .section-title {
   font-family: var(--font-display);
   color: var(--text-strong);
-  line-height: 1.2;
 }
 
 .section-divider {
