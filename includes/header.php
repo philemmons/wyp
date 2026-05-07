@@ -96,8 +96,7 @@ $canonicalUrl = $siteBaseUrl . '/' . ($canonicalPagePathByKey[$activePageKey] ??
   <meta property="og:title" content="<?= htmlspecialchars($pageTitle) ?>">
   <meta property="og:description" content="<?= htmlspecialchars($pageDescription) ?>">
   <meta property="og:url" content="<?= htmlspecialchars($canonicalUrl) ?>">
-  <!-- og:image — add when image is available: -->
-  <!-- <meta property="og:image" content="<?= $siteBaseUrl ?>/images/og-image.jpg"> -->
+  <meta property="og:image" content="<?= $siteBaseUrl ?>/images/og-image.jpg">
 
   <title><?= htmlspecialchars($pageTitle) ?></title>
 
