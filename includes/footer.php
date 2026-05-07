@@ -45,13 +45,13 @@
           your cozy corner of the internet for small paw enthusiasts.
         </p>
         <div class="mt-3">
-          <a href="https://www.facebook.com/" class="social-circle" aria-label="Follow us on Facebook">
+          <a href="https://www.facebook.com/" class="social-circle" aria-label="Visit Facebook">
             <i class="bi bi-facebook" aria-hidden="true"></i>
           </a>
-          <a href="https://www.instagram.com/" class="social-circle" aria-label="Follow us on Instagram">
+          <a href="https://www.instagram.com/" class="social-circle" aria-label="Visit Instagram">
             <i class="bi bi-instagram" aria-hidden="true"></i>
           </a>
-          <a href="https://www.tiktok.com/" class="social-circle" aria-label="Follow us on TikTok">
+          <a href="https://www.tiktok.com/" class="social-circle" aria-label="Visit TikTok">
             <i class="bi bi-tiktok" aria-hidden="true"></i>
           </a>
         </div>

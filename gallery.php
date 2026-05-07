@@ -331,6 +331,7 @@ require_once 'includes/header.php';
 <div
   class="modal fade"
   id="galleryLightboxModal"
+  role="dialog"
   data-bs-keyboard="true"
   tabindex="-1"
   aria-labelledby="galleryLightboxTitle"

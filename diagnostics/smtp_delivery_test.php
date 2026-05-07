@@ -10,6 +10,10 @@ declare(strict_types=1);
  * /diagnostics/smtp_delivery_test.php?key=YOUR_KEY
  * /diagnostics/smtp_delivery_test.php?key=YOUR_KEY&to=you@example.com&send=1
  * /diagnostics/smtp_delivery_test.php?key=YOUR_KEY&format=json
+ *
+ * Requires:
+ * - WYP_ENABLE_DIAGNOSTICS=1
+ * - WYP_DIAG_KEY=... (shared secret)
  */
 
 $bootstrapFilePath = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'init.php';
@@ -38,6 +42,25 @@ $resolveEnvironmentFlag = static function (string $key, bool $default) use ($res
 $configuredDiagnosticAccessKey = $resolveEnvironmentValue('WYP_DIAG_KEY');
 $requestedDiagnosticAccessKey = isset($_GET['key']) && is_string($_GET['key']) ? $_GET['key'] : '';
 $shouldReturnJson = (isset($_GET['format']) && $_GET['format'] === 'json');
+$diagnosticsEnabled = $resolveEnvironmentFlag('WYP_ENABLE_DIAGNOSTICS', false);
+$diagnosticsVerboseEnabled = $resolveEnvironmentFlag('WYP_DIAG_VERBOSE', false);
+
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Pragma: no-cache');
+header('X-Robots-Tag: noindex, nofollow, noarchive');
+header('Referrer-Policy: no-referrer');
+
+if (!$diagnosticsEnabled) {
+    http_response_code(404);
+    if ($shouldReturnJson) {
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode(['ok' => false, 'error' => 'Not found'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        exit;
+    }
+    header('Content-Type: text/plain; charset=UTF-8');
+    echo "Not found.\n";
+    exit;
+}
 
 if ($configuredDiagnosticAccessKey === '' || $requestedDiagnosticAccessKey === '' || !hash_equals($configuredDiagnosticAccessKey, $requestedDiagnosticAccessKey)) {
     http_response_code(403);
@@ -102,17 +125,34 @@ if ($defaultSmtpTimeout < 3) {
     $defaultSmtpTimeout = 15;
 }
 
+$sanitizeHostname = static function (string $host): string {
+    $candidate = trim($host);
+    if ($candidate === '') {
+        return '';
+    }
+
+    return preg_match('/^[A-Za-z0-9.-]+$/', $candidate) ? $candidate : '';
+};
+
+$requestedHostOverride = isset($_GET['host']) && is_string($_GET['host']) ? trim($_GET['host']) : '';
+$resolvedSmtpHost = $requestedHostOverride !== ''
+    ? $sanitizeHostname($requestedHostOverride)
+    : $sanitizeHostname($resolveEnvironmentValue('WYP_SMTP_HOST'));
+
+$resolvedSmtpPort = isset($_GET['port']) ? (int) $_GET['port'] : $defaultSmtpPort;
+if ($resolvedSmtpPort < 1 || $resolvedSmtpPort > 65535) {
+    $resolvedSmtpPort = $defaultSmtpPort;
+}
+
 $smtpConfiguration = [
-    'host' => isset($_GET['host']) && is_string($_GET['host']) && $_GET['host'] !== ''
-        ? trim($_GET['host'])
-        : $resolveEnvironmentValue('WYP_SMTP_HOST'),
-    'port' => isset($_GET['port']) ? (int) $_GET['port'] : $defaultSmtpPort,
+    'host' => $resolvedSmtpHost,
+    'port' => $resolvedSmtpPort,
     'encryption' => isset($_GET['encryption']) && is_string($_GET['encryption']) && $_GET['encryption'] !== ''
         ? strtolower(trim($_GET['encryption']))
         : strtolower($resolveEnvironmentValue('WYP_SMTP_ENCRYPTION', 'tls')),
     'auth' => isset($_GET['auth']) ? ($_GET['auth'] === '1') : $resolveEnvironmentFlag('WYP_SMTP_AUTH', true),
-    'username' => isset($_GET['username']) && is_string($_GET['username']) ? trim($_GET['username']) : $resolveEnvironmentValue('WYP_SMTP_USERNAME'),
-    'password' => isset($_GET['password']) && is_string($_GET['password']) ? $_GET['password'] : $resolveEnvironmentValue('WYP_SMTP_PASSWORD'),
+    'username' => $resolveEnvironmentValue('WYP_SMTP_USERNAME'),
+    'password' => $resolveEnvironmentValue('WYP_SMTP_PASSWORD'),
     'timeout' => isset($_GET['timeout']) ? max(3, (int) $_GET['timeout']) : $defaultSmtpTimeout,
 ];
 
@@ -161,7 +201,7 @@ $smtpDiagnosticReport = [
     ],
     'smtp_connect' => null,
     'send_attempt' => null,
-    'debug_log' => [],
+    'debug_log' => $diagnosticsVerboseEnabled ? [] : ['Verbose debug disabled. Set WYP_DIAG_VERBOSE=1 for protocol logs.'],
 ];
 
 $phpMailerDependencyStatus = $loadPhpMailerDependencies();
@@ -192,10 +232,12 @@ try {
     $mail->Timeout = (int) $smtpConfiguration['timeout'];
     $mail->CharSet = 'UTF-8';
     $mail->Encoding = 'base64';
-    $mail->SMTPDebug = 3;
-    $mail->Debugoutput = static function (string $line, int $level) use (&$smtpDiagnosticReport): void {
-        $smtpDiagnosticReport['debug_log'][] = '[' . $level . '] ' . $line;
-    };
+    $mail->SMTPDebug = $diagnosticsVerboseEnabled ? 3 : 0;
+    if ($diagnosticsVerboseEnabled) {
+        $mail->Debugoutput = static function (string $line, int $level) use (&$smtpDiagnosticReport): void {
+            $smtpDiagnosticReport['debug_log'][] = '[' . $level . '] ' . $line;
+        };
+    }
 
     if ($smtpConfiguration['encryption'] === 'ssl') {
         $mail->SMTPSecure = $phpMailerClass::ENCRYPTION_SMTPS;

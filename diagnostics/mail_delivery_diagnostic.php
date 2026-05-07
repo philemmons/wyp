@@ -13,6 +13,10 @@ declare(strict_types=1);
  * /diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY&smtp_host=smtp.example.com
  * /diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY&mail_test_to=you@example.com
  * /diagnostics/mail_delivery_diagnostic.php?key=YOUR_KEY&outbound_ip=203.0.113.10
+ *
+ * Requires:
+ * - WYP_ENABLE_DIAGNOSTICS=1
+ * - WYP_DIAG_KEY=... (shared secret)
  */
 
 $bootstrapFilePath = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'init.php';
@@ -36,6 +40,28 @@ $resolveEnvironmentValue = static function (string $key, string $default = ''): 
 $configuredDiagnosticAccessKey = $resolveEnvironmentValue('WYP_DIAG_KEY');
 $requestedDiagnosticAccessKey = isset($_GET['key']) && is_string($_GET['key']) ? $_GET['key'] : '';
 $shouldReturnJson = (isset($_GET['format']) && $_GET['format'] === 'json');
+$diagnosticsEnabled = in_array(
+    strtolower($resolveEnvironmentValue('WYP_ENABLE_DIAGNOSTICS', '0')),
+    ['1', 'true', 'yes', 'on'],
+    true
+);
+
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Pragma: no-cache');
+header('X-Robots-Tag: noindex, nofollow, noarchive');
+header('Referrer-Policy: no-referrer');
+
+if (!$diagnosticsEnabled) {
+    http_response_code(404);
+    if ($shouldReturnJson) {
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode(['ok' => false, 'error' => 'Not found'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        exit;
+    }
+    header('Content-Type: text/plain; charset=UTF-8');
+    echo "Not found.\n";
+    exit;
+}
 
 if ($configuredDiagnosticAccessKey === '') {
     http_response_code(403);
@@ -83,18 +109,52 @@ if ($defaultSmtpPort <= 0) {
 }
 $defaultDkimSelector = $resolveEnvironmentValue('WYP_DKIM_SELECTOR', 'default');
 
+$sanitizeHostname = static function (string $host): string {
+    $candidate = trim($host);
+    if ($candidate === '') {
+        return '';
+    }
+
+    return preg_match('/^[A-Za-z0-9.-]+$/', $candidate) ? $candidate : '';
+};
+
+$sanitizeDomain = static function (string $domain): string {
+    $candidate = strtolower(trim($domain));
+    if ($candidate === '') {
+        return '';
+    }
+
+    return preg_match('/^[a-z0-9.-]+$/', $candidate) ? $candidate : '';
+};
+
+$sanitizeSelector = static function (string $selector): string {
+    $candidate = trim($selector);
+    if ($candidate === '') {
+        return '';
+    }
+
+    return preg_match('/^[A-Za-z0-9._-]+$/', $candidate) ? $candidate : '';
+};
+
 $fromEmailDomain = strtolower((string) substr(strrchr($fromEmailAddress, '@') ?: '', 1));
 $domain = isset($_GET['domain']) && is_string($_GET['domain']) && $_GET['domain'] !== ''
-    ? strtolower(trim($_GET['domain']))
-    : ($fromEmailDomain !== '' ? $fromEmailDomain : 'example.com');
+    ? $sanitizeDomain($_GET['domain'])
+    : ($fromEmailDomain !== '' ? $sanitizeDomain($fromEmailDomain) : 'example.com');
 
 $selector = isset($_GET['selector']) && is_string($_GET['selector']) && $_GET['selector'] !== ''
-    ? trim($_GET['selector'])
-    : ($defaultDkimSelector !== '' ? $defaultDkimSelector : 'default');
+    ? $sanitizeSelector($_GET['selector'])
+    : ($defaultDkimSelector !== '' ? $sanitizeSelector($defaultDkimSelector) : 'default');
 
 $smtpHost = isset($_GET['smtp_host']) && is_string($_GET['smtp_host']) && $_GET['smtp_host'] !== ''
-    ? trim($_GET['smtp_host'])
-    : $defaultSmtpHost;
+    ? $sanitizeHostname($_GET['smtp_host'])
+    : $sanitizeHostname($defaultSmtpHost);
+
+if ($domain === '') {
+    $domain = 'example.com';
+}
+if ($selector === '') {
+    $selector = 'default';
+}
 
 $smtpPortsToTest = [25, 465, 587, 2525];
 

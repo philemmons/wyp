@@ -10,9 +10,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/init.php';
 
 // Start session storage so CSRF tokens, flash messages, and anti-spam timers persist between requests.
-if (session_status() !== PHP_SESSION_ACTIVE) {
-  session_start();
-}
+wyp_start_secure_session();
 
 $activePageKey = 'contact';
 
@@ -39,10 +37,16 @@ $readTrimmedPostValue = static function (string $key): string {
 /**
  * Verify a reCAPTCHA token with Google using server-side secret key.
  */
-$verifyRecaptchaTokenWithGoogle = static function (string $recaptchaSecretKey, string $recaptchaResponseToken): bool {
+$verifyRecaptchaTokenWithGoogle = static function (
+  string $recaptchaSecretKey,
+  string $recaptchaResponseToken,
+  string $expectedHostname,
+  string $clientIpAddress = ''
+): bool {
   $requestBody = http_build_query([
     'secret' => $recaptchaSecretKey,
     'response' => $recaptchaResponseToken,
+    'remoteip' => $clientIpAddress,
   ], '', '&', PHP_QUERY_RFC3986);
 
   $streamContext = stream_context_create([
@@ -62,7 +66,21 @@ $verifyRecaptchaTokenWithGoogle = static function (string $recaptchaSecretKey, s
   }
 
   $decoded = json_decode($responseBody, true);
-  return is_array($decoded) && !empty($decoded['success']);
+  if (!is_array($decoded) || empty($decoded['success'])) {
+    return false;
+  }
+
+  $returnedHostname = strtolower((string) ($decoded['hostname'] ?? ''));
+  $normalizedExpectedHostname = strtolower(trim($expectedHostname));
+  if ($normalizedExpectedHostname !== '') {
+    $normalizedExpectedHostname = preg_replace('/:\d+$/', '', $normalizedExpectedHostname) ?? $normalizedExpectedHostname;
+  }
+
+  if ($normalizedExpectedHostname !== '' && $returnedHostname !== '' && $returnedHostname !== $normalizedExpectedHostname) {
+    return false;
+  }
+
+  return true;
 };
 
 // Pull runtime configuration once so request handling stays deterministic and testable.
@@ -75,6 +93,13 @@ if ($recipientEmail === '') {
 }
 
 $formFromEmail = wyp_env('WYP_FORM_FROM_EMAIL');
+$clientIpAddress = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+$requestHost = trim((string) ($_SERVER['HTTP_HOST'] ?? ''));
+
+// Minimal server-side anti-abuse throttling for contact submissions.
+$contactRateLimitWindowSeconds = 15 * 60;
+$contactRateLimitMaxAttempts = 6;
+$contactRateLimitMinIntervalSeconds = 8;
 
 $contactFormConfigurationIssues = [];
 if ($recaptchaSiteKey === '') {
@@ -126,14 +151,46 @@ if (isset($_POST['submit'])) {
   $honeypotFieldValue = $readTrimmedPostValue('beeName');
   $recaptchaResponseToken = $readTrimmedPostValue('g-recaptcha-response');
 
+  $currentTimestamp = time();
+  if (!isset($_SESSION['contact_rate_limit']) || !is_array($_SESSION['contact_rate_limit'])) {
+    $_SESSION['contact_rate_limit'] = [
+      'window_started_at' => $currentTimestamp,
+      'attempt_count' => 0,
+      'last_attempt_at' => 0,
+    ];
+  }
+
+  $rateLimitState = $_SESSION['contact_rate_limit'];
+  $windowStartedAt = (int) ($rateLimitState['window_started_at'] ?? $currentTimestamp);
+  $attemptCount = (int) ($rateLimitState['attempt_count'] ?? 0);
+  $lastAttemptAt = (int) ($rateLimitState['last_attempt_at'] ?? 0);
+
+  if (($currentTimestamp - $windowStartedAt) > $contactRateLimitWindowSeconds) {
+    $windowStartedAt = $currentTimestamp;
+    $attemptCount = 0;
+    $lastAttemptAt = 0;
+  }
+
   // Fast-fail security checks first to avoid expensive work on invalid or bot traffic.
-  if ($csrfTokenFromPost === '' || !hash_equals($_SESSION['csrf_token'], $csrfTokenFromPost)) {
+  if (($currentTimestamp - $lastAttemptAt) > 0 && ($currentTimestamp - $lastAttemptAt) < $contactRateLimitMinIntervalSeconds) {
+    $formStatusMessage = 'Please wait a few seconds before submitting again.';
+  } elseif ($attemptCount >= $contactRateLimitMaxAttempts) {
+    $formStatusMessage = 'Too many attempts were detected. Please wait 15 minutes and try again.';
+  } elseif ($csrfTokenFromPost === '' || !hash_equals($_SESSION['csrf_token'], $csrfTokenFromPost)) {
     $formStatusMessage = 'Your session has expired. Please refresh and try again.';
   } elseif ($honeypotFieldValue !== '') {
     $formStatusMessage = 'Spam protection triggered. Please try again.';
   } elseif (!$isContactFormConfigured) {
     $formStatusMessage = 'The contact form is temporarily unavailable due to server configuration. Please try again later.';
   } else {
+    $attemptCount++;
+    $lastAttemptAt = $currentTimestamp;
+    $_SESSION['contact_rate_limit'] = [
+      'window_started_at' => $windowStartedAt,
+      'attempt_count' => $attemptCount,
+      'last_attempt_at' => $lastAttemptAt,
+    ];
+
     // Domain validation runs only after security gates pass, so messages stay user-actionable.
     if ($submittedFieldValues['contact-em'] === '') {
       $fieldErrorMessages['contact-em'] = 'Email is required.';
@@ -155,7 +212,7 @@ if (isset($_POST['submit'])) {
 
     if ($recaptchaResponseToken === '') {
       $fieldErrorMessages['recaptcha'] = 'Please complete reCAPTCHA before submitting.';
-    } elseif (!$verifyRecaptchaTokenWithGoogle($recaptchaSecretKey, $recaptchaResponseToken)) {
+    } elseif (!$verifyRecaptchaTokenWithGoogle($recaptchaSecretKey, $recaptchaResponseToken, $requestHost, $clientIpAddress)) {
       $fieldErrorMessages['recaptcha'] = 'reCAPTCHA verification failed. Please try again.';
     }
 
@@ -220,10 +277,14 @@ if (isset($_POST['submit'])) {
           'contact-ta' => '',
         ];
       } else {
+        error_log('Contact form mail() delivery failed for recipient: ' . $recipientEmail);
         $formStatusMessage = 'Your message could not be delivered right now. Please try again later.';
       }
     }
   }
+
+  // Rotate CSRF token after each submission attempt to reduce replay risk.
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
 require_once 'includes/header.php';

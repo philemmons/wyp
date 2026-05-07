@@ -9,9 +9,9 @@ $dotenvPath = dirname(__DIR__) . '/.env';
 $dotenvLines = file($dotenvPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
 if ($dotenvLines === false) {
-  // RuntimeException is deliberate: we want a hard failure in misconfigured environments
-  // rather than silently running with missing secrets.
-  throw new RuntimeException('Mandatory .env file could not be loaded at: ' . $dotenvPath);
+  // Keep server logs actionable, but avoid leaking absolute paths to users if display_errors is enabled.
+  error_log('Mandatory .env file could not be loaded at: ' . $dotenvPath);
+  throw new RuntimeException('Application configuration is missing. Contact the site administrator.');
 }
 
 // Parse each .env line into KEY=VALUE and publish to process/server env arrays.
@@ -61,4 +61,32 @@ function wyp_env(string $key, string $default = ''): string
   }
 
   return $default;
+}
+
+/**
+ * Start a hardened session with explicit cookie attributes.
+ * Call this only on pages that actually require session state.
+ */
+function wyp_start_secure_session(): void
+{
+  if (session_status() === PHP_SESSION_ACTIVE) {
+    return;
+  }
+
+  $isHttpsRequest = (
+    (!empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !== 'off')
+    || (isset($_SERVER['SERVER_PORT']) && (int) $_SERVER['SERVER_PORT'] === 443)
+  );
+
+  $existingCookieParams = session_get_cookie_params();
+  session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => $existingCookieParams['path'] ?? '/',
+    'domain' => $existingCookieParams['domain'] ?? '',
+    'secure' => $isHttpsRequest,
+    'httponly' => true,
+    'samesite' => 'Lax',
+  ]);
+
+  session_start();
 }
