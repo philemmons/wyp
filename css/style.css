@@ -614,7 +614,7 @@ p:last-child {
 
 .wyp-navbar .nav-link {
   position: relative;
-  color: var(--black) !important;
+  color: var(--text-strong) !important;
   font-size: 0.84rem;
   letter-spacing: 0.09em;
   font-weight: 700;
