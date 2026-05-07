@@ -71,7 +71,7 @@ $montereyHighlightCategories = [
             <div class="d-flex align-items-start gap-3">
               <span class="category-icon" aria-hidden="true"><?= $highlightCategory['icon'] ?></span>
               <div class="flex-grow-1">
-                <h3 class="monterey-cat-heading"><?= htmlspecialchars($highlightCategory['title']) ?></h3>
+                <h2 class="monterey-cat-heading"><?= htmlspecialchars($highlightCategory['title']) ?></h2>
                 <p class="category-item-body mt-2 mb-0"><?= htmlspecialchars($highlightCategory['body']) ?></p>
               </div>
             </div>
