@@ -200,7 +200,7 @@ require_once 'includes/header.php';
           <span>Chandra &amp; Skipper</span>
         </div>
         <h1 id="galleryHeroTitle">Media Gallery</h1>
-        <p>We're busy snapping adorable photos of Chandra and Skipper exploring Monterey Bay! This gallery will soon be filled with their cutest moments. Check back soon — it'll be paw-some!</p>
+        <p>We've snapped adorable photos of Chandra and Skipper living the good life in Monterey Bay! This gallery is filled with their cutest moments. Check it out — it's paw-some!</p>
       </div>
 
     </header>
