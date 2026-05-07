@@ -120,6 +120,7 @@
   --btn-border: rgba(138, 79, 41, 0.82);
 }
 
+
 .btn-wyp-outline {
   --btn-bg: linear-gradient(
     145deg,
@@ -134,21 +135,6 @@
   --btn-bg: linear-gradient(145deg, #ffffff, #fff4e5);
 }
 
-.btn-wyp-outline-light {
-  --btn-bg: rgba(255, 255, 255, 0.9);
-  --btn-text: #6b3b20;
-  --btn-border: rgba(154, 79, 40, 0.82);
-}
-
-.btn-wyp-outline-light:hover {
-  --btn-bg: #fff3e3;
-}
-
-.btn-wyp-white {
-  --btn-bg: #ffffff;
-  --btn-text: #4a2b1b;
-  --btn-border: rgba(183, 108, 66, 0.82);
-}
 
 /* Motion state tokens */
 [data-animate] {

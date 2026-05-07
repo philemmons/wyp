@@ -172,7 +172,7 @@ require_once 'includes/header.php';
     <p class="section-cta__p hero-tagline">
       We'd love to hear from fellow small dog lovers! Drop us a message anytime.
     </p>
-    <a href="contact.php" class="btn btn-wyp btn-wyp-white">
+    <a href="contact.php" class="btn btn-wyp btn-wyp-outline">
       <div>
         Get in Touch
         <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>

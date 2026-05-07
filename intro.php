@@ -147,7 +147,7 @@ require_once 'includes/header.php';
         </p>
         <div class="mt-3">
           <a href="gallery.php" class="btn btn-wyp btn-wyp-primary me-2">See the Gallery</a>
-          <a href="contact.php" class="btn btn-wyp btn-wyp-outline-light">Say Hello</a>
+          <a href="contact.php" class="btn btn-wyp btn-wyp-outline">Say Hello</a>
         </div>
       </div>
 
