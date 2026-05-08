@@ -12,28 +12,24 @@ $montereyHighlightCategories = [
     'icon'  => '<i class="bi bi-sunrise"></i>',
     'title' => 'Outdoor Access and Natural Beauty',
     'theme' => 'monterey-theme-primary',
-    'aria'  => 'Natural-Beauty',
     'body'  => 'Monterey\'s coastal landscape makes it an exceptional destination for dogs and their owners. Scenic spots like Carmel Beach, Garrapata State Park, and the Monterey Bay Coastal Recreation Trail offer ample space for walks and outdoor adventures. The area\'s mild, temperate climate means these spaces are enjoyable year-round, without the discomfort of extreme heat or cold.',
   ],
   [
     'icon'  => '<i class="bi bi-cup-hot"></i>',
     'title' => 'Dog-Friendly Culture and Community',
     'theme' => 'monterey-theme-mauve',
-    'aria'  => 'Dog-Culture',
     'body'  => 'Monterey has a genuinely welcoming attitude toward dogs across daily life. Restaurants, cafés, and shops regularly accommodate pets, and many go the extra mile with water bowls and treats. The local dog community is active and well-organized, with clubs, training groups, and regular meetups that make it easy for owners to connect and for dogs to socialize.',
   ],
   [
     'icon'  => '<i class="bi bi-calendar-event"></i>',
     'title' => 'Accommodations and Events',
     'theme' => 'monterey-theme-deep',
-    'aria'  => 'Dog-Events',
     'body'  => 'Travelers with dogs are well catered to in Monterey. A solid range of hotels and vacation rentals accept pets, removing the usual stress of finding suitable lodging. Throughout the year, the area also hosts dog-centric events, including parades, shows, and adoption gatherings, that bring the community together around a shared love of dogs.',
   ],
   [
     'icon'  => '<i class="bi bi-house-heart"></i>',
     'title' => 'Services, Amenities, and Local Character',
     'theme' => 'monterey-theme-light',
-    'aria'  => 'Dog-Services',
     'body'  => 'Practical needs are well covered, with quality veterinary care, grooming, boarding, and training services readily available. Several off-leash parks and beaches give dogs the freedom to run and explore. Beyond the amenities, Monterey\'s broader character adds to its appeal — its environmental ethic keeps public spaces clean and safe, historic sites like Cannery Row welcome leashed dogs, and the locals themselves are known for being genuinely warm toward visiting pets and their owners.',
   ],
 ];
@@ -42,11 +38,7 @@ $montereyHighlightCategories = [
 <!--  PAGE HERO  -->
 <div class="monterey-hero image-header">
   <div class="container text-center page-hero-z">
-    <div class='visually-hidden'>
-      <section aria-label="Why Monterey hero">
-        <h1>Why Monterey? A paradise where small dogs and their people thrive.</h1>
-      </section>
-    </div>
+    <h1 class="visually-hidden">Why Monterey? A paradise where small dogs and their people thrive.</h1>
     <img src='images/why-monterey-header.png' alt='Why Monterey? A paradise where small dogs and their people thrive' class='img-fluid rounded mx-auto d-block shadow'>
   </div>
 </div>
@@ -57,7 +49,7 @@ $montereyHighlightCategories = [
     <div class="row justify-content-center">
       <div class="col-lg-8 text-center">
         <span class="section-eyebrow">Our Home</span>
-        <section aria-label="Monterey introduction">
+        <div>
           <h2 class="section-title mb-3">A Haven for Dog Lovers</h2>
           <hr class="section-divider">
           <p class="monterey-intro__copy">
@@ -66,7 +58,7 @@ $montereyHighlightCategories = [
             Below are the factors that make Monterey particularly special for dog enthusiasts — and why
             Chandra and Skipper are two very lucky pups! <i class="bi bi-heart-fill" aria-hidden="true"></i>
           </p>
-        </section>
+        </div>
       </div>
     </div>
   </div>
@@ -78,16 +70,16 @@ $montereyHighlightCategories = [
   <div class="container">
     <div class="row g-4">
 
-      <?php foreach ($montereyHighlightCategories as $highlightCategory): ?>
+      <?php foreach ($montereyHighlightCategories as $categoryIndex => $highlightCategory): ?>
         <div class="col-12 col-md-6">
           <div class="monterey-category-card <?= htmlspecialchars($highlightCategory['theme']) ?> h-100">
             <div class="d-flex align-items-start gap-3">
               <span class="category-icon" aria-hidden="true"><?= $highlightCategory['icon'] ?></span>
               <div class="flex-grow-1">
-                <section aria-label=<?= htmlspecialchars($highlightCategory['aria']) ?>>
-                  <h2 class="monterey-cat-heading section-title fs-3"><?= htmlspecialchars($highlightCategory['title']) ?></h2>
+                <article aria-labelledby="monterey-category-heading-<?= (int) $categoryIndex ?>">
+                  <h2 class="monterey-cat-heading section-title fs-3" id="monterey-category-heading-<?= (int) $categoryIndex ?>"><?= htmlspecialchars($highlightCategory['title']) ?></h2>
                   <p class="category-item-body mt-2 mb-0"><?= htmlspecialchars($highlightCategory['body']) ?></p>
-                </section>
+                </article>
               </div>
             </div>
           </div>
@@ -100,7 +92,7 @@ $montereyHighlightCategories = [
 
 
 <!--  SUMMARY CALLOUT  -->
-<aside>
+<aside aria-labelledby="monterey-summary-heading">
   <div class="section-cta wyp-section-accent">
     <div class="container">
       <div class="row justify-content-center">
@@ -109,15 +101,15 @@ $montereyHighlightCategories = [
           <div class="wyp-card wyp-info-card">
             <div class="p-4 p-lg-5 text-center">
               <img src='images/gold paw award-small.png' alt='' class="img-fluid rounded mx-auto d-block" aria-hidden="true">
-              <section aria-label="Monterey summary">
-                <h2 class="spots-heading">The Bottom Line</h2>
+              <div>
+                <h2 class="spots-heading" id="monterey-summary-heading">The Bottom Line</h2>
                 <hr class="section-divider">
                 <p class="spots-intro">
                   Overall, Monterey, California, stands out as a haven for dog lovers due to its picturesque
                   setting, welcoming community, and abundance of dog-friendly amenities and activities.
                   It&rsquo;s no wonder Chandra and Skipper feel right at home here!
                 </p>
-              </section>
+              </div>
               <div>
                 <a href="contact.php" class="btn btn-wyp btn-wyp-primary">
                   We&rsquo;d Love to Hear from You
@@ -139,22 +131,18 @@ $montereyHighlightCategories = [
     <div class="container">
       <div class="text-center mb-4">
         <span class="section-eyebrow">Find Us Here</span>
-        <section aria-label="Monterey Map Title">
-          <h2 class="section-title">Monterey Bay, California</h2>
-          <hr class="section-divider">
-        </section>
+        <h2 class="section-title" id="monterey-map-heading">Monterey Bay, California</h2>
+        <hr class="section-divider">
       </div>
       
-      <section aria-label='Google Map'>
-        <div class="map-wrapper">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51729.2!2d-121.9177!3d36.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de15c59e1e2fd%3A0xeabe3a9b9c9b1efc!2sMonterey%2C%20CA!5e0!3m2!1sen!2sus!4v1699999999"
-            width="100%" height="420" allowfullscreen=""
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            title="Interactive map showing Monterey Bay, California">
-          </iframe>
-        </div>
-      </section>
+      <figure class="map-wrapper mb-0" aria-labelledby="monterey-map-heading">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51729.2!2d-121.9177!3d36.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de15c59e1e2fd%3A0xeabe3a9b9c9b1efc!2sMonterey%2C%20CA!5e0!3m2!1sen!2sus!4v1699999999"
+          width="100%" height="420" allowfullscreen=""
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Interactive map showing Monterey Bay, California">
+        </iframe>
+      </figure>
 
       <div class="row g-3 mt-4">
         <?php

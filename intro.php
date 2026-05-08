@@ -11,11 +11,11 @@ require_once 'includes/header.php';
 <!--  PAGE HERO  -->
 <div class="monterey-hero intro-hero">
   <div class="container text-center page-hero-z">
-    <section aria-label="Meet the Chihuahuas hero">
+    <div>
       <h1 class="page-hero-h1">Meet the Chihuahuas!</h1>
       <p class="page-hero-tagline">Faithful and Loving — Two small dogs with hearts <i class="bi bi-suit-heart-fill" aria-hidden="true"></i> the size of the ocean!</p>
       <img src="/images/chandra and skipper.png" alt="Chandra and Skipper posing together" class="img-fluid rounded mx-auto d-block shadow">
-    </section>
+    </div>
   </div>
 </div>
 
@@ -26,7 +26,7 @@ require_once 'includes/header.php';
 
     <div class="text-center mb-5">
       <span class="section-eyebrow">Our Beloved Companions</span>
-      <section aria-label="Dog profiles">
+      <div>
         <h2 class="section-title">The Dynamic Duo</h2>
         <hr class="section-divider">
         <p class="story-body story-body--wide mx-auto">
@@ -34,7 +34,7 @@ require_once 'includes/header.php';
           cozy nap on the couch — Chandra and Skipper fill our days with joy and chaos. Here's a
           little more about who they are.
         </p>
-      </section>
+      </div>
     </div>
 
     <div class="row g-5 justify-content-center">
@@ -44,8 +44,8 @@ require_once 'includes/header.php';
         <div class="dog-profile-card wyp-info-card p-4 text-center h-100">
 
           <div class="dog-card-top-stripe"></div>
-          <section aria-label='Intro Chandra'>
-            <h3 class="dog-name">Chandra</h3>
+          <article aria-labelledby="intro-chandra-heading">
+            <h3 class="dog-name" id="intro-chandra-heading">Chandra</h3>
             <p class="dog-catchphrase">"Princess of the House"</p>
 
             <img src='/images/chandra.jpg' alt='Chandra the Chihuahua' class='img-fluid rounded mx-auto d-block'>
@@ -76,7 +76,7 @@ require_once 'includes/header.php';
             </div>
 
             <div class="dog-breed-badge">Chihuahua</div>
-          </section>
+          </article>
         </div>
       </div>
 
@@ -85,8 +85,8 @@ require_once 'includes/header.php';
         <div class="dog-profile-card wyp-info-card p-4 text-center h-100">
 
           <div class="dog-card-top-stripe dog-card-top-stripe--skipper"></div>
-          <section aria-label='Intro Skipper'>
-            <h3 class="dog-name">Skipper</h3>
+          <article aria-labelledby="intro-skipper-heading">
+            <h3 class="dog-name" id="intro-skipper-heading">Skipper</h3>
             <p class="dog-catchphrase">"The Little Explorer"</p>
 
             <img src='/images/skipper on couch.jpg' alt='Skipper relaxing on the couch' class='img-fluid rounded mx-auto d-block'>
@@ -117,7 +117,7 @@ require_once 'includes/header.php';
             </div>
 
             <div class="dog-breed-badge">Chihuahua and Jack Russell</div>
-          </section>
+          </article>
         </div>
       </div>
 
@@ -136,7 +136,7 @@ require_once 'includes/header.php';
 
       <div class="col-lg-6">
         <span class="section-eyebrow">Together, Always</span>
-        <section aria-label="Chandra and Skipper together">
+        <div>
           <h2 class="section-title mb-3">The Best of Friends</h2>
           <hr class="section-divider">
           <p class="story-body">
@@ -154,7 +154,7 @@ require_once 'includes/header.php';
             <a href="gallery.php" class="btn btn-wyp btn-wyp-primary me-2">See the Gallery</a>
             <a href="contact.php" class="btn btn-wyp btn-wyp-outline">Say Hello</a>
           </div>
-        </section>
+        </div>
       </div>
 
     </div>
@@ -177,7 +177,7 @@ require_once 'includes/header.php';
         <div class="col-md-6">
           <div class="wyp-card wyp-info-card h-100 meet-the-pups-border-left">
             <div class="p-4">
-              <section aria-label="Chihuahua Breed Facts">
+              <section>
                 <h3 class="breed-fact-heading">
                   <img src='/images/chandra icon 55x55.png' alt="" width=55 height=55 aria-hidden="true"> Chihuahua
                 </h3>
@@ -197,7 +197,7 @@ require_once 'includes/header.php';
         <div class="col-md-6">
           <div class="wyp-card wyp-info-card h-100 meet-the-pups-border-left">
             <div class="p-4">
-              <section aria-label="Chi-Jack Breed Facts">
+              <section>
                 <h3 class="breed-fact-heading">
                   <img src='/images/skipper-icon-50x42.png' alt="" width=50 height=42 aria-hidden="true"> Chihuahua and Jack Russell Terrier
                 </h3>

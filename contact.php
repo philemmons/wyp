@@ -292,7 +292,7 @@ require_once 'includes/header.php';
 
 
 <!--  PAGE HERO  -->
-<section class="contact-hero" aria-label="Contact page hero">
+<section class="contact-hero">
   <div class="container text-center page-hero-z">
     <h1 class="page-hero-h1">Say Hello!</h1>
     <p class="page-hero-tagline">
@@ -319,7 +319,7 @@ require_once 'includes/header.php';
 
 
 <!--  MAIN CONTACT SECTION  -->
-<section class="wyp-section wyp-section-alt" aria-label="Contact form and details">
+<section class="wyp-section wyp-section-alt">
   <div class="container">
     <div class="row g-5 justify-content-center">
 
@@ -561,22 +561,18 @@ require_once 'includes/header.php';
       
       <div class="text-center mb-4">
         <span class="section-eyebrow">Where to Find Us</span>
-        <section aria-label='Monterey Bay Location'>
-          <h2 class="section-title">Monterey Bay, California</h2>
-          <hr class="section-divider">
-          <section>
+        <h2 class="section-title" id="contact-map-heading">Monterey Bay, California</h2>
+        <hr class="section-divider">
       </div>
 
-      <section aria-label='Google Map'>
-        <div class="map-wrapper ratio ratio-16x9">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51729.2!2d-121.9177!3d36.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de15c59e1e2fd%3A0xeabe3a9b9c9b1efc!2sMonterey%2C%20CA!5e0!3m2!1sen!2sus"
-            allowfullscreen
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            title="Google map showing Monterey Bay, California">
-          </iframe>
-        </div>
-      </section>
+      <figure class="map-wrapper ratio ratio-16x9 mb-0" aria-labelledby="contact-map-heading">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51729.2!2d-121.9177!3d36.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de15c59e1e2fd%3A0xeabe3a9b9c9b1efc!2sMonterey%2C%20CA!5e0!3m2!1sen!2sus"
+          allowfullscreen
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Google map showing Monterey Bay, California">
+        </iframe>
+      </figure>
 
     </div>
   </div>

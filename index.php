@@ -9,7 +9,7 @@ require_once 'includes/header.php';
 ?>
 
 <!--  HERO SECTION  -->
-<section class="wyp-hero" aria-label="Homepage hero">
+<section class="wyp-hero">
 
   <span class="paw-float" aria-hidden="true">🐾</span>
   <span class="paw-float" aria-hidden="true">🐾</span>
@@ -51,7 +51,7 @@ require_once 'includes/header.php';
 </section>
 
 <!--  WELCOME FEATURE TILES  -->
-<section class="wyp-section wyp-section-alt" aria-label="Welcome features">
+<section class="wyp-section wyp-section-alt">
   <div class="container">
 
     <div class="text-center mb-5">
@@ -121,14 +121,14 @@ require_once 'includes/header.php';
 
 <!--  QUOTE STRIP  -->
 <aside aria-label="Dog quote">
-  <section class="section-quote">
+  <figure class="section-quote mb-0">
     <div class="container text-center">
-      <p class="section-quote__text">
+      <blockquote class="section-quote__text mb-0">
         "The world would be a nicer place if everyone had the ability to love as unconditionally as a dog."
-      </p>
-      <p class="section-quote__attr">— M.K. Clinton</p>
+      </blockquote>
+      <figcaption class="section-quote__attr">&mdash; M.K. Clinton</figcaption>
     </div>
-  </section>
+  </figure>
 </aside>
 
 <!--  LOCATION TEASER  -->
@@ -139,7 +139,7 @@ require_once 'includes/header.php';
 
         <div class="col-lg-6">
           <span class="section-eyebrow">Our Home Base</span>
-          <section aria-label="Dog Friendly Location">
+          <div>
             <h2 class="section-title mb-3">Monterey Bay, California</h2>
             <p class="section-teaser__copy">
               Nestled along California's stunning central coast, Monterey Bay is one of the
@@ -150,33 +150,32 @@ require_once 'includes/header.php';
             <a href="monterey.php" class="btn btn-wyp btn-wyp-primary mt-2">
               Why We Love It Here
             </a>
-          </section>
+          </div>
         </div>
 
         <div class="col-lg-6">
-          <section aria-label='Monterey Map'>
-            <div class="map-wrapper">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51729.2!2d-121.9177!3d36.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de15c59e1e2fd%3A0xeabe3a9b9c9b1efc!2sMonterey%2C%20CA!5e0!3m2!1sen!2sus!4v1699999999"
-                width="100%" height="320" allowfullscreen=""
-                loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                title="Interactive map showing Monterey Bay, California">
-              </iframe>
-            </div>
-          </section>
+          <figure class="map-wrapper mb-0">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51729.2!2d-121.9177!3d36.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de15c59e1e2fd%3A0xeabe3a9b9c9b1efc!2sMonterey%2C%20CA!5e0!3m2!1sen!2sus!4v1699999999"
+              width="100%" height="320" allowfullscreen=""
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              title="Interactive map showing Monterey Bay, California">
+            </iframe>
+          </figure>
         </div>
 
       </div>
     </div>
+  </div>
 
 </article>
 
 <!--  CTA STRIP  -->
-<aside aria-label="Contact call to action">
+<aside aria-labelledby="home-contact-cta-heading">
   <div class="section-cta wyp-section-accent">
     <div class="container">
-      <section aria-label='Get in touch - Contact Us'>
-        <h2 class="section-cta__h2">
+      <div>
+        <h2 class="section-cta__h2" id="home-contact-cta-heading">
           Want to Say Hi? <span aria-hidden="true">🐾</span>
         </h2>
         <p class="section-cta__p hero-tagline">
@@ -188,7 +187,7 @@ require_once 'includes/header.php';
             <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
           </div>
         </a>
-      </section>
+      </div>
     </div>
   </div>
 </aside>

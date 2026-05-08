@@ -11,7 +11,7 @@ require_once 'includes/header.php';
 ?>
 
 <!--  ERROR HERO  -->
-<section class="error-hero" aria-label="404 error message">
+<section class="error-hero">
 
   <span class="paw-float" aria-hidden="true">🐾</span>
   <span class="paw-float" aria-hidden="true">🐾</span>
@@ -48,15 +48,13 @@ require_once 'includes/header.php';
 </section>
 
 <!--  QUICK LINKS STRIP  -->
-<aside>
-  <div class="quicklinks-section wyp-section-alt" aria-label="Helpful links">
+<aside aria-labelledby="error-404-helpful-links-heading">
+  <div class="quicklinks-section wyp-section-alt">
     <div class="container">
 
-      <section aria-label="Helpful links">
-        <h2 class="quicklinks-title text-center">Where would you like to go?</h2>
-      </section>
+      <h2 class="quicklinks-title text-center" id="error-404-helpful-links-heading">Where would you like to go?</h2>
 
-      <nav aria-label="404 error">
+      <nav aria-label="Helpful links navigation">
         <div class="row g-3 justify-content-center">
           <?php
           $quickLinkCards = [

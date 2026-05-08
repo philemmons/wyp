@@ -173,7 +173,7 @@ require_once 'includes/header.php';
 ?>
 
 <!-- Page hero: gallery-specific layered header component -->
-<section class="monterey-hero image-header" aria-label="Gallery page hero">
+<section class="monterey-hero image-header">
   <div class="container text-center page-hero-z">
     <header class="wyp-gallery-hero shadow">
       <div class="wyp-gallery-hero-accent-top" aria-hidden="true"></div>
@@ -210,7 +210,7 @@ require_once 'includes/header.php';
 
 
 <!--  FULL GALLERY CAROUSEL (uses existing gallery preview styles as canonical structure)  -->
-<section class="wyp-section" aria-label="Gallery carousel">
+<section class="wyp-section">
   <div class="container">
 
     <div class="text-center mb-5">
@@ -350,7 +350,7 @@ require_once 'includes/header.php';
 </div>
 
 <!--  ABOUT THE DOGS MINI SECTION  -->
-<article aria-label="About Chandra and Skipper">
+<div>
   <div class="section-gallery-story wyp-section-accent">
     <div class="container">
       <div class="row g-4 justify-content-center">
@@ -364,8 +364,8 @@ require_once 'includes/header.php';
               </div>
             </div>
 
-            <section aria-label='Chandra Profile'>
-              <h3 class="section-title">Chandra</h3>
+            <article aria-labelledby="gallery-chandra-heading">
+              <h3 class="section-title" id="gallery-chandra-heading">Chandra</h3>
               <p class="gallery-dog-teaser">
                 Our spirited Chihuahua princess - her gallery photos showcase
                 her signature sunlit poses and diva energy.
@@ -373,7 +373,7 @@ require_once 'includes/header.php';
               <a href="intro.php" class="gallery-dog-link">
                 Read Chandra's Story <span aria-hidden="true">→</span>
               </a>
-            </section>
+            </article>
           </div>
         </div>
 
@@ -386,8 +386,8 @@ require_once 'includes/header.php';
               </div>
             </div>
 
-            <section aria-label='Skipper Profile'>
-              <h3 class="section-title">Skipper</h3>
+            <article aria-labelledby="gallery-skipper-heading">
+              <h3 class="section-title" id="gallery-skipper-heading">Skipper</h3>
               <p class="gallery-dog-teaser">
                 Our adventurous Jack Chi explorer - expect candid action shots of
                 beach zoomies and trail-sniffing expeditions.
@@ -395,14 +395,14 @@ require_once 'includes/header.php';
               <a href="intro.php" class="gallery-dog-link">
                 Read Skipper's Story <span aria-hidden="true">→</span>
               </a>
-            </section>
+            </article>
           </div>
         </div>
 
       </div>
     </div>
   </div>
-</article>
+</div>
 
 <script src="/js/gallery_lightbox_controller.js?v=<?= filemtime(__DIR__ . '/js/gallery_lightbox_controller.js'); ?>" defer></script>
 

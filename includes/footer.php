@@ -35,7 +35,7 @@
       <!-- Brand column -->
 
       <div class="col">
-        <section aria-label="Site brand and social links">
+        <div>
           <div class="footer-brand mb-1">
             Wipe Your Paws
           </div>
@@ -57,14 +57,14 @@
               <i class="bi bi-tiktok" aria-hidden="true"></i>
             </a>
           </div>
-        </section>
+        </div>
       </div>
 
 
       <!-- Quick Links -->
       <div class="col">
         <h3 class="footer-col-heading">Quick Links</h3>
-        <nav aria-label="Footer" class="footer-nav d-flex flex-column gap-2">
+        <nav aria-label="Footer quick links navigation" class="footer-nav d-flex flex-column gap-2">
           <a href="index.php">Home</a>
           <a href="intro.php">Meet the Pups</a>
           <a href="monterey.php">Why Monterey</a>
@@ -77,7 +77,7 @@
       <!-- Contact -->
 
       <div class="col">
-        <section aria-label="Footer contact information">
+        <div>
           <h3 class="footer-col-heading">Get in Touch</h3>
           <address class="footer-contact-address d-flex flex-column gap-2">
             <div>
@@ -89,15 +89,15 @@
               Monterey Bay, CA
             </div>
           </address>
-        </section>
+        </div>
       </div>
 
 
       <!-- Fun fact -->
 
       <div class="col">
-        <section aria-label="Did you know fact">
-          <h3 class="footer-col-heading">
+        <section aria-labelledby="footer-did-you-know-heading">
+          <h3 class="footer-col-heading" id="footer-did-you-know-heading">
             <span>
               Did You Know?
               <img src='/images/skipper-icon.png' alt="" width=35 height=30 aria-hidden="true">
@@ -115,7 +115,7 @@
 
     <hr class="footer-divider">
 
-    <section aria-label="Copyright and attribution">
+    <div>
       <div class="row footer-bottom gy-2 align-items-center">
         <div class="col-12 col-md-auto">
           <span>&copy; <?= date('Y') ?> wipeyourpaws.net &mdash; All rights reserved.</span>
@@ -127,7 +127,7 @@
           </span>
         </div>
       </div>
-    </section>
+    </div>
 
   </div>
 </footer>
