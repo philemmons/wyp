@@ -126,7 +126,7 @@ require_once 'includes/header.php';
 </div>
 
 <!--  TOGETHER SECTION  -->
-<div class="wyp-section wyp-section-sm wyp-section-accent" aria-label="Chandra and Skipper together">
+<div class="wyp-section wyp-section-sm wyp-section-accent">
   <div class="container">
     <div class="row align-items-center g-5">
 
