@@ -173,22 +173,24 @@ require_once 'includes/header.php';
 
 <!--  CTA STRIP  -->
 <aside aria-label="Contact call to action">
-  <section class="section-cta wyp-section-accent">
+  <div class="section-cta wyp-section-accent">
     <div class="container">
-      <h2 class="section-cta__h2">
-        Want to Say Hi? <span aria-hidden="true">🐾</span>
-      </h2>
-      <p class="section-cta__p hero-tagline">
-        We'd love to hear from fellow small dog lovers! Drop us a message anytime.
-      </p>
-      <a href="contact.php" class="btn btn-wyp btn-wyp-outline">
-        <div>
-          Get in Touch
-          <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
-        </div>
-      </a>
+      <section aria-label='Get in touch - Contact Us'>
+        <h2 class="section-cta__h2">
+          Want to Say Hi? <span aria-hidden="true">🐾</span>
+        </h2>
+        <p class="section-cta__p hero-tagline">
+          We'd love to hear from fellow small dog lovers! Drop us a message anytime.
+        </p>
+        <a href="contact.php" class="btn btn-wyp btn-wyp-outline">
+          <div>
+            Get in Touch
+            <i class="bi bi-envelope-open-heart" aria-hidden="true"></i>
+          </div>
+        </a>
+      </section>
     </div>
-  </section>
+  </div>
 </aside>
 
 <?php require_once 'includes/footer.php'; ?>

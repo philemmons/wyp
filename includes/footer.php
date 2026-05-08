@@ -33,8 +33,9 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4 align-items-start">
 
       <!-- Brand column -->
-      <section aria-label="Site brand and social links">
-        <div class="col">
+
+      <div class="col">
+        <section aria-label="Site brand and social links">
           <div class="footer-brand mb-1">
             Wipe Your Paws
           </div>
@@ -56,8 +57,8 @@
               <i class="bi bi-tiktok" aria-hidden="true"></i>
             </a>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
 
       <!-- Quick Links -->
@@ -74,8 +75,9 @@
 
 
       <!-- Contact -->
-      <section aria-label="Footer contact information">
-        <div class="col">
+
+      <div class="col">
+        <section aria-label="Footer contact information">
           <h3 class="footer-col-heading">Get in Touch</h3>
           <address class="footer-contact-address d-flex flex-column gap-2">
             <div>
@@ -87,13 +89,14 @@
               Monterey Bay, CA
             </div>
           </address>
-        </div>
-      </section>
+        </section>
+      </div>
 
 
       <!-- Fun fact -->
-      <section aria-label="Did you know fact">
-        <div class="col">
+
+      <div class="col">
+        <section aria-label="Did you know fact">
           <h3 class="footer-col-heading">
             <span>
               Did You Know?
@@ -105,8 +108,8 @@
             some of the biggest personalities! Despite their tiny stature, they are
             fiercely loyal and love to cuddle.
           </p>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
 
 
@@ -125,7 +128,6 @@
         </div>
       </div>
     </section>
-
 
   </div>
 </footer>

@@ -40,33 +40,37 @@ $montereyHighlightCategories = [
 ?>
 
 <!--  PAGE HERO  -->
-<section class="monterey-hero image-header" aria-label="Why Monterey hero">
+<div class="monterey-hero image-header">
   <div class="container text-center page-hero-z">
     <div class='visually-hidden'>
-      <h1>Why Monterey? A paradise where small dogs and their people thrive.</h1>
+      <section aria-label="Why Monterey hero">
+        <h1>Why Monterey? A paradise where small dogs and their people thrive.</h1>
+      </section>
     </div>
     <img src='images/why-monterey-header.png' alt='Why Monterey? A paradise where small dogs and their people thrive' class='img-fluid rounded mx-auto d-block shadow'>
   </div>
-</section>
+</div>
 
 <!--  INTRO PARAGRAPH  -->
-<section class="wyp-section wyp-section-sm wyp-section-alt" aria-label="Monterey introduction">
+<div class="wyp-section wyp-section-sm wyp-section-alt">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8 text-center">
         <span class="section-eyebrow">Our Home</span>
-        <h2 class="section-title mb-3">A Haven for Dog Lovers</h2>
-        <hr class="section-divider">
-        <p class="monterey-intro__copy">
-          Monterey, California, is a unique place for dog lovers due to a combination of its natural beauty,
-          dog-friendly culture, and a variety of amenities catering to dogs and their owners.
-          Below are the factors that make Monterey particularly special for dog enthusiasts — and why
-          Chandra and Skipper are two very lucky pups! <i class="bi bi-heart-fill" aria-hidden="true"></i>
-        </p>
+        <section aria-label="Monterey introduction">
+          <h2 class="section-title mb-3">A Haven for Dog Lovers</h2>
+          <hr class="section-divider">
+          <p class="monterey-intro__copy">
+            Monterey, California, is a unique place for dog lovers due to a combination of its natural beauty,
+            dog-friendly culture, and a variety of amenities catering to dogs and their owners.
+            Below are the factors that make Monterey particularly special for dog enthusiasts — and why
+            Chandra and Skipper are two very lucky pups! <i class="bi bi-heart-fill" aria-hidden="true"></i>
+          </p>
+        </section>
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <!--  CATEGORIES  -->
 
@@ -140,6 +144,7 @@ $montereyHighlightCategories = [
           <hr class="section-divider">
         </section>
       </div>
+      
       <section aria-label='Google Map'>
         <div class="map-wrapper">
           <iframe

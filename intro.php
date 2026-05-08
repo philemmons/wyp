@@ -9,28 +9,32 @@ require_once 'includes/header.php';
 ?>
 
 <!--  PAGE HERO  -->
-<section class="monterey-hero intro-hero" aria-label="Meet the Chihuahuas hero">
+<div class="monterey-hero intro-hero">
   <div class="container text-center page-hero-z">
-    <h1 class="page-hero-h1">Meet the Chihuahuas!</h1>
-    <p class="page-hero-tagline">Faithful and Loving — Two small dogs with hearts <i class="bi bi-suit-heart-fill" aria-hidden="true"></i> the size of the ocean!</p>
-    <img src="/images/chandra and skipper.png" alt="Chandra and Skipper posing together" class="img-fluid rounded mx-auto d-block shadow">
+    <section aria-label="Meet the Chihuahuas hero">
+      <h1 class="page-hero-h1">Meet the Chihuahuas!</h1>
+      <p class="page-hero-tagline">Faithful and Loving — Two small dogs with hearts <i class="bi bi-suit-heart-fill" aria-hidden="true"></i> the size of the ocean!</p>
+      <img src="/images/chandra and skipper.png" alt="Chandra and Skipper posing together" class="img-fluid rounded mx-auto d-block shadow">
+    </section>
   </div>
-</section>
+</div>
 
 
 <!--  DOG PROFILES  -->
-<section class="wyp-section" aria-label="Dog profiles">
+<div class="wyp-section">
   <div class="container">
 
     <div class="text-center mb-5">
       <span class="section-eyebrow">Our Beloved Companions</span>
-      <h2 class="section-title">The Dynamic Duo</h2>
-      <hr class="section-divider">
-      <p class="story-body story-body--wide mx-auto">
-        Every wag of a tail, every gleaming pair of eyes at breakfast time, and every
-        cozy nap on the couch — Chandra and Skipper fill our days with joy and chaos. Here's a
-        little more about who they are.
-      </p>
+      <section aria-label="Dog profiles">
+        <h2 class="section-title">The Dynamic Duo</h2>
+        <hr class="section-divider">
+        <p class="story-body story-body--wide mx-auto">
+          Every wag of a tail, every gleaming pair of eyes at breakfast time, and every
+          cozy nap on the couch — Chandra and Skipper fill our days with joy and chaos. Here's a
+          little more about who they are.
+        </p>
+      </section>
     </div>
 
     <div class="row g-5 justify-content-center">
@@ -40,39 +44,39 @@ require_once 'includes/header.php';
         <div class="dog-profile-card wyp-info-card p-4 text-center h-100">
 
           <div class="dog-card-top-stripe"></div>
+          <section aria-label='Intro Chandra'>
+            <h3 class="dog-name">Chandra</h3>
+            <p class="dog-catchphrase">"Princess of the House"</p>
 
-          <h3 class="dog-name">Chandra</h3>
-          <p class="dog-catchphrase">"Princess of the House"</p>
+            <img src='/images/chandra.jpg' alt='Chandra the Chihuahua' class='img-fluid rounded mx-auto d-block'>
 
-          <img src='/images/chandra.jpg' alt='Chandra the Chihuahua' class='img-fluid rounded mx-auto d-block'>
+            <div class="my-3">
+              <span class="dog-stat-chip"><i class="bi bi-gender-female" aria-hidden="true"></i> Female</span>
+              <span class="dog-stat-chip"><span aria-hidden="true">🐾</span> Chihuahua</span>
+              <span class="dog-stat-chip"><span aria-hidden="true">📍</span> Monterey, CA</span>
+            </div>
 
-          <div class="my-3">
-            <span class="dog-stat-chip"><i class="bi bi-gender-female" aria-hidden="true"></i> Female</span>
-            <span class="dog-stat-chip"><span aria-hidden="true">🐾</span> Chihuahua</span>
-            <span class="dog-stat-chip"><span aria-hidden="true">📍</span> Monterey, CA</span>
-          </div>
+            <p class="dog-bio">
+              Chandra is a purebred Chihuahua with all the charm and confidence the breed
+              is famous for. Despite her petite frame, she commands every room she enters
+              with her bold personality and expressive eyes. She loves sunny spots by the
+              window, belly rubs, and is fiercely devoted to Millie.
+            </p>
 
-          <p class="dog-bio">
-            Chandra is a purebred Chihuahua with all the charm and confidence the breed
-            is famous for. Despite her petite frame, she commands every room she enters
-            with her bold personality and expressive eyes. She loves sunny spots by the
-            window, belly rubs, and is fiercely devoted to Millie.
-          </p>
+            <ul class="trait-list text-start">
+              <li>Spirited, bold, and full of confidence</li>
+              <li>Loves warm cuddles and afternoon naps</li>
+              <li>Fiercely loyal and protective of her home</li>
+              <li>Adores walks along the local neighborhood</li>
+              <li>Favorite toy: her plush teddy bear <span aria-hidden="true">🧸</span></li>
+            </ul>
 
-          <ul class="trait-list text-start">
-            <li>Spirited, bold, and full of confidence</li>
-            <li>Loves warm cuddles and afternoon naps</li>
-            <li>Fiercely loyal and protective of her home</li>
-            <li>Adores walks along the local neighborhood</li>
-            <li>Favorite toy: her plush teddy bear <span aria-hidden="true">🧸</span></li>
-          </ul>
+            <div class="dog-avatar-frame mt-4">
+              <img src='/images/chandra icon 55x55.png' alt="" width=55 height=55 aria-hidden="true">
+            </div>
 
-          <div class="dog-avatar-frame mt-4">
-            <img src='/images/chandra icon 55x55.png' alt="" width=55 height=55 aria-hidden="true">
-          </div>
-
-          <div class="dog-breed-badge">Chihuahua</div>
-
+            <div class="dog-breed-badge">Chihuahua</div>
+          </section>
         </div>
       </div>
 
@@ -81,48 +85,48 @@ require_once 'includes/header.php';
         <div class="dog-profile-card wyp-info-card p-4 text-center h-100">
 
           <div class="dog-card-top-stripe dog-card-top-stripe--skipper"></div>
+          <section aria-label='Intro Skipper'>
+            <h3 class="dog-name">Skipper</h3>
+            <p class="dog-catchphrase">"The Little Explorer"</p>
 
-          <h3 class="dog-name">Skipper</h3>
-          <p class="dog-catchphrase">"The Little Explorer"</p>
+            <img src='/images/skipper on couch.jpg' alt='Skipper relaxing on the couch' class='img-fluid rounded mx-auto d-block'>
 
-          <img src='/images/skipper on couch.jpg' alt='Skipper relaxing on the couch' class='img-fluid rounded mx-auto d-block'>
+            <div class="my-3">
+              <span class="dog-stat-chip"><i class="bi bi-gender-male" aria-hidden="true"></i> Male</span>
+              <span class="dog-stat-chip"><span aria-hidden="true">🐾</span> Chi-Jack</span>
+              <span class="dog-stat-chip"><span aria-hidden="true">📍</span> Monterey, CA</span>
+            </div>
 
-          <div class="my-3">
-            <span class="dog-stat-chip"><i class="bi bi-gender-male" aria-hidden="true"></i> Male</span>
-            <span class="dog-stat-chip"><span aria-hidden="true">🐾</span> Chi-Jack</span>
-            <span class="dog-stat-chip"><span aria-hidden="true">📍</span> Monterey, CA</span>
-          </div>
+            <p class="dog-bio">
+              Skipper is a Chihuahua-Jack Russell Terrier hybrid, which means he has
+              double the energy and triple the curiosity! He's always on the move,
+              sniffing out every corner of the neighborhood. Witty, fast, and endlessly
+              entertaining, Skipper brings laughter to every moment of the day.
+            </p>
 
-          <p class="dog-bio">
-            Skipper is a Chihuahua-Jack Russell Terrier hybrid, which means he has
-            double the energy and triple the curiosity! He's always on the move,
-            sniffing out every corner of the neighborhood. Witty, fast, and endlessly
-            entertaining, Skipper brings laughter to every moment of the day.
-          </p>
+            <ul class="trait-list text-start">
+              <li>Boundless energy and a nose for adventure</li>
+              <li>Quick learner — loves to show off his tricks</li>
+              <li>Best friends with Chandra (most of the time <span aria-hidden="true">🤣</span>)</li>
+              <li>Loves splashing near the water's edge</li>
+              <li>Favorite activity: zoomies in the condo <span aria-hidden="true">🏡</span></li>
+            </ul>
 
-          <ul class="trait-list text-start">
-            <li>Boundless energy and a nose for adventure</li>
-            <li>Quick learner — loves to show off his tricks</li>
-            <li>Best friends with Chandra (most of the time <span aria-hidden="true">🤣</span>)</li>
-            <li>Loves splashing near the water's edge</li>
-            <li>Favorite activity: zoomies in the condo <span aria-hidden="true">🏡</span></li>
-          </ul>
+            <div class="dog-avatar-frame mt-4">
+              <img src='/images/skipper-icon-50x42.png' alt="" width=50 height=42 aria-hidden="true">
+            </div>
 
-          <div class="dog-avatar-frame mt-4">
-            <img src='/images/skipper-icon-50x42.png' alt="" width=50 height=42 aria-hidden="true">
-          </div>
-
-          <div class="dog-breed-badge">Chihuahua and Jack Russell</div>
-
+            <div class="dog-breed-badge">Chihuahua and Jack Russell</div>
+          </section>
         </div>
       </div>
 
     </div>
   </div>
-</section>
+</div>
 
 <!--  TOGETHER SECTION  -->
-<section class="wyp-section wyp-section-sm wyp-section-accent" aria-label="Chandra and Skipper together">
+<div class="wyp-section wyp-section-sm wyp-section-accent" aria-label="Chandra and Skipper together">
   <div class="container">
     <div class="row align-items-center g-5">
 
@@ -132,28 +136,30 @@ require_once 'includes/header.php';
 
       <div class="col-lg-6">
         <span class="section-eyebrow">Together, Always</span>
-        <h2 class="section-title mb-3">The Best of Friends</h2>
-        <hr class="section-divider">
-        <p class="story-body">
-          Chandra and Skipper are more than just dogs — they are family, companions,
-          and daily reminders of what truly matters in life. Whether they're chasing
-          each other through the garden, snuggled together on a rainy afternoon, or
-          exploring the coastal paths of beautiful Monterey Bay, every moment with them
-          is a treasure.
-        </p>
-        <p class="story-body">
-          This website is a love letter to them — and to all small dogs who bring
-          enormous joy to the lives they touch. <span aria-hidden="true">🐾</span>
-        </p>
-        <div class="mt-3">
-          <a href="gallery.php" class="btn btn-wyp btn-wyp-primary me-2">See the Gallery</a>
-          <a href="contact.php" class="btn btn-wyp btn-wyp-outline">Say Hello</a>
-        </div>
+        <section aria-label="Chandra and Skipper together">
+          <h2 class="section-title mb-3">The Best of Friends</h2>
+          <hr class="section-divider">
+          <p class="story-body">
+            Chandra and Skipper are more than just dogs — they are family, companions,
+            and daily reminders of what truly matters in life. Whether they're chasing
+            each other through the garden, snuggled together on a rainy afternoon, or
+            exploring the coastal paths of beautiful Monterey Bay, every moment with them
+            is a treasure.
+          </p>
+          <p class="story-body">
+            This website is a love letter to them — and to all small dogs who bring
+            enormous joy to the lives they touch. <span aria-hidden="true">🐾</span>
+          </p>
+          <div class="mt-3">
+            <a href="gallery.php" class="btn btn-wyp btn-wyp-primary me-2">See the Gallery</a>
+            <a href="contact.php" class="btn btn-wyp btn-wyp-outline">Say Hello</a>
+          </div>
+        </section>
       </div>
 
     </div>
   </div>
-</section>
+</div>
 
 <!--  BREED QUICK FACTS  -->
 <article>
