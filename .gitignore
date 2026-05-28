@@ -8,3 +8,4 @@ images/original/
 .env
 .env.*
 !.env.example
+/archive/
